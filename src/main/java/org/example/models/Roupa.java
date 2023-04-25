@@ -1,6 +1,16 @@
 package org.example.models;
 
-public class Roupa {
+import lombok.*;
+
+import java.io.Serializable;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+public class Roupa implements Serializable {
     private Integer id;
     private String nome;
 }

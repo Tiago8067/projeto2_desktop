@@ -1,7 +1,15 @@
 package org.example.models;
 
-import java.time.Instant;
+import lombok.*;
 
-public class LinhaEncomenda {
+import java.io.Serializable;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+public class LinhaEncomenda implements Serializable {
     private Integer quantidade;
 }

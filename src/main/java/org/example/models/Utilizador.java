@@ -1,8 +1,19 @@
 package org.example.models;
 
-import java.time.Instant;
+import lombok.*;
 
-public class Utilizador {
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+public class Utilizador implements Serializable {
     private Integer id;
     private String username;
     private String password;
@@ -12,5 +23,7 @@ public class Utilizador {
     private Instant dataNascimento;
     private Integer contacto;
 
+    private List<Doacao> doacoes= new ArrayList<>();
 
+    private List<Localizacao> localizacaos= new ArrayList<>();
 }
