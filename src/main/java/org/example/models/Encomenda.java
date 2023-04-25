@@ -28,6 +28,4 @@ public class Encomenda implements Serializable {
 
     @OneToMany(mappedBy = "encomenda")
     private List<LinhaEncomenda> linhas = new ArrayList<>();
-
-
 }
