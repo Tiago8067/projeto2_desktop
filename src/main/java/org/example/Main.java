@@ -62,6 +62,8 @@ public class Main extends Application {
         session.save(user1);
         transaction.commit();
         session.close();*/
+
+        //EntityManager => Gestor das Entidades
         EntityManager em = JPAUtil.getEntityManager();
         var user = new User();
 
