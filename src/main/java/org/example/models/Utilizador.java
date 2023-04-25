@@ -2,6 +2,7 @@ package org.example.models;
 
 import lombok.*;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -13,8 +14,13 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@Entity
+@Table(name = "tb_utilizador")
 public class Utilizador implements Serializable {
-    private Integer id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idUtilizador;
     private String username;
     private String password;
     private Integer numeroCc;
@@ -23,7 +29,7 @@ public class Utilizador implements Serializable {
     private Instant dataNascimento;
     private Integer contacto;
 
-    private List<Doacao> doacoes= new ArrayList<>();
+    @ManyToOne
+    private Localizacao localizacao;
 
-    private List<Localizacao> localizacaos= new ArrayList<>();
 }
