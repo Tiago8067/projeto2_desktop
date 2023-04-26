@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.example.controllers.LoginController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.LoginController">
+   <children>
+      <Button fx:id="btnLogin" layoutX="224.0" layoutY="275.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" text="Login" />
+      <TextField layoutX="85.0" layoutY="153.0" prefHeight="25.0" prefWidth="429.0" promptText="Nome de Utilizador ou Email" />
+      <TextField layoutX="86.0" layoutY="188.0" prefHeight="25.0" prefWidth="429.0" promptText="Palavra-Passe" />
+      <ImageView fitHeight="84.0" fitWidth="253.0" layoutX="214.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/logo.png" />
+         </image>
+      </ImageView>
+      <Hyperlink layoutX="197.0" layoutY="308.0" text="Ainda não registado? Registe-se Aqui" />
+      <CheckBox layoutX="230.0" layoutY="224.0" mnemonicParsing="false" text="Guardar Palavra-Passe" />
+   </children>
+</AnchorPane>
