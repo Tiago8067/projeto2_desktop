@@ -21,4 +21,5 @@ public class Roupa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idRoupa;
     private String nome;
+    private Integer Stock;
 }
