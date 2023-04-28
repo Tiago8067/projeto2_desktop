@@ -29,7 +29,7 @@
                   <HBox prefHeight="76.0" prefWidth="277.0" />
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="196.0" text="Meu Perfil">
+                        <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="196.0" text=" Minha Conta">
                           <items>
                             <MenuItem mnemonicParsing="false" text="Entrar no Perfil" />
                             <MenuItem mnemonicParsing="false" text="Sair" />
@@ -53,6 +53,15 @@
                      <children>
                         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
                           <tabs>
+                              <Tab text="Doações">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Label layoutX="135.0" layoutY="63.0" text="Daocaoes" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
                             <Tab text="Stock">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -66,25 +75,44 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Label layoutX="97.0" layoutY="63.0" text="Encomendas" />
+                                          <TabPane prefHeight="141.0" prefWidth="535.0" tabClosingPolicy="UNAVAILABLE">
+                                            <tabs>
+                                              <Tab text="Todas">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                </content>
+                                              </Tab>
+                                              <Tab text="Em Preparação">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                </content>
+                                              </Tab>
+                                                <Tab text="Em Processo">
+                                                   <content>
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                   </content>
+                                                </Tab>
+                                                <Tab text="Enviado">
+                                                   <content>
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                   </content>
+                                                </Tab>
+                                                <Tab text="Finalizado">
+                                                   <content>
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                   </content>
+                                                </Tab>
+                                            </tabs>
+                                          </TabPane>
                                        </children>
                                     </AnchorPane>
                               </content>
                             </Tab>
-                              <Tab text="Doações">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Label layoutX="135.0" layoutY="63.0" text="Daocaoes" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </Tab>
                               <Tab text="Funcionários">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Label layoutX="135.0" layoutY="63.0" text="Funcioanrios" />
+                                          <Label layoutX="135.0" layoutY="63.0" text="Funcioanrios  colocar gridPane" />
                                        </children>
                                     </AnchorPane>
                                  </content>

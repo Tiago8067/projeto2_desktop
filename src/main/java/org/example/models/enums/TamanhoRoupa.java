@@ -11,6 +11,5 @@ public enum TamanhoRoupa {
     M,
     L,
     XL,
-    XXL,
-    XXXL
+    XXL
 }
