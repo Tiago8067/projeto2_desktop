@@ -44,33 +44,33 @@
             </Label>
             <Label text="Palavra-Passe :" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <Label text="Confirmar Palavra-Passe :" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <TextField prefHeight="25.0" prefWidth="262.0" promptText="Insira o Nome de Utilizador" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
-            <TextField prefHeight="25.0" prefWidth="429.0" promptText="Insira o Email" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <TextField prefHeight="25.0" prefWidth="429.0" promptText="Insira a Palavra-Passe" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <TextField prefHeight="25.0" prefWidth="429.0" promptText="Confirme a Palavra-Passe" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <Label text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+            <TextField fx:id="labelRegistroNome" prefHeight="25.0" prefWidth="262.0" promptText="Insira o Nome de Utilizador" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
+            <TextField fx:id="labelRegistroEmail" prefHeight="25.0" prefWidth="429.0" promptText="Insira o Email" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <TextField fx:id="labelRegistroPass" prefHeight="25.0" prefWidth="429.0" promptText="Insira a Palavra-Passe" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <TextField fx:id="labelRegistroConfirmaPass" prefHeight="25.0" prefWidth="429.0" promptText="Confirme a Palavra-Passe" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Label fx:id="labelErroRegistroEmail" text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="System Bold Italic" size="10.0" />
                </font>
             </Label>
-            <Label text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+            <Label fx:id="labelErroRegistroNome" text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="System Bold Italic" size="10.0" />
                </font>
             </Label>
-            <Label text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+            <Label fx:id="labelErroRegistroPass" text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="System Bold Italic" size="10.0" />
                </font>
             </Label>
-            <Label text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+            <Label fx:id="labelErroRegistroConfirmaPass" text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="System Bold Italic" size="10.0" />
                </font>
             </Label>
          </children>
       </GridPane>
-      <Button fx:id="btnRegistrar" layoutX="241.0" layoutY="336.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Registrar" />
-      <Hyperlink layoutX="220.0" layoutY="361.0" text="Já realizei registo! Voltar ao Login. " />
+      <Button fx:id="btnRegistrar" layoutX="241.0" layoutY="336.0" mnemonicParsing="false" onAction="#btnRegistrar" prefHeight="25.0" prefWidth="152.0" text="Registrar" />
+      <Hyperlink fx:id="hyperlinkLogin" layoutX="220.0" layoutY="361.0" text="Já realizei registo! Voltar ao Login. " />
    </children>
 </AnchorPane>

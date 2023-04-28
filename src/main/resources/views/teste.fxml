@@ -2,13 +2,15 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -49,15 +51,46 @@
          <children>
             <ScrollPane layoutX="-2.0" layoutY="-2.0" prefHeight="322.0" prefWidth="600.0">
                <content>
-                  <VBox prefHeight="260.0" prefWidth="532.0">
+                  <VBox prefHeight="316.0" prefWidth="597.0">
                      <children>
-                        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                        <TabPane prefHeight="316.0" prefWidth="597.0" tabClosingPolicy="UNAVAILABLE">
                           <tabs>
                               <Tab text="Doações">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Label layoutX="135.0" layoutY="63.0" text="Daocaoes" />
+                                          <VBox prefHeight="258.0" prefWidth="116.0">
+                                             <children>
+                                                <SplitMenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="131.0" text="Categoria">
+                                                  <items>
+                                                    <MenuItem mnemonicParsing="false" text="Parte de Cima" />
+                                                    <MenuItem mnemonicParsing="false" text="Parte de Baixo" />
+                                                      <MenuItem mnemonicParsing="false" text="Acessórios" />
+                                                  </items>
+                                                </SplitMenuButton>
+                                                <SplitMenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" text="Género">
+                                                   <items>
+                                                      <MenuItem mnemonicParsing="false" text="Masculino" />
+                                                      <MenuItem mnemonicParsing="false" text="Feminino" />
+                                                   </items>
+                                                </SplitMenuButton>
+                                                <SplitMenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" text="Tamanho">
+                                                   <items>
+                                                      <MenuItem mnemonicParsing="false" text="Bebe" />
+                                                      <MenuItem mnemonicParsing="false" text="Criança" />
+                                                      <MenuItem mnemonicParsing="false" text="Adolescente12" />
+                                                      <MenuItem mnemonicParsing="false" text="Adolescente14" />
+                                                      <MenuItem mnemonicParsing="false" text="Adolescente16" />
+                                                      <MenuItem mnemonicParsing="false" text="XS" />
+                                                      <MenuItem mnemonicParsing="false" text="S" />
+                                                      <MenuItem mnemonicParsing="false" text="M" />
+                                                      <MenuItem mnemonicParsing="false" text="L" />
+                                                      <MenuItem mnemonicParsing="false" text="XL" />
+                                                      <MenuItem mnemonicParsing="false" text="XXL" />
+                                                   </items>
+                                                </SplitMenuButton>
+                                             </children>
+                                          </VBox>
                                        </children>
                                     </AnchorPane>
                                  </content>
@@ -66,7 +99,24 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Label layoutX="81.0" layoutY="63.0" text="Stock" />
+                                          <TableView layoutX="1.0" layoutY="-1.0" prefHeight="260.0" prefWidth="597.0">
+                                            <columns>
+                                              <TableColumn prefWidth="75.0" text="Fornecerdor" />
+                                              <TableColumn prefWidth="75.0" text="Conteúdo" />
+                                                <TableColumn prefWidth="75.0" text="Estado" />
+                                                <TableColumn prefWidth="174.0">
+                                                   <graphic>
+                                                      <SplitMenuButton mnemonicParsing="false" prefHeight="23.0" prefWidth="182.0" text="Selecione o Estado">
+                                                        <items>
+                                                          <MenuItem mnemonicParsing="false" text="Todos" />
+                                                          <MenuItem mnemonicParsing="false" text="Por Enviar" />
+                                                            <MenuItem mnemonicParsing="false" text="Enviado" />
+                                                        </items>
+                                                      </SplitMenuButton>
+                                                   </graphic>
+                                                </TableColumn>
+                                            </columns>
+                                          </TableView>
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -75,35 +125,24 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <TabPane prefHeight="141.0" prefWidth="535.0" tabClosingPolicy="UNAVAILABLE">
-                                            <tabs>
-                                              <Tab text="Todas">
-                                                <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                                </content>
-                                              </Tab>
-                                              <Tab text="Em Preparação">
-                                                <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                                </content>
-                                              </Tab>
-                                                <Tab text="Em Processo">
-                                                   <content>
-                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                                   </content>
-                                                </Tab>
-                                                <Tab text="Enviado">
-                                                   <content>
-                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                                   </content>
-                                                </Tab>
-                                                <Tab text="Finalizado">
-                                                   <content>
-                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                                   </content>
-                                                </Tab>
-                                            </tabs>
-                                          </TabPane>
+                                          <TableView prefHeight="260.0" prefWidth="597.0">
+                                             <columns>
+                                                <TableColumn prefWidth="75.0" text="Destinatário" />
+                                                <TableColumn prefWidth="75.0" text="Conteúdo" />
+                                                <TableColumn prefWidth="75.0" text="Estado" />
+                                                <TableColumn prefWidth="174.0">
+                                                   <graphic>
+                                                      <SplitMenuButton mnemonicParsing="false" prefHeight="23.0" prefWidth="182.0" text="Selecione o Estado">
+                                                         <items>
+                                                            <MenuItem mnemonicParsing="false" text="Todos" />
+                                                            <MenuItem mnemonicParsing="false" text="Por Enviar" />
+                                                            <MenuItem mnemonicParsing="false" text="Enviado" />
+                                                         </items>
+                                                      </SplitMenuButton>
+                                                   </graphic>
+                                                </TableColumn>
+                                             </columns>
+                                          </TableView>
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -112,7 +151,14 @@
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Label layoutX="135.0" layoutY="63.0" text="Funcioanrios  colocar gridPane" />
+                                          <TableView layoutX="1.0" prefHeight="258.0" prefWidth="597.0">
+                                            <columns>
+                                              <TableColumn prefWidth="75.0" text="Id" />
+                                              <TableColumn prefWidth="75.0" text="Nome" />
+                                                <TableColumn prefWidth="75.0" text="Estado" />
+                                                <TableColumn prefWidth="73.0" text="Ações" />
+                                            </columns>
+                                          </TableView>
                                        </children>
                                     </AnchorPane>
                                  </content>

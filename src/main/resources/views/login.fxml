@@ -30,22 +30,22 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextField prefHeight="25.0" prefWidth="505.0" promptText="Nome de Utilizador ou Email" GridPane.valignment="CENTER" />
-            <TextField prefHeight="25.0" prefWidth="429.0" promptText="Palavra-Passe" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Label text="Label" textFill="RED" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+            <TextField fx:id="labelLoginNomeEmail" prefHeight="25.0" prefWidth="505.0" promptText="Nome de Utilizador ou Email" GridPane.valignment="CENTER" />
+            <TextField fx:id="labelLoginPass" prefHeight="25.0" prefWidth="429.0" promptText="Palavra-Passe" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label fx:id="labelErroLoginNomeEmail" text="Label" textFill="RED" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="System Bold Italic" size="10.0" />
                </font>
             </Label>
-            <Label text="Label" textFill="RED" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+            <Label fx:id="labelErroLoginPass" text="Label" textFill="RED" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="System Bold Italic" size="10.0" />
                </font>
             </Label>
-            <CheckBox mnemonicParsing="false" text="Guardar Palavra-Passe" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+            <CheckBox fx:id="checkBoxLoginGuardaPass" mnemonicParsing="false" text="Guardar Palavra-Passe" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
          </children>
       </GridPane>
-      <Button fx:id="btnLogin" layoutX="238.0" layoutY="314.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" text="Login" />
-      <Hyperlink layoutX="210.0" layoutY="339.0" text="Ainda não registado? Registe-se Aqui" />
+      <Button fx:id="btnLogin" layoutX="238.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnLogin" prefHeight="25.0" prefWidth="151.0" text="Login" />
+      <Hyperlink fx:id="hyperlinkLogin" layoutX="210.0" layoutY="339.0" text="Ainda não registado? Registe-se Aqui" />
    </children>
 </AnchorPane>
