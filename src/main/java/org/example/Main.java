@@ -28,7 +28,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/views/login.fxml"));
+        //FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/views/login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/views/registro.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         //Parent root = FXMLLoader.load(getClass().getResource("/login.fxml"));
         //Scene scene = new Scene(root, 320, 240);
@@ -40,5 +41,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         EntityManager em = JPAUtil.getEntityManager();
+        launch();
     }
 }
