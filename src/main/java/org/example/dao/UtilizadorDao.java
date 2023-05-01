@@ -18,7 +18,14 @@ public class UtilizadorDao {
     */
 
     public void registrar(Utilizador utilizador) {
-        this.entityManager.persist(utilizador);
+        try {
+            entityManager.getTransaction().begin();
+            this.entityManager.persist(utilizador);
+            entityManager.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            this.entityManager.getTransaction().rollback();
+        }
     }
 
     public void atualizar(Utilizador utilizador) {

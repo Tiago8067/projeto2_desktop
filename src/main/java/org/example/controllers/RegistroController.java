@@ -3,11 +3,12 @@ package org.example.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import org.example.util.JPAUtil;
+import org.example.dao.UtilizadorDao;
+import org.example.models.Utilizador;
 
+import javax.persistence.EntityManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -43,9 +44,26 @@ public class RegistroController implements Initializable {
     @FXML
     private TextField labelRegistroPass;
 
+    EntityManager entityManager = JPAUtil.getEntityManager();
+
     @FXML
     void btnRegistrar(ActionEvent event) {
+        Utilizador utilizador = new Utilizador();
+        utilizador.setNome(labelRegistroNome.getText());
+        utilizador.setEmail(labelErroRegistroEmail.getText());
+        utilizador.setPassword(labelRegistroPass.getText());
 
+        if (labelRegistroPass.getText().equals(labelRegistroConfirmaPass.getText())){
+            UtilizadorDao utilizadorDao = new UtilizadorDao(entityManager);
+            //entityManager.getTransaction().begin();
+            utilizadorDao.registrar(utilizador);
+            //entityManager.getTransaction().commit();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("As palavras-passe não coincidem. Tente Novamentre.");
+            alert.show();
+        }
     }
 
     @Override
