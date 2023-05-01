@@ -87,6 +87,6 @@
          </children>
       </GridPane>
       <Button fx:id="btnRegistrar" layoutX="241.0" layoutY="336.0" mnemonicParsing="false" onAction="#btnRegistrar" prefHeight="25.0" prefWidth="152.0" text="Registrar" />
-      <Hyperlink fx:id="hyperlinkLogin" layoutX="220.0" layoutY="361.0" text="Já realizei registo! Voltar ao Login. " />
+      <Hyperlink fx:id="hyperlinkLoginId" layoutX="220.0" layoutY="361.0" onAction="#hyperlinkLogin" text="Já realizei registo! Voltar ao Login. " />
    </children>
 </AnchorPane>

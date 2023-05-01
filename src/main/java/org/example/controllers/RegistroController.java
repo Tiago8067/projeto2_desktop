@@ -1,6 +1,5 @@
 package org.example.controllers;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.example.models.enums.EstadoUtilizador;
 import org.example.models.enums.TipoUtilizador;
 import org.example.util.JPAUtil;
 import org.example.dao.UtilizadorDao;
@@ -25,7 +25,7 @@ public class RegistroController implements Initializable {
     private Button btnRegistrar;
 
     @FXML
-    private Hyperlink hyperlinkLogin;
+    private Hyperlink hyperlinkLoginId;
 
     @FXML
     private Label labelErroRegistroConfirmaPass;
@@ -71,14 +71,19 @@ public class RegistroController implements Initializable {
     @FXML
     void btnRegistrar(ActionEvent event) {
 
+        //System.out.println(labelRegistroNome.getText());
+
+        //System.out.println(this.utilizadorDao.buscarUsernameDoUtilizador(labelRegistroNome.getText()));
+
         if (labelRegistroNome.getText().isEmpty()){
             labelErroRegistroNome.setText("Tem de preencher o Nome de Utilizador no seu Registro");
         } else if (labelRegistroNome.getText().length() < 4) {
             labelErroRegistroNome.setText("O Nome de Utilizador no seu Registro precisa de 4 carateres!");
+        } else if (this.utilizadorDao.buscarUsernameDoUtilizador(labelRegistroNome.getText()).equals(labelRegistroNome.getText())) {
+            labelErroRegistroNome.setText("O Nome de Utilizador já existe. Insira Outro.");
         } else {
-            this.utilizador.setNome(labelRegistroNome.getText());
+            this.utilizador.setUsername(labelRegistroNome.getText());
             labelErroRegistroNome.setText("");
-            this.utilizadorDao.registrar(utilizador);
         }
 
         if (labelRegistroEmail.getText().isEmpty()){
@@ -88,7 +93,6 @@ public class RegistroController implements Initializable {
         }else {
             this.utilizador.setEmail(labelRegistroEmail.getText());
             labelErroRegistroEmail.setText("");
-            this.utilizadorDao.registrar(utilizador);
         }
 
         if (labelRegistroPass.getText().isEmpty()){
@@ -98,7 +102,6 @@ public class RegistroController implements Initializable {
         } else {
             this.utilizador.setPassword(labelRegistroPass.getText());
             labelErroRegistroPass.setText("");
-            this.utilizadorDao.registrar(utilizador);
         }
 
         if (labelRegistroConfirmaPass.getText().isEmpty()){
@@ -110,24 +113,22 @@ public class RegistroController implements Initializable {
         } else {
             this.utilizador.setPassword(labelRegistroConfirmaPass.getText());
             labelErroRegistroConfirmaPass.setText("");
-            this.utilizadorDao.registrar(utilizador);
         }
 
         if (labelTipoUtilziador.getText().isEmpty()){
             labelErroRegistroTipoUtilizador.setText("Tem de selecionar o Tipo de Utilizador no seu Registro");
         } else if (labelTipoUtilziador.getText().toLowerCase().equals("admin")){
             this.utilizador.setTipoUtilizador(TipoUtilizador.ADMIN);
-            System.out.println(this.utilizador.getTipoUtilizador());
             labelErroRegistroTipoUtilizador.setText("");
-            this.utilizadorDao.registrar(utilizador);
         } else if (labelTipoUtilziador.getText().toLowerCase().equals("funcionario")) {
             this.utilizador.setTipoUtilizador(TipoUtilizador.FUNCIONARIO);
             labelErroRegistroTipoUtilizador.setText("");
-            this.utilizadorDao.registrar(utilizador);
         }
 
         if (labelErroRegistroNome.getText().equals("") && labelErroRegistroEmail.getText().equals("") && labelErroRegistroPass.getText().equals("") &&
             labelErroRegistroConfirmaPass.getText().equals("") && labelErroRegistroTipoUtilizador.getText().equals("")) {
+            this.utilizador.setEstadoUtilizador(EstadoUtilizador.PENDENTE);
+            this.utilizadorDao.registrar(utilizador);
             goToLogin();
             Stage stage = (Stage) btnRegistrar.getScene().getWindow();
             stage.close();
@@ -142,6 +143,13 @@ public class RegistroController implements Initializable {
     @FXML
     void menuItemFuncionario(ActionEvent event) {
         labelTipoUtilziador.setText(menuItemIdFuncionario.getText());
+    }
+
+    @FXML
+    void hyperlinkLogin(ActionEvent event) {
+        goToLogin();
+        Stage stage = (Stage) hyperlinkLoginId.getScene().getWindow();
+        stage.close();
     }
 
     @Override

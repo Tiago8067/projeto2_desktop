@@ -1,6 +1,7 @@
 package org.example.models;
 
 import lombok.*;
+import org.example.models.enums.EstadoUtilizador;
 import org.example.models.enums.TipoUtilizador;
 
 import javax.persistence.*;
@@ -33,6 +34,9 @@ public class Utilizador implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private TipoUtilizador tipoUtilizador;
+
+    @Enumerated(EnumType.STRING)
+    private EstadoUtilizador estadoUtilizador;
 
     @ManyToOne
     private Localizacao localizacao;
