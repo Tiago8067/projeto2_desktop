@@ -48,6 +48,8 @@ public class LoginController implements Initializable {
         //    labelErroLoginNomeEmail.setText("Tem de inserir o seu Nome de Utilizador ou Email para realizar o Login");
         //}
 
+        //System.out.println(this.utilizadorDao.buscarUtilizadorPorUsername(labelLoginNomeEmail.getText()));
+
         System.out.println(this.utilizadorDao.buscarUtilizadorPorUsername(labelLoginNomeEmail.getText()));
 
         //System.out.println(this.utilizadorDao.buscarUtilizador(labelLoginNomeEmail.getText()));

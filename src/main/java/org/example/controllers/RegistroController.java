@@ -79,8 +79,10 @@ public class RegistroController implements Initializable {
             labelErroRegistroNome.setText("Tem de preencher o Nome de Utilizador no seu Registro");
         } else if (labelRegistroNome.getText().length() < 4) {
             labelErroRegistroNome.setText("O Nome de Utilizador no seu Registro precisa de 4 carateres!");
-        } else if (this.utilizadorDao.buscarUsernameDoUtilizador(labelRegistroNome.getText()).equals(labelRegistroNome.getText())) {
+        } else if (this.utilizadorDao.buscarUtilizadorPorUsername(labelRegistroNome.getText()) != null) {
             labelErroRegistroNome.setText("O Nome de Utilizador já existe. Insira Outro.");
+            System.out.println(this.utilizadorDao.buscarUtilizadorPorUsername(labelRegistroNome.getText()));
+            // if (this.utilizadorDao.buscarUtilizadorPorUsername(labelRegistroNome.getText()) == null)
         } else {
             this.utilizador.setUsername(labelRegistroNome.getText());
             labelErroRegistroNome.setText("");
@@ -90,7 +92,9 @@ public class RegistroController implements Initializable {
             labelErroRegistroEmail.setText("Tem de preencher o Email no seu Registro");
         } else if (!this.regexDados.validateEmail(labelRegistroEmail.getText())) {
             labelErroRegistroEmail.setText("Por favor, preencha o Email Corretamente");
-        }else {
+        } else if (this.utilizadorDao.buscarUtilizadorPorEmail(labelRegistroEmail.getText()) != null) {
+            labelErroRegistroEmail.setText("O Email já existe. Insira Outro.");
+        } else {
             this.utilizador.setEmail(labelRegistroEmail.getText());
             labelErroRegistroEmail.setText("");
         }
