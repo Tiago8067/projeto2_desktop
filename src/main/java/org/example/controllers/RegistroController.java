@@ -71,18 +71,12 @@ public class RegistroController implements Initializable {
     @FXML
     void btnRegistrar(ActionEvent event) {
 
-        //System.out.println(labelRegistroNome.getText());
-
-        //System.out.println(this.utilizadorDao.buscarUsernameDoUtilizador(labelRegistroNome.getText()));
-
         if (labelRegistroNome.getText().isEmpty()){
             labelErroRegistroNome.setText("Tem de preencher o Nome de Utilizador no seu Registro");
         } else if (labelRegistroNome.getText().length() < 4) {
             labelErroRegistroNome.setText("O Nome de Utilizador no seu Registro precisa de 4 carateres!");
         } else if (this.utilizadorDao.buscarUtilizadorPorUsername(labelRegistroNome.getText()) != null) {
             labelErroRegistroNome.setText("O Nome de Utilizador já existe. Insira Outro.");
-            System.out.println(this.utilizadorDao.buscarUtilizadorPorUsername(labelRegistroNome.getText()));
-            // if (this.utilizadorDao.buscarUtilizadorPorUsername(labelRegistroNome.getText()) == null)
         } else {
             this.utilizador.setUsername(labelRegistroNome.getText());
             labelErroRegistroNome.setText("");
