@@ -54,8 +54,6 @@ public class LoginController implements Initializable {
             labelErroLoginNomeEmail.setText("");
         }
 
-        //System.out.println(this.utilizadorDao.buscarUtilizadorPorUsername(tfLoginNome.getText()).getPassword());
-
         if (tfLoginPass.getText().isEmpty()) {
             labelErroLoginPass.setText("Tem de inserir a sua Palavra-passe para realizar o Login");
         } else if (!this.utilizadorDao.buscarUtilizadorPorUsername(tfLoginNome.getText()).getPassword().equals(tfLoginPass.getText())) {
@@ -63,20 +61,6 @@ public class LoginController implements Initializable {
         } else {
             labelErroLoginPass.setText("");
         }
-
-        //System.out.println(this.utilizadorDao.buscarUtilizadorPorUsername(labelLoginNomeEmail.getText()));
-
-        //System.out.println(this.utilizadorDao.buscarUtilizadorPorUsername(labelLoginNomeEmail.getText()));
-
-        //System.out.println(this.utilizadorDao.buscarUtilizador(labelLoginNomeEmail.getText()));
-
-        //if (labelLoginPass.getText().isEmpty()) {
-        //    labelErroLoginPass.setText("Tem de inserir a sua Palavra-passe para realizar o Login");
-        //}
-
-        //System.out.println(new UtilizadorDao().buscarUtilizador(labelLoginPass.getText()));
-
-
 
         if (labelErroLoginNomeEmail.getText().equals("") && labelErroLoginPass.getText().equals("")){
             if (this.utilizadorDao.buscarUtilizadorPorUsername(tfLoginNome.getText()).getEstadoUtilizador().equals(EstadoUtilizador.PENDENTE)) {
