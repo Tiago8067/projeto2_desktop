@@ -12,6 +12,7 @@ import org.example.dao.UtilizadorDao;
 import org.example.models.Utilizador;
 import org.example.models.enums.EstadoUtilizador;
 import org.example.models.enums.TipoUtilizador;
+import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 
 import javax.persistence.EntityManager;
@@ -44,6 +45,8 @@ public class LoginController implements Initializable {
     UtilizadorDao utilizadorDao = new UtilizadorDao(entityManager);
     Utilizador utilizador = new Utilizador();
 
+    GoToUtil goToUtil = new GoToUtil();
+
     @FXML
     void btnLogin(ActionEvent event) {
         if (tfLoginNome.getText().isEmpty()) {
@@ -75,13 +78,13 @@ public class LoginController implements Initializable {
                 alert.show();
             } else if (this.utilizadorDao.buscarUtilizadorPorUsername(tfLoginNome.getText()).getEstadoUtilizador().equals(EstadoUtilizador.ATIVO)) {
                 if (this.utilizadorDao.buscarUtilizadorPorUsername(tfLoginNome.getText()).getTipoUtilizador().equals(TipoUtilizador.ADMIN)) {
-                    goToHomePageAdmin();
+                    this.goToUtil.goToHomePageAdmin();
                     Stage stage = (Stage) btnLoginId.getScene().getWindow();
                     stage.close();
                 }
 
                 if (this.utilizadorDao.buscarUtilizadorPorUsername(tfLoginNome.getText()).getTipoUtilizador().equals(TipoUtilizador.FUNCIONARIO)){
-                    goToHomePageFuncionario();
+                    this.goToUtil.goToHomePageFuncionario();
                     Stage stage = (Stage) btnLoginId.getScene().getWindow();
                     stage.close();
                 }
@@ -91,7 +94,7 @@ public class LoginController implements Initializable {
 
     @FXML
     void hyperlinkLogin(ActionEvent event) {
-        goToRegistro();
+        this.goToUtil.goToRegistro();
         Stage stage = (Stage) hyperlinkLoginId.getScene().getWindow();
         stage.close();
     }
@@ -99,41 +102,5 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    }
-
-    public void goToRegistro() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/views/registro.fxml"));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root, 600, 400));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            e.getCause();
-        }
-    }
-
-    public void goToHomePageAdmin() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/views/admin/homePage.fxml"));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root, 600, 400));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            e.getCause();
-        }
-    }
-
-    public void goToHomePageFuncionario() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/views/funcionario/homePage.fxml"));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root, 600, 400));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            e.getCause();
-        }
     }
 }

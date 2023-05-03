@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.models.enums.EstadoUtilizador;
 import org.example.models.enums.TipoUtilizador;
+import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.dao.UtilizadorDao;
 import org.example.models.Utilizador;
@@ -67,6 +68,8 @@ public class RegistroController implements Initializable {
     UtilizadorDao utilizadorDao = new UtilizadorDao(entityManager);
     Utilizador utilizador = new Utilizador();
     RegexDados regexDados = new RegexDados();
+
+    GoToUtil goToUtil = new GoToUtil();
 
     @FXML
     void btnRegistrar(ActionEvent event) {
@@ -127,7 +130,7 @@ public class RegistroController implements Initializable {
             labelErroRegistroConfirmaPass.getText().equals("") && labelErroRegistroTipoUtilizador.getText().equals("")) {
             this.utilizador.setEstadoUtilizador(EstadoUtilizador.PENDENTE);
             this.utilizadorDao.registrar(utilizador);
-            goToLogin();
+            this.goToUtil.goToLogin();
             Stage stage = (Stage) btnRegistrar.getScene().getWindow();
             stage.close();
         }
@@ -145,7 +148,7 @@ public class RegistroController implements Initializable {
 
     @FXML
     void hyperlinkLogin(ActionEvent event) {
-        goToLogin();
+        this.goToUtil.goToLogin();
         Stage stage = (Stage) hyperlinkLoginId.getScene().getWindow();
         stage.close();
     }
@@ -155,17 +158,5 @@ public class RegistroController implements Initializable {
         /*
         Aqui coloca-se tipicamente açoes que quero que sejam executadas quando instancio o controlador
          */
-    }
-
-    public void goToLogin() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root, 600, 400));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            e.getCause();
-        }
     }
 }
