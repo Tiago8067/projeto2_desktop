@@ -6,7 +6,6 @@ import org.example.models.Utilizador;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor

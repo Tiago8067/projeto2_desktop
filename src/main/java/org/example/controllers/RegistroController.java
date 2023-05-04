@@ -2,10 +2,7 @@ package org.example.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.models.enums.EstadoUtilizador;
@@ -152,6 +149,8 @@ public class RegistroController implements Initializable {
         Stage stage = (Stage) hyperlinkLoginId.getScene().getWindow();
         stage.close();
     }
+
+    // TODO => testar resitrcoes por label e nao por click do botao
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
