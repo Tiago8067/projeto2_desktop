@@ -29,7 +29,6 @@ public class Main extends Application {
         homePageController.listaFuncionarios();
     }
 
-
     public static void main(String[] args) {
         EntityManager em = JPAUtil.getEntityManager();
         launch();
