@@ -25,6 +25,8 @@ public class UtilizadorDao {
         }
     }
 
+    // TODO => rESGISTRAR ATRAVES DO ID, OU SEJA, registrar os dados dos tres paineis de registros no mesmo utilizador
+
     public void atualizar(Utilizador utilizador) {
         this.entityManager.merge(utilizador);
     }

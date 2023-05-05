@@ -65,7 +65,6 @@ public class RegistroController implements Initializable {
     UtilizadorDao utilizadorDao = new UtilizadorDao(entityManager);
     Utilizador utilizador = new Utilizador();
     RegexDados regexDados = new RegexDados();
-
     GoToUtil goToUtil = new GoToUtil();
 
     @FXML

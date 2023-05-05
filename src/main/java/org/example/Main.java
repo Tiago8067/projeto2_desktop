@@ -16,7 +16,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         //FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/views/login.fxml"));
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/views/admin/homePage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/views/registroDadosPessoais.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         //Parent root = FXMLLoader.load(getClass().getResource("/login.fxml"));
         //Scene scene = new Scene(root, 320, 240);
@@ -25,8 +25,8 @@ public class Main extends Application {
         stage.show();
 
         // teste carregar funcionarios
-        HomePageController homePageController = fxmlLoader.getController();
-        homePageController.listaFuncionarios();
+        //HomePageController homePageController = fxmlLoader.getController();
+        //homePageController.listaFuncionarios();
     }
 
     public static void main(String[] args) {

@@ -27,6 +27,8 @@ public class Utilizador implements Serializable {
     private Integer numeroCc;
     private Integer nif;
     private String nome;
+
+    // TODO => Acrescentar data no registro
     private Instant dataNascimento;
     private Integer contacto;
 

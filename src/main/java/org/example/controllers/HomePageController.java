@@ -24,8 +24,13 @@ import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
     @FXML
+    private TabPane abasTabPaneId;
+
+    @FXML
     private MenuItem idgotoLoginPage;
 
+    @FXML
+    private Tab tabEditarFuncionarioId;
 
     @FXML
     private TableView<Utilizador> tableViewFuncionarios;
@@ -41,6 +46,15 @@ public class HomePageController implements Initializable {
 
     @FXML
     private TableColumn<Utilizador, Utilizador> tableColumnAcoes;
+
+    @FXML
+    private TextField txtFdAtualizarContactoId;
+
+    @FXML
+    private TextField txtFdAtualizarMoradaId;
+
+    @FXML
+    private TextField txtFdAtualizarNomeId;
 
     private ObservableList<Utilizador> observableListFuncionarios;
 
@@ -121,6 +135,15 @@ public class HomePageController implements Initializable {
         //System.out.println(observableListFuncionarios);
     }
 
+    private void exibirTabEditarFuncionarios(Utilizador obj) {
+        tabEditarFuncionarioId.setDisable(false);
+        abasTabPaneId.getSelectionModel().select(tabEditarFuncionarioId);
+        System.out.println(obj);
+        txtFdAtualizarNomeId.setText(obj.getUsername());
+        //txtFdAtualizarMoradaId.setText(obj.getMorada());
+        //txtFdAtualizarContactoId.setText(obj.getContacto());
+    }
+
     private void initEditButtons() {
         tableColumnAcoes.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         tableColumnAcoes.setCellFactory(param -> new TableCell<Utilizador, Utilizador>() {
@@ -135,8 +158,8 @@ public class HomePageController implements Initializable {
                 }
                 setGraphic(button);
                 button.setPrefWidth(70);
-                //button.setOnAction();
-                //        event -> createDialogForm(obj, "/gui/DepartmentForm.fxml", Utils.currentStage(event)));
+                button.setOnAction(
+                        event -> exibirTabEditarFuncionarios(obj));
             }
         });
     }

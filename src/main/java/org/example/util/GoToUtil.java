@@ -34,6 +34,31 @@ public class GoToUtil {
         }
     }
 
+    public void goToRegistroDadosPessoas() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/views/registroDadosPessoais.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, 600, 400));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
+    public void goToRegistroDadosLocalizacao() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/views/registroDadosLocalizacao.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, 600, 400));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
+
     public void goToHomePageAdmin() {
         try {
             //Parent root = FXMLLoader.load(getClass().getResource("/views/admin/homePage.fxml"));
