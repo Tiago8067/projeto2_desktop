@@ -18,7 +18,7 @@
    <children>
       <ImageView fitHeight="125.0" fitWidth="207.0" layoutX="211.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/logo.png" />
+            <Image url="@../../images/logo.png" />
          </image>
       </ImageView>
       <GridPane layoutX="114.0" layoutY="137.0" prefHeight="167.0" prefWidth="400.0" AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="86.0">

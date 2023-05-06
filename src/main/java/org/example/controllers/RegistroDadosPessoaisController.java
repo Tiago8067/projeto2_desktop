@@ -64,7 +64,7 @@ public class RegistroDadosPessoaisController implements Initializable {
     GoToUtil goToUtil = new GoToUtil();
 
     @FXML
-    void btnRegistrarSeguinteDD(ActionEvent event) {
+     void btnRegistrarSeguinteDD(ActionEvent event) {
         if (txtFdRegistroNomeCompletoId.getText().isEmpty()){
             labelIdErroNomeCompleto.setText("Tem de preencher o Nome Comleto no seu Registro");
         } else {
@@ -72,24 +72,26 @@ public class RegistroDadosPessoaisController implements Initializable {
             labelIdErroNomeCompleto.setText("");
         }
 
+        // TODO=> falta a data
+
         if (txtFdRegistroNccId.getText().isEmpty()){
             labelIdErroNumCC.setText("Tem de preencher o Número do CC no seu Registro");
         } else {
-            //this.utilizador.setNumeroCc(txtFdRegistroNccId.getText());
+            this.utilizador.setNumeroCc(Integer.valueOf(txtFdRegistroNccId.getText()));
             labelIdErroNumCC.setText("");
         }
 
         if (txtFdRegistroNIFD.getText().isEmpty()){
             labelIdErroNIF.setText("Tem de preencher o NIF no seu Registro");
         } else {
-            //this.utilizador.setNif(txtFdRegistroNIFD.getText());
+            this.utilizador.setNif(Integer.valueOf(txtFdRegistroNIFD.getText()));
             labelIdErroNIF.setText("");
         }
 
         if (txtFdRegistroContactoId.getText().isEmpty()){
             labelIdErroContacto.setText("Tem de preencher o Contacto no seu Registro");
         } else {
-            //this.utilizador.setContacto(txtFdRegistroContactoId.getText());
+            this.utilizador.setContacto(Integer.valueOf(txtFdRegistroContactoId.getText()));
             labelIdErroContacto.setText("");
         }
 
@@ -101,8 +103,18 @@ public class RegistroDadosPessoaisController implements Initializable {
             Stage stage = (Stage) btnRegistrarSeguinteId.getScene().getWindow();
             stage.close();
         }
+        //Integer idUtilizadorCompletoResgistro = this.utilizador.getIdUtilizador();
+        //System.out.println(this.utilizador.getIdUtilizador());
+        //System.out.println(getIdUtilizadorCompletoResgistro());
 
-        System.out.println(this.utilizador.getIdUtilizador());
+
+        //return this.utilizador.getIdUtilizador();
+    }
+
+    private Integer idUtilizadorCompletoResgistro; // = this.utilizador.getIdUtilizador();
+
+    public Integer getIdUtilizadorCompletoResgistro() {
+         return this.idUtilizadorCompletoResgistro = this.utilizador.getIdUtilizador();
     }
 
     @FXML

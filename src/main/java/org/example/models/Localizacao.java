@@ -22,8 +22,5 @@ public class Localizacao implements Serializable {
     private String localidade;
     private String rua;
     private Integer numeroPorta;
-
-    // TODO => Escolher entre cidade e distrito
     private String cidade;
-    private String distrito;
 }
