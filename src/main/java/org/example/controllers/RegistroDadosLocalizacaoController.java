@@ -159,8 +159,11 @@ public class RegistroDadosLocalizacaoController implements Initializable {
         for (Utilizador u: utilizadorList) {
             //if (u.getNome() != null && u.getNumeroCc() != null && u.getNif() != null && u.getContacto() != null) {
             if (u.getIdUtilizador() == utilizadorList.size()) {
-                //System.out.println(u);
-                this.utilizadorDao.remover(u);
+                // todo ir buscar username 
+                if (u.getNome() != null && u.getNumeroCc() != null && u.getNif() != null && u.getContacto() != null) {
+                    //System.out.println(u);
+                    this.utilizadorDao.remover(u);
+                }
             }
         }
 
