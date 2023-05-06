@@ -2,6 +2,7 @@ package org.example.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.example.models.Localizacao;
 import org.example.models.Utilizador;
 
 import javax.persistence.EntityManager;
@@ -25,20 +26,34 @@ public class UtilizadorDao {
         }
     }
 
-    // TODO => rESGISTRAR ATRAVES DO ID, OU SEJA, registrar os dados dos tres paineis de registros no mesmo utilizador
+    // TODO => RESGISTRAR ATRAVES DO ID, OU SEJA, registrar os dados dos tres paineis de registros no mesmo utilizador
 
     public void atualizar(Utilizador utilizador) {
         this.entityManager.merge(utilizador);
     }
 
     public void remover(Utilizador utilizador) {
-        utilizador = entityManager.merge(utilizador);
-        this.entityManager.remove(utilizador);
+        try {
+            entityManager.getTransaction().begin();
+            //utilizador = entityManager.merge(utilizador);
+            utilizador = entityManager.find(Utilizador.class, utilizador.getIdUtilizador());
+            this.entityManager.remove(utilizador);
+            entityManager.getTransaction().commit();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            this.entityManager.getTransaction().rollback();
+        }
     }
 
     public Utilizador buscarPorId(Integer id) {
         return entityManager.find(Utilizador.class, id);
     }
+
+//    public Utilizador buscarPorLocalizacao(Localizacao localizacao) {
+//        String jpql = "DELETE FROM Utilizador u INNER join Localizacao l WHERE u.idlocalizacao = l.idlocalizacao";
+//        return entityManager.createQuery(jpql, Utilizador.class).getSingleResult();
+//    }
 
     public List<Utilizador> buscarTodos() {
         String jpql = "SELECT u FROM Utilizador u";

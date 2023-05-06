@@ -151,6 +151,15 @@ public class RegistroController implements Initializable {
 
     @FXML
     void hyperlinkLogin(ActionEvent event) {
+        List<Utilizador> utilizadorList = this.utilizadorDao.buscarTodos();
+
+        for (Utilizador u: utilizadorList) {
+            if (u.getIdUtilizador() == utilizadorList.size()) {
+                System.out.println(u);
+                this.utilizadorDao.remover(u);
+            }
+        }
+
         this.goToUtil.goToLogin();
         Stage stage = (Stage) hyperlinkLoginId.getScene().getWindow();
         stage.close();

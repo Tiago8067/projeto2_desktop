@@ -3,6 +3,8 @@ package org.example.models;
 import lombok.*;
 import org.example.models.enums.EstadoUtilizador;
 import org.example.models.enums.TipoUtilizador;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -39,6 +41,7 @@ public class Utilizador implements Serializable {
     private EstadoUtilizador estadoUtilizador;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Localizacao localizacao;
 
 }

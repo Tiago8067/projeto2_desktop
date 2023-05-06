@@ -3,8 +3,10 @@ package org.example.dao;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.example.models.Localizacao;
+import org.example.models.Utilizador;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,5 +23,15 @@ public class LocalizacaoDao {
             ex.printStackTrace();
             this.entityManager.getTransaction().rollback();
         }
+    }
+
+    public void remover(Localizacao localizacao) {
+        localizacao = entityManager.merge(localizacao);
+        this.entityManager.remove(localizacao);
+    }
+
+    public List<Localizacao> buscarTodos() {
+        String jpql = "SELECT l FROM Localizacao l";
+        return entityManager.createQuery(jpql, Localizacao.class).getResultList();
     }
 }

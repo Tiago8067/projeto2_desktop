@@ -88,7 +88,9 @@ public class RegistroDadosLocalizacaoController implements Initializable {
         }
 
         if (txtFdRegistroCodPId.getText().isEmpty()){
-                labelIdErroCodP.setText("Tem de preencher o Código Postal no seu Registro");
+            labelIdErroCodP.setText("Tem de preencher o Código Postal no seu Registro");
+        } else if (!this.regexDados.isValidCP(txtFdRegistroCodPId.getText())) {
+            labelIdErroCodP.setText("Por favor, preencha o Código Postal Corretamente");
         } else {
             this.localizacao.setCodigoPostal(txtFdRegistroCodPId.getText());
             labelIdErroCodP.setText("");
@@ -136,6 +138,32 @@ public class RegistroDadosLocalizacaoController implements Initializable {
 
     @FXML
     void hyperlinkLogin(ActionEvent event) {
+
+        /*List<Localizacao> localizacaoList = this.localizacaoDao.buscarTodos();
+
+        for (Localizacao l: localizacaoList) {
+            if (l.getCidade() != null || l.getCodigoPostal() != null || l.getLocalidade() != null || l.getRua() != null || l.getNumeroPorta() != null) {
+                this.localizacaoDao.remover(l);
+                this.goToUtil.goToLogin();
+                Stage stage = (Stage) hyperlinkLoginId.getScene().getWindow();
+                stage.close();
+            } else {
+                this.goToUtil.goToLogin();
+                Stage stage = (Stage) hyperlinkLoginId.getScene().getWindow();
+                stage.close();
+            }
+        }*/
+
+        List<Utilizador> utilizadorList = this.utilizadorDao.buscarTodos();
+
+        for (Utilizador u: utilizadorList) {
+            //if (u.getNome() != null && u.getNumeroCc() != null && u.getNif() != null && u.getContacto() != null) {
+            if (u.getIdUtilizador() == utilizadorList.size()) {
+                //System.out.println(u);
+                this.utilizadorDao.remover(u);
+            }
+        }
+
         this.goToUtil.goToLogin();
         Stage stage = (Stage) hyperlinkLoginId.getScene().getWindow();
         stage.close();
