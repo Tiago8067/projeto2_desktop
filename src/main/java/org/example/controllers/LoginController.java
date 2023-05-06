@@ -91,7 +91,7 @@ public class LoginController implements Initializable {
 
     @FXML
     void hyperlinkLogin(ActionEvent event) {
-        this.goToUtil.goToRegistro();
+        this.goToUtil.goToRegistroDadosPessoas();
         Stage stage = (Stage) hyperlinkLoginId.getScene().getWindow();
         stage.close();
     }

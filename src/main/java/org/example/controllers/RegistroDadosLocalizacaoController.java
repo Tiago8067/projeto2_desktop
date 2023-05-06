@@ -12,6 +12,7 @@ import org.example.dao.LocalizacaoDao;
 import org.example.dao.UtilizadorDao;
 import org.example.models.Localizacao;
 import org.example.models.Utilizador;
+import org.example.models.enums.EstadoUtilizador;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
@@ -71,6 +72,14 @@ public class RegistroDadosLocalizacaoController implements Initializable {
 
     @FXML
     void btnRegistrarSeguinteDF(ActionEvent event) {
+        int verificaNumPorta = 0;
+
+        try {
+            verificaNumPorta = Integer.parseInt(txtFdRegistroNumPortaId.getText());
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(numberFormatException.getMessage());
+        }
+
         if (txtFdRegistroDiistritoId.getText().isEmpty()){
             labelIdErroDistrito.setText("Tem de preencher o Distrito no seu Registro");
         } else {
@@ -101,55 +110,28 @@ public class RegistroDadosLocalizacaoController implements Initializable {
 
         if (txtFdRegistroNumPortaId.getText().isEmpty()){
             labelIdErroNumPorta.setText("Tem de preencher o Número da Porta no seu Registro");
+        } else if (verificaNumPorta == 0) {
+            labelIdErroNumPorta.setText("Preencha corretamente o Número da Porta no seu Registro");
         } else {
             this.localizacao.setNumeroPorta(Integer.valueOf(txtFdRegistroNumPortaId.getText()));
             labelIdErroNumPorta.setText("");
         }
 
-        if (labelIdErroDistrito.getText().equals("") && labelIdErroCodP.getText().equals("") && labelIdErroLocalidade.getText().equals("") &&
-                labelIdErroRua.getText().equals("") && labelIdErroNumPorta.getText().equals("")) {
-            this.localizacaoDao.registrar(this.localizacao);
-        }
-
-
-
-        //System.out.println(this.utilizador.getIdUtilizador());
-        //System.out.println(this.registroDadosPessoaisController.getIdUtilizadorCompletoResgistro());
-        //System.out.println(this.utilizadorDao.buscarTodos());
         List<Utilizador> utilizadorList = this.utilizadorDao.buscarTodos();
-        //System.out.println(utilizadorList);
-
-        List<Utilizador> utilizadorListParaRegistro = new ArrayList<>();
 
         for (Utilizador u: utilizadorList) {
-            if (u.getUsername() == null) {
-                //System.out.println(u);
-                //Integer idUtilizadorParaRegistro = u.getIdUtilizador();
-                //System.out.println(idUtilizadorParaRegistro);
-                //u.setLocalizacao(this.localizacao);
-                //this.utilizadorDao.registrar(u);
-                //utilizadorListParaRegistro.add(u);
-                //System.out.println(utilizadorList.lastIndexOf(u));
-                //System.out.println(utilizadorList.size());
-            }
             if (u.getIdUtilizador() == utilizadorList.size()) {
-                //System.out.println(u.getIdUtilizador());
                 u.setLocalizacao(this.localizacao);
-                this.utilizadorDao.registrar(u);
-                this.goToUtil.goToRegistro();
-                Stage stage = (Stage) btnRegistrarSeguinteId.getScene().getWindow();
-                stage.close();
+                if (labelIdErroDistrito.getText().equals("") && labelIdErroCodP.getText().equals("") && labelIdErroLocalidade.getText().equals("") &&
+                        labelIdErroRua.getText().equals("") && labelIdErroNumPorta.getText().equals("")) {
+                    this.localizacaoDao.registrar(this.localizacao);
+                    this.utilizadorDao.registrar(u);
+                    this.goToUtil.goToRegistro();
+                    Stage stage = (Stage) btnRegistrarSeguinteId.getScene().getWindow();
+                    stage.close();
+                }
             }
         }
-
-
-        //System.out.println(this.utilizadorDao.buscarPorId(this.registroDadosPessoaisController.btnRegistrarSeguinteDD(event)));
-
-        //System.out.println(utilizadorListParaRegistro);
-        //utilizadorList.add(this.localizacao);
-
-        //utilizadorList.add()
-
     }
 
     @FXML

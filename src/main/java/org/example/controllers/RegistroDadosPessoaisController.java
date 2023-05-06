@@ -64,36 +64,65 @@ public class RegistroDadosPessoaisController implements Initializable {
     GoToUtil goToUtil = new GoToUtil();
 
     @FXML
-     void btnRegistrarSeguinteDD(ActionEvent event) {
-        if (txtFdRegistroNomeCompletoId.getText().isEmpty()){
+    void btnRegistrarSeguinteDD(ActionEvent event) {
+
+        int verificaNumCC = 0;
+        int verificaNIF = 0;
+        int verificaContacto = 0;
+
+        try {
+            verificaNumCC = Integer.parseInt(txtFdRegistroNccId.getText());
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(numberFormatException.getMessage());
+        }
+
+        try {
+            verificaNIF = Integer.parseInt(txtFdRegistroNIFD.getText());
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(numberFormatException.getMessage());
+        }
+
+        try {
+            verificaContacto = Integer.parseInt(txtFdRegistroContactoId.getText());
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(numberFormatException.getMessage());
+        }
+
+        if (txtFdRegistroNomeCompletoId.getText().isEmpty()) {
             labelIdErroNomeCompleto.setText("Tem de preencher o Nome Comleto no seu Registro");
         } else {
             this.utilizador.setNome(txtFdRegistroNomeCompletoId.getText());
             labelIdErroNomeCompleto.setText("");
         }
 
-        // TODO=> falta a data
-
-        if (txtFdRegistroNccId.getText().isEmpty()){
+        if (txtFdRegistroNccId.getText().isEmpty()) {
             labelIdErroNumCC.setText("Tem de preencher o Número do CC no seu Registro");
+        } else if (verificaNumCC == 0) {
+            labelIdErroNumCC.setText("Preencha corretamente o Número CC no seu Registro");
         } else {
             this.utilizador.setNumeroCc(Integer.valueOf(txtFdRegistroNccId.getText()));
             labelIdErroNumCC.setText("");
         }
 
-        if (txtFdRegistroNIFD.getText().isEmpty()){
+        if (txtFdRegistroNIFD.getText().isEmpty()) {
             labelIdErroNIF.setText("Tem de preencher o NIF no seu Registro");
+        } else if (verificaNIF == 0) {
+            labelIdErroNIF.setText("Preencha corretamente o NIF no seu Registro");
         } else {
             this.utilizador.setNif(Integer.valueOf(txtFdRegistroNIFD.getText()));
             labelIdErroNIF.setText("");
         }
 
-        if (txtFdRegistroContactoId.getText().isEmpty()){
+        if (txtFdRegistroContactoId.getText().isEmpty()) {
             labelIdErroContacto.setText("Tem de preencher o Contacto no seu Registro");
+        } else if (verificaContacto == 0) {
+            labelIdErroContacto.setText("Preencha corretamente o Contacto no seu Registro");
         } else {
             this.utilizador.setContacto(Integer.valueOf(txtFdRegistroContactoId.getText()));
             labelIdErroContacto.setText("");
         }
+
+        // TODO=> falta a data
 
         if (labelIdErroNomeCompleto.getText().equals("") && labelIdErroNumCC.getText().equals("") && labelIdErroNIF.getText().equals("") &&
                 labelIdErroContacto.getText().equals("")) {
@@ -103,18 +132,6 @@ public class RegistroDadosPessoaisController implements Initializable {
             Stage stage = (Stage) btnRegistrarSeguinteId.getScene().getWindow();
             stage.close();
         }
-        //Integer idUtilizadorCompletoResgistro = this.utilizador.getIdUtilizador();
-        //System.out.println(this.utilizador.getIdUtilizador());
-        //System.out.println(getIdUtilizadorCompletoResgistro());
-
-
-        //return this.utilizador.getIdUtilizador();
-    }
-
-    private Integer idUtilizadorCompletoResgistro; // = this.utilizador.getIdUtilizador();
-
-    public Integer getIdUtilizadorCompletoResgistro() {
-         return this.idUtilizadorCompletoResgistro = this.utilizador.getIdUtilizador();
     }
 
     @FXML
