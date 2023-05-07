@@ -122,7 +122,8 @@ public class RegistroDadosLocalizacaoController implements Initializable {
         List<Utilizador> utilizadorList = this.utilizadorDao.buscarTodos();
 
         for (Utilizador u: utilizadorList) {
-            if (u.getIdUtilizador() == utilizadorList.size()) {
+            //if (u.getIdUtilizador() == utilizadorList.size()) {
+            if (u.getUsername() == null) {
                 u.setLocalizacao(this.localizacao);
                 if (labelIdErroDistrito.getText().equals("") && labelIdErroCodP.getText().equals("") && labelIdErroLocalidade.getText().equals("") &&
                         labelIdErroRua.getText().equals("") && labelIdErroNumPorta.getText().equals("")) {
@@ -158,13 +159,14 @@ public class RegistroDadosLocalizacaoController implements Initializable {
 
         for (Utilizador u: utilizadorList) {
             //if (u.getNome() != null && u.getNumeroCc() != null && u.getNif() != null && u.getContacto() != null) {
-            if (u.getIdUtilizador() == utilizadorList.size()) {
+            //if (u.getIdUtilizador() == utilizadorList.size()) {
                 // todo ir buscar username igual a null
-                if (u.getNome() != null && u.getNumeroCc() != null && u.getNif() != null && u.getContacto() != null) {
+                //if (u.getNome() != null && u.getNumeroCc() != null && u.getNif() != null && u.getContacto() != null) {
+                if (u.getUsername() == null) {
                     //System.out.println(u);
                     this.utilizadorDao.remover(u);
                 }
-            }
+            //}
         }
 
         this.goToUtil.goToLogin();
