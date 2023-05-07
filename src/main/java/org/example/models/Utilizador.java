@@ -40,8 +40,8 @@ public class Utilizador implements Serializable {
     @Enumerated(EnumType.STRING)
     private EstadoUtilizador estadoUtilizador;
 
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(fetch = FetchType.LAZY) //, cascade = CascadeType.REMOVE
+    //@OnDelete(action = OnDeleteAction.CASCADE)
     private Localizacao localizacao;
 
 }

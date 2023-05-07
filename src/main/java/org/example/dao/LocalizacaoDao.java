@@ -3,7 +3,6 @@ package org.example.dao;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.example.models.Localizacao;
-import org.example.models.Utilizador;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -26,7 +25,18 @@ public class LocalizacaoDao {
     }
 
     public void remover(Localizacao localizacao) {
-        localizacao = entityManager.merge(localizacao);
+        try {
+            entityManager.getTransaction().begin();
+            this.entityManager.remove(localizacao);
+            entityManager.getTransaction().commit();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            this.entityManager.getTransaction().rollback();
+        }
+    }
+
+    public void removerPeloUtilizador(Localizacao localizacao) {
         this.entityManager.remove(localizacao);
     }
 
@@ -34,4 +44,9 @@ public class LocalizacaoDao {
         String jpql = "SELECT l FROM Localizacao l";
         return entityManager.createQuery(jpql, Localizacao.class).getResultList();
     }
+
+    public Localizacao buscarPorId(Integer id) {
+        return entityManager.find(Localizacao.class, id);
+    }
+
 }

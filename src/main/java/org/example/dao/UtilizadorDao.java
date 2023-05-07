@@ -33,11 +33,20 @@ public class UtilizadorDao {
     }
 
     public void remover(Utilizador utilizador) {
+        LocalizacaoDao localizacaoDao = new LocalizacaoDao(entityManager);
+        Localizacao localizacaoRemover;
         try {
             entityManager.getTransaction().begin();
             //utilizador = entityManager.merge(utilizador);
-            utilizador = entityManager.find(Utilizador.class, utilizador.getIdUtilizador());
-            this.entityManager.remove(utilizador);
+            //utilizador = entityManager.find(Utilizador.class, utilizador.getIdUtilizador());
+            if (utilizador.getLocalizacao() == null) {
+                this.entityManager.remove(utilizador);
+            } else {
+                localizacaoRemover = localizacaoDao.buscarPorId(utilizador.getLocalizacao().getIdLocalizacao());
+                localizacaoDao.removerPeloUtilizador(localizacaoRemover);
+                this.entityManager.remove(utilizador);
+            }
+            //this.entityManager.remove(utilizador);
             entityManager.getTransaction().commit();
 
         } catch (Exception ex) {

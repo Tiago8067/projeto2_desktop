@@ -74,7 +74,8 @@ public class RegistroController implements Initializable {
         List<Utilizador> utilizadorList = this.utilizadorDao.buscarTodos();
 
         for (Utilizador u: utilizadorList) {
-            if (u.getIdUtilizador() == utilizadorList.size()) {
+            //if (u.getIdUtilizador() == utilizadorList.size()) {
+            if (u.getUsername() == null) {
                 if (labelRegistroNome.getText().isEmpty()){
                     labelErroRegistroNome.setText("Tem de preencher o Nome de Utilizador no seu Registro");
                 } else if (labelRegistroNome.getText().length() < 4) {
@@ -119,10 +120,10 @@ public class RegistroController implements Initializable {
 
                 if (labelTipoUtilziador.getText().isEmpty()){
                     labelErroRegistroTipoUtilizador.setText("Tem de selecionar o Tipo de Utilizador no seu Registro");
-                } else if (labelTipoUtilziador.getText().toLowerCase().equals("admin")){
+                } else if (labelTipoUtilziador.getText().equalsIgnoreCase("admin")){
                     u.setTipoUtilizador(TipoUtilizador.ADMIN);
                     labelErroRegistroTipoUtilizador.setText("");
-                } else if (labelTipoUtilziador.getText().toLowerCase().equals("funcionario")) {
+                } else if (labelTipoUtilziador.getText().equalsIgnoreCase("funcionario")) {
                     u.setTipoUtilizador(TipoUtilizador.FUNCIONARIO);
                     labelErroRegistroTipoUtilizador.setText("");
                 }
@@ -154,7 +155,8 @@ public class RegistroController implements Initializable {
         List<Utilizador> utilizadorList = this.utilizadorDao.buscarTodos();
 
         for (Utilizador u: utilizadorList) {
-            if (u.getIdUtilizador() == utilizadorList.size()) {
+            //if (u.getIdUtilizador() == utilizadorList.size()) {
+            if (u.getUsername() == null) {
                 System.out.println(u);
                 this.utilizadorDao.remover(u);
             }
