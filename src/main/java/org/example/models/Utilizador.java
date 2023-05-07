@@ -43,5 +43,4 @@ public class Utilizador implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY) //, cascade = CascadeType.REMOVE
     //@OnDelete(action = OnDeleteAction.CASCADE)
     private Localizacao localizacao;
-
 }

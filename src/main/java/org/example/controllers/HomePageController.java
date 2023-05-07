@@ -48,6 +48,9 @@ public class HomePageController implements Initializable {
     private TableColumn<Utilizador, Utilizador> tableColumnAcoes;
 
     @FXML
+    private TextField txtFdAtualizarIdId;
+
+    @FXML
     private TextField txtFdAtualizarContactoId;
 
     @FXML
@@ -139,9 +142,11 @@ public class HomePageController implements Initializable {
         tabEditarFuncionarioId.setDisable(false);
         abasTabPaneId.getSelectionModel().select(tabEditarFuncionarioId);
         System.out.println(obj);
+        txtFdAtualizarIdId.setText(String.valueOf(obj.getIdUtilizador()));
         txtFdAtualizarNomeId.setText(obj.getUsername());
-        //txtFdAtualizarMoradaId.setText(obj.getMorada());
-        //txtFdAtualizarContactoId.setText(obj.getContacto());
+        // todo - que fazer na morada
+        //txtFdAtualizarMoradaId.setText(obj.);
+        txtFdAtualizarContactoId.setText(String.valueOf(obj.getContacto()));
     }
 
     private void initEditButtons() {

@@ -228,7 +228,7 @@
                                                             <Label text="Nome :" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                                                             <Label text="Morada :" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                                                             <Label text="Contacto :" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                                                            <TextField disable="true" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
+                                                            <TextField fx:id="txtFdAtualizarIdId" disable="true" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
                                                             <TextField fx:id="txtFdAtualizarNomeId" text="Atualize o Nome" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                                                             <TextField fx:id="txtFdAtualizarMoradaId" text="Atualize o Morada" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                                                             <TextField fx:id="txtFdAtualizarContactoId" text="Atualize o Contacto" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
