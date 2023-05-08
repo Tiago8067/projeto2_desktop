@@ -12,18 +12,26 @@ import org.example.dao.LocalizacaoDao;
 import org.example.dao.UtilizadorDao;
 import org.example.models.Localizacao;
 import org.example.models.Utilizador;
-import org.example.models.enums.EstadoUtilizador;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class RegistroDadosLocalizacaoController implements Initializable {
+    EntityManager entityManager;
+    UtilizadorDao utilizadorDao;
+    Utilizador utilizador;
+    Localizacao localizacao;
+    LocalizacaoDao localizacaoDao;
+    RegexDados regexDados;
+    GoToUtil goToUtil;
+    List<Utilizador> utilizadorList;
+    // todo usar ou nao construtores
+
     @FXML
     private Button btnRegistrarSeguinteId;
 
@@ -59,16 +67,6 @@ public class RegistroDadosLocalizacaoController implements Initializable {
 
     @FXML
     private TextField txtFdRegistroRuaId;
-
-
-    EntityManager entityManager = JPAUtil.getEntityManager();
-    UtilizadorDao utilizadorDao = new UtilizadorDao(entityManager);
-    Utilizador utilizador = new Utilizador();
-    Localizacao localizacao = new Localizacao();
-    LocalizacaoDao localizacaoDao = new LocalizacaoDao(entityManager);
-    RegexDados regexDados = new RegexDados();
-    GoToUtil goToUtil = new GoToUtil();
-    RegistroDadosPessoaisController registroDadosPessoaisController;
 
     @FXML
     void btnRegistrarSeguinteDF(ActionEvent event) {
@@ -119,10 +117,7 @@ public class RegistroDadosLocalizacaoController implements Initializable {
             labelIdErroNumPorta.setText("");
         }
 
-        List<Utilizador> utilizadorList = this.utilizadorDao.buscarTodos();
-
-        for (Utilizador u: utilizadorList) {
-            //if (u.getIdUtilizador() == utilizadorList.size()) {
+        for (Utilizador u: this.utilizadorList) {
             if (u.getUsername() == null) {
                 u.setLocalizacao(this.localizacao);
                 if (labelIdErroDistrito.getText().equals("") && labelIdErroCodP.getText().equals("") && labelIdErroLocalidade.getText().equals("") &&
@@ -140,33 +135,10 @@ public class RegistroDadosLocalizacaoController implements Initializable {
     @FXML
     void hyperlinkLogin(ActionEvent event) {
 
-        /*List<Localizacao> localizacaoList = this.localizacaoDao.buscarTodos();
-
-        for (Localizacao l: localizacaoList) {
-            if (l.getCidade() != null || l.getCodigoPostal() != null || l.getLocalidade() != null || l.getRua() != null || l.getNumeroPorta() != null) {
-                this.localizacaoDao.remover(l);
-                this.goToUtil.goToLogin();
-                Stage stage = (Stage) hyperlinkLoginId.getScene().getWindow();
-                stage.close();
-            } else {
-                this.goToUtil.goToLogin();
-                Stage stage = (Stage) hyperlinkLoginId.getScene().getWindow();
-                stage.close();
-            }
-        }*/
-
-        List<Utilizador> utilizadorList = this.utilizadorDao.buscarTodos();
-
-        for (Utilizador u: utilizadorList) {
-            //if (u.getNome() != null && u.getNumeroCc() != null && u.getNif() != null && u.getContacto() != null) {
-            //if (u.getIdUtilizador() == utilizadorList.size()) {
-                // todo ir buscar username igual a null
-                //if (u.getNome() != null && u.getNumeroCc() != null && u.getNif() != null && u.getContacto() != null) {
+        for (Utilizador u: this.utilizadorList) {
                 if (u.getUsername() == null) {
-                    //System.out.println(u);
                     this.utilizadorDao.remover(u);
                 }
-            //}
         }
 
         this.goToUtil.goToLogin();
@@ -178,6 +150,11 @@ public class RegistroDadosLocalizacaoController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.entityManager = JPAUtil.getEntityManager();
         this.utilizadorDao = new UtilizadorDao(entityManager);
+        this.utilizador = new Utilizador();
+        this.localizacao = new Localizacao();
+        this.localizacaoDao = new LocalizacaoDao(entityManager);
+        this.regexDados = new RegexDados();
         this.goToUtil = new GoToUtil();
+        utilizadorList = this.utilizadorDao.buscarTodos();
     }
 }

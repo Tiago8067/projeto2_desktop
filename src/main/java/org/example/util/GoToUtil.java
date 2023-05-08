@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 import lombok.NoArgsConstructor;
 import org.example.controllers.HomePageController;
 
-
 @NoArgsConstructor
 public class GoToUtil {
     public void goToLogin() {

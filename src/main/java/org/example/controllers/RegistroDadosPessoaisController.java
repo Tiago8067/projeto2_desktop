@@ -8,17 +8,22 @@ import javafx.stage.Stage;
 import org.example.dao.UtilizadorDao;
 import org.example.models.Utilizador;
 import org.example.models.enums.EstadoUtilizador;
-import org.example.models.enums.TipoUtilizador;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class RegistroDadosPessoaisController implements Initializable {
+    EntityManager entityManager;
+    UtilizadorDao utilizadorDao;
+    Utilizador utilizador;
+    RegexDados regexDados;
+    GoToUtil goToUtil;
+    // todo usar ou nao construtores
+
     @FXML
     private Button btnRegistrarSeguinteId;
 
@@ -54,12 +59,6 @@ public class RegistroDadosPessoaisController implements Initializable {
 
     @FXML
     private TextField txtFdRegistroNomeCompletoId;
-
-    EntityManager entityManager = JPAUtil.getEntityManager();
-    UtilizadorDao utilizadorDao = new UtilizadorDao(entityManager);
-    Utilizador utilizador = new Utilizador();
-    RegexDados regexDados = new RegexDados();
-    GoToUtil goToUtil = new GoToUtil();
 
     @FXML
     void btnRegistrarSeguinteDD(ActionEvent event) {
@@ -143,6 +142,8 @@ public class RegistroDadosPessoaisController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.entityManager = JPAUtil.getEntityManager();
         this.utilizadorDao = new UtilizadorDao(entityManager);
+        this.utilizador = new Utilizador();
+        this.regexDados = new RegexDados();
         this.goToUtil = new GoToUtil();
     }
 }

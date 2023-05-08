@@ -37,8 +37,6 @@ public class UtilizadorDao {
         Localizacao localizacaoRemover;
         try {
             entityManager.getTransaction().begin();
-            //utilizador = entityManager.merge(utilizador);
-            //utilizador = entityManager.find(Utilizador.class, utilizador.getIdUtilizador());
             if (utilizador.getLocalizacao() == null) {
                 this.entityManager.remove(utilizador);
             } else {
@@ -46,7 +44,6 @@ public class UtilizadorDao {
                 localizacaoDao.removerPeloUtilizador(localizacaoRemover);
                 this.entityManager.remove(utilizador);
             }
-            //this.entityManager.remove(utilizador);
             entityManager.getTransaction().commit();
 
         } catch (Exception ex) {
@@ -58,11 +55,6 @@ public class UtilizadorDao {
     public Utilizador buscarPorId(Integer id) {
         return entityManager.find(Utilizador.class, id);
     }
-
-//    public Utilizador buscarPorLocalizacao(Localizacao localizacao) {
-//        String jpql = "DELETE FROM Utilizador u INNER join Localizacao l WHERE u.idlocalizacao = l.idlocalizacao";
-//        return entityManager.createQuery(jpql, Utilizador.class).getSingleResult();
-//    }
 
     public List<Utilizador> buscarTodos() {
         String jpql = "SELECT u FROM Utilizador u";

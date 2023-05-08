@@ -17,6 +17,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
+    EntityManager entityManager;
+    UtilizadorDao utilizadorDao;
+    Utilizador utilizador;
+    GoToUtil goToUtil;
+
+    // todo usar ou nao construtores
+
     @FXML
     private Button btnLoginId;
 
@@ -37,12 +44,6 @@ public class LoginController implements Initializable {
 
     @FXML
     private TextField tfLoginPass;
-
-    EntityManager entityManager = JPAUtil.getEntityManager();
-    UtilizadorDao utilizadorDao = new UtilizadorDao(entityManager);
-    Utilizador utilizador = new Utilizador();
-
-    GoToUtil goToUtil = new GoToUtil();
 
     @FXML
     void btnLogin(ActionEvent event) {
@@ -98,6 +99,9 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        this.entityManager = JPAUtil.getEntityManager();
+        this.utilizadorDao = new UtilizadorDao(entityManager);
+        this.utilizador = new Utilizador();
+        this.goToUtil = new GoToUtil();
     }
 }

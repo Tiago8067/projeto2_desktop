@@ -19,6 +19,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class RegistroController implements Initializable {
+    EntityManager entityManager;
+    UtilizadorDao utilizadorDao;
+    Utilizador utilizador;
+    RegexDados regexDados;
+    GoToUtil goToUtil;
+
+    List<Utilizador> utilizadorList;
+    // todo usar ou nao construtores
 
     @FXML
     private Button btnRegistrar;
@@ -62,19 +70,10 @@ public class RegistroController implements Initializable {
     @FXML
     private MenuItem menuItemIdFuncionario;
 
-    EntityManager entityManager = JPAUtil.getEntityManager();
-    UtilizadorDao utilizadorDao = new UtilizadorDao(entityManager);
-    Utilizador utilizador = new Utilizador();
-    RegexDados regexDados = new RegexDados();
-    GoToUtil goToUtil = new GoToUtil();
-
     @FXML
     void btnRegistrar(ActionEvent event) {
 
-        List<Utilizador> utilizadorList = this.utilizadorDao.buscarTodos();
-
-        for (Utilizador u: utilizadorList) {
-            //if (u.getIdUtilizador() == utilizadorList.size()) {
+        for (Utilizador u: this.utilizadorList) {
             if (u.getUsername() == null) {
                 if (labelRegistroNome.getText().isEmpty()){
                     labelErroRegistroNome.setText("Tem de preencher o Nome de Utilizador no seu Registro");
@@ -152,10 +151,8 @@ public class RegistroController implements Initializable {
 
     @FXML
     void hyperlinkLogin(ActionEvent event) {
-        List<Utilizador> utilizadorList = this.utilizadorDao.buscarTodos();
 
-        for (Utilizador u: utilizadorList) {
-            //if (u.getIdUtilizador() == utilizadorList.size()) {
+        for (Utilizador u: this.utilizadorList) {
             if (u.getUsername() == null) {
                 System.out.println(u);
                 this.utilizadorDao.remover(u);
@@ -174,5 +171,11 @@ public class RegistroController implements Initializable {
         /*
         Aqui coloca-se tipicamente açoes que quero que sejam executadas quando instancio o controlador
          */
+        this.entityManager = JPAUtil.getEntityManager();
+        this.utilizadorDao = new UtilizadorDao(entityManager);
+        this.utilizador = new Utilizador();
+        this.regexDados = new RegexDados();
+        this.goToUtil = new GoToUtil();
+        this.utilizadorList = this.utilizadorDao.buscarTodos();
     }
 }

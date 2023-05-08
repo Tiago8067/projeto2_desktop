@@ -23,6 +23,17 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
+    //Tentativa 3
+    EntityManager entityManager;
+    UtilizadorDao utilizadorDao;
+    //Tentativa 2
+    //EntityManager entityManager; // = JPAUtil.getEntityManager();
+    //UtilizadorDao utilizadorDao; // = new UtilizadorDao(entityManager);
+    //EntityManager entityManager = JPAUtil.getEntityManager();
+    //UtilizadorDao utilizadorDao = new UtilizadorDao(entityManager);
+    GoToUtil goToUtil;  // = new GoToUtil();
+    // todo usar ou nao construtores
+
     @FXML
     private TabPane abasTabPaneId;
 
@@ -61,42 +72,19 @@ public class HomePageController implements Initializable {
 
     private ObservableList<Utilizador> observableListFuncionarios;
 
-    //Tentativa 3
-    EntityManager entityManager;
-    UtilizadorDao utilizadorDao;
-    //Tentativa 2
-    //EntityManager entityManager; // = JPAUtil.getEntityManager();
-    //UtilizadorDao utilizadorDao; // = new UtilizadorDao(entityManager);
-    //EntityManager entityManager = JPAUtil.getEntityManager();
-    //UtilizadorDao utilizadorDao = new UtilizadorDao(entityManager);
-    GoToUtil goToUtil;  // = new GoToUtil();
-
     @FXML
     void gotoLoginPage(ActionEvent event) {
         this.goToUtil.goToLogin();
-        //Stage stage = (Stage)idgotoLoginPage.getScene().getWindow();
-        //stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        //https://stackoverflow.com/questions/20594392/unable-to-get-scene-from-menuitem-in-javafx
-        //Para fechar o menuitem em "SAIR"
         Stage stage = (Stage)idgotoLoginPage.getParentPopup().getOwnerWindow();
         stage.close();
     }
-
-    /*
-    Tentiva 2
-    public void setUtilizadorDao(EntityManager entityManager ,UtilizadorDao utilizadorDao) {
-        this.entityManager = JPAUtil.getEntityManager();
-        this.utilizadorDao = new UtilizadorDao(entityManager);
-    }
-     */
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.entityManager = JPAUtil.getEntityManager();
         this.utilizadorDao = new UtilizadorDao(entityManager);
         this.goToUtil = new GoToUtil();
-
-
+        
         initializeNodes();
     }
 
@@ -114,15 +102,10 @@ public class HomePageController implements Initializable {
 
     public void listaFuncionarios() {
         List<Utilizador> utilizadorList = this.utilizadorDao.buscarTodos();
-        //System.out.println(listaFuncionarios);
         List<Utilizador> listaFuncionarios = new ArrayList<>();
-        //observableListFuncionarios = FXCollections.observableArrayList(listaFuncionarios);
+
         for (Utilizador u: utilizadorList) {
-            //System.out.println(u.getTipoUtilizador());
           if (u.getTipoUtilizador().equals(TipoUtilizador.FUNCIONARIO)) {
-              //tableViewFuncionarios.setItems(observableListFuncionarios);
-              //System.out.println(u.getTipoUtilizador());
-              //System.out.println(tableViewFuncionarios);
               listaFuncionarios.add(u);
               System.out.println(listaFuncionarios);
           }
@@ -132,10 +115,6 @@ public class HomePageController implements Initializable {
         tableViewFuncionarios.setItems(observableListFuncionarios);
 
         initEditButtons();
-        //if (this.utilizadorDao.buscarTodos())
-        //observableListFuncionarios = FXCollections.observableArrayList(listaFuncionarios);
-        //tableViewFuncionarios.setItems(observableListFuncionarios);
-        //System.out.println(observableListFuncionarios);
     }
 
     private void exibirTabEditarFuncionarios(Utilizador obj) {
