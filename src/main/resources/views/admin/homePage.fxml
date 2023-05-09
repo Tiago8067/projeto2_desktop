@@ -195,7 +195,8 @@
                                           <TableView fx:id="tableViewFuncionarios" layoutX="1.0" prefHeight="258.0" prefWidth="597.0">
                                              <columns>
                                                 <TableColumn fx:id="tableColumnId" maxWidth="25.0" prefWidth="20.0" text="Id" />
-                                                <TableColumn fx:id="tableColumnNome" maxWidth="80.0" prefWidth="75.0" text="Nome" />
+                                                <TableColumn fx:id="tableColumnUsername" maxWidth="80.0" prefWidth="75.0" text="Username" />
+                                                <TableColumn fx:id="tableColumnNome" maxWidth="150.0" prefWidth="75.0" text="Nome" />
                                                 <TableColumn fx:id="tableColumnEstado" maxWidth="80.0" prefWidth="75.0" text="Estado" />
                                                 <TableColumn fx:id="tableColumnAcoes" maxWidth="75.0" prefWidth="73.0" text="Ações" />
                                              </columns>
@@ -210,7 +211,19 @@
                                        <children>
                                           <HBox prefHeight="289.0" prefWidth="598.0">
                                              <children>
-                                                <ImageView fitHeight="287.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                                                <VBox prefHeight="200.0" prefWidth="100.0">
+                                                   <children>
+                                                      <ImageView fitHeight="200.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="152.0" text="Estado do Utizador" />
+                                                      <SplitMenuButton alignment="CENTER" mnemonicParsing="false" popupSide="RIGHT" prefHeight="25.0" prefWidth="159.0" text="Atualize:">
+                                                         <items>
+                                                            <MenuItem fx:id="menuItemIdAtivo" mnemonicParsing="false" onAction="#menuItemActionAtivo" text="ATIVO" />
+                                                            <MenuItem fx:id="menuItemIdInativo" mnemonicParsing="false" onAction="#menuItemActionInativo" text="INATIVO" />
+                                                         </items>
+                                                      </SplitMenuButton>
+                                                      <TextField fx:id="txtFdIdEstado" />
+                                                   </children>
+                                                </VBox>
                                                 <VBox prefHeight="289.0" prefWidth="486.0">
                                                    <children>
                                                       <GridPane prefHeight="54.0" prefWidth="448.0">
@@ -293,8 +306,8 @@
                                                          <children>
                                                             <Label text="Código Postal :" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
                                                             <Label text="Nº Porta :" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
-                                                            <TextField prefWidth="139.0" text="Atualize o Código Postal" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-                                                            <TextField text="Atualize o Nº da Porta" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+                                                            <TextField fx:id="txtFdAtualizarIdCP" prefWidth="139.0" text="Atualize o Código Postal" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+                                                            <TextField fx:id="txtFdAtualizarIdN_Porta" text="Atualize o Nº da Porta" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
                                                             <Label fx:id="labelIdErroAtualizaCP" textFill="RED" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                                                                <font>
                                                                   <Font name="System Bold Italic" size="10.0" />
