@@ -21,6 +21,7 @@ import javax.persistence.EntityManager;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
@@ -141,7 +142,22 @@ public class HomePageController implements Initializable {
 
     @FXML
     void btnEditarFuncionarioApagar(ActionEvent event) {
+        int idFuncionarioAtualizar = Integer.parseInt(txtFdAtualizarIdId.getText());
 
+        for (Utilizador u: this.observableListFuncionarios) {
+            if (u.getIdUtilizador() == idFuncionarioAtualizar) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setContentText("Tem a Certeza de querer Eliminar este Funcionário.");
+                Optional<ButtonType> resultado = alert.showAndWait();
+                if (resultado.get() == ButtonType.OK) {
+                    this.utilizadorDao.remover(u);
+                    gotoTabFuncionarios();
+                    listaFuncionarios();
+                } else {
+                    return;
+                }
+            }
+        }
     }
 
     @FXML
@@ -227,14 +243,19 @@ public class HomePageController implements Initializable {
 
                 if (labelIdErroAtualizaNome.getText().equals("") && labelIdErroAtualizaContacto.getText().equals("") && labelIdErroAtualizaCidade.getText().equals("") && labelIdErroAtualizaCP.getText().equals("")
                         && labelIdErroAtualizaLocalidade.getText().equals("") && labelIdErroAtualizaRua.getText().equals("") && labelIdErroAtualizaN_Porta.getText().equals("")) {
-                    //atualizarFuncionario.setEstadoUtilizador(EstadoUtilizador.PENDENTE);
-                    this.utilizadorDao.registrar(u);
-                    gotoTabFuncionarios();
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setContentText("Tem a Certeza de querer Editar este Funcionário.");
+                    Optional<ButtonType> resultado = alert.showAndWait();
+                    if (resultado.get() == ButtonType.OK) {
+                        this.utilizadorDao.registrar(u);
+                        gotoTabFuncionarios();
+                        listaFuncionarios();
+                    } else {
+                        return;
+                    }
                 }
             }
         }
-
-        listaFuncionarios();
     }
 
     @FXML
