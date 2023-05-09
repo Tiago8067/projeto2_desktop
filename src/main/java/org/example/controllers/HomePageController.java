@@ -10,7 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.dao.UtilizadorDao;
-import org.example.models.Utilizador;
+import org.example.models.*;
 import org.example.models.enums.EstadoUtilizador;
 import org.example.models.enums.TipoUtilizador;
 import org.example.util.GoToUtil;
@@ -139,6 +139,10 @@ public class HomePageController implements Initializable {
     private TextField txtFdIdEstado;
 
     private ObservableList<Utilizador> observableListFuncionarios;
+    private ObservableList<Doacao> observableListDoacao;
+    private ObservableList<Encomenda> observableListEncomenda;
+    private ObservableList<Fornecedor> observableListFornecedor;
+    private ObservableList<Roupa> observableListRoupa;
 
     @FXML
     void btnEditarFuncionarioApagar(ActionEvent event) {
@@ -298,9 +302,10 @@ public class HomePageController implements Initializable {
 
         // TODO => tornar javafx responsivo
 
+
         /*
         Stage stage = (Stage) new Stage().getScene().getWindow();
-        tableViewFuncionarios.prefHeightProperty().bind(stage.heightProperty());
+        abasTabPaneId.prefHeightProperty().bind(stage.heightProperty());
         */
     }
 

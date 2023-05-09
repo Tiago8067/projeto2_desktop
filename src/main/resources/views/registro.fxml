@@ -51,12 +51,12 @@
             <TextField fx:id="labelRegistroEmail" prefHeight="25.0" prefWidth="429.0" promptText="Insira o Email" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <TextField fx:id="labelRegistroPass" prefHeight="25.0" prefWidth="429.0" promptText="Insira a Palavra-Passe" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <TextField fx:id="labelRegistroConfirmaPass" prefHeight="25.0" prefWidth="429.0" promptText="Confirme a Palavra-Passe" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <Label fx:id="labelErroRegistroEmail" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+            <Label fx:id="labelErroRegistroNome" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="System Bold Italic" size="10.0" />
                </font>
             </Label>
-            <Label fx:id="labelErroRegistroNome" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+            <Label fx:id="labelErroRegistroEmail" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="System Bold Italic" size="10.0" />
                </font>
