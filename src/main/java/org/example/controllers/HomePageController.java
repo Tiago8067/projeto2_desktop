@@ -38,10 +38,51 @@ public class HomePageController implements Initializable {
     private TabPane abasTabPaneId;
 
     @FXML
+    private Button idEditarFuncionarioApagar;
+
+    @FXML
+    private Button idEditarFuncionarioAtualizar;
+
+    @FXML
+    private Button idEditarFuncionarioVoltar;
+
+    @FXML
     private MenuItem idgotoLoginPage;
+    @FXML
+    private Label labelIdErroAtualizaCP;
+
+    @FXML
+    private Label labelIdErroAtualizaCidade;
+
+    @FXML
+    private Label labelIdErroAtualizaContacto;
+
+    @FXML
+    private Label labelIdErroAtualizaLocalidade;
+
+    @FXML
+    private Label labelIdErroAtualizaN_Porta;
+
+    @FXML
+    private Label labelIdErroAtualizaNome;
+
+    @FXML
+    private Label labelIdErroAtualizaRua;
 
     @FXML
     private Tab tabEditarFuncionarioId;
+
+    @FXML
+    private Tab tabIdDoacaoes;
+
+    @FXML
+    private Tab tabIdEncomendas;
+
+    @FXML
+    private Tab tabIdFuncionarios;
+
+    @FXML
+    private Tab tabIdSotck;
 
     @FXML
     private TableView<Utilizador> tableViewFuncionarios;
@@ -73,6 +114,37 @@ public class HomePageController implements Initializable {
     private ObservableList<Utilizador> observableListFuncionarios;
 
     @FXML
+    void btnEditarFuncionarioApagar(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnEditarFuncionarioAtualizar(ActionEvent event) {
+        int idFuncionarioAtualizar = Integer.parseInt(txtFdAtualizarIdId.getText());
+        for (Utilizador u: this.observableListFuncionarios) {
+            if (u.getIdUtilizador() == idFuncionarioAtualizar) {
+                if (txtFdAtualizarNomeId.getText().isEmpty()) {
+                    labelIdErroAtualizaNome.setText("Tem de preencher o Nome Completo.");
+                } else {
+                    u.setNome(txtFdAtualizarNomeId.getText());
+                    labelIdErroAtualizaNome.setText("");
+                }
+
+                if (labelIdErroAtualizaNome.getText().equals("")) {
+                    //atualizarFuncionario.setEstadoUtilizador(EstadoUtilizador.PENDENTE);
+                    this.utilizadorDao.registrar(u);
+                    gotoTabFuncionarios();
+                }
+            }
+        }
+    }
+
+    @FXML
+    void btnEditarFuncionarioVoltar(ActionEvent event) {
+        gotoTabFuncionarios();
+    }
+
+    @FXML
     void gotoLoginPage(ActionEvent event) {
         this.goToUtil.goToLogin();
         Stage stage = (Stage)idgotoLoginPage.getParentPopup().getOwnerWindow();
@@ -94,10 +166,11 @@ public class HomePageController implements Initializable {
         tableColumnEstado.setCellValueFactory(new PropertyValueFactory<>("estadoUtilizador"));
 
         // TODO => tornar javafx responsivo
+
         /*
         Stage stage = (Stage) new Stage().getScene().getWindow();
         tableViewFuncionarios.prefHeightProperty().bind(stage.heightProperty());
-         */
+        */
     }
 
     public void listaFuncionarios() {
@@ -119,8 +192,12 @@ public class HomePageController implements Initializable {
 
     private void exibirTabEditarFuncionarios(Utilizador obj) {
         tabEditarFuncionarioId.setDisable(false);
+        tabIdDoacaoes.setDisable(true);
+        tabIdSotck.setDisable(true);
+        tabIdEncomendas.setDisable(true);
+        tabIdFuncionarios.setDisable(true);
         abasTabPaneId.getSelectionModel().select(tabEditarFuncionarioId);
-        System.out.println(obj);
+        //System.out.println(obj);
         txtFdAtualizarIdId.setText(String.valueOf(obj.getIdUtilizador()));
         txtFdAtualizarNomeId.setText(obj.getUsername());
         // todo - que fazer na morada
@@ -146,5 +223,14 @@ public class HomePageController implements Initializable {
                         event -> exibirTabEditarFuncionarios(obj));
             }
         });
+    }
+
+    private void gotoTabFuncionarios() {
+        tabEditarFuncionarioId.setDisable(true);
+        tabIdDoacaoes.setDisable(false);
+        tabIdSotck.setDisable(false);
+        tabIdEncomendas.setDisable(false);
+        tabIdFuncionarios.setDisable(false);
+        abasTabPaneId.getSelectionModel().select(tabIdFuncionarios);
     }
 }
