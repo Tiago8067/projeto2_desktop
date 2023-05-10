@@ -7,45 +7,54 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.LoginController">
-   <children>
-      <ImageView fitHeight="125.0" fitWidth="207.0" layoutX="211.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/logo.png" />
-         </image>
-      </ImageView>
-      <GridPane layoutX="114.0" layoutY="137.0" prefHeight="167.0" prefWidth="400.0" AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="86.0">
-         <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="422.000005086263" minWidth="10.0" prefWidth="412.000005086263" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <TextField fx:id="tfLoginNome" prefHeight="25.0" prefWidth="505.0" promptText="Nome de Utilizador" GridPane.valignment="CENTER" />
-            <TextField fx:id="tfLoginPass" prefHeight="25.0" prefWidth="429.0" promptText="Palavra-Passe" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Label fx:id="labelErroLoginNomeEmail" textFill="RED" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="System Bold Italic" size="10.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelErroLoginPass" textFill="RED" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="System Bold Italic" size="10.0" />
-               </font>
-            </Label>
-            <CheckBox fx:id="checkBoxLoginGuardaPass" mnemonicParsing="false" text="Guardar Palavra-Passe" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-         </children>
-      </GridPane>
-      <Button fx:id="btnLoginId" layoutX="238.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnLogin" prefHeight="25.0" prefWidth="151.0" text="Login" />
-      <Hyperlink fx:id="hyperlinkLoginId" layoutX="210.0" layoutY="339.0" onAction="#hyperlinkLogin" text="Ainda não registado? Registe-se Aqui" />
-   </children>
-</AnchorPane>
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.LoginController">
+    <top>
+        <ImageView fitHeight="125.0" fitWidth="207.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+            <image>
+                <Image url="@../images/logo.png" />
+            </image>
+        </ImageView>
+    </top>
+    <bottom>
+        <VBox alignment="CENTER" prefHeight="57.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="btnLoginId" mnemonicParsing="false" onAction="#btnLogin" prefHeight="25.0" prefWidth="151.0" text="Login" />
+                <Hyperlink fx:id="hyperlinkLoginId" onAction="#hyperlinkLogin" text="Ainda não registado? Registe-se Aqui" />
+            </children>
+        </VBox>
+    </bottom>
+    <center>
+        <GridPane BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="412.000005086263" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <TextField fx:id="tfLoginNome" prefHeight="25.0" prefWidth="505.0" promptText="Nome de Utilizador" GridPane.valignment="CENTER" />
+                <TextField fx:id="tfLoginPass" prefHeight="25.0" prefWidth="429.0" promptText="Palavra-Passe" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                <Label fx:id="labelErroLoginNomeEmail" textFill="RED" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+                    <font>
+                        <Font name="System Bold Italic" size="10.0" />
+                    </font>
+                </Label>
+                <Label fx:id="labelErroLoginPass" textFill="RED" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                    <font>
+                        <Font name="System Bold Italic" size="10.0" />
+                    </font>
+                </Label>
+                <CheckBox fx:id="checkBoxLoginGuardaPass" mnemonicParsing="false" text="Guardar Palavra-Passe" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+            </children>
+        </GridPane>
+    </center>
+</BorderPane>

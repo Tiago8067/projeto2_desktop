@@ -36,112 +36,90 @@ public class HomePageController implements Initializable {
     GoToUtil goToUtil;  // = new GoToUtil();
     RegexDados regexDados;
     // todo usar ou nao construtores
-
     @FXML
     private TabPane abasTabPaneId;
-
     @FXML
     private Button idEditarFuncionarioApagar;
-
     @FXML
     private Button idEditarFuncionarioAtualizar;
-
     @FXML
     private Button idEditarFuncionarioVoltar;
-
     @FXML
     private MenuItem idgotoLoginPage;
     @FXML
     private Label labelIdErroAtualizaCP;
-
     @FXML
     private Label labelIdErroAtualizaCidade;
-
     @FXML
     private Label labelIdErroAtualizaContacto;
-
     @FXML
     private Label labelIdErroAtualizaLocalidade;
-
     @FXML
     private Label labelIdErroAtualizaN_Porta;
-
     @FXML
     private Label labelIdErroAtualizaNome;
-
     @FXML
     private Label labelIdErroAtualizaRua;
-
     @FXML
     private MenuItem menuItemIdAtivo;
-
     @FXML
     private MenuItem menuItemIdInativo;
-
     @FXML
     private Tab tabEditarFuncionarioId;
-
     @FXML
     private Tab tabIdDoacaoes;
-
     @FXML
     private Tab tabIdEncomendas;
-
     @FXML
     private Tab tabIdFuncionarios;
-
     @FXML
     private Tab tabIdSotck;
-
     @FXML
     private TableView<Utilizador> tableViewFuncionarios;
-
     @FXML
     private TableColumn<Utilizador, Integer> tableColumnId;
-
     @FXML
     private TableColumn<Utilizador, String> tableColumnUsername;
-
     @FXML
     private TableColumn<Utilizador, String> tableColumnNome;
-
     @FXML
     private TableColumn<Utilizador, EstadoUtilizador> tableColumnEstado;
-
     @FXML
     private TableColumn<Utilizador, Utilizador> tableColumnAcoes;
-
     @FXML
     private TextField txtFdAtualizarContactoId;
-
     @FXML
     private TextField txtFdAtualizarIdCP;
-
     @FXML
     private TextField txtFdAtualizarIdCidade;
-
     @FXML
     private TextField txtFdAtualizarIdId;
-
     @FXML
     private TextField txtFdAtualizarIdLocalidade;
-
     @FXML
     private TextField txtFdAtualizarIdN_Porta;
-
     @FXML
     private TextField txtFdAtualizarIdRua;
-
     @FXML
     private TextField txtFdAtualizarNomeId;
-
     @FXML
     private TextField txtFdIdEstado;
-
     private ObservableList<Utilizador> observableListFuncionarios;
+    private ObservableList<Fornecedor> observableListFornecedor;
+    @FXML
+    private TableView<Fornecedor> tableViewFornecedor;
+    @FXML
+    private TableColumn<Fornecedor, Integer> tableColumnIdForncedor;
+    @FXML
+    private TableColumn<Fornecedor, String> tableColumnNomeForncdedor;
+    @FXML
+    private TableColumn<Fornecedor, Fornecedor> tableColumnAcoesForncedor;
+    @FXML
+    private Button tcBtnIdAddFornecedor;
+
+
     private ObservableList<Doacao> observableListDoacao;
     private ObservableList<Encomenda> observableListEncomenda;
-    private ObservableList<Fornecedor> observableListFornecedor;
     private ObservableList<Roupa> observableListRoupa;
 
     @FXML
@@ -282,6 +260,13 @@ public class HomePageController implements Initializable {
     @FXML
     void menuItemActionInativo(ActionEvent event) {
         txtFdIdEstado.setText(menuItemIdInativo.getText());
+    }
+
+    @FXML
+    void tcBtnAddFornecedor(ActionEvent event) {
+        this.goToUtil.goToAddFornecedor();
+        Stage stage = (Stage) tcBtnIdAddFornecedor.getScene().getWindow();
+        stage.close();
     }
 
     @Override
