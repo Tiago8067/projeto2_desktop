@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.NoArgsConstructor;
 import org.example.controllers.HomePageController;
+import org.example.controllers.editar.EditarFornecedorController;
+import org.example.models.Fornecedor;
 
 @NoArgsConstructor
 public class GoToUtil {
@@ -57,7 +59,6 @@ public class GoToUtil {
         }
     }
 
-
     public void goToHomePageAdmin() {
         try {
             //Parent root = FXMLLoader.load(getClass().getResource("/views/admin/homePage.fxml"));
@@ -69,6 +70,7 @@ public class GoToUtil {
             // carregar dados para aparecer ao incicializar
             HomePageController homePageController = fxmlLoader.getController();
             homePageController.listaFuncionarios();
+            homePageController.listaFornecedor();
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();
@@ -89,10 +91,26 @@ public class GoToUtil {
 
     public void goToAddFornecedor() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/views/adicionarFornecedor.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/views/adicionar/adicionarFornecedor.fxml"));
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 600, 400));
             stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
+    public void goToEditFornecedor(Fornecedor obj) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/editar/editarFornecedor.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
+            stage.show();
+
+            EditarFornecedorController editarFornecedorController = fxmlLoader.getController();
+            editarFornecedorController.setFornecedor(obj);
+            editarFornecedorController.passarDadosFornecedorEditar();
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();

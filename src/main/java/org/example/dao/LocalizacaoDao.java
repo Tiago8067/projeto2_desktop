@@ -2,6 +2,7 @@ package org.example.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.example.models.Fornecedor;
 import org.example.models.Localizacao;
 
 import javax.persistence.EntityManager;
@@ -24,12 +25,24 @@ public class LocalizacaoDao {
         }
     }
 
+    public void atualizar(Localizacao localizacao) {
+        try {
+            this.entityManager.getTransaction().begin();
+            this.entityManager.merge(localizacao);
+            this.entityManager.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            this.entityManager.getTransaction().rollback();
+        }
+    }
+
     public void remover(Localizacao localizacao) {
         try {
             entityManager.getTransaction().begin();
-            this.entityManager.remove(localizacao);
+            //this.entityManager.merge(localizacao);
+            //this.entityManager.remove(localizacao);
+            this.entityManager.remove(entityManager.getReference(Localizacao.class, localizacao.getIdLocalizacao()));
             entityManager.getTransaction().commit();
-
         } catch (Exception ex) {
             ex.printStackTrace();
             this.entityManager.getTransaction().rollback();
@@ -38,6 +51,29 @@ public class LocalizacaoDao {
 
     public void removerPeloUtilizador(Localizacao localizacao) {
         this.entityManager.remove(localizacao);
+    }
+
+    public void removerPeloFornecedor(Localizacao localizacao) {
+        try {
+            entityManager.getTransaction().begin();
+            this.entityManager.merge(localizacao);
+            this.entityManager.remove(localizacao);
+            entityManager.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            this.entityManager.getTransaction().rollback();
+        }
+    }
+
+    public void removerPeloFornecedorteste(Localizacao localizacao) {
+        try {
+            entityManager.getTransaction().begin();
+            this.entityManager.remove(entityManager.getReference(Localizacao.class, localizacao.getIdLocalizacao()));
+            entityManager.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            this.entityManager.getTransaction().rollback();
+        }
     }
 
     public List<Localizacao> buscarTodos() {

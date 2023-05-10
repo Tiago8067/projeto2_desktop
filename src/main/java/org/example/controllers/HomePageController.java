@@ -5,10 +5,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.example.controllers.editar.EditarFornecedorController;
+import org.example.dao.ForncedorDao;
 import org.example.dao.UtilizadorDao;
 import org.example.models.*;
 import org.example.models.enums.EstadoUtilizador;
@@ -36,6 +41,8 @@ public class HomePageController implements Initializable {
     GoToUtil goToUtil;  // = new GoToUtil();
     RegexDados regexDados;
     // todo usar ou nao construtores
+    Fornecedor fornecedor;
+    ForncedorDao forncedorDao;
     @FXML
     private TabPane abasTabPaneId;
     @FXML
@@ -117,10 +124,6 @@ public class HomePageController implements Initializable {
     @FXML
     private Button tcBtnIdAddFornecedor;
 
-
-    private ObservableList<Doacao> observableListDoacao;
-    private ObservableList<Encomenda> observableListEncomenda;
-    private ObservableList<Roupa> observableListRoupa;
 
     @FXML
     void btnEditarFuncionarioApagar(ActionEvent event) {
@@ -275,6 +278,8 @@ public class HomePageController implements Initializable {
         this.utilizadorDao = new UtilizadorDao(entityManager);
         this.goToUtil = new GoToUtil();
         this.regexDados = new RegexDados();
+        this.fornecedor = new Fornecedor();
+        this.forncedorDao = new ForncedorDao(entityManager);
         
         initializeNodes();
     }
@@ -284,6 +289,9 @@ public class HomePageController implements Initializable {
         tableColumnUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
         tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         tableColumnEstado.setCellValueFactory(new PropertyValueFactory<>("estadoUtilizador"));
+
+        tableColumnIdForncedor .setCellValueFactory(new PropertyValueFactory<>("idForncedor"));
+        tableColumnNomeForncdedor.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
         // TODO => tornar javafx responsivo
 
@@ -301,15 +309,15 @@ public class HomePageController implements Initializable {
         for (Utilizador u: utilizadorList) {
           if (u.getTipoUtilizador().equals(TipoUtilizador.FUNCIONARIO)) {
               listaFuncionarios.add(u);
-              System.out.println(listaFuncionarios);
+              //System.out.println(listaFuncionarios);
           }
         }
 
         observableListFuncionarios = FXCollections.observableArrayList(listaFuncionarios);
         tableViewFuncionarios.setItems(observableListFuncionarios);
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println(observableListFuncionarios);
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+        //System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+        //System.out.println(observableListFuncionarios);
+        //System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
 
         initEditButtons();
     }
@@ -363,4 +371,54 @@ public class HomePageController implements Initializable {
         tabIdFuncionarios.setDisable(false);
         abasTabPaneId.getSelectionModel().select(tabIdFuncionarios);
     }
+
+    public void listaFornecedor() {
+        List<Fornecedor> fornecedorList = this.forncedorDao.buscarTodosFornecedor();
+        observableListFornecedor = FXCollections.observableArrayList(fornecedorList);
+        tableViewFornecedor.setItems(observableListFornecedor);
+
+        initEditButtonsFornecedor();
+    }
+
+    private void initEditButtonsFornecedor() {
+        tableColumnAcoesForncedor.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        tableColumnAcoesForncedor.setCellFactory(param -> new TableCell<Fornecedor, Fornecedor>() {
+            private final Button button = new Button("Editar");
+
+            @Override
+            protected void updateItem(Fornecedor obj, boolean empty) {
+                super.updateItem(obj, empty);
+                if (obj == null) {
+                    setGraphic(null);
+                    return;
+                }
+                setGraphic(button);
+                button.setPrefWidth(70);
+                button.setOnAction(
+                        event -> gotoEditarFornecedor(obj));
+            }
+        });
+    }
+
+    private void gotoEditarFornecedor(Fornecedor obj) {
+        /*try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/editar/editarFornecedor.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
+            stage.show();
+
+            EditarFornecedorController editarFornecedorController = fxmlLoader.getController();
+            editarFornecedorController.setFornecedor(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+
+         */
+
+        this.goToUtil.goToEditFornecedor(obj);
+        Stage stage = (Stage) tcBtnIdAddFornecedor.getScene().getWindow();
+        stage.close();
+    }
+
 }
