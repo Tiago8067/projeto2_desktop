@@ -139,6 +139,42 @@
                   </AnchorPane>
                </content>
             </Tab>
+            <Tab fx:id="tabIdEncomendas" text="Pedidos">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tvPedidos" prefHeight="260.0" prefWidth="597.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <columns>
+                              <TableColumn fx:id="tcIdPedidoDestinatario" prefWidth="75.0" text="Destinatário" />
+                              <TableColumn fx:id="tcIdPedidoConteudo" prefWidth="75.0" text="Conteúdo" />
+                              <TableColumn fx:id="tcIdPedidoQuantidade" prefWidth="75.0" text="Quantidade" />
+                              <TableColumn fx:id="tcIdDataPedido" prefWidth="97.3333740234375" text="Data de Pedido" />
+                              <TableColumn fx:id="tcIdPedidoEstado" prefWidth="53.33331298828125" text="Estado" />
+                              <TableColumn fx:id="tcIdPedidoAcoes" prefWidth="53.33331298828125" text="Ações" />
+                              <TableColumn prefWidth="174.0">
+                                 <graphic>
+                                    <SplitMenuButton mnemonicParsing="false" prefHeight="23.0" prefWidth="182.0" text="Selecione o Estado">
+                                       <items>
+                                          <MenuItem mnemonicParsing="false" text="Todos" />
+                                          <MenuItem mnemonicParsing="false" text="Em Preparação" />
+                                          <MenuItem mnemonicParsing="false" text="Pronto Para Entrega" />
+                                          <MenuItem mnemonicParsing="false" text="Em Entrega" />
+                                          <MenuItem mnemonicParsing="false" text="Finalizado" />
+                                       </items>
+                                    </SplitMenuButton>
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="150.0">
+                                 <graphic>
+                                    <Button fx:id="btnIdPedidoAdicionar" mnemonicParsing="false" onAction="#btnPedidoAdicionar" text="Adicionar" />
+                                 </graphic>
+                              </TableColumn>
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
             <Tab fx:id="tabIdSotck" text="Entregas">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -156,6 +192,7 @@
                                           <MenuItem mnemonicParsing="false" text="Todos" />
                                           <MenuItem mnemonicParsing="false" text="Por Enviar" />
                                           <MenuItem mnemonicParsing="false" text="Enviado" />
+                                          <MenuItem mnemonicParsing="false" text="Finalizado" />
                                        </items>
                                     </SplitMenuButton>
                                  </graphic>
@@ -163,39 +200,6 @@
                               <TableColumn maxWidth="1.7976931348623157E308" prefWidth="120.0">
                                  <graphic>
                                     <Button mnemonicParsing="false" text="Adiocionar" />
-                                 </graphic>
-                              </TableColumn>
-                           </columns>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-            <Tab fx:id="tabIdEncomendas" text="Pedidos">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TableView prefHeight="260.0" prefWidth="597.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <columns>
-                              <TableColumn prefWidth="75.0" text="Destinatário" />
-                              <TableColumn fx:id="tcConteudo" prefWidth="75.0" text="Conteúdo" />
-                              <TableColumn prefWidth="75.0" text="Quantidade" />
-                              <TableColumn prefWidth="75.0" text="Data de Pedido" />
-                              <TableColumn fx:id="tcEstado" prefWidth="75.0" text="Estado" />
-                              <TableColumn prefWidth="174.0">
-                                 <graphic>
-                                    <SplitMenuButton mnemonicParsing="false" prefHeight="23.0" prefWidth="182.0" text="Selecione o Estado">
-                                       <items>
-                                          <MenuItem mnemonicParsing="false" text="Todos" />
-                                          <MenuItem mnemonicParsing="false" text="Por Enviar" />
-                                          <MenuItem mnemonicParsing="false" text="Enviado" />
-                                       </items>
-                                    </SplitMenuButton>
-                                 </graphic>
-                              </TableColumn>
-                              <TableColumn prefWidth="150.0">
-                                 <graphic>
-                                    <Button mnemonicParsing="false" text="Adicionar" />
                                  </graphic>
                               </TableColumn>
                            </columns>

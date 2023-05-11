@@ -2,7 +2,6 @@ package org.example.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.example.models.Fornecedor;
 import org.example.models.Localizacao;
 
 import javax.persistence.EntityManager;

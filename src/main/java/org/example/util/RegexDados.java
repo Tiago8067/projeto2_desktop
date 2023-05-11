@@ -68,10 +68,6 @@ public class RegexDados {
         return m.matches();
     }
 
-    /**
-     * @param strDate
-     * @return
-     */
     public boolean validateJavaDate(String strDate) {
         /* Check if date is 'null' */
         if (strDate.trim().equals("")) {

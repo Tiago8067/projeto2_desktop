@@ -2,7 +2,9 @@ package org.example.models.enums;
 
 public enum EstadoEncomenda {
     EMPREPARACAO,
-    EMPROCESSO,
+    PRONTOPARAENTREGA,
+    EMENTREGA,
+    PORENVIAR,
     ENVIADO,
     FINALIZADO
 }

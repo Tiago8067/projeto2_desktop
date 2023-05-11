@@ -16,6 +16,7 @@ import org.example.controllers.editar.EditarFornecedorController;
 import org.example.dao.ForncedorDao;
 import org.example.dao.UtilizadorDao;
 import org.example.models.*;
+import org.example.models.enums.EstadoEncomenda;
 import org.example.models.enums.EstadoUtilizador;
 import org.example.models.enums.TipoUtilizador;
 import org.example.util.GoToUtil;
@@ -123,6 +124,24 @@ public class HomePageController implements Initializable {
     private TableColumn<Fornecedor, Fornecedor> tableColumnAcoesForncedor;
     @FXML
     private Button tcBtnIdAddFornecedor;
+    private ObservableList<Encomenda> encomendaObservableList;
+    private ObservableList<Roupa> roupaObservableList;
+    @FXML
+    private TableView<?> tvPedidos;
+    @FXML
+    private TableColumn<?, ?> tcIdPedidoDestinatario;
+    @FXML
+    private TableColumn<?, ?> tcIdPedidoConteudo;
+    @FXML
+    private TableColumn<?, ?> tcIdPedidoQuantidade;
+    @FXML
+    private TableColumn<?, ?> tcIdDataPedido;
+    @FXML
+    private TableColumn<Encomenda, EstadoEncomenda> tcIdPedidoEstado;
+    @FXML
+    private TableColumn<?, ?> tcIdPedidoAcoes;
+    @FXML
+    private Button btnIdPedidoAdicionar;
 
 
     @FXML
@@ -246,6 +265,11 @@ public class HomePageController implements Initializable {
     @FXML
     void btnEditarFuncionarioVoltar(ActionEvent event) {
         gotoTabFuncionarios();
+    }
+
+    @FXML
+    void btnPedidoAdicionar(ActionEvent event) {
+
     }
 
     @FXML
