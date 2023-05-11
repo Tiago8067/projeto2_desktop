@@ -11,7 +11,6 @@ import org.example.models.Fornecedor;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
-
 import javax.persistence.EntityManager;
 import java.net.URL;
 import java.util.Optional;
@@ -62,12 +61,11 @@ public class EditarFornecedorController implements Initializable {
     @FXML
     void btnApagar(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setContentText("Tem a Certeza de querer Eliminar este Fornecedor.");
+        alert.setContentText("Tem a certeza que quer Eliminar este Fornecedor?");
         Optional<ButtonType> resultado = alert.showAndWait();
         if (resultado.get() == ButtonType.OK) {
-            //this.localizacaoDao.removerPeloFornecedor(this.fornecedor.getLocalizacao());
             this.forncedorDao.remover(this.fornecedor);
-            this.localizacaoDao.removerPeloFornecedorteste(this.fornecedor.getLocalizacao());
+            this.localizacaoDao.removerPeloFornecedor(this.fornecedor.getLocalizacao());
             this.goToUtil.goToHomePageAdmin();
             Stage stage = (Stage) btnIdAtualizar.getScene().getWindow();
             stage.close();
@@ -96,7 +94,7 @@ public class EditarFornecedorController implements Initializable {
         if (txtFdIdNome.getText().isEmpty()){
             labelIdErroNome.setText("Tem de preencher o Nome do Fornecedor");
         } else if (txtFdIdNome.getText().length() < 4) {
-            labelIdErroNome.setText("O Nome do Fornecedor precisa de 4 carateres!");
+            labelIdErroNome.setText("O Nome do Fornecedor tem pelo menos 4 carateres!");
         } else if (this.forncedorDao.buscarFornecedorPorNome(txtFdIdNome.getText()) != null) {
             labelIdErroNome.setText("O Nome do Fornecedor já existe. Insira Outro.");
         } else {
@@ -137,7 +135,7 @@ public class EditarFornecedorController implements Initializable {
         if (txtFdIdCp.getText().isEmpty()){
             labelIdErroCp.setText("Tem de preencher o Código Postal do Fornecedor");
         } else if (!this.regexDados.isValidCP(txtFdIdCp.getText())) {
-            labelIdErroCp.setText("Por favor, preencha o Código Postal Corretamente");
+            labelIdErroCp.setText("Preencha corretamente o Código Postal do Fornecedor no formato(XXXX-YYY)");
         } else {
             this.fornecedor.getLocalizacao().setCodigoPostal(txtFdIdCp.getText());
             labelIdErroCp.setText("");
@@ -155,7 +153,7 @@ public class EditarFornecedorController implements Initializable {
         if (labelIdErroNome.getText().equals("") && labelIdErroContacto.getText().equals("") && labelIdErroDistrito.getText().equals("")
                 && labelIdErroLocalidade.getText().equals("") && labelIdErroRua.getText().equals("") && labelIdErroCp.getText().equals("") && labelIdErroN_Porta.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setContentText("Tem a Certeza de querer Editar este Fornecedor.");
+            alert.setContentText("Tem a certeza que deseja Editar este Fornecedor?");
             Optional<ButtonType> resultado = alert.showAndWait();
             if (resultado.get() == ButtonType.OK) {
                 //System.out.println(this.fornecedor);

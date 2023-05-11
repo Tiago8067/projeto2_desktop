@@ -11,7 +11,6 @@ import org.example.models.enums.EstadoUtilizador;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
-
 import javax.persistence.EntityManager;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,47 +21,34 @@ public class RegistroDadosPessoaisController implements Initializable {
     Utilizador utilizador;
     RegexDados regexDados;
     GoToUtil goToUtil;
-    // todo usar ou nao construtores
 
     @FXML
     private Button btnRegistrarSeguinteId;
-
     @FXML
     private Hyperlink hyperlinkLoginId;
-
     @FXML
     private Label labelIdErroContacto;
-
     @FXML
     private Label labelIdErroNIF;
-
     @FXML
     private Label labelIdErroNomeCompleto;
-
     @FXML
     private Label labelIdErroNumCC;
-
     @FXML
     private Label labeldErroDataNasc;
-
     @FXML
     private TextField txtFdRegistroContactoId;
-
     @FXML
     private DatePicker txtFdRegistroDataNascId;
-
     @FXML
     private TextField txtFdRegistroNIFD;
-
     @FXML
     private TextField txtFdRegistroNccId;
-
     @FXML
     private TextField txtFdRegistroNomeCompletoId;
 
     @FXML
     void btnRegistrarSeguinteDD(ActionEvent event) {
-
         int verificaNumCC = 0;
         int verificaNIF = 0;
         int verificaContacto = 0;
@@ -86,34 +72,34 @@ public class RegistroDadosPessoaisController implements Initializable {
         }
 
         if (txtFdRegistroNomeCompletoId.getText().isEmpty()) {
-            labelIdErroNomeCompleto.setText("Tem de preencher o Nome Comleto no seu Registro");
+            labelIdErroNomeCompleto.setText("Tem de preencher o Nome Completo!");
         } else {
             this.utilizador.setNome(txtFdRegistroNomeCompletoId.getText());
             labelIdErroNomeCompleto.setText("");
         }
 
         if (txtFdRegistroNccId.getText().isEmpty()) {
-            labelIdErroNumCC.setText("Tem de preencher o Número do CC no seu Registro");
+            labelIdErroNumCC.setText("Tem de preencher o Número do CC!");
         } else if (verificaNumCC == 0) {
-            labelIdErroNumCC.setText("Preencha corretamente o Número CC no seu Registro");
+            labelIdErroNumCC.setText("Preencha corretamente o Número CC!");
         } else {
             this.utilizador.setNumeroCc(Integer.valueOf(txtFdRegistroNccId.getText()));
             labelIdErroNumCC.setText("");
         }
 
         if (txtFdRegistroNIFD.getText().isEmpty()) {
-            labelIdErroNIF.setText("Tem de preencher o NIF no seu Registro");
+            labelIdErroNIF.setText("Tem de preencher o NIF!");
         } else if (verificaNIF == 0) {
-            labelIdErroNIF.setText("Preencha corretamente o NIF no seu Registro");
+            labelIdErroNIF.setText("Preencha corretamente o NIF!");
         } else {
             this.utilizador.setNif(Integer.valueOf(txtFdRegistroNIFD.getText()));
             labelIdErroNIF.setText("");
         }
 
         if (txtFdRegistroContactoId.getText().isEmpty()) {
-            labelIdErroContacto.setText("Tem de preencher o Contacto no seu Registro");
+            labelIdErroContacto.setText("Tem de preencher o Contacto!");
         } else if (verificaContacto == 0) {
-            labelIdErroContacto.setText("Preencha corretamente o Contacto no seu Registro");
+            labelIdErroContacto.setText("Preencha corretamente o Contacto!");
         } else {
             this.utilizador.setContacto(Integer.valueOf(txtFdRegistroContactoId.getText()));
             labelIdErroContacto.setText("");

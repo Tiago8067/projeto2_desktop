@@ -3,14 +3,12 @@ package org.example.dao;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.example.models.Localizacao;
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 public class LocalizacaoDao {
-
     private EntityManager entityManager;
 
     public void registrar(Localizacao localizacao) {
@@ -38,8 +36,6 @@ public class LocalizacaoDao {
     public void remover(Localizacao localizacao) {
         try {
             entityManager.getTransaction().begin();
-            //this.entityManager.merge(localizacao);
-            //this.entityManager.remove(localizacao);
             this.entityManager.remove(entityManager.getReference(Localizacao.class, localizacao.getIdLocalizacao()));
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
@@ -53,18 +49,6 @@ public class LocalizacaoDao {
     }
 
     public void removerPeloFornecedor(Localizacao localizacao) {
-        try {
-            entityManager.getTransaction().begin();
-            this.entityManager.merge(localizacao);
-            this.entityManager.remove(localizacao);
-            entityManager.getTransaction().commit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            this.entityManager.getTransaction().rollback();
-        }
-    }
-
-    public void removerPeloFornecedorteste(Localizacao localizacao) {
         try {
             entityManager.getTransaction().begin();
             this.entityManager.remove(entityManager.getReference(Localizacao.class, localizacao.getIdLocalizacao()));
@@ -83,5 +67,4 @@ public class LocalizacaoDao {
     public Localizacao buscarPorId(Integer id) {
         return entityManager.find(Localizacao.class, id);
     }
-
 }

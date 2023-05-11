@@ -39,7 +39,7 @@ public class ForncedorDao {
         try {
             entityManager.getTransaction().begin();
             //this.entityManager.remove(fornecedor);
-            this.entityManager.remove(entityManager.getReference(Fornecedor.class, fornecedor.getIdForncedor()));
+            this.entityManager.remove(entityManager.getReference(Fornecedor.class, fornecedor.getIdFornecedor()));
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
             ex.printStackTrace();

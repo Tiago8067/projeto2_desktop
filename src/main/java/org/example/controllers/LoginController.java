@@ -22,33 +22,25 @@ public class LoginController implements Initializable {
     Utilizador utilizador;
     GoToUtil goToUtil;
 
-    // todo usar ou nao construtores
-
     @FXML
     private Button btnLoginId;
-
     @FXML
     private CheckBox checkBoxLoginGuardaPass;
-
     @FXML
     private Hyperlink hyperlinkLoginId;
-
     @FXML
     private Label labelErroLoginNomeEmail;
-
     @FXML
     private Label labelErroLoginPass;
-
     @FXML
     private TextField tfLoginNome;
-
     @FXML
     private TextField tfLoginPass;
 
     @FXML
     void btnLogin(ActionEvent event) {
         if (tfLoginNome.getText().isEmpty()) {
-            labelErroLoginNomeEmail.setText("Tem de inserir o seu Nome de Utilizador para realizar o Login");
+            labelErroLoginNomeEmail.setText("Tem de inserir o seu Nome de Utilizador(campo Obrigatorio!!!)");
         } else if (this.utilizadorDao.buscarUtilizadorPorUsername(tfLoginNome.getText()) == null) {
             labelErroLoginNomeEmail.setText("O Nome de Utilizador não existe. Insira o seu Nome de Utilizador.");
         } else {
@@ -56,7 +48,7 @@ public class LoginController implements Initializable {
         }
 
         if (tfLoginPass.getText().isEmpty()) {
-            labelErroLoginPass.setText("Tem de inserir a sua Palavra-passe para realizar o Login");
+            labelErroLoginPass.setText("Tem de inserir a sua Palavra-passe(campo Obrigatorio!!!)");
         } else if (!this.utilizadorDao.buscarUtilizadorPorUsername(tfLoginNome.getText()).getPassword().equals(tfLoginPass.getText())) {
             labelErroLoginPass.setText("A Palavra-passe está Incorreta. Tente Novamente.");
         } else {

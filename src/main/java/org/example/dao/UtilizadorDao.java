@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.example.models.Localizacao;
 import org.example.models.Utilizador;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UtilizadorDao {
-
     private EntityManager entityManager;
 
     public void registrar(Utilizador utilizador) {
@@ -25,8 +23,6 @@ public class UtilizadorDao {
             this.entityManager.getTransaction().rollback();
         }
     }
-
-    // TODO => RESGISTRAR ATRAVES DO ID, OU SEJA, registrar os dados dos tres paineis de registros no mesmo utilizador
 
     public void atualizar(Utilizador utilizador) {
         this.entityManager.merge(utilizador);

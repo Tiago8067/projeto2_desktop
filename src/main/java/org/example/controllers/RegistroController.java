@@ -12,7 +12,6 @@ import org.example.util.JPAUtil;
 import org.example.dao.UtilizadorDao;
 import org.example.models.Utilizador;
 import org.example.util.RegexDados;
-
 import javax.persistence.EntityManager;
 import java.net.URL;
 import java.util.List;
@@ -24,49 +23,33 @@ public class RegistroController implements Initializable {
     Utilizador utilizador;
     RegexDados regexDados;
     GoToUtil goToUtil;
-
     List<Utilizador> utilizadorList;
-    // todo usar ou nao construtores
-
     @FXML
     private Button btnRegistrar;
-
     @FXML
     private Hyperlink hyperlinkLoginId;
-
     @FXML
     private Label labelErroRegistroConfirmaPass;
-
     @FXML
     private Label labelErroRegistroEmail;
-
     @FXML
     private Label labelErroRegistroNome;
-
     @FXML
     private Label labelErroRegistroPass;
-
     @FXML
     private Label labelErroRegistroTipoUtilizador;
-
     @FXML
     private TextField labelRegistroConfirmaPass;
-
     @FXML
     private TextField labelRegistroEmail;
-
     @FXML
     private TextField labelRegistroNome;
-
     @FXML
     private TextField labelRegistroPass;
-
     @FXML
     private Label labelTipoUtilziador;
-
     @FXML
     private MenuItem menuItemIdAdmin;
-
     @FXML
     private MenuItem menuItemIdFuncionario;
 
@@ -76,41 +59,41 @@ public class RegistroController implements Initializable {
         for (Utilizador u: this.utilizadorList) {
             if (u.getUsername() == null) {
                 if (labelRegistroNome.getText().isEmpty()){
-                    labelErroRegistroNome.setText("Tem de preencher o Nome de Utilizador no seu Registro");
+                    labelErroRegistroNome.setText("Tem de preencher o Nome de Utilizador.");
                 } else if (labelRegistroNome.getText().length() < 4) {
-                    labelErroRegistroNome.setText("O Nome de Utilizador no seu Registro precisa de 4 carateres!");
+                    labelErroRegistroNome.setText("O Nome de Utilizador tem pelo menos 4 carateres!");
                 } else if (this.utilizadorDao.buscarUtilizadorPorUsername(labelRegistroNome.getText()) != null) {
-                    labelErroRegistroNome.setText("O Nome de Utilizador já existe. Insira Outro.");
+                    labelErroRegistroNome.setText("O Nome de Utilizador já existe. Insira Outro!");
                 } else {
                     u.setUsername(labelRegistroNome.getText());
                     labelErroRegistroNome.setText("");
                 }
 
                 if (labelRegistroEmail.getText().isEmpty()){
-                    labelErroRegistroEmail.setText("Tem de preencher o Email no seu Registro");
+                    labelErroRegistroEmail.setText("Tem de preencher o Email.");
                 } else if (!this.regexDados.validateEmail(labelRegistroEmail.getText())) {
-                    labelErroRegistroEmail.setText("Por favor, preencha o Email Corretamente");
+                    labelErroRegistroEmail.setText("Por favor, preencha o Email Corretamente no formato(abc[123]@abc.abc)!");
                 } else if (this.utilizadorDao.buscarUtilizadorPorEmail(labelRegistroEmail.getText()) != null) {
-                    labelErroRegistroEmail.setText("O Email já existe. Insira Outro.");
+                    labelErroRegistroEmail.setText("O Email já existe. Insira Outro!");
                 } else {
                     u.setEmail(labelRegistroEmail.getText());
                     labelErroRegistroEmail.setText("");
                 }
 
                 if (labelRegistroPass.getText().isEmpty()){
-                    labelErroRegistroPass.setText("Tem de preencher a Palavra-passe no seu Registro");
+                    labelErroRegistroPass.setText("Tem de preencher a Palavra-passe");
                 } else if (!this.regexDados.isValidPassword(labelRegistroPass.getText())) {
-                    labelErroRegistroPass.setText("Por favor, preencha a Palavra-passe Corretamente");
+                    labelErroRegistroPass.setText("Por favor, preencha a Palavra-passe Corretamente no formato([123].abc)!");
                 } else {
                     u.setPassword(labelRegistroPass.getText());
                     labelErroRegistroPass.setText("");
                 }
 
                 if (labelRegistroConfirmaPass.getText().isEmpty()){
-                    labelErroRegistroConfirmaPass.setText("Tem de preencher a confirmação da Palavra-passe no seu Registro");
+                    labelErroRegistroConfirmaPass.setText("Tem de preencher a confirmação da Palavra-passe");
                 } else if (!labelRegistroPass.getText().equals(labelRegistroConfirmaPass.getText())) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setContentText("As palavras-passe não coincidem. Tente Novamentre.");
+                    alert.setContentText("As palavras-passe não coincidem. Tente Novamente!");
                     alert.show();
                 } else {
                     u.setPassword(labelRegistroConfirmaPass.getText());
@@ -118,7 +101,7 @@ public class RegistroController implements Initializable {
                 }
 
                 if (labelTipoUtilziador.getText().isEmpty()){
-                    labelErroRegistroTipoUtilizador.setText("Tem de selecionar o Tipo de Utilizador no seu Registro");
+                    labelErroRegistroTipoUtilizador.setText("Tem de selecionar o Tipo de Utilizador!");
                 } else if (labelTipoUtilziador.getText().equalsIgnoreCase("admin")){
                     u.setTipoUtilizador(TipoUtilizador.ADMIN);
                     labelErroRegistroTipoUtilizador.setText("");
@@ -168,9 +151,6 @@ public class RegistroController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /*
-        Aqui coloca-se tipicamente açoes que quero que sejam executadas quando instancio o controlador
-         */
         this.entityManager = JPAUtil.getEntityManager();
         this.utilizadorDao = new UtilizadorDao(entityManager);
         this.utilizador = new Utilizador();

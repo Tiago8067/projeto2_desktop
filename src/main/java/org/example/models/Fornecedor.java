@@ -1,7 +1,6 @@
 package org.example.models;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -14,14 +13,11 @@ import java.io.Serializable;
 @Entity
 @Table(name = "tb_fornecedor")
 public class Fornecedor implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idForncedor;
+    private Integer idFornecedor;
     private String nome;
     private Integer contacto;
-
     @ManyToOne
     private Localizacao localizacao;
-
 }

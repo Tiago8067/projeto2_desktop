@@ -14,7 +14,6 @@ import org.example.models.Localizacao;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
-
 import javax.persistence.EntityManager;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -95,7 +94,7 @@ public class AdicionarFornecedorController implements Initializable {
         if (txtFdIdNome.getText().isEmpty()){
             labelIdErroNome.setText("Tem de preencher o Nome do Fornecedor");
         } else if (txtFdIdNome.getText().length() < 4) {
-            labelIdErroNome.setText("O Nome do Fornecedor precisa de 4 carateres!");
+            labelIdErroNome.setText("O Nome do Fornecedor tem pelo menos 4 carateres!");
         } else if (this.forncedorDao.buscarFornecedorPorNome(txtFdIdNome.getText()) != null) {
             labelIdErroNome.setText("O Nome do Fornecedor já existe. Insira Outro.");
         } else {
@@ -136,7 +135,7 @@ public class AdicionarFornecedorController implements Initializable {
         if (txtFdIdCp.getText().isEmpty()){
             labelIdErroCp.setText("Tem de preencher o Código Postal do Fornecedor");
         } else if (!this.regexDados.isValidCP(txtFdIdCp.getText())) {
-            labelIdErroCp.setText("Por favor, preencha o Código Postal Corretamente");
+            labelIdErroCp.setText("Preencha corretamente o Código Postal no formato(XXXX-YYY)");
         } else {
             this.localizacao.setCodigoPostal(txtFdIdCp.getText());
             labelIdErroCp.setText("");
@@ -160,7 +159,6 @@ public class AdicionarFornecedorController implements Initializable {
             Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
             stage.close();
         }
-
     }
 
     @FXML

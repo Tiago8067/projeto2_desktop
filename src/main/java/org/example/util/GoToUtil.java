@@ -61,13 +61,11 @@ public class GoToUtil {
 
     public void goToHomePageAdmin() {
         try {
-            //Parent root = FXMLLoader.load(getClass().getResource("/views/admin/homePage.fxml"));
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/admin/homePage.fxml"));
             Stage stage = new Stage();
             stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
             stage.show();
 
-            // carregar dados para aparecer ao incicializar
             HomePageController homePageController = fxmlLoader.getController();
             homePageController.listaFuncionarios();
             homePageController.listaFornecedor();
@@ -111,6 +109,18 @@ public class GoToUtil {
             EditarFornecedorController editarFornecedorController = fxmlLoader.getController();
             editarFornecedorController.setFornecedor(obj);
             editarFornecedorController.passarDadosFornecedorEditar();
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
+    public void goToAddPedido() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/views/adicionar/adicionarPedido.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, 600, 400));
+            stage.show();
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();

@@ -5,24 +5,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.example.controllers.editar.EditarFornecedorController;
 import org.example.dao.ForncedorDao;
 import org.example.dao.UtilizadorDao;
 import org.example.models.*;
-import org.example.models.enums.EstadoEncomenda;
 import org.example.models.enums.EstadoUtilizador;
 import org.example.models.enums.TipoUtilizador;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
-
 import javax.persistence.EntityManager;
 import java.net.URL;
 import java.util.ArrayList;
@@ -31,17 +25,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
-    //Tentativa 3
     EntityManager entityManager;
     UtilizadorDao utilizadorDao;
-    //Tentativa 2
-    //EntityManager entityManager; // = JPAUtil.getEntityManager();
-    //UtilizadorDao utilizadorDao; // = new UtilizadorDao(entityManager);
-    //EntityManager entityManager = JPAUtil.getEntityManager();
-    //UtilizadorDao utilizadorDao = new UtilizadorDao(entityManager);
-    GoToUtil goToUtil;  // = new GoToUtil();
+    GoToUtil goToUtil;
     RegexDados regexDados;
-    // todo usar ou nao construtores
     Fornecedor fornecedor;
     ForncedorDao forncedorDao;
     @FXML
@@ -125,24 +112,22 @@ public class HomePageController implements Initializable {
     @FXML
     private Button tcBtnIdAddFornecedor;
     private ObservableList<Encomenda> encomendaObservableList;
-    private ObservableList<Roupa> roupaObservableList;
     @FXML
-    private TableView<?> tvPedidos;
+    private TableView<Encomenda> tvPedidos;
     @FXML
-    private TableColumn<?, ?> tcIdPedidoDestinatario;
+    private TableColumn<Encomenda, String> tcIdPedidoDestinatario;
     @FXML
-    private TableColumn<?, ?> tcIdPedidoConteudo;
+    private TableColumn<Encomenda, String> tcIdPedidoTipoRoupa;
     @FXML
-    private TableColumn<?, ?> tcIdPedidoQuantidade;
+    private TableColumn<Encomenda, String> tcIdPedidoTamanhoRoupa;
+    @FXML
+    private TableColumn<Encomenda, Integer> tcIdPedidoQuantidade;
     @FXML
     private TableColumn<?, ?> tcIdDataPedido;
     @FXML
-    private TableColumn<Encomenda, EstadoEncomenda> tcIdPedidoEstado;
-    @FXML
-    private TableColumn<?, ?> tcIdPedidoAcoes;
+    private TableColumn<Encomenda, Encomenda> tcIdPedidoAcoes;
     @FXML
     private Button btnIdPedidoAdicionar;
-
 
     @FXML
     void btnEditarFuncionarioApagar(ActionEvent event) {
@@ -269,7 +254,9 @@ public class HomePageController implements Initializable {
 
     @FXML
     void btnPedidoAdicionar(ActionEvent event) {
-
+        this.goToUtil.goToAddPedido();
+        Stage stage = (Stage) btnIdPedidoAdicionar.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -314,11 +301,10 @@ public class HomePageController implements Initializable {
         tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         tableColumnEstado.setCellValueFactory(new PropertyValueFactory<>("estadoUtilizador"));
 
-        tableColumnIdForncedor .setCellValueFactory(new PropertyValueFactory<>("idForncedor"));
+        tableColumnIdForncedor.setCellValueFactory(new PropertyValueFactory<>("idFornecedor"));
         tableColumnNomeForncdedor.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
         // TODO => tornar javafx responsivo
-
 
         /*
         Stage stage = (Stage) new Stage().getScene().getWindow();
@@ -333,15 +319,11 @@ public class HomePageController implements Initializable {
         for (Utilizador u: utilizadorList) {
           if (u.getTipoUtilizador().equals(TipoUtilizador.FUNCIONARIO)) {
               listaFuncionarios.add(u);
-              //System.out.println(listaFuncionarios);
           }
         }
 
         observableListFuncionarios = FXCollections.observableArrayList(listaFuncionarios);
         tableViewFuncionarios.setItems(observableListFuncionarios);
-        //System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
-        //System.out.println(observableListFuncionarios);
-        //System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
 
         initEditButtons();
     }
@@ -353,11 +335,8 @@ public class HomePageController implements Initializable {
         tabIdEncomendas.setDisable(true);
         tabIdFuncionarios.setDisable(true);
         abasTabPaneId.getSelectionModel().select(tabEditarFuncionarioId);
-        //System.out.println(obj);
         txtFdAtualizarIdId.setText(String.valueOf(obj.getIdUtilizador()));
         txtFdAtualizarNomeId.setText(obj.getNome());
-        // todo - que fazer na morada
-        //txtFdAtualizarMoradaId.setText(obj.);
         txtFdAtualizarIdCidade.setText(obj.getLocalizacao().getCidade());
         txtFdAtualizarIdLocalidade.setText(obj.getLocalizacao().getLocalidade());
         txtFdAtualizarIdRua.setText(obj.getLocalizacao().getRua());
@@ -425,21 +404,6 @@ public class HomePageController implements Initializable {
     }
 
     private void gotoEditarFornecedor(Fornecedor obj) {
-        /*try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/editar/editarFornecedor.fxml"));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
-            stage.show();
-
-            EditarFornecedorController editarFornecedorController = fxmlLoader.getController();
-            editarFornecedorController.setFornecedor(obj);
-        } catch (Exception e) {
-            e.printStackTrace();
-            e.getCause();
-        }
-
-         */
-
         this.goToUtil.goToEditFornecedor(obj);
         Stage stage = (Stage) tcBtnIdAddFornecedor.getScene().getWindow();
         stage.close();

@@ -15,7 +15,6 @@ import org.example.models.Utilizador;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
-
 import javax.persistence.EntityManager;
 import java.net.URL;
 import java.util.List;
@@ -30,41 +29,29 @@ public class RegistroDadosLocalizacaoController implements Initializable {
     RegexDados regexDados;
     GoToUtil goToUtil;
     List<Utilizador> utilizadorList;
-    // todo usar ou nao construtores
 
     @FXML
     private Button btnRegistrarSeguinteId;
-
     @FXML
     private Hyperlink hyperlinkLoginId;
-
     @FXML
     private Label labelIdErroCodP;
-
     @FXML
     private Label labelIdErroDistrito;
-
     @FXML
     private Label labelIdErroLocalidade;
-
     @FXML
     private Label labelIdErroNumPorta;
-
     @FXML
     private Label labelIdErroRua;
-
     @FXML
     private TextField txtFdRegistroCodPId;
-
     @FXML
     private TextField txtFdRegistroDiistritoId;
-
     @FXML
     private TextField txtFdRegistroLocalidadeId;
-
     @FXML
     private TextField txtFdRegistroNumPortaId;
-
     @FXML
     private TextField txtFdRegistroRuaId;
 
@@ -79,39 +66,39 @@ public class RegistroDadosLocalizacaoController implements Initializable {
         }
 
         if (txtFdRegistroDiistritoId.getText().isEmpty()){
-            labelIdErroDistrito.setText("Tem de preencher o Distrito no seu Registro");
+            labelIdErroDistrito.setText("Tem de preencher o Distrito!");
         } else {
             this.localizacao.setCidade(txtFdRegistroDiistritoId.getText());
             labelIdErroDistrito.setText("");
         }
 
         if (txtFdRegistroCodPId.getText().isEmpty()){
-            labelIdErroCodP.setText("Tem de preencher o Código Postal no seu Registro");
+            labelIdErroCodP.setText("Tem de preencher o Código Postal!");
         } else if (!this.regexDados.isValidCP(txtFdRegistroCodPId.getText())) {
-            labelIdErroCodP.setText("Por favor, preencha o Código Postal Corretamente");
+            labelIdErroCodP.setText("Preencha corretamente o Código Postal no formato(XXXX-YYY)!");
         } else {
             this.localizacao.setCodigoPostal(txtFdRegistroCodPId.getText());
             labelIdErroCodP.setText("");
         }
 
         if (txtFdRegistroLocalidadeId.getText().isEmpty()){
-            labelIdErroLocalidade.setText("Tem de preencher a Localidade no seu Registro");
+            labelIdErroLocalidade.setText("Tem de preencher a Localidade!");
         } else {
             this.localizacao.setLocalidade(txtFdRegistroLocalidadeId.getText());
             labelIdErroLocalidade.setText("");
         }
 
         if (txtFdRegistroRuaId.getText().isEmpty()){
-            labelIdErroRua.setText("Tem de preencher a Rua no seu Registro");
+            labelIdErroRua.setText("Tem de preencher a Rua!");
         } else {
             this.localizacao.setRua(txtFdRegistroRuaId.getText());
             labelIdErroRua.setText("");
         }
 
         if (txtFdRegistroNumPortaId.getText().isEmpty()){
-            labelIdErroNumPorta.setText("Tem de preencher o Número da Porta no seu Registro");
+            labelIdErroNumPorta.setText("Tem de preencher o Número da Porta!");
         } else if (verificaNumPorta == 0) {
-            labelIdErroNumPorta.setText("Preencha corretamente o Número da Porta no seu Registro");
+            labelIdErroNumPorta.setText("Preencha corretamente o Número da Porta!");
         } else {
             this.localizacao.setNumeroPorta(Integer.valueOf(txtFdRegistroNumPortaId.getText()));
             labelIdErroNumPorta.setText("");
@@ -134,11 +121,10 @@ public class RegistroDadosLocalizacaoController implements Initializable {
 
     @FXML
     void hyperlinkLogin(ActionEvent event) {
-
         for (Utilizador u: this.utilizadorList) {
-                if (u.getUsername() == null) {
-                    this.utilizadorDao.remover(u);
-                }
+            if (u.getUsername() == null) {
+                this.utilizadorDao.remover(u);
+            }
         }
 
         this.goToUtil.goToLogin();
