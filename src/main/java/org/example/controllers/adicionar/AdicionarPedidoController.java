@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import org.example.dao.EncomendaDao;
 import org.example.dao.ForncedorDao;
 import org.example.dao.UtilizadorDao;
-import org.example.models.Encomenda;
+import org.example.models.*;
 import org.example.models.enums.TamanhoRoupa;
 import org.example.models.enums.TipoRoupa;
 import org.example.models.enums.TipoUtilizador;
@@ -117,6 +117,19 @@ public class AdicionarPedidoController implements Initializable {
     @FXML
     void btnVoltar(ActionEvent event) {
         System.out.println(cBIdTamanhoRoupa.getValue());
+
+        Doacao doacao = new Doacao();
+        doacao.getRoupa_doacaos();
+        Roupa_Doacao roupa_doacao = new Roupa_Doacao();
+        roupa_doacao.getRoupa().getTipoRoupa();
+
+        Fornecedor fornecedor = new Fornecedor();
+        fornecedor.getLocalizacao();
+
+        this.encomenda.getLinhas();
+
+        LinhaEncomenda linhaEncomenda = new LinhaEncomenda();
+        linhaEncomenda.getRoupa().getCategoriaRoupa();
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
