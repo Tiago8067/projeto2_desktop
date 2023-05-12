@@ -20,6 +20,7 @@ public class Roupa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idRoupa;
     private String nome;
+    private String imageSrc;
     private Integer Stock;
     @Enumerated(EnumType.STRING)
     private CategoriaRoupa categoriaRoupa;

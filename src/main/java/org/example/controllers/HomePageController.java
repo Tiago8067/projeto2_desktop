@@ -5,19 +5,29 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.example.controllers.card.CardDoacoesController;
 import org.example.dao.FornecedorDao;
 import org.example.dao.UtilizadorDao;
 import org.example.models.*;
-import org.example.models.enums.EstadoUtilizador;
-import org.example.models.enums.TipoUtilizador;
+import org.example.models.enums.*;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
 import javax.persistence.EntityManager;
+import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +112,8 @@ public class HomePageController implements Initializable {
     @FXML
     private TextField txtFdIdEstado;
     private ObservableList<Utilizador> observableListFuncionarios;
+
+    //Fornedor
     private ObservableList<Fornecedor> observableListFornecedor;
     @FXML
     private TableView<Fornecedor> tableViewFornecedor;
@@ -111,9 +123,11 @@ public class HomePageController implements Initializable {
     private TableColumn<Fornecedor, String> tableColumnNomeFornecedor;
     @FXML
     private TableColumn<Fornecedor, Fornecedor> tableColumnAcoesFornecedor;
+
+    //Encomeda
+    private ObservableList<Encomenda> encomendaObservableList;
     @FXML
     private Button tcBtnIdAddFornecedor;
-    private ObservableList<Encomenda> encomendaObservableList;
     @FXML
     private TableView<Encomenda> tvPedidos;
     @FXML
@@ -130,6 +144,14 @@ public class HomePageController implements Initializable {
     private TableColumn<Encomenda, Encomenda> tcIdPedidoAcoes;
     @FXML
     private Button btnIdPedidoAdicionar;
+
+    //DOACOES
+    private List<Roupa> recomendado;
+    private ObservableList<Doacao> doacaoObservableList;
+    @FXML
+    private GridPane idCardDoacoes;
+    @FXML
+    private Button idBtnAddDoacao;
 
     @FXML
     void btnEditarFuncionarioApagar(ActionEvent event) {
@@ -285,6 +307,13 @@ public class HomePageController implements Initializable {
         stage.close();
     }
 
+    @FXML
+    void btnAddDoacao(ActionEvent event) {
+        this.goToUtil.goToAddDoacao();
+        Stage stage = (Stage) idBtnAddDoacao.getScene().getWindow();
+        stage.close();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.entityManager = JPAUtil.getEntityManager();
@@ -293,6 +322,31 @@ public class HomePageController implements Initializable {
         this.regexDados = new RegexDados();
         this.fornecedor = new Fornecedor();
         this.fornecedorDao = new FornecedorDao(entityManager);
+
+        this.recomendado = new ArrayList<>(cardDoacoesControllersList());
+        System.out.println(this.recomendado);
+        int coluna = 0;
+        int linha = 1;
+
+        try {
+            for (Roupa r: this.recomendado) {
+                FXMLLoader fxmlLoader =  new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
+                VBox cardBox = fxmlLoader.load();
+                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
+                //cardDoacoesController.setCardDoacoes(r);
+
+                if (coluna == 3) {
+                    coluna = 0;
+                    ++linha;
+                }
+
+                idCardDoacoes.add(cardBox, coluna++, linha);
+                GridPane.setMargin(cardBox, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
         initializeNodes();
     }
@@ -413,4 +467,57 @@ public class HomePageController implements Initializable {
         stage.close();
     }
 
+    private List<Roupa> cardDoacoesControllersList() {
+        List<Roupa> lista = new ArrayList<>();
+        Roupa roupa = new Roupa();
+        Roupa_Doacao roupa_doacao = new Roupa_Doacao();
+        roupa.setImageSrc("/resources/images/calcas.jpg");
+        roupa.setTipoRoupa(TipoRoupa.CALCAS);
+        roupa.setCategoriaRoupa(CategoriaRoupa.PARTEDEBAIXO);
+        roupa.setTamanhoRoupa(TamanhoRoupa.M);
+        //roupa_doacao.setQuantidade(2);
+        lista.add(roupa);
+
+        roupa = new Roupa();
+        roupa.setImageSrc("/resources/images/bermudas.jpg");
+        roupa.setTipoRoupa(TipoRoupa.BERMUDAS);
+        roupa.setCategoriaRoupa(CategoriaRoupa.PARTEDECIMA);
+        roupa.setTamanhoRoupa(TamanhoRoupa.M);
+        //roupa_doacao.setQuantidade(2);
+        lista.add(roupa);
+
+        roupa = new Roupa();
+        roupa.setImageSrc("/resources/images/colete.jpg");
+        roupa.setTipoRoupa(TipoRoupa.COLETE);
+        roupa.setCategoriaRoupa(CategoriaRoupa.PARTEDECIMA);
+        roupa.setTamanhoRoupa(TamanhoRoupa.M);
+        //roupa_doacao.setQuantidade(2);
+        lista.add(roupa);
+
+        roupa = new Roupa();
+        roupa.setImageSrc("/resources/images/meias.jpg");
+        roupa.setTipoRoupa(TipoRoupa.MEIAS);
+        roupa.setCategoriaRoupa(CategoriaRoupa.PARTEDEBAIXO);
+        roupa.setTamanhoRoupa(TamanhoRoupa.M);
+        //roupa_doacao.setQuantidade(2);
+        lista.add(roupa);
+
+        roupa = new Roupa();
+        roupa.setImageSrc("/resources/images/saia.jpg");
+        roupa.setTipoRoupa(TipoRoupa.SAIA);
+        roupa.setCategoriaRoupa(CategoriaRoupa.PARTEDEBAIXO);
+        roupa.setTamanhoRoupa(TamanhoRoupa.M);
+        //roupa_doacao.setQuantidade(2);
+        lista.add(roupa);
+
+        roupa = new Roupa();
+        roupa.setImageSrc("/resources/images/sweat.jpg");
+        roupa.setTipoRoupa(TipoRoupa.SWEAT);
+        roupa.setCategoriaRoupa(CategoriaRoupa.PARTEDECIMA);
+        roupa.setTamanhoRoupa(TamanhoRoupa.M);
+        //roupa_doacao.setQuantidade(2);
+        lista.add(roupa);
+
+        return lista;
+    }
 }

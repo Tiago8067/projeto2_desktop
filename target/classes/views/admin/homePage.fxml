@@ -121,7 +121,7 @@
                            <top>
                               <HBox alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Adicionar">
+                                    <Button fx:id="idBtnAddDoacao" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#btnAddDoacao" text="Adicionar">
                                        <HBox.margin>
                                           <Insets bottom="5.0" right="10.0" top="5.0" />
                                        </HBox.margin>

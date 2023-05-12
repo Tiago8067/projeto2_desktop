@@ -7,6 +7,8 @@ public enum TipoRoupa {
     VESTIDO,
     SAIA,
     BLUSA,
+    SWEAT,
+    T_SHIRT,
     CAMISA,
     CASACO,
     COLETE,
@@ -15,5 +17,4 @@ public enum TipoRoupa {
     SAPATOSCLASSICO,
     SAPATOSDESPORTIVO,
     BOLSA
-
 }
