@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.example.dao.ForncedorDao;
+import org.example.dao.FornecedorDao;
 import org.example.dao.LocalizacaoDao;
 import org.example.models.Fornecedor;
 import org.example.util.GoToUtil;
@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 public class EditarFornecedorController implements Initializable {
     EntityManager entityManager;
     Fornecedor fornecedor;
-    ForncedorDao forncedorDao;
+    FornecedorDao forncedorDao;
     GoToUtil goToUtil;
     RegexDados regexDados;
     LocalizacaoDao localizacaoDao;
@@ -182,7 +182,7 @@ public class EditarFornecedorController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.entityManager = JPAUtil.getEntityManager();
-        this.forncedorDao = new ForncedorDao(this.entityManager);
+        this.forncedorDao = new FornecedorDao(this.entityManager);
         this.localizacaoDao = new LocalizacaoDao(this.entityManager);
         this.goToUtil = new GoToUtil();
         this.regexDados = new RegexDados();

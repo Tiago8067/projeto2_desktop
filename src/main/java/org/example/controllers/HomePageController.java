@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.example.dao.ForncedorDao;
+import org.example.dao.FornecedorDao;
 import org.example.dao.UtilizadorDao;
 import org.example.models.*;
 import org.example.models.enums.EstadoUtilizador;
@@ -30,7 +30,7 @@ public class HomePageController implements Initializable {
     GoToUtil goToUtil;
     RegexDados regexDados;
     Fornecedor fornecedor;
-    ForncedorDao forncedorDao;
+    FornecedorDao fornecedorDao;
     @FXML
     private TabPane abasTabPaneId;
     @FXML
@@ -62,13 +62,15 @@ public class HomePageController implements Initializable {
     @FXML
     private Tab tabEditarFuncionarioId;
     @FXML
-    private Tab tabIdDoacaoes;
+    private Tab tabIdDoacoes;
     @FXML
-    private Tab tabIdEncomendas;
+    private Tab tabIdPedidos;
+    @FXML
+    private Tab tabIdEntregas;
+    @FXML
+    private Tab tabIdFornecedor;
     @FXML
     private Tab tabIdFuncionarios;
-    @FXML
-    private Tab tabIdSotck;
     @FXML
     private TableView<Utilizador> tableViewFuncionarios;
     @FXML
@@ -104,11 +106,11 @@ public class HomePageController implements Initializable {
     @FXML
     private TableView<Fornecedor> tableViewFornecedor;
     @FXML
-    private TableColumn<Fornecedor, Integer> tableColumnIdForncedor;
+    private TableColumn<Fornecedor, Integer> tableColumnIdFornecedor;
     @FXML
-    private TableColumn<Fornecedor, String> tableColumnNomeForncdedor;
+    private TableColumn<Fornecedor, String> tableColumnNomeFornecedor;
     @FXML
-    private TableColumn<Fornecedor, Fornecedor> tableColumnAcoesForncedor;
+    private TableColumn<Fornecedor, Fornecedor> tableColumnAcoesFornecedor;
     @FXML
     private Button tcBtnIdAddFornecedor;
     private ObservableList<Encomenda> encomendaObservableList;
@@ -290,7 +292,7 @@ public class HomePageController implements Initializable {
         this.goToUtil = new GoToUtil();
         this.regexDados = new RegexDados();
         this.fornecedor = new Fornecedor();
-        this.forncedorDao = new ForncedorDao(entityManager);
+        this.fornecedorDao = new FornecedorDao(entityManager);
         
         initializeNodes();
     }
@@ -301,8 +303,8 @@ public class HomePageController implements Initializable {
         tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         tableColumnEstado.setCellValueFactory(new PropertyValueFactory<>("estadoUtilizador"));
 
-        tableColumnIdForncedor.setCellValueFactory(new PropertyValueFactory<>("idFornecedor"));
-        tableColumnNomeForncdedor.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        tableColumnIdFornecedor.setCellValueFactory(new PropertyValueFactory<>("idFornecedor"));
+        tableColumnNomeFornecedor.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
         // TODO => tornar javafx responsivo
 
@@ -330,9 +332,10 @@ public class HomePageController implements Initializable {
 
     private void exibirTabEditarFuncionarios(Utilizador obj) {
         tabEditarFuncionarioId.setDisable(false);
-        tabIdDoacaoes.setDisable(true);
-        tabIdSotck.setDisable(true);
-        tabIdEncomendas.setDisable(true);
+        tabIdDoacoes.setDisable(true);
+        tabIdPedidos.setDisable(true);
+        tabIdEntregas.setDisable(true);
+        tabIdFornecedor.setDisable(true);
         tabIdFuncionarios.setDisable(true);
         abasTabPaneId.getSelectionModel().select(tabEditarFuncionarioId);
         txtFdAtualizarIdId.setText(String.valueOf(obj.getIdUtilizador()));
@@ -368,15 +371,16 @@ public class HomePageController implements Initializable {
 
     private void gotoTabFuncionarios() {
         tabEditarFuncionarioId.setDisable(true);
-        tabIdDoacaoes.setDisable(false);
-        tabIdSotck.setDisable(false);
-        tabIdEncomendas.setDisable(false);
+        tabIdDoacoes.setDisable(false);
+        tabIdPedidos.setDisable(false);
+        tabIdEntregas.setDisable(false);
+        tabIdFornecedor.setDisable(false);
         tabIdFuncionarios.setDisable(false);
         abasTabPaneId.getSelectionModel().select(tabIdFuncionarios);
     }
 
     public void listaFornecedor() {
-        List<Fornecedor> fornecedorList = this.forncedorDao.buscarTodosFornecedor();
+        List<Fornecedor> fornecedorList = this.fornecedorDao.buscarTodosFornecedor();
         observableListFornecedor = FXCollections.observableArrayList(fornecedorList);
         tableViewFornecedor.setItems(observableListFornecedor);
 
@@ -384,8 +388,8 @@ public class HomePageController implements Initializable {
     }
 
     private void initEditButtonsFornecedor() {
-        tableColumnAcoesForncedor.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        tableColumnAcoesForncedor.setCellFactory(param -> new TableCell<Fornecedor, Fornecedor>() {
+        tableColumnAcoesFornecedor.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        tableColumnAcoesFornecedor.setCellFactory(param -> new TableCell<Fornecedor, Fornecedor>() {
             private final Button button = new Button("Editar");
 
             @Override

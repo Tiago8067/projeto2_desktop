@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.example.dao.ForncedorDao;
+import org.example.dao.FornecedorDao;
 import org.example.dao.LocalizacaoDao;
 import org.example.models.Fornecedor;
 import org.example.models.Localizacao;
@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 public class AdicionarFornecedorController implements Initializable {
     EntityManager entityManager;
     Fornecedor fornecedor;
-    ForncedorDao forncedorDao;
+    FornecedorDao forncedorDao;
     Localizacao localizacao;
     LocalizacaoDao localizacaoDao;
     RegexDados regexDados;
@@ -172,7 +172,7 @@ public class AdicionarFornecedorController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.entityManager = JPAUtil.getEntityManager();
         this.fornecedor = new Fornecedor();
-        this.forncedorDao = new ForncedorDao(entityManager);
+        this.forncedorDao = new FornecedorDao(entityManager);
         this.localizacao = new Localizacao();
         this.localizacaoDao = new LocalizacaoDao(entityManager);
         this.regexDados = new RegexDados();

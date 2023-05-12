@@ -8,7 +8,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.example.dao.EncomendaDao;
-import org.example.dao.ForncedorDao;
+import org.example.dao.FornecedorDao;
 import org.example.dao.UtilizadorDao;
 import org.example.models.*;
 import org.example.models.enums.TamanhoRoupa;
@@ -25,7 +25,7 @@ public class AdicionarPedidoController implements Initializable {
     Encomenda encomenda;
     EncomendaDao encomendaDao;
     UtilizadorDao utilizadorDao;
-    ForncedorDao forncedorDao;
+    FornecedorDao forncedorDao;
     @FXML
     private Button btnIdAdicionar;
     @FXML
@@ -137,7 +137,7 @@ public class AdicionarPedidoController implements Initializable {
         this.encomenda = new Encomenda();
         this.encomendaDao = new EncomendaDao(entityManager);
         this.utilizadorDao = new UtilizadorDao(entityManager);
-        this.forncedorDao = new ForncedorDao(entityManager);
+        this.forncedorDao = new FornecedorDao(entityManager);
 
         //cBIdTipoRoupa.setItems(FXCollections.observableArrayList(this.tipoRoupas));
         cBIdTipoRoupa.getItems().addAll(TipoRoupa.values());

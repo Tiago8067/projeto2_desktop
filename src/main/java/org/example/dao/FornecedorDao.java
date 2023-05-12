@@ -10,7 +10,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-public class ForncedorDao {
+public class FornecedorDao {
     private EntityManager entityManager;
 
     public void registrar(Fornecedor fornecedor) {

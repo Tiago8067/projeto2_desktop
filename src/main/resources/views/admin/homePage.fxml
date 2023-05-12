@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -62,175 +63,216 @@
    <center>
       <TabPane fx:id="abasTabPaneId" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-            <Tab fx:id="tabIdDoacaoes" text="Doações">
+            <Tab fx:id="tabIdDoacoes" text="Doações">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <HBox prefHeight="284.0" prefWidth="597.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <VBox prefHeight="287.0" prefWidth="165.0">
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <left>
+                              <Accordion BorderPane.alignment="CENTER">
+                                <panes>
+                                  <TitledPane animated="false" text="Categoria">
+                                       <content>
+                                          <VBox prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Button contentDisplay="CENTER" mnemonicParsing="false" prefWidth="200.0" text="Parte de Cima" />
+                                                <Button mnemonicParsing="false" prefWidth="200.0" text="Parte de Baixo" />
+                                                <Button mnemonicParsing="false" prefWidth="200.0" text="Acessórios" />
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                    </TitledPane>
+                                  <TitledPane animated="false" text="Género">
+                                       <content>
+                                          <VBox prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Button contentDisplay="CENTER" mnemonicParsing="false" prefWidth="200.0" text="Masculino" />
+                                                <Button mnemonicParsing="false" prefWidth="200.0" text="Feminino" />
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" text="Tamanho">
+                                       <content>
+                                          <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                                             <content>
+                                                <VBox prefHeight="250.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="Bebe" />
+                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="Criança" />
+                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="Adolescente12" />
+                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="Adolescente14" />
+                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="Adolescente16" />
+                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="XS" />
+                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="S" />
+                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="M" />
+                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="L" />
+                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="XL" />
+                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="XXL" />
+                                                   </children>
+                                                </VBox>
+                                             </content>
+                                          </ScrollPane>
+                                       </content>
+                                    </TitledPane>
+                                </panes>
+                              </Accordion>
+                           </left>
+                           <top>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Accordion prefWidth="165.0">
-                                       <panes>
-                                          <TitledPane animated="false" text="Categoria">
-                                             <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                   <children>
-                                                      <VBox layoutX="-1.0" layoutY="-3.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <Button contentDisplay="CENTER" mnemonicParsing="false" prefWidth="200.0" text="Parte de Cima" />
-                                                            <Button mnemonicParsing="false" prefWidth="200.0" text="Parte de Baixo" />
-                                                            <Button mnemonicParsing="false" prefWidth="200.0" text="Acessórios" />
-                                                         </children>
-                                                      </VBox>
-                                                   </children>
-                                                </AnchorPane>
-                                             </content>
-                                          </TitledPane>
-                                          <TitledPane animated="false" text="Género">
-                                             <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                   <children>
-                                                      <VBox prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <Button contentDisplay="CENTER" mnemonicParsing="false" prefWidth="200.0" text="Masculino" />
-                                                            <Button mnemonicParsing="false" prefWidth="200.0" text="Feminino" />
-                                                         </children>
-                                                      </VBox>
-                                                   </children>
-                                                </AnchorPane>
-                                             </content>
-                                          </TitledPane>
-                                          <TitledPane animated="false" text="Tamanho">
-                                             <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                   <children>
-                                                      <VBox prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <Button mnemonicParsing="false" prefWidth="200.0" text="Bebe" />
-                                                            <Button mnemonicParsing="false" prefWidth="200.0" text="Criança" />
-                                                            <Button mnemonicParsing="false" prefWidth="200.0" text="Adolescente12" />
-                                                            <Button mnemonicParsing="false" prefWidth="200.0" text="Adolescente14" />
-                                                            <Button mnemonicParsing="false" prefWidth="200.0" text="Adolescente16" />
-                                                            <Button mnemonicParsing="false" prefWidth="200.0" text="XS" />
-                                                            <Button mnemonicParsing="false" prefWidth="200.0" text="S" />
-                                                            <Button mnemonicParsing="false" prefWidth="200.0" text="M" />
-                                                            <Button mnemonicParsing="false" prefWidth="200.0" text="L" />
-                                                            <Button mnemonicParsing="false" prefWidth="200.0" text="XL" />
-                                                            <Button mnemonicParsing="false" prefWidth="200.0" text="XXL" />
-                                                         </children>
-                                                      </VBox>
-                                                   </children>
-                                                </AnchorPane>
-                                             </content>
-                                          </TitledPane>
-                                       </panes>
-                                    </Accordion>
-                                    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Adicionar Doação">
-                                       <VBox.margin>
-                                          <Insets top="20.0" />
-                                       </VBox.margin>
+                                    <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Adicionar">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" right="10.0" top="5.0" />
+                                       </HBox.margin>
                                     </Button>
                                  </children>
-                              </VBox>
-                           </children>
-                        </HBox>
+                              </HBox>
+                           </top>
+                           <center>
+                              <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <content>
+                                    <GridPane fx:id="idCardDoacoes">
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                    </GridPane>
+                                 </content>
+                              </ScrollPane>
+                           </center>
+                        </BorderPane>
                      </children>
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="tabIdEncomendas" text="Pedidos">
+            <Tab fx:id="tabIdPedidos" text="Pedidos">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tvPedidos" prefHeight="260.0" prefWidth="597.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <columns>
-                              <TableColumn fx:id="tcIdPedidoDestinatario" prefWidth="75.0" text="Destinatário" />
-                              <TableColumn prefWidth="75.0" text="Roupa">
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <top>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="10.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Button fx:id="btnIdPedidoAdicionar" mnemonicParsing="false" onAction="#btnPedidoAdicionar" text="Adicionar">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" right="10.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </top>
+                           <center>
+                              <TableView fx:id="tvPedidos" prefHeight="250.0" prefWidth="600.0">
                                  <columns>
-                                    <TableColumn fx:id="tcIdPedidoTipoRoupa" prefWidth="75.0" text="Tipo" />
-                                    <TableColumn fx:id="tcIdPedidoTamanhoRoupa" prefWidth="75.0" text="Tamanho" />
-                                 </columns></TableColumn>
-                              <TableColumn fx:id="tcIdPedidoQuantidade" prefWidth="75.0" text="Quantidade" />
-                              <TableColumn fx:id="tcIdDataPedido" prefWidth="97.3333740234375" text="Data de Pedido" />
-                              <TableColumn fx:id="tcIdPedidoAcoes" prefWidth="53.33331298828125" text="Ações" />
-                              <TableColumn prefWidth="150.0">
-                                 <graphic>
-                                    <Button fx:id="btnIdPedidoAdicionar" mnemonicParsing="false" onAction="#btnPedidoAdicionar" text="Adicionar" />
-                                 </graphic>
-                              </TableColumn>
-                           </columns>
-                        </TableView>
+                                    <TableColumn fx:id="tcIdPedidoDestinatario" prefWidth="75.0" text="Destinatário" />
+                                    <TableColumn prefWidth="75.0" text="Roupa">
+                                       <columns>
+                                          <TableColumn fx:id="tcIdPedidoTipoRoupa" prefWidth="75.0" text="Tipo" />
+                                          <TableColumn fx:id="tcIdPedidoTamanhoRoupa" prefWidth="75.0" text="Tamanho" />
+                                       </columns>
+                                    </TableColumn>
+                                    <TableColumn fx:id="tcIdPedidoQuantidade" prefWidth="75.0" text="Quantidade" />
+                                    <TableColumn fx:id="tcIdDataPedido" prefWidth="97.3333740234375" text="Data de Pedido" />
+                                    <TableColumn fx:id="tcIdPedidoAcoes" prefWidth="53.33331298828125" text="Ações" />
+                                 </columns>
+                              </TableView>
+                           </center>
+                        </BorderPane>
                      </children>
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="tabIdSotck" text="Entregas">
+            <Tab fx:id="tabIdEntregas" text="Entregas">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="1.0" layoutY="-1.0" prefHeight="260.0" prefWidth="597.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <columns>
-                              <TableColumn prefWidth="75.0" text="Fornecedor" />
-                              <TableColumn prefWidth="75.0" text="Conteúdo" />
-                              <TableColumn prefWidth="104.0" text="Data de Entrega" />
-                              <TableColumn prefWidth="46.39994812011719" text="Estado" />
-                              <TableColumn prefWidth="174.0">
-                                 <graphic>
-                                    <SplitMenuButton mnemonicParsing="false" prefHeight="23.0" prefWidth="182.0" text="Selecione o Estado">
-                                       <items>
-                                          <MenuItem mnemonicParsing="false" text="Todos" />
-                                          <MenuItem mnemonicParsing="false" text="Por Enviar" />
-                                          <MenuItem mnemonicParsing="false" text="Enviado" />
-                                          <MenuItem mnemonicParsing="false" text="Finalizado" />
-                                       </items>
-                                    </SplitMenuButton>
-                                 </graphic>
-                              </TableColumn>
-                              <TableColumn maxWidth="1.7976931348623157E308" prefWidth="120.0">
-                                 <graphic>
-                                    <Button mnemonicParsing="false" text="Adiocionar" />
-                                 </graphic>
-                              </TableColumn>
-                           </columns>
-                        </TableView>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <center>
+                              <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <content>
+                                    <TableView prefHeight="300.0" prefWidth="600.0">
+                                       <columns>
+                                          <TableColumn prefWidth="75.0" text="Fornecedor" />
+                                          <TableColumn prefWidth="75.0" text="Conteúdo" />
+                                          <TableColumn prefWidth="104.0" text="Data de Entrega" />
+                                          <TableColumn prefWidth="46.39994812011719" text="Estado" />
+                                          <TableColumn prefWidth="174.0">
+                                             <graphic>
+                                                <SplitMenuButton mnemonicParsing="false" prefHeight="23.0" prefWidth="182.0" text="Selecione o Estado">
+                                                   <items>
+                                                      <MenuItem mnemonicParsing="false" text="Todos" />
+                                                      <MenuItem mnemonicParsing="false" text="Por Enviar" />
+                                                      <MenuItem mnemonicParsing="false" text="Enviado" />
+                                                      <MenuItem mnemonicParsing="false" text="Finalizado" />
+                                                   </items>
+                                                </SplitMenuButton>
+                                             </graphic>
+                                          </TableColumn>
+                                       </columns>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                           </center></BorderPane>
                      </children>
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Fornecedor">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <Tab fx:id="tabIdFornecedor" text="Fornecedor">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tableViewFornecedor" prefHeight="258.0" prefWidth="597.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <columns>
-                              <TableColumn fx:id="tableColumnIdForncedor" maxWidth="25.0" prefWidth="20.0" text="Id" />
-                              <TableColumn fx:id="tableColumnNomeForncdedor" maxWidth="150.0" prefWidth="75.0" text="Nome" />
-                              <TableColumn fx:id="tableColumnAcoesForncedor" maxWidth="75.0" prefWidth="73.0" text="Ações" />
-                              <TableColumn prefWidth="75.0">
-                                 <graphic>
-                                    <Button fx:id="tcBtnIdAddFornecedor" mnemonicParsing="false" onAction="#tcBtnAddFornecedor" text="Adicionar" />
-                                 </graphic>
-                              </TableColumn>
-                           </columns>
-                        </TableView>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <center>
+                              <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <content>
+                                    <TableView fx:id="tableViewFornecedor" prefHeight="300.0" prefWidth="600.0">
+                                       <columns>
+                                          <TableColumn fx:id="tableColumnIdFornecedor" maxWidth="25.0" prefWidth="20.0" text="Id" />
+                                          <TableColumn fx:id="tableColumnNomeFornecedor" maxWidth="150.0" prefWidth="75.0" text="Nome" />
+                                          <TableColumn fx:id="tableColumnAcoesFornecedor" maxWidth="75.0" prefWidth="73.0" text="Ações" />
+                                       </columns>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                           </center>
+                           <top>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="10.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Button fx:id="tcBtnIdAddFornecedor" mnemonicParsing="false" onAction="#tcBtnAddFornecedor" text="Adicionar">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" right="10.0" top="5.0" />
+                                       </HBox.margin></Button>
+                                 </children>
+                                 <BorderPane.margin>
+                                    <Insets />
+                                 </BorderPane.margin>
+                              </HBox>
+                           </top>
+                        </BorderPane>
                      </children>
                   </AnchorPane>
-              </content>
+               </content>
             </Tab>
             <Tab fx:id="tabIdFuncionarios" text="Funcionários">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tableViewFuncionarios" layoutX="1.0" prefHeight="258.0" prefWidth="597.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <columns>
-                              <TableColumn fx:id="tableColumnId" maxWidth="25.0" prefWidth="20.0" text="Id" />
-                              <TableColumn fx:id="tableColumnUsername" maxWidth="80.0" prefWidth="75.0" text="Username" />
-                              <TableColumn fx:id="tableColumnNome" maxWidth="150.0" prefWidth="75.0" text="Nome" />
-                              <TableColumn fx:id="tableColumnEstado" maxWidth="80.0" prefWidth="75.0" text="Estado" />
-                              <TableColumn fx:id="tableColumnAcoes" maxWidth="75.0" prefWidth="73.0" text="Ações" />
-                           </columns>
-                        </TableView>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <center>
+                              <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <content>
+                                    <TableView fx:id="tableViewFuncionarios" prefHeight="250.0" prefWidth="600.0">
+                                       <columns>
+                                          <TableColumn fx:id="tableColumnId" maxWidth="25.0" prefWidth="20.0" text="Id" />
+                                          <TableColumn fx:id="tableColumnUsername" maxWidth="80.0" prefWidth="75.0" text="Username" />
+                                          <TableColumn fx:id="tableColumnNome" maxWidth="150.0" prefWidth="75.0" text="Nome" />
+                                          <TableColumn fx:id="tableColumnEstado" maxWidth="80.0" prefWidth="75.0" text="Estado" />
+                                          <TableColumn fx:id="tableColumnAcoes" maxWidth="75.0" prefWidth="73.0" text="Ações" />
+                                       </columns>
+                                    </TableView>
+                                 </content></ScrollPane>
+                           </center>
+                        </BorderPane>
                      </children>
                   </AnchorPane>
                </content>
