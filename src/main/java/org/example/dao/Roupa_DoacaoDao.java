@@ -24,4 +24,15 @@ public class Roupa_DoacaoDao {
 //            this.entityManager.getTransaction().rollback();
 //        }
     }
+
+    public void atulizar(Roupa_Doacao roupa_doacao) {
+        try {
+            this.entityManager.getTransaction().begin();
+            this.entityManager.merge(roupa_doacao);
+            this.entityManager.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            this.entityManager.getTransaction().rollback();
+        }
+    }
 }

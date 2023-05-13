@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.dao.*;
 import org.example.models.Doacao;
-import org.example.models.Encomenda;
 import org.example.models.Roupa;
 import org.example.models.Roupa_Doacao;
 import org.example.models.enums.CategoriaRoupa;
@@ -22,6 +21,8 @@ import org.example.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdicionarDoacaoController implements Initializable {
@@ -34,6 +35,10 @@ public class AdicionarDoacaoController implements Initializable {
     DoacaoDao doacaoDao;
     Roupa_DoacaoDao roupa_doacaoDao;
     RoupaDao roupaDao;
+    private TipoRoupa tipoRoupa = null;
+    private TamanhoRoupa tamanhoRoupa = null;
+    private int quantidade = 0;
+    private List<Roupa> roupaList;
     @FXML
     private Button btnIdAdicionar;
     @FXML
@@ -81,11 +86,90 @@ public class AdicionarDoacaoController implements Initializable {
         if (cBIdTipoRoupa.getValue() == null) {
             labelIdErroTipoRoupa.setText("Tem de preencher o Tipo de Roupa.");
         } else {
+
+            adicionarAssociarImagem();
+
+            adicionarAssociarCategoria();
+
             this.roupa.setTipoRoupa(cBIdTipoRoupa.getValue());
+            this.tipoRoupa = cBIdTipoRoupa.getValue();
             labelIdErroTipoRoupa.setText("");
         }
 
-        if(cBIdTipoRoupa.getValue().equals(TipoRoupa.CALCOES) || cBIdTipoRoupa.getValue().equals(TipoRoupa.BERMUDAS) || cBIdTipoRoupa.getValue().equals(TipoRoupa.CALCAS) ||
+        if (cBIdTamanhoRoupa.getValue() == null) {
+            labelIdErroTamanho.setText("Tem de preencher o Tamanho de Roupa.");
+        } else {
+            this.roupa.setTamanhoRoupa(cBIdTamanhoRoupa.getValue());
+            this.tamanhoRoupa = cBIdTamanhoRoupa.getValue();
+            labelIdErroTamanho.setText("");
+        }
+
+        if (txtFdIdQtd.getText().equals("")) {
+            labelIdErroQuantidade.setText("Tem de preencher a Quantidade.");
+        } else if (verificaQtd == 0) {
+            labelIdErroQuantidade.setText("Preencha corretamente a Quantidade!");
+        } else {
+            this.roupa_doacao.setQuantidade(Integer.valueOf(txtFdIdQtd.getText()));
+            this.quantidade = Integer.parseInt(txtFdIdQtd.getText());
+            labelIdErroQuantidade.setText("");
+        }
+
+        if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") &&
+                labelIdErroTamanho.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
+
+            this.roupa_doacao.setRoupa(this.roupa);
+            this.roupa_doacao.setDoacao(this.doacao);
+
+            this.doacaoDao.registar(this.doacao);
+            this.roupa_doacaoDao.registar(this.roupa_doacao);
+            this.roupaDao.registar(this.roupa);
+
+
+            for (Roupa r : roupaList) {
+
+                if (r.getStock() != null && r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
+                    r.setStock(this.roupa.getStock() + this.roupa_doacao.getQuantidade());
+                    this.roupaDao.atualizar(r);
+                } else {
+                    r.setStock(this.roupa_doacao.getQuantidade());
+                    this.roupaDao.atualizar(r);
+                }
+
+            }
+
+
+            this.goToUtil.goToHomePageAdmin();
+            Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
+            stage.close();
+        }
+    }
+
+    @FXML
+    void btnVoltar(ActionEvent event) {
+        this.goToUtil.goToHomePageAdmin();
+        Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
+        stage.close();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.entityManager = JPAUtil.getEntityManager();
+        this.utilizadorDao = new UtilizadorDao(entityManager);
+        this.doacao = new Doacao();
+        this.roupa_doacao = new Roupa_Doacao();
+        this.roupa = new Roupa();
+        this.goToUtil = new GoToUtil();
+        this.doacaoDao = new DoacaoDao(entityManager);
+        this.roupa_doacaoDao = new Roupa_DoacaoDao(entityManager);
+        this.roupaDao = new RoupaDao(entityManager);
+        this.roupaList = this.roupaDao.buscarTodas();
+
+        cBIdTipoRoupa.getItems().addAll(TipoRoupa.values());
+        cBIdTamanhoRoupa.getItems().addAll(TamanhoRoupa.values());
+    }
+
+    private void adicionarAssociarCategoria() {
+        if (cBIdTipoRoupa.getValue().equals(TipoRoupa.CALCOES) || cBIdTipoRoupa.getValue().equals(TipoRoupa.BERMUDAS) || cBIdTipoRoupa.getValue().equals(TipoRoupa.CALCAS) ||
                 cBIdTipoRoupa.getValue().equals(TipoRoupa.SAIA) || cBIdTipoRoupa.getValue().equals(TipoRoupa.MEIAS) || cBIdTipoRoupa.getValue().equals(TipoRoupa.MEIACALCA)) {
             this.roupa.setCategoriaRoupa(CategoriaRoupa.PARTEDEBAIXO);
         } else if (cBIdTipoRoupa.getValue().equals(TipoRoupa.BLUSA) || cBIdTipoRoupa.getValue().equals(TipoRoupa.VESTIDO) || cBIdTipoRoupa.getValue().equals(TipoRoupa.SWEAT) ||
@@ -94,8 +178,10 @@ public class AdicionarDoacaoController implements Initializable {
         } else {
             this.roupa.setCategoriaRoupa(CategoriaRoupa.ACESSORIOS);
         }
+    }
 
-        switch(cBIdTipoRoupa.getValue()) {
+    private void adicionarAssociarImagem() {
+        switch (cBIdTipoRoupa.getValue()) {
             case CALCAS:
                 this.roupa.setImageSrc("/resources/images/calcas.jpg");
                 break;
@@ -145,55 +231,20 @@ public class AdicionarDoacaoController implements Initializable {
                 this.roupa.setImageSrc("/resources/images/bolsa.jpg");
                 break;
         }
-
-        if (cBIdTamanhoRoupa.getValue() == null) {
-            labelIdErroTamanho.setText("Tem de preencher o Tamanho de Roupa.");
-        } else {
-            this.roupa.setTamanhoRoupa(cBIdTamanhoRoupa.getValue());
-            labelIdErroTamanho.setText("");
-        }
-
-        if (txtFdIdQtd.getText().equals("")) {
-            labelIdErroQuantidade.setText("Tem de preencher a Quantidade.");
-        } else if (verificaQtd == 0) {
-            labelIdErroQuantidade.setText("Preencha corretamente a Quantidade!");
-        } else {
-            this.roupa_doacao.setQuantidade(Integer.valueOf(txtFdIdQtd.getText()));
-            labelIdErroQuantidade.setText("");
-        }
-
-        if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") &&
-                labelIdErroTamanho.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
-            this.roupa_doacao.setRoupa(this.roupa);
-            this.roupa_doacao.setDoacao(this.doacao);
-
-            this.doacaoDao.registar(this.doacao);
-            this.roupa_doacaoDao.registar(this.roupa_doacao);
-            this.roupaDao.registar(this.roupa);
-            this.goToUtil.goToHomePageAdmin();
-            Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
-            stage.close();
-        }
     }
 
-    @FXML
-    void btnVoltar(ActionEvent event) {
+    private void atualizarStock() {
+        for (Roupa r : roupaList) {
 
-    }
+            if (r.getStock() != null && r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
+                r.setStock(this.roupa.getStock() + this.roupa_doacao.getQuantidade());
+                this.roupaDao.atualizar(r);
+            } else {
+                r.setStock(this.roupa_doacao.getQuantidade());
+                this.roupaDao.atualizar(r);
+            }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.entityManager = JPAUtil.getEntityManager();
-        this.utilizadorDao = new UtilizadorDao(entityManager);
-        this.doacao = new Doacao();
-        this.roupa_doacao = new Roupa_Doacao();
-        this.roupa = new Roupa();
-        this.goToUtil = new GoToUtil();
-        this.doacaoDao = new DoacaoDao(entityManager);
-        this.roupa_doacaoDao = new Roupa_DoacaoDao(entityManager);
-        this.roupaDao = new RoupaDao(entityManager);
+        }
 
-        cBIdTipoRoupa.getItems().addAll(TipoRoupa.values());
-        cBIdTamanhoRoupa.getItems().addAll(TamanhoRoupa.values());
     }
 }
