@@ -6,6 +6,9 @@ import org.example.models.enums.TamanhoRoupa;
 import org.example.models.enums.TipoRoupa;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,6 +25,7 @@ public class Roupa implements Serializable {
     private String nome;
     private String imageSrc;
     private Integer Stock;
+    private Instant data;
     @Enumerated(EnumType.STRING)
     private CategoriaRoupa categoriaRoupa;
     @Enumerated(EnumType.STRING)
