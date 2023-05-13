@@ -69,20 +69,20 @@ public class AdicionarPedidoController implements Initializable {
     @FXML
     private MenuItem mIIdEstadoFinalizado;
     @FXML
-    private TextField txtFIdAdicionaEstado;
+    private Label lblAdicionaEstado;
     @FXML
     void mIEstadoEmPreparacao(ActionEvent event) {
-        txtFIdAdicionaEstado.setText(mIIdEstadoEmPreparacao.getText());
+        lblAdicionaEstado.setText(mIIdEstadoEmPreparacao.getText());
     }
 
     @FXML
     void mIEstadoEnviado(ActionEvent event) {
-        txtFIdAdicionaEstado.setText(mIIdEstadoEnviado.getText());
+        lblAdicionaEstado.setText(mIIdEstadoEnviado.getText());
     }
 
     @FXML
     void mIEstadoFinalizado(ActionEvent event) {
-        txtFIdAdicionaEstado.setText(mIIdEstadoFinalizado.getText());
+        lblAdicionaEstado.setText(mIIdEstadoFinalizado.getText());
     }
 
     @FXML
@@ -148,15 +148,15 @@ public class AdicionarPedidoController implements Initializable {
             labelIdErroFornecedor.setText("");
         }
 
-        if(txtFIdAdicionaEstado.getText().isEmpty()){
+        if(lblAdicionaEstado.getText().isEmpty()){
             labelIdErroEstadoEnc.setText("Tem de preencher o estado da Encomenda.");
-        } else if (txtFIdAdicionaEstado.getText().equals("Em Preparacao")) {
+        } else if (lblAdicionaEstado.getText().equals("Em Preparacao")) {
             this.encomenda.setEstadoEncomenda(EstadoEncomenda.EMPREPARACAO);
             labelIdErroEstadoEnc.setText("");
-        } else if (txtFIdAdicionaEstado.getText().equals("Enviado")) {
+        } else if (lblAdicionaEstado.getText().equals("Enviado")) {
             this.encomenda.setEstadoEncomenda(EstadoEncomenda.ENVIADO);
             labelIdErroEstadoEnc.setText("");
-        } else if (txtFIdAdicionaEstado.getText().equals("Finalizado")) {
+        } else if (lblAdicionaEstado.getText().equals("Finalizado")) {
             this.encomenda.setEstadoEncomenda(EstadoEncomenda.FINALIZADO);
             labelIdErroEstadoEnc.setText("");
         }

@@ -96,11 +96,7 @@
                </font>
             </Label>
             <ChoiceBox fx:id="cBIdTamanhoRoupa" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-            <TextField fx:id="txtFIdAdicionaEstado" promptText="Adicione o Estado da Encomenda" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets right="250.0" />
-               </GridPane.margin>
-            </TextField>
+            <Label fx:id="lblAdicionaEstado" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="TOP" />
          </children>
       </GridPane>
    </center>
