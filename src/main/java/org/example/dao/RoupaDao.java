@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.example.models.Fornecedor;
 import org.example.models.Roupa;
+import org.example.models.enums.TamanhoRoupa;
+import org.example.models.enums.TipoRoupa;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -40,5 +42,15 @@ public class RoupaDao {
     public List<Roupa> buscarTodas() {
         String jpql = "SELECT r FROM Roupa r";
         return entityManager.createQuery(jpql, Roupa.class).getResultList();
+    }
+
+    public List<Roupa> buscarPorTipoRoupa(TipoRoupa tipoRoupa) {
+        String jpql = "SELECT r FROM Roupa r WHERE r.tipoRoupa = :tipoRoupa";
+        return entityManager.createQuery(jpql, Roupa.class).setParameter("tipoRoupa", tipoRoupa).getResultList();
+    }
+
+    public List<Roupa> buscarPorTamanhoRoupa(TamanhoRoupa tamanhoRoupa) {
+        String jpql = "SELECT r FROM Roupa r WHERE r.tamanhoRoupa = :tamanhoRoupa";
+        return entityManager.createQuery(jpql, Roupa.class).setParameter("tamanhoRoupa", tamanhoRoupa).getResultList();
     }
 }
