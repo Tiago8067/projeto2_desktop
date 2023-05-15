@@ -157,9 +157,10 @@ public class AdicionarDoacaoController implements Initializable {
                         this.roupa_doacaoDao.registar(this.roupa_doacao);
                         this.roupaDao.registar(r);
                         //return; // duplica a linha na roupa
-                        break;
                         //this.roupaDao.atualizarStock(r.getIdRoupa(), Integer.valueOf(txtFdIdQtd.getText()));
                     }
+                    break;
+                    //todo - resolver depoism situacao da duplicacao
                 } else {
                     if (txtFdIdNomeCliente.getText().isEmpty()) {
                         labelIdErroNomeCliente.setText("Tem de preencher o Nome Completo.");
@@ -264,67 +265,67 @@ public class AdicionarDoacaoController implements Initializable {
         switch (cBIdTipoRoupa.getValue()) {
             case CALCAS:
                 //this.roupa.setImageSrc("/resources/images/calcas.jpg");
-                return "/resources/images/calcas.jpg";
+                return "/images/calcas.jpg";
             //break;
             case CALCOES:
                 //this.roupa.setImageSrc("/resources/images/calcoes.jpg");
-                return "/resources/images/calcoes.jpg";
+                return "/images/calcoes.jpg";
             //break;
             case BERMUDAS:
                 //this.roupa.setImageSrc("/resources/images/bermudas.jpg");
-                return "/resources/images/bermudas.jpg";
+                return "/images/bermudas.jpg";
             //break;
             case VESTIDO:
                 //this.roupa.setImageSrc("/resources/images/vestido.jpg");
-                return "/resources/images/vestido.jpg";
+                return "/images/vestido.jpg";
             //break;
             case SAIA:
                 //this.roupa.setImageSrc("/resources/images/saia.jpg");
-                return "/resources/images/saia.jpg";
+                return "/images/saia.jpg";
             //break;
             case BLUSA:
                 //this.roupa.setImageSrc("/resources/images/blusa.jpg");
-                return "/resources/images/blusa.jpg";
+                return "/images/blusa.jpg";
             //break;
             case SWEAT:
                 //this.roupa.setImageSrc("/resources/images/sweat.jpg");
-                return "/resources/images/sweat.jpg";
+                return "/images/sweat.jpg";
             //break;
             case T_SHIRT:
                 //this.roupa.setImageSrc("/resources/images/tshirt.jpg");
-                return "/resources/images/tshirt.jpg";
+                return "/images/tshirt.jpg";
             //break;
             case CAMISA:
                 //this.roupa.setImageSrc("/resources/images/camisa.jpg");
-                return "/resources/images/camisa.jpg";
+                return "/images/camisa.jpg";
             //break;
             case CASACO:
                 //this.roupa.setImageSrc("/resources/images/casaco.jpg");
-                return "/resources/images/casaco.jpg";
+                return "/images/casaco.jpg";
             //break;
             case COLETE:
                 //this.roupa.setImageSrc("/resources/images/colete.jpg");
-                return "/resources/images/colete.jpg";
+                return "/images/colete.jpg";
             //break;
             case MEIACALCA:
                 //this.roupa.setImageSrc("/resources/images/meia_calca.jpg");
-                return "/resources/images/meia_calca.jpg";
+                return "/images/meia_calca.jpg";
             //break;
             case MEIAS:
                 //this.roupa.setImageSrc("/resources/images/meias.jpg");
-                return "/resources/images/meias.jpg";
+                return "/images/meias.jpg";
             //break;
             case SAPATOSCLASSICO:
                 //this.roupa.setImageSrc("/resources/images/sapato_classico.jpg");
-                return "/resources/images/sapato_classico.jpg";
+                return "/images/sapato_classico.jpg";
             //break;
             case SAPATOSDESPORTIVO:
                 //this.roupa.setImageSrc("/resources/images/sapato_desportivo.jpg");
-                return "/resources/images/sapato_desportivo.jpg";
+                return "/images/sapato_desportivo.jpg";
             //break;
             case BOLSA:
                 //this.roupa.setImageSrc("/resources/images/bolsa.jpg")
-                return "/resources/images/bolsa.jpg";
+                return "/images/bolsa.jpg";
             //break;
         }
         return null;

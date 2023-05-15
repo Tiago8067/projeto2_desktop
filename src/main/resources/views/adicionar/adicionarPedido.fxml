@@ -52,12 +52,12 @@
             <ChoiceBox fx:id="cBIdTipoRoupa" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP" />
             <DatePicker GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
             <TextField fx:id="txtFdIdQtd" promptText="Adicione a Quantidade" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-            <TextField fx:id="txtFIdFornecedor" promptText="Fornecedor" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="TOP" />
-            <SplitMenuButton mnemonicParsing="false" popupSide="RIGHT" text="Adicione o Estado de Encomenda" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="TOP">
+            <TextField fx:id="txtFIdFornecedor" promptText="Adicione o Nome de Utilizador do Fornecedor" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="TOP" />
+            <SplitMenuButton mnemonicParsing="false" text="Adicione o Estado de Encomenda" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="TOP">
               <items>
-                <MenuItem mnemonicParsing="false" text="Em Preparacao" />
-                <MenuItem mnemonicParsing="false" text="Enviado" />
-                  <MenuItem mnemonicParsing="false" text="Finalizado" />
+                <MenuItem fx:id="mIIdEstadoEmPreparacao" mnemonicParsing="false" onAction="#mIEstadoEmPreparacao" text="Em Preparacao" />
+                <MenuItem fx:id="mIIdEstadoEnviado" mnemonicParsing="false" onAction="#mIEstadoEnviado" text="Enviado" />
+                  <MenuItem fx:id="mIIdEstadoFinalizado" mnemonicParsing="false" onAction="#mIEstadoFinalizado" text="Finalizado" />
               </items>
             </SplitMenuButton>
             <Label fx:id="labelIdErroNomeCliente" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
@@ -96,6 +96,7 @@
                </font>
             </Label>
             <ChoiceBox fx:id="cBIdTamanhoRoupa" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+            <Label fx:id="lblAdicionaEstado" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="TOP" />
          </children>
       </GridPane>
    </center>

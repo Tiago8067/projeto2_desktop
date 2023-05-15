@@ -2,11 +2,9 @@ package org.example.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.example.models.Fornecedor;
 import org.example.models.Roupa;
 import org.example.models.enums.TamanhoRoupa;
 import org.example.models.enums.TipoRoupa;
-import org.hibernate.Session;
 
 import javax.persistence.EntityManager;
 import java.util.List;

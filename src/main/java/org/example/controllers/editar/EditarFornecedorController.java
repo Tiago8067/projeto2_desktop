@@ -67,7 +67,7 @@ public class EditarFornecedorController implements Initializable {
             this.forncedorDao.remover(this.fornecedor);
             this.localizacaoDao.removerPeloFornecedor(this.fornecedor.getLocalizacao());
             this.goToUtil.goToHomePageAdmin();
-            Stage stage = (Stage) btnIdAtualizar.getScene().getWindow();
+            Stage stage = (Stage) btnIdApagar.getScene().getWindow();
             stage.close();
         } else {
             return;
@@ -156,7 +156,6 @@ public class EditarFornecedorController implements Initializable {
             alert.setContentText("Tem a certeza que deseja Editar este Fornecedor?");
             Optional<ButtonType> resultado = alert.showAndWait();
             if (resultado.get() == ButtonType.OK) {
-                //System.out.println(this.fornecedor);
                 this.localizacaoDao.atualizar(this.fornecedor.getLocalizacao());
                 this.forncedorDao.atualizar(this.fornecedor);
                 this.goToUtil.goToHomePageAdmin();

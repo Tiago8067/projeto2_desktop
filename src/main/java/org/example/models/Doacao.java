@@ -4,8 +4,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,6 +20,4 @@ public class Doacao implements Serializable {
     private Instant data;
     @ManyToOne
     private Utilizador utilizador;
-    //@OneToMany(mappedBy = "doacao", cascade = CascadeType.MERGE)
-    //private List<Roupa_Doacao> roupa_doacaos = new ArrayList<>();
 }

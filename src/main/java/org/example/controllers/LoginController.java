@@ -2,10 +2,17 @@ package org.example.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.example.controllers.card.CardDoacoesController;
+import org.example.dao.RoupaDao;
 import org.example.dao.UtilizadorDao;
+import org.example.models.Roupa;
 import org.example.models.Utilizador;
 import org.example.models.enums.EstadoUtilizador;
 import org.example.models.enums.TipoUtilizador;
@@ -13,7 +20,9 @@ import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 
 import javax.persistence.EntityManager;
+import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -21,7 +30,8 @@ public class LoginController implements Initializable {
     UtilizadorDao utilizadorDao;
     Utilizador utilizador;
     GoToUtil goToUtil;
-
+    RoupaDao roupaDao;
+    private List<Roupa> listaRoupaParaCardSotck;
     @FXML
     private Button btnLoginId;
     @FXML
@@ -95,5 +105,6 @@ public class LoginController implements Initializable {
         this.utilizadorDao = new UtilizadorDao(entityManager);
         this.utilizador = new Utilizador();
         this.goToUtil = new GoToUtil();
+        this.roupaDao = new RoupaDao(entityManager);
     }
 }

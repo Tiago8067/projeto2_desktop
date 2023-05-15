@@ -1,5 +1,6 @@
 package org.example.controllers;
 
+import com.sun.prism.shader.DrawRoundRect_Color_AlphaTest_Loader;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.controllers.card.CardDoacoesController;
 import org.example.dao.FornecedorDao;
+import org.example.dao.RoupaDao;
 import org.example.dao.UtilizadorDao;
 import org.example.models.*;
 import org.example.models.enums.*;
@@ -26,7 +28,6 @@ import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
 import javax.persistence.EntityManager;
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class HomePageController implements Initializable {
     RegexDados regexDados;
     Fornecedor fornecedor;
     FornecedorDao fornecedorDao;
+    RoupaDao roupaDao;
     @FXML
     private TabPane abasTabPaneId;
     @FXML
@@ -146,8 +148,7 @@ public class HomePageController implements Initializable {
     private Button btnIdPedidoAdicionar;
 
     //DOACOES
-    private List<Roupa> recomendado;
-    private ObservableList<Doacao> doacaoObservableList;
+    private List<Roupa> listaRoupaParaCardSotck;
     @FXML
     private GridPane idCardDoacoes;
     @FXML
@@ -286,7 +287,7 @@ public class HomePageController implements Initializable {
     @FXML
     void gotoLoginPage(ActionEvent event) {
         this.goToUtil.goToLogin();
-        Stage stage = (Stage)idgotoLoginPage.getParentPopup().getOwnerWindow();
+        Stage stage = (Stage) idgotoLoginPage.getParentPopup().getOwnerWindow();
         stage.close();
     }
 
@@ -322,19 +323,21 @@ public class HomePageController implements Initializable {
         this.regexDados = new RegexDados();
         this.fornecedor = new Fornecedor();
         this.fornecedorDao = new FornecedorDao(entityManager);
+        this.roupaDao = new RoupaDao(entityManager);
 
-        this.recomendado = new ArrayList<>(cardDoacoesControllersList());
-        System.out.println(this.recomendado);
+
+        this.listaRoupaParaCardSotck = this.roupaDao.buscarTodas();
         int coluna = 0;
         int linha = 1;
 
         try {
-            for (Roupa r: this.recomendado) {
+            for (Roupa r: this.listaRoupaParaCardSotck) {
+                System.out.println(r);
                 FXMLLoader fxmlLoader =  new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
                 VBox cardBox = fxmlLoader.load();
                 CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                //cardDoacoesController.setCardDoacoes(r);
+                cardDoacoesController.setCardDoacoes(r);
 
                 if (coluna == 3) {
                     coluna = 0;
@@ -347,6 +350,8 @@ public class HomePageController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
         
         initializeNodes();
     }
@@ -467,57 +472,4 @@ public class HomePageController implements Initializable {
         stage.close();
     }
 
-    private List<Roupa> cardDoacoesControllersList() {
-        List<Roupa> lista = new ArrayList<>();
-        Roupa roupa = new Roupa();
-        Roupa_Doacao roupa_doacao = new Roupa_Doacao();
-        roupa.setImageSrc("/resources/images/calcas.jpg");
-        roupa.setTipoRoupa(TipoRoupa.CALCAS);
-        roupa.setCategoriaRoupa(CategoriaRoupa.PARTEDEBAIXO);
-        roupa.setTamanhoRoupa(TamanhoRoupa.M);
-        //roupa_doacao.setQuantidade(2);
-        lista.add(roupa);
-
-        roupa = new Roupa();
-        roupa.setImageSrc("/resources/images/bermudas.jpg");
-        roupa.setTipoRoupa(TipoRoupa.BERMUDAS);
-        roupa.setCategoriaRoupa(CategoriaRoupa.PARTEDECIMA);
-        roupa.setTamanhoRoupa(TamanhoRoupa.M);
-        //roupa_doacao.setQuantidade(2);
-        lista.add(roupa);
-
-        roupa = new Roupa();
-        roupa.setImageSrc("/resources/images/colete.jpg");
-        roupa.setTipoRoupa(TipoRoupa.COLETE);
-        roupa.setCategoriaRoupa(CategoriaRoupa.PARTEDECIMA);
-        roupa.setTamanhoRoupa(TamanhoRoupa.M);
-        //roupa_doacao.setQuantidade(2);
-        lista.add(roupa);
-
-        roupa = new Roupa();
-        roupa.setImageSrc("/resources/images/meias.jpg");
-        roupa.setTipoRoupa(TipoRoupa.MEIAS);
-        roupa.setCategoriaRoupa(CategoriaRoupa.PARTEDEBAIXO);
-        roupa.setTamanhoRoupa(TamanhoRoupa.M);
-        //roupa_doacao.setQuantidade(2);
-        lista.add(roupa);
-
-        roupa = new Roupa();
-        roupa.setImageSrc("/resources/images/saia.jpg");
-        roupa.setTipoRoupa(TipoRoupa.SAIA);
-        roupa.setCategoriaRoupa(CategoriaRoupa.PARTEDEBAIXO);
-        roupa.setTamanhoRoupa(TamanhoRoupa.M);
-        //roupa_doacao.setQuantidade(2);
-        lista.add(roupa);
-
-        roupa = new Roupa();
-        roupa.setImageSrc("/resources/images/sweat.jpg");
-        roupa.setTipoRoupa(TipoRoupa.SWEAT);
-        roupa.setCategoriaRoupa(CategoriaRoupa.PARTEDECIMA);
-        roupa.setTamanhoRoupa(TamanhoRoupa.M);
-        //roupa_doacao.setQuantidade(2);
-        lista.add(roupa);
-
-        return lista;
-    }
 }
