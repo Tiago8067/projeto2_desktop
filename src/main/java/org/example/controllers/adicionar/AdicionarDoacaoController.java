@@ -69,58 +69,7 @@ public class AdicionarDoacaoController implements Initializable {
         }
 
         if (this.roupaList.size() == 0) {
-            if (txtFdIdNomeCliente.getText().isEmpty()) {
-                labelIdErroNomeCliente.setText("Tem de preencher o Nome Completo.");
-            } else if (this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()) == null) {
-                labelIdErroNomeCliente.setText("Este utilizador não existe!");
-            } else if (!this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()).getTipoUtilizador().equals(TipoUtilizador.CLIENTE)) {
-                labelIdErroNomeCliente.setText("Este utilizador não é um Cliente!!! Introduza novamente!");
-            } else {
-                this.doacao.setUtilizador(this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()));
-                labelIdErroNomeCliente.setText("");
-            }
-
-            if (txtFdIdQtd.getText().equals("")) {
-                labelIdErroQuantidade.setText("Tem de preencher a Quantidade.");
-            } else if (verificaQtd == 0) {
-                labelIdErroQuantidade.setText("Preencha corretamente a Quantidade!");
-            } else {
-                this.roupa_doacao.setQuantidade(Integer.valueOf(txtFdIdQtd.getText()));
-                labelIdErroQuantidade.setText("");
-            }
-
-            // TODO - Falta a Data de Doação
-
-            if (cBIdTipoRoupa.getValue() == null) {
-                labelIdErroTipoRoupa.setText("Tem de preencher o Tipo de Roupa.");
-            } else {
-                this.roupa.setImageSrc(adicionarAssociarImagem());
-                this.roupa.setCategoriaRoupa(adicionarAssociarCategoria());
-                this.roupa.setTipoRoupa(cBIdTipoRoupa.getValue());
-                labelIdErroTipoRoupa.setText("");
-            }
-
-            if (cBIdTamanhoRoupa.getValue() == null) {
-                labelIdErroTamanho.setText("Tem de preencher o Tamanho de Roupa.");
-            } else {
-                this.roupa.setTamanhoRoupa(cBIdTamanhoRoupa.getValue());
-                labelIdErroTamanho.setText("");
-            }
-
-            this.roupa.setStock(Integer.valueOf(txtFdIdQtd.getText()));
-
-            if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") &&
-                    labelIdErroTamanho.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
-                this.roupa_doacao.setRoupa(this.roupa);
-                this.roupa_doacao.setDoacao(this.doacao);
-
-                this.doacaoDao.registar(this.doacao);
-                this.roupa_doacaoDao.registar(this.roupa_doacao);
-                this.roupaDao.registar(this.roupa);
-                this.goToUtil.goToHomePageAdmin();
-                Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
-                stage.close();
-            }
+            registaRoupa();
         } else {
             for (Roupa r: this.roupaList) {
                 if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
@@ -162,55 +111,7 @@ public class AdicionarDoacaoController implements Initializable {
                     break;
                     //todo - resolver depoism situacao da duplicacao
                 } else {
-                    if (txtFdIdNomeCliente.getText().isEmpty()) {
-                        labelIdErroNomeCliente.setText("Tem de preencher o Nome Completo.");
-                    } else if (this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()) == null) {
-                        labelIdErroNomeCliente.setText("Este utilizador não existe!");
-                    } else if (!this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()).getTipoUtilizador().equals(TipoUtilizador.CLIENTE)) {
-                        labelIdErroNomeCliente.setText("Este utilizador não é um Cliente!!! Introduza novamente!");
-                    } else {
-                        this.doacao.setUtilizador(this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()));
-                        labelIdErroNomeCliente.setText("");
-                    }
-
-                    if (txtFdIdQtd.getText().equals("")) {
-                        labelIdErroQuantidade.setText("Tem de preencher a Quantidade.");
-                    } else if (verificaQtd == 0) {
-                        labelIdErroQuantidade.setText("Preencha corretamente a Quantidade!");
-                    } else {
-                        this.roupa_doacao.setQuantidade(Integer.valueOf(txtFdIdQtd.getText()));
-                        labelIdErroQuantidade.setText("");
-                    }
-
-                    // TODO - Falta a Data de Doação
-
-                    if (cBIdTipoRoupa.getValue() == null) {
-                        labelIdErroTipoRoupa.setText("Tem de preencher o Tipo de Roupa.");
-                    } else {
-                        this.roupa.setImageSrc(adicionarAssociarImagem());
-                        this.roupa.setCategoriaRoupa(adicionarAssociarCategoria());
-                        this.roupa.setTipoRoupa(cBIdTipoRoupa.getValue());
-                        labelIdErroTipoRoupa.setText("");
-                    }
-
-                    if (cBIdTamanhoRoupa.getValue() == null) {
-                        labelIdErroTamanho.setText("Tem de preencher o Tamanho de Roupa.");
-                    } else {
-                        this.roupa.setTamanhoRoupa(cBIdTamanhoRoupa.getValue());
-                        labelIdErroTamanho.setText("");
-                    }
-
-                    this.roupa.setStock(Integer.valueOf(txtFdIdQtd.getText()));
-
-                    if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") &&
-                            labelIdErroTamanho.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
-                        this.roupa_doacao.setRoupa(this.roupa);
-                        this.roupa_doacao.setDoacao(this.doacao);
-
-                        this.doacaoDao.registar(this.doacao);
-                        this.roupa_doacaoDao.registar(this.roupa_doacao);
-                        this.roupaDao.registar(this.roupa);
-                    }
+                    registaRoupa();
                 }
             }
             this.goToUtil.goToHomePageAdmin();
@@ -249,89 +150,93 @@ public class AdicionarDoacaoController implements Initializable {
     private CategoriaRoupa adicionarAssociarCategoria() {
         if (cBIdTipoRoupa.getValue().equals(TipoRoupa.CALCOES) || cBIdTipoRoupa.getValue().equals(TipoRoupa.BERMUDAS) || cBIdTipoRoupa.getValue().equals(TipoRoupa.CALCAS) ||
                 cBIdTipoRoupa.getValue().equals(TipoRoupa.SAIA) || cBIdTipoRoupa.getValue().equals(TipoRoupa.MEIAS) || cBIdTipoRoupa.getValue().equals(TipoRoupa.MEIACALCA)) {
-            //this.roupa.setCategoriaRoupa(CategoriaRoupa.PARTEDEBAIXO);
             return CategoriaRoupa.PARTEDEBAIXO;
         } else if (cBIdTipoRoupa.getValue().equals(TipoRoupa.BLUSA) || cBIdTipoRoupa.getValue().equals(TipoRoupa.VESTIDO) || cBIdTipoRoupa.getValue().equals(TipoRoupa.SWEAT) ||
                 cBIdTipoRoupa.getValue().equals(TipoRoupa.T_SHIRT) || cBIdTipoRoupa.getValue().equals(TipoRoupa.CAMISA) || cBIdTipoRoupa.getValue().equals(TipoRoupa.CASACO) || cBIdTipoRoupa.getValue().equals(TipoRoupa.COLETE)) {
-            //this.roupa.setCategoriaRoupa(CategoriaRoupa.PARTEDECIMA);
             return CategoriaRoupa.PARTEDECIMA;
         } else {
-            //this.roupa.setCategoriaRoupa(CategoriaRoupa.ACESSORIOS);
             return CategoriaRoupa.ACESSORIOS;
         }
     }
 
     private String adicionarAssociarImagem() {
-        switch (cBIdTipoRoupa.getValue()) {
-            case CALCAS:
-                //this.roupa.setImageSrc("/resources/images/calcas.jpg");
-                return "/images/calcas.jpg";
-            //break;
-            case CALCOES:
-                //this.roupa.setImageSrc("/resources/images/calcoes.jpg");
-                return "/images/calcoes.jpg";
-            //break;
-            case BERMUDAS:
-                //this.roupa.setImageSrc("/resources/images/bermudas.jpg");
-                return "/images/bermudas.jpg";
-            //break;
-            case VESTIDO:
-                //this.roupa.setImageSrc("/resources/images/vestido.jpg");
-                return "/images/vestido.jpg";
-            //break;
-            case SAIA:
-                //this.roupa.setImageSrc("/resources/images/saia.jpg");
-                return "/images/saia.jpg";
-            //break;
-            case BLUSA:
-                //this.roupa.setImageSrc("/resources/images/blusa.jpg");
-                return "/images/blusa.jpg";
-            //break;
-            case SWEAT:
-                //this.roupa.setImageSrc("/resources/images/sweat.jpg");
-                return "/images/sweat.jpg";
-            //break;
-            case T_SHIRT:
-                //this.roupa.setImageSrc("/resources/images/tshirt.jpg");
-                return "/images/tshirt.jpg";
-            //break;
-            case CAMISA:
-                //this.roupa.setImageSrc("/resources/images/camisa.jpg");
-                return "/images/camisa.jpg";
-            //break;
-            case CASACO:
-                //this.roupa.setImageSrc("/resources/images/casaco.jpg");
-                return "/images/casaco.jpg";
-            //break;
-            case COLETE:
-                //this.roupa.setImageSrc("/resources/images/colete.jpg");
-                return "/images/colete.jpg";
-            //break;
-            case MEIACALCA:
-                //this.roupa.setImageSrc("/resources/images/meia_calca.jpg");
-                return "/images/meia_calca.jpg";
-            //break;
-            case MEIAS:
-                //this.roupa.setImageSrc("/resources/images/meias.jpg");
-                return "/images/meias.jpg";
-            //break;
-            case SAPATOSCLASSICO:
-                //this.roupa.setImageSrc("/resources/images/sapato_classico.jpg");
-                return "/images/sapato_classico.jpg";
-            //break;
-            case SAPATOSDESPORTIVO:
-                //this.roupa.setImageSrc("/resources/images/sapato_desportivo.jpg");
-                return "/images/sapato_desportivo.jpg";
-            //break;
-            case BOLSA:
-                //this.roupa.setImageSrc("/resources/images/bolsa.jpg")
-                return "/images/bolsa.jpg";
-            //break;
-        }
-        return null;
+        return switch (cBIdTipoRoupa.getValue()) {
+            case CALCAS -> "/images/calcas.jpg";
+            case CALCOES -> "/images/calcoes.jpg";
+            case BERMUDAS -> "/images/bermudas.jpg";
+            case VESTIDO -> "/images/vestido.jpg";
+            case SAIA -> "/images/saia.jpg";
+            case BLUSA -> "/images/blusa.jpg";
+            case SWEAT -> "/images/sweat.jpg";
+            case T_SHIRT -> "/images/tshirt.jpg";
+            case CAMISA -> "/images/camisa.jpg";
+            case CASACO -> "/images/casaco.jpg";
+            case COLETE -> "/images/colete.jpg";
+            case MEIACALCA -> "/images/meia_calca.jpg";
+            case MEIAS -> "/images/meias.jpg";
+            case SAPATOSCLASSICO -> "/images/sapato_classico.jpg";
+            case SAPATOSDESPORTIVO -> "/images/sapato_desportivo.jpg";
+            case BOLSA -> "/images/bolsa.jpg";
+        };
     }
 
     private void registaRoupa() {
+        int verificaQtd = 0;
 
+        try {
+            verificaQtd = Integer.parseInt(txtFdIdQtd.getText());
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(numberFormatException.getMessage());
+        }
+
+        if (txtFdIdNomeCliente.getText().isEmpty()) {
+            labelIdErroNomeCliente.setText("Tem de preencher o Nome Completo.");
+        } else if (this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()) == null) {
+            labelIdErroNomeCliente.setText("Este utilizador não existe!");
+        } else if (!this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()).getTipoUtilizador().equals(TipoUtilizador.CLIENTE)) {
+            labelIdErroNomeCliente.setText("Este utilizador não é um Cliente!!! Introduza novamente!");
+        } else {
+            this.doacao.setUtilizador(this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()));
+            labelIdErroNomeCliente.setText("");
+        }
+
+        if (txtFdIdQtd.getText().equals("")) {
+            labelIdErroQuantidade.setText("Tem de preencher a Quantidade.");
+        } else if (verificaQtd == 0) {
+            labelIdErroQuantidade.setText("Preencha corretamente a Quantidade!");
+        } else {
+            this.roupa_doacao.setQuantidade(Integer.valueOf(txtFdIdQtd.getText()));
+            labelIdErroQuantidade.setText("");
+        }
+
+        // TODO - Falta a Data de Doação
+
+        if (cBIdTipoRoupa.getValue() == null) {
+            labelIdErroTipoRoupa.setText("Tem de preencher o Tipo de Roupa.");
+        } else {
+            this.roupa.setImageSrc(adicionarAssociarImagem());
+            this.roupa.setCategoriaRoupa(adicionarAssociarCategoria());
+            this.roupa.setTipoRoupa(cBIdTipoRoupa.getValue());
+            labelIdErroTipoRoupa.setText("");
+        }
+
+        if (cBIdTamanhoRoupa.getValue() == null) {
+            labelIdErroTamanho.setText("Tem de preencher o Tamanho de Roupa.");
+        } else {
+            this.roupa.setTamanhoRoupa(cBIdTamanhoRoupa.getValue());
+            labelIdErroTamanho.setText("");
+        }
+
+        this.roupa.setStock(Integer.valueOf(txtFdIdQtd.getText()));
+
+        if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") &&
+                labelIdErroTamanho.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
+            this.roupa_doacao.setRoupa(this.roupa);
+            this.roupa_doacao.setDoacao(this.doacao);
+
+            this.doacaoDao.registar(this.doacao);
+            this.roupa_doacaoDao.registar(this.roupa_doacao);
+            this.roupaDao.registar(this.roupa);
+        }
     }
 }
