@@ -22,6 +22,6 @@ public class Doacao implements Serializable {
     private Instant data;
     @ManyToOne
     private Utilizador utilizador;
-    @OneToMany(mappedBy = "doacao")
-    private List<Roupa_Doacao> roupa_doacaos = new ArrayList<>();
+    //@OneToMany(mappedBy = "doacao", cascade = CascadeType.MERGE)
+    //private List<Roupa_Doacao> roupa_doacaos = new ArrayList<>();
 }

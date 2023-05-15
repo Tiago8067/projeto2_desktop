@@ -22,4 +22,15 @@ public class DoacaoDao {
             this.entityManager.getTransaction().rollback();
         }
     }
+
+    public void atualizar(Doacao doacao) {
+        try {
+            this.entityManager.getTransaction().begin();
+            this.entityManager.merge(doacao);
+            this.entityManager.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            this.entityManager.getTransaction().rollback();
+        }
+    }
 }

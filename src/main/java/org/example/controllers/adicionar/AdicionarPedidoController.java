@@ -116,6 +116,7 @@ public class AdicionarPedidoController implements Initializable {
 
     @FXML
     void btnVoltar(ActionEvent event) {
+        /*
         System.out.println(cBIdTamanhoRoupa.getValue());
 
         Doacao doacao = new Doacao();
@@ -130,6 +131,8 @@ public class AdicionarPedidoController implements Initializable {
 
         LinhaEncomenda linhaEncomenda = new LinhaEncomenda();
         linhaEncomenda.getRoupa().getCategoriaRoupa();
+
+         */
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

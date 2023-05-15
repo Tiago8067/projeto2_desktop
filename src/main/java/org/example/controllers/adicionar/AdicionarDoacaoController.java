@@ -147,6 +147,7 @@ public class AdicionarDoacaoController implements Initializable {
                     // TODO - Falta a Data de Doação
 
                     r.setStock(r.getStock() + this.roupa_doacao.getQuantidade());
+                    //TODO - TABELA STOCK A PARTE (IDEIA)
 
                     if (labelIdErroNomeCliente.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
                         this.roupa_doacao.setRoupa(r);
@@ -155,11 +156,11 @@ public class AdicionarDoacaoController implements Initializable {
                         this.doacaoDao.registar(this.doacao);
                         this.roupa_doacaoDao.registar(this.roupa_doacao);
                         this.roupaDao.registar(r);
-                        this.goToUtil.goToHomePageAdmin();
-                        Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
-                        stage.close();
+                        //return; // duplica a linha na roupa
+                        break;
+                        //this.roupaDao.atualizarStock(r.getIdRoupa(), Integer.valueOf(txtFdIdQtd.getText()));
                     }
-                } else if (!(r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue()))) {
+                } else {
                     if (txtFdIdNomeCliente.getText().isEmpty()) {
                         labelIdErroNomeCliente.setText("Tem de preencher o Nome Completo.");
                     } else if (this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()) == null) {
@@ -185,35 +186,35 @@ public class AdicionarDoacaoController implements Initializable {
                     if (cBIdTipoRoupa.getValue() == null) {
                         labelIdErroTipoRoupa.setText("Tem de preencher o Tipo de Roupa.");
                     } else {
-                        r.setImageSrc(adicionarAssociarImagem());
-                        r.setCategoriaRoupa(adicionarAssociarCategoria());
-                        r.setTipoRoupa(cBIdTipoRoupa.getValue());
+                        this.roupa.setImageSrc(adicionarAssociarImagem());
+                        this.roupa.setCategoriaRoupa(adicionarAssociarCategoria());
+                        this.roupa.setTipoRoupa(cBIdTipoRoupa.getValue());
                         labelIdErroTipoRoupa.setText("");
                     }
 
                     if (cBIdTamanhoRoupa.getValue() == null) {
                         labelIdErroTamanho.setText("Tem de preencher o Tamanho de Roupa.");
                     } else {
-                        r.setTamanhoRoupa(cBIdTamanhoRoupa.getValue());
+                        this.roupa.setTamanhoRoupa(cBIdTamanhoRoupa.getValue());
                         labelIdErroTamanho.setText("");
                     }
 
-                    r.setStock(Integer.valueOf(txtFdIdQtd.getText()));
+                    this.roupa.setStock(Integer.valueOf(txtFdIdQtd.getText()));
 
                     if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") &&
                             labelIdErroTamanho.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
-                        this.roupa_doacao.setRoupa(r);
+                        this.roupa_doacao.setRoupa(this.roupa);
                         this.roupa_doacao.setDoacao(this.doacao);
 
                         this.doacaoDao.registar(this.doacao);
                         this.roupa_doacaoDao.registar(this.roupa_doacao);
-                        this.roupaDao.registar(r);
-                        this.goToUtil.goToHomePageAdmin();
-                        Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
-                        stage.close();
+                        this.roupaDao.registar(this.roupa);
                     }
                 }
             }
+            this.goToUtil.goToHomePageAdmin();
+            Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
+            stage.close();
         }
     }
 

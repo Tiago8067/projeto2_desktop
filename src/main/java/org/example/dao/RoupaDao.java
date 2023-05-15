@@ -6,6 +6,7 @@ import org.example.models.Fornecedor;
 import org.example.models.Roupa;
 import org.example.models.enums.TamanhoRoupa;
 import org.example.models.enums.TipoRoupa;
+import org.hibernate.Session;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -29,13 +30,22 @@ public class RoupaDao {
     public void atualizar(Roupa roupa) {
         try {
             this.entityManager.getTransaction().begin();
-            //this.entityManager.merge(roupa);
-            this.entityManager.merge(entityManager.getReference(Roupa.class, roupa.getIdRoupa()));
+            this.entityManager.merge(roupa);
+            //this.entityManager.merge(entityManager.getReference(Roupa.class, roupa.getIdRoupa()));
             this.entityManager.getTransaction().commit();
         } catch (Exception ex) {
             ex.printStackTrace();
             this.entityManager.getTransaction().rollback();
         }
+    }
+
+    public void atualizarStock(Integer id, Integer quantidade) {
+        Roupa roupa = entityManager.find(Roupa.class, id);
+        roupa.setStock(roupa.getStock() + quantidade);
+        //entityManager.merge(roupa);
+        entityManager.persist(roupa);
+        //Session session = Hibernate
+        //Roupa roupa = session.get()
     }
 
 
