@@ -330,36 +330,7 @@ public class AdicionarDoacaoController implements Initializable {
         return null;
     }
 
-    private Roupa registaAtualizaRoupa() {
-        for (Roupa r : roupaList) {
-            if (r.getStock() == null) {
-                if (cBIdTipoRoupa.getValue() == null) {
-                    labelIdErroTipoRoupa.setText("Tem de preencher o Tipo de Roupa.");
-                } else {
-                    r.setImageSrc(adicionarAssociarImagem());
-                    r.setCategoriaRoupa(adicionarAssociarCategoria());
-                    r.setTipoRoupa(cBIdTipoRoupa.getValue());
-                    labelIdErroTipoRoupa.setText("");
-                }
+    private void registaRoupa() {
 
-                if (cBIdTamanhoRoupa.getValue() == null) {
-                    labelIdErroTamanho.setText("Tem de preencher o Tamanho de Roupa.");
-                } else {
-                    r.setTamanhoRoupa(cBIdTamanhoRoupa.getValue());
-                    labelIdErroTamanho.setText("");
-                }
-
-                this.roupa.setStock(Integer.valueOf(txtFdIdQtd.getText()));
-            } else {
-                r.setStock(this.roupa.getStock() + this.roupa_doacao.getQuantidade());
-            }
-
-            if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") &&
-                    labelIdErroTamanho.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
-                return r;
-            }
-        }
-
-        return null;
     }
 }
