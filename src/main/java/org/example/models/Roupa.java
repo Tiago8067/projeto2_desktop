@@ -4,6 +4,8 @@ import lombok.*;
 import org.example.models.enums.CategoriaRoupa;
 import org.example.models.enums.TamanhoRoupa;
 import org.example.models.enums.TipoRoupa;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -15,10 +17,12 @@ import java.time.Instant;
 @Setter
 @ToString
 @Entity
+//@DynamicUpdate
 @Table(name = "tb_roupa")
 public class Roupa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Column(unique = true, updatable = false)
     private Integer idRoupa;
     private String nome;
     private String imageSrc;
@@ -30,4 +34,6 @@ public class Roupa implements Serializable {
     private TamanhoRoupa tamanhoRoupa;
     @Enumerated(EnumType.STRING)
     private TipoRoupa tipoRoupa;
+
+    // todo - testar com a lista de doacao
 }

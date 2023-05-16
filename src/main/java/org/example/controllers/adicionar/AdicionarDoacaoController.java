@@ -37,6 +37,7 @@ public class AdicionarDoacaoController implements Initializable {
     private List<Roupa> roupaList;
     private List<Roupa> roupaListTipo;
     private List<Roupa> roupaListTamanho;
+    private List<Roupa> atualizaStock;
     @FXML
     private Button btnIdAdicionar;
     @FXML
@@ -73,6 +74,14 @@ public class AdicionarDoacaoController implements Initializable {
         } else {
             for (Roupa r: this.roupaList) {
                 if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
+                    //   System.out.println(r);
+                    //   System.out.println("Sai me do sol");
+                //if (this.roupaDao.buscarPorTipoTamanhoRoupa(cBIdTipoRoupa.getValue(), cBIdTamanhoRoupa.getValue()) != null) {
+                    //Sytem.out.println("IGUAIS");
+                    //this.atualizaStock = this.roupaDao.buscarPorTipoTamanhoRoupa(cBIdTipoRoupa.getValue(), cBIdTamanhoRoupa.getValue());
+                    //System.out.println("IGUAIS sAI DO SOL");
+
+
                     if (txtFdIdNomeCliente.getText().isEmpty()) {
                         labelIdErroNomeCliente.setText("Tem de preencher o Nome Completo.");
                     } else if (this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()) == null) {
@@ -95,7 +104,15 @@ public class AdicionarDoacaoController implements Initializable {
 
                     // TODO - Falta a Data de Doação
 
-                    r.setStock(r.getStock() + this.roupa_doacao.getQuantidade());
+                    r.setStock(r.getStock() + Integer.parseInt(txtFdIdQtd.getText()));
+                    //int stock = r.getStock() + Integer.parseInt(txtFdIdQtd.getText());
+                    //this.atualizaStock.setStock(this.atualizaStock.getStock() + Integer.parseInt(txtFdIdQtd.getText()));
+                    //this.roupaDao.atualizarStock(r.getIdRoupa(), stock);
+
+                    //entityManager.persist(r);
+                    //entityManager.merge(r);
+                    this.roupaDao.atualizarStock(r);
+
                     //TODO - TABELA STOCK A PARTE (IDEIA)
 
                     if (labelIdErroNomeCliente.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
@@ -104,20 +121,27 @@ public class AdicionarDoacaoController implements Initializable {
 
                         this.doacaoDao.registar(this.doacao);
                         this.roupa_doacaoDao.registar(this.roupa_doacao);
-                        this.roupaDao.registar(r);
+                        //entityManager.persist(this.doacao);
+                        //entityManager.persist(this.roupa_doacao);
+
+                        //this.roupaDao.atualizar(r);
+                        //this.roupaDao.atualizarStock(r.getIdRoupa(), stock);
+                        //
+                        // break;
                         //return; // duplica a linha na roupa
                         //this.roupaDao.atualizarStock(r.getIdRoupa(), Integer.valueOf(txtFdIdQtd.getText()));
                     }
-                    break;
+
                     //todo - resolver depoism situacao da duplicacao
                 } else {
+                    //System.out.println("Diferentes");
                     registaRoupa();
                 }
             }
-            this.goToUtil.goToHomePageAdmin();
-            Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
-            stage.close();
         }
+        this.goToUtil.goToHomePageAdmin();
+        Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -145,6 +169,7 @@ public class AdicionarDoacaoController implements Initializable {
         this.roupaList = this.roupaDao.buscarTodas();
         this.roupaListTipo = this.roupaDao.buscarPorTipoRoupa(cBIdTipoRoupa.getValue());
         this.roupaListTamanho = this.roupaDao.buscarPorTamanhoRoupa(cBIdTamanhoRoupa.getValue());
+        //this.atualizaStock = this.roupaDao.buscarPorTipoTamanhoRoupa(cBIdTipoRoupa.getValue(), cBIdTamanhoRoupa.getValue());
     }
 
     private CategoriaRoupa adicionarAssociarCategoria() {

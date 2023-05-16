@@ -16,6 +16,7 @@ import org.example.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdicionarPedidoController implements Initializable {
@@ -29,6 +30,9 @@ public class AdicionarPedidoController implements Initializable {
     LinhaEncomenda linhaEncomenda;
     LinhaEncomendaDao linhaEncomendaDao;
     GoToUtil goToUtil;
+
+    private List<Roupa> verrificaTipoRoupaList;
+    private List<Roupa> verrificaTamanhoRoupaList;
 
     @FXML
     private Button btnIdAdicionar;
@@ -105,19 +109,32 @@ public class AdicionarPedidoController implements Initializable {
             this.encomenda.setUtilizador(this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()));
             labelIdErroNomeCliente.setText("");
         }
+        //todo - falta vberificar o estado do cliente
 
         if (cBIdTipoRoupa.getValue() == null) {
             labelIdErroTipoRoupa.setText("Tem de preencher o Tipo de Roupa.");
         } else {
-            this.roupa.setTipoRoupa(cBIdTipoRoupa.getValue());
-            labelIdErroTipoRoupa.setText("");
+            for (Roupa r: this.verrificaTipoRoupaList) {
+                if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue())) {
+                    this.linhaEncomenda.setRoupa(r);
+                    labelIdErroTipoRoupa.setText("");
+                } else {
+                    System.out.println("Este Tipo Roupa nao esta em Stock!");
+                }
+            }
         }
 
         if (cBIdTamanhoRoupa.getValue() == null) {
             labelIdErroTamanho.setText("Tem de preencher o Tipo de Roupa.");
         } else {
-            this.roupa.setTamanhoRoupa(cBIdTamanhoRoupa.getValue());
-            labelIdErroTamanho.setText("");
+            for (Roupa r: this.verrificaTamanhoRoupaList) {
+                if (r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())){
+                    this.linhaEncomenda.setRoupa(r);
+                    labelIdErroTamanho.setText("");
+                } else {
+                    System.out.println("Este Tamanho Roupa nao esta em Stock!");
+                }
+            }
         }
 
         //TODO - FALTA A DATA
@@ -164,7 +181,7 @@ public class AdicionarPedidoController implements Initializable {
         if(labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") && labelIdErroTamanho.getText().equals("")
                 && labelIdErroFornecedor.getText().equals("") && labelIdErroEstadoEnc.getText().equals("")){
             this.linhaEncomenda.setEncomenda(this.encomenda);
-            this.linhaEncomenda.setRoupa(this.roupa);
+            //this.linhaEncomenda.setRoupa(this.roupa);
             this.encomendaDao.registar(this.encomenda);
             this.linhaEncomendaDao.registar(this.linhaEncomenda);
             this.roupaDao.registar(this.roupa);
@@ -183,6 +200,9 @@ public class AdicionarPedidoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        cBIdTipoRoupa.getItems().addAll(TipoRoupa.values());
+        cBIdTamanhoRoupa.getItems().addAll(TamanhoRoupa.values());
+
         this.entityManager = JPAUtil.getEntityManager();
         this.encomenda = new Encomenda();
         this.encomendaDao = new EncomendaDao(entityManager);
@@ -193,11 +213,7 @@ public class AdicionarPedidoController implements Initializable {
         this.linhaEncomenda = new LinhaEncomenda();
         this.linhaEncomendaDao = new LinhaEncomendaDao(entityManager);
         this.goToUtil = new GoToUtil();
-
-        //cBIdTipoRoupa.setItems(FXCollections.observableArrayList(this.tipoRoupas));
-        cBIdTipoRoupa.getItems().addAll(TipoRoupa.values());
-        cBIdTamanhoRoupa.getItems().addAll(TamanhoRoupa.values());
-        //cBIdTipoRoupa.setValue(TipoRoupa.BLUSA);
-        //System.out.println(tipoRoupas);
+        this.verrificaTipoRoupaList = this.roupaDao.buscarPorTipoRoupa(cBIdTipoRoupa.getValue());
+        this.verrificaTamanhoRoupaList = this.roupaDao.buscarPorTamanhoRoupa(cBIdTamanhoRoupa.getValue());
     }
 }

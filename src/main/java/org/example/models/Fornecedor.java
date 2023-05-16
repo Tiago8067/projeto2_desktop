@@ -20,4 +20,7 @@ public class Fornecedor implements Serializable {
     private Integer contacto;
     @ManyToOne
     private Localizacao localizacao;
+
+    //todo tambem teria de uma lista
+    // em todas as relacoes com uma * 1 no 1 teria nde ter uma lista do *
 }

@@ -16,9 +16,11 @@ public class Roupa_Doacao implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_roupa_doacao;
-    @ManyToOne
+    @ManyToOne//(cascade = CascadeType.ALL)
     private Doacao doacao;
     @ManyToOne
     private Roupa roupa;
     private Integer quantidade;
+
+    //todo - aqui e que teria de ter as listas
 }

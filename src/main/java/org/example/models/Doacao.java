@@ -20,4 +20,6 @@ public class Doacao implements Serializable {
     private Instant data;
     @ManyToOne
     private Utilizador utilizador;
+
+    // todo - testar com a lista de roupa
 }
