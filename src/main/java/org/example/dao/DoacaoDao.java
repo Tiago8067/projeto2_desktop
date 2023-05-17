@@ -13,14 +13,15 @@ public class DoacaoDao {
     private EntityManager entityManager;
 
     public void registar(Doacao doacao) {
-        try {
-            this.entityManager.getTransaction().begin();
-            this.entityManager.persist(doacao);
-            this.entityManager.getTransaction().commit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            this.entityManager.getTransaction().rollback();
-        }
+//        try {
+//            this.entityManager.getTransaction().begin();
+//            this.entityManager.persist(doacao);
+//            this.entityManager.getTransaction().commit();
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//            this.entityManager.getTransaction().rollback();
+//        }
+        this.entityManager.persist(doacao);
     }
 
     public void atualizar(Doacao doacao) {

@@ -23,7 +23,7 @@ public class Roupa implements Serializable {
     private Integer idRoupa;
     private String nome;
     private String imageSrc;
-    private Integer Stock;
+    private Integer stock;
     private Instant data;
     @Enumerated(EnumType.STRING)
     private CategoriaRoupa categoriaRoupa;

@@ -14,6 +14,7 @@ import org.hibernate.query.Query;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -37,25 +38,25 @@ public class RoupaDao {
 
     public void atualizar(Roupa roupa) {
         try {
-            //this.entityManager.getTransaction().begin();
-            //this.entityManager.refresh(roupa);
-            //this.entityManager.merge(roupa);
-            //this.entityManager.merge(entityManager.getReference(Roupa.class, roupa.getIdRoupa()));
-            //this.entityManager.getTransaction().commit();
+            this.entityManager.getTransaction().begin();
+//            this.entityManager.refresh(roupa);
+//            this.entityManager.merge(roupa);
+            this.entityManager.merge(entityManager.getReference(Roupa.class, roupa.getIdRoupa()));
+            this.entityManager.getTransaction().commit();
 
-            Session session = entityManager.unwrap(org.hibernate.Session.class);
-            SessionFactory sessionFactory = session.getSessionFactory();
-            Session newSession = sessionFactory.openSession();
-            Transaction transaction = newSession.beginTransaction();
-            newSession.saveOrUpdate(roupa);
-            transaction.commit();
+//            Session session = entityManager.unwrap(org.hibernate.Session.class);
+//            SessionFactory sessionFactory = session.getSessionFactory();
+//            Session newSession = sessionFactory.openSession();
+//            Transaction transaction = newSession.beginTransaction();
+//            newSession.saveOrUpdate(roupa);
+//            transaction.commit();
         } catch (Exception ex) {
             ex.printStackTrace();
             this.entityManager.getTransaction().rollback();
         }
     }
 
-    public void atualizarStock(Roupa roupa) {
+    public void atualizarStock(Roupa roupa, Integer stock) {
         // Parametros Integer id, Integer stock ª=> TipoRoupa tipoRoupa, TamanhoRoupa tamanhoRoupa
         //Roupa roupa = entityManager.find(Roupa.class, id);
         //roupa.setStock(roupa.getStock() + quantidade);
@@ -95,7 +96,7 @@ public class RoupaDao {
 
         try {
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1, roupa.getStock());
+            statement.setInt(1, stock);
             statement.setString(2, String.valueOf(roupa.getTipoRoupa()));
             statement.setString(3, String.valueOf(roupa.getTamanhoRoupa()));
             //statement.setString(2, String.valueOf(tipoRoupa));
@@ -123,12 +124,15 @@ public class RoupaDao {
         return entityManager.createQuery(jpql, Roupa.class).setParameter("tamanhoRoupa", tamanhoRoupa).getResultList();
     }
 
-    public List<Roupa> buscarPorTipoTamanhoRoupa(TipoRoupa tipoRoupa, TamanhoRoupa tamanhoRoupa) {
-        String jpql = "SELECT r FROM Roupa r WHERE r.tipoRoupa = :tipoRoupa AND r.tamanhoRoupa = :tamanhoRoupa ";
-        return  entityManager.createQuery(jpql, Roupa.class)
-                .setParameter("tipoRoupa", tipoRoupa)
-                .setParameter("tamanhoRoupa", tamanhoRoupa)
-                .getResultList();
+    public Integer buscarPorTipoTamanhoRoupa(Roupa roupa) { //TipoRoupa tipoRoupa, TamanhoRoupa tamanhoRoupa
+        String jpql = "SELECT r.stock FROM Roupa r WHERE r.tipoRoupa=:tipoRoupa AND r.tamanhoRoupa=:tamanhoRoupa ";
+        return  entityManager.createQuery(jpql, Integer.class)
+                .setParameter("tipoRoupa", roupa.getTipoRoupa())
+                .setParameter("tamanhoRoupa", roupa.getTamanhoRoupa())
+                .getSingleResult();
+    }
+    public Roupa buscarPorId(Integer id){
+        return entityManager.find(Roupa.class, id);
     }
 
 }

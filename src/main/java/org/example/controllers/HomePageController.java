@@ -332,7 +332,7 @@ public class HomePageController implements Initializable {
 
         try {
             for (Roupa r: this.listaRoupaParaCardSotck) {
-                System.out.println(r);
+                //System.out.println(r);
                 FXMLLoader fxmlLoader =  new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
                 VBox cardBox = fxmlLoader.load();
