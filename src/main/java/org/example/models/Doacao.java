@@ -19,7 +19,10 @@ public class Doacao implements Serializable {
     private Integer idDoacao;
     private Instant data;
     @ManyToOne
+    @JoinColumn(name = "utilizador_id", referencedColumnName = "idUtilizador")
     private Utilizador utilizador;
 
-    // todo - testar com a lista de roupa
+    @ManyToOne
+    @JoinColumn(name = "roupa_doacao_id", referencedColumnName = "id_roupa_doacao")
+    private Roupa_Doacao roupa_doacao;
 }

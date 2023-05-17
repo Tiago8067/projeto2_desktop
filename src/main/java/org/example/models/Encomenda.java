@@ -2,12 +2,9 @@ package org.example.models;
 
 import lombok.*;
 import org.example.models.enums.EstadoEncomenda;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,9 +23,13 @@ public class Encomenda implements Serializable {
     @Enumerated(EnumType.STRING)
     private EstadoEncomenda estadoEncomenda;
     @ManyToOne
+    @JoinColumn(name = "fornecedor_id", referencedColumnName = "idFornecedor")
     private Fornecedor fornecedor;
     @ManyToOne
+    @JoinColumn(name = "utilizador_id", referencedColumnName = "idUtilizador")
     private Utilizador utilizador;
-    @OneToMany(mappedBy = "encomenda")
-    private List<LinhaEncomenda> linhas = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "linha_encomenda_id", referencedColumnName = "idLinhaEncomenda")
+    private LinhaEncomenda linha_encomenda;
 }

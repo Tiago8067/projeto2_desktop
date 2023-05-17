@@ -3,6 +3,7 @@ package org.example.models;
 import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,8 +18,10 @@ public class LinhaEncomenda implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idLinhaEncomenda;
     private Integer quantidade;
-    @ManyToOne
-    private Roupa roupa;
-    @ManyToOne
-    private Encomenda encomenda;
+
+    @OneToMany(mappedBy = "linha_encomenda")
+    private List<Encomenda> encomendas;
+
+    @OneToMany(mappedBy = "linha_encomenda")
+    private List<Roupa> roupas;
 }

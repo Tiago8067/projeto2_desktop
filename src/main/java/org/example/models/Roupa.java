@@ -4,8 +4,6 @@ import lombok.*;
 import org.example.models.enums.CategoriaRoupa;
 import org.example.models.enums.TamanhoRoupa;
 import org.example.models.enums.TipoRoupa;
-import org.hibernate.annotations.DynamicUpdate;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -17,7 +15,6 @@ import java.time.Instant;
 @Setter
 @ToString
 @Entity
-//@DynamicUpdate
 @Table(name = "tb_roupa")
 public class Roupa implements Serializable {
     @Id
@@ -35,5 +32,11 @@ public class Roupa implements Serializable {
     @Enumerated(EnumType.STRING)
     private TipoRoupa tipoRoupa;
 
-    // todo - testar com a lista de doacao
+    @ManyToOne
+    @JoinColumn(name = "roupa_doacao_id", referencedColumnName = "id_roupa_doacao")
+    private Roupa_Doacao roupa_doacao;
+
+    @ManyToOne
+    @JoinColumn(name = "linha_encomenda_id", referencedColumnName = "idLinhaEncomenda")
+    private LinhaEncomenda linha_encomenda;
 }

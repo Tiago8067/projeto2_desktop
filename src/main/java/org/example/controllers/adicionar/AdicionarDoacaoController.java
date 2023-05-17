@@ -116,8 +116,8 @@ public class AdicionarDoacaoController implements Initializable {
                     //TODO - TABELA STOCK A PARTE (IDEIA)
 
                     if (labelIdErroNomeCliente.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
-                        this.roupa_doacao.setRoupa(r);
-                        this.roupa_doacao.setDoacao(this.doacao);
+//                        this.roupa_doacao.setRoupa(r);
+//                        this.roupa_doacao.setDoacao(this.doacao);
 
                         this.doacaoDao.registar(this.doacao);
                         this.roupa_doacaoDao.registar(this.roupa_doacao);
@@ -256,8 +256,8 @@ public class AdicionarDoacaoController implements Initializable {
 
         if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") &&
                 labelIdErroTamanho.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
-            this.roupa_doacao.setRoupa(this.roupa);
-            this.roupa_doacao.setDoacao(this.doacao);
+//            this.roupa_doacao.setRoupa(this.roupa);
+//            this.roupa_doacao.setDoacao(this.doacao);
 
             this.doacaoDao.registar(this.doacao);
             this.roupa_doacaoDao.registar(this.roupa_doacao);

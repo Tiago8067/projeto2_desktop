@@ -116,7 +116,7 @@ public class AdicionarPedidoController implements Initializable {
         } else {
             for (Roupa r: this.verrificaTipoRoupaList) {
                 if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue())) {
-                    this.linhaEncomenda.setRoupa(r);
+//                    this.linhaEncomenda.setRoupa(r);
                     labelIdErroTipoRoupa.setText("");
                 } else {
                     System.out.println("Este Tipo Roupa nao esta em Stock!");
@@ -129,7 +129,7 @@ public class AdicionarPedidoController implements Initializable {
         } else {
             for (Roupa r: this.verrificaTamanhoRoupaList) {
                 if (r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())){
-                    this.linhaEncomenda.setRoupa(r);
+//                    this.linhaEncomenda.setRoupa(r);
                     labelIdErroTamanho.setText("");
                 } else {
                     System.out.println("Este Tamanho Roupa nao esta em Stock!");
@@ -180,7 +180,7 @@ public class AdicionarPedidoController implements Initializable {
 
         if(labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") && labelIdErroTamanho.getText().equals("")
                 && labelIdErroFornecedor.getText().equals("") && labelIdErroEstadoEnc.getText().equals("")){
-            this.linhaEncomenda.setEncomenda(this.encomenda);
+//            this.linhaEncomenda.setEncomenda(this.encomenda);
             //this.linhaEncomenda.setRoupa(this.roupa);
             this.encomendaDao.registar(this.encomenda);
             this.linhaEncomendaDao.registar(this.linhaEncomenda);

@@ -6,6 +6,7 @@ import org.example.models.enums.TipoUtilizador;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -34,6 +35,14 @@ public class Utilizador implements Serializable {
     private TipoUtilizador tipoUtilizador;
     @Enumerated(EnumType.STRING)
     private EstadoUtilizador estadoUtilizador;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "localizacao_id", referencedColumnName = "idLocalizacao")
     private Localizacao localizacao;
+
+    @OneToMany(mappedBy="utilizador")   //Faz ser bidirecional
+    private List<Doacao> doacoes;
+
+    @OneToMany(mappedBy = "utilizador")
+    private List<Encomenda> encomendas;
+
 }
