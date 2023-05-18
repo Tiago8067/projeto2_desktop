@@ -68,6 +68,51 @@
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <center>
+                              <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <content>
+                                    <TableView fx:id="tableViewDoacao" prefHeight="300.0" prefWidth="600.0">
+                                       <columns>
+                                          <TableColumn fx:id="tableColumnIdDoacao" maxWidth="25.0" prefWidth="20.0" text="Id" />
+                                          <TableColumn fx:id="tableColumnNomeCliente" maxWidth="150.0" prefWidth="75.0" text="Nome" />
+                                          <TableColumn fx:id="tableColumnDataDoacao" maxWidth="150.0" prefWidth="75.0" text="Data" />
+                                          <TableColumn maxWidth="150.0" prefWidth="75.0" text="Roupa">
+                                             <columns>
+                                                <TableColumn fx:id="tableColumnTipoRoupaDoacao" maxWidth="150.0" prefWidth="75.0" text="Tipo" />
+                                                <TableColumn fx:id="tableColumnTamanhoRoupaDoacao" maxWidth="150.0" prefWidth="75.0" text="Tamanho" />
+                                             </columns>
+                                          </TableColumn>
+                                          <TableColumn fx:id="tableColumnQtdDoacao" maxWidth="150.0" prefWidth="75.0" text="Quantidade" />
+                                          <TableColumn fx:id="tableColumnAcoesDoacao" maxWidth="75.0" prefWidth="73.0" text="Ações" />
+                                       </columns>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                           </center>
+                           <top>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="10.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Button fx:id="btnIdAddDoacao" mnemonicParsing="false" onAction="#btnAddDoacao" text="Adicionar">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" right="10.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                                 <BorderPane.margin>
+                                    <Insets />
+                                 </BorderPane.margin>
+                              </HBox>
+                           </top>
+                        </BorderPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tabIdStock" text="Stock">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <left>
                               <Accordion BorderPane.alignment="CENTER">
                                 <panes>
@@ -121,7 +166,7 @@
                            <top>
                               <HBox alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button fx:id="idBtnAddDoacao" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#btnAddDoacao" text="Adicionar">
+                                    <Button fx:id="idBtnAddStock" alignment="CENTER_RIGHT" mnemonicParsing="false" text="Adicionar">
                                        <HBox.margin>
                                           <Insets bottom="5.0" right="10.0" top="5.0" />
                                        </HBox.margin>
@@ -132,7 +177,7 @@
                            <center>
                               <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <content>
-                                    <GridPane fx:id="idCardDoacoes">
+                                    <GridPane fx:id="idCardStock">
                                       <rowConstraints>
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
@@ -182,7 +227,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="tabIdEntregas" text="Entregas">
+            <Tab fx:id="tabEntregas" text="Entregas">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -190,12 +235,11 @@
                            <center>
                               <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <content>
-                                    <TableView prefHeight="300.0" prefWidth="600.0">
+                                    <TableView fx:id="tvEntregas" prefHeight="300.0" prefWidth="600.0">
                                        <columns>
-                                          <TableColumn prefWidth="75.0" text="Fornecedor" />
-                                          <TableColumn prefWidth="75.0" text="Conteúdo" />
-                                          <TableColumn prefWidth="104.0" text="Data de Entrega" />
-                                          <TableColumn prefWidth="46.39994812011719" text="Estado" />
+                                          <TableColumn fx:id="tCNomeForn" prefWidth="75.0" text="Fornecedor" />
+                                          <TableColumn fx:id="tCDataEntrega" prefWidth="104.0" text="Data de Entrega" />
+                                          <TableColumn fx:id="tCEstado" prefWidth="46.39994812011719" text="Estado" />
                                           <TableColumn prefWidth="174.0">
                                              <graphic>
                                                 <SplitMenuButton mnemonicParsing="false" prefHeight="23.0" prefWidth="182.0" text="Selecione o Estado">
@@ -225,11 +269,11 @@
                            <center>
                               <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <content>
-                                    <TableView fx:id="tableViewFornecedor" prefHeight="300.0" prefWidth="600.0">
+                                    <TableView fx:id="tvFornecedor" prefHeight="300.0" prefWidth="600.0">
                                        <columns>
-                                          <TableColumn fx:id="tableColumnIdFornecedor" maxWidth="25.0" prefWidth="20.0" text="Id" />
-                                          <TableColumn fx:id="tableColumnNomeFornecedor" maxWidth="150.0" prefWidth="75.0" text="Nome" />
-                                          <TableColumn fx:id="tableColumnAcoesFornecedor" maxWidth="75.0" prefWidth="73.0" text="Ações" />
+                                          <TableColumn fx:id="tCIdFornecedor" maxWidth="25.0" prefWidth="20.0" text="Id" />
+                                          <TableColumn fx:id="tCNomeFornecedor" maxWidth="150.0" prefWidth="75.0" text="Nome" />
+                                          <TableColumn fx:id="tCAcoesFornecedor" maxWidth="75.0" prefWidth="73.0" text="Ações" />
                                        </columns>
                                     </TableView>
                                  </content>
@@ -238,7 +282,7 @@
                            <top>
                               <HBox alignment="CENTER_RIGHT" prefHeight="10.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button fx:id="tcBtnIdAddFornecedor" mnemonicParsing="false" onAction="#tcBtnAddFornecedor" text="Adicionar">
+                                    <Button fx:id="btnIdAddFornecedor" mnemonicParsing="false" onAction="#btnAddFornecedor" text="Adicionar">
                                        <HBox.margin>
                                           <Insets bottom="5.0" right="10.0" top="5.0" />
                                        </HBox.margin></Button>
@@ -261,13 +305,13 @@
                            <center>
                               <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <content>
-                                    <TableView fx:id="tableViewFuncionarios" prefHeight="250.0" prefWidth="600.0">
+                                    <TableView fx:id="tvFuncionarios" prefHeight="250.0" prefWidth="600.0">
                                        <columns>
-                                          <TableColumn fx:id="tableColumnId" maxWidth="25.0" prefWidth="20.0" text="Id" />
-                                          <TableColumn fx:id="tableColumnUsername" maxWidth="80.0" prefWidth="75.0" text="Username" />
-                                          <TableColumn fx:id="tableColumnNome" maxWidth="150.0" prefWidth="75.0" text="Nome" />
-                                          <TableColumn fx:id="tableColumnEstado" maxWidth="80.0" prefWidth="75.0" text="Estado" />
-                                          <TableColumn fx:id="tableColumnAcoes" maxWidth="75.0" prefWidth="73.0" text="Ações" />
+                                          <TableColumn fx:id="tCIdFuncionarios" maxWidth="25.0" prefWidth="20.0" text="Id" />
+                                          <TableColumn fx:id="tCUsernameFunc" maxWidth="80.0" prefWidth="75.0" text="Username" />
+                                          <TableColumn fx:id="tCNomeFunc" maxWidth="150.0" prefWidth="75.0" text="Nome" />
+                                          <TableColumn fx:id="tCIdEstadoFunc" maxWidth="80.0" prefWidth="75.0" text="Estado" />
+                                          <TableColumn fx:id="tCAcoesFunc" maxWidth="75.0" prefWidth="73.0" text="Ações" />
                                        </columns>
                                     </TableView>
                                  </content></ScrollPane>
@@ -277,7 +321,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="tabEditarFuncionarioId" disable="true">
+            <Tab fx:id="tabEditarFuncionario" disable="true">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -311,9 +355,9 @@
                                        <children>
                                           <Label text="Id :" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
                                           <Label text="Contacto :" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
-                                          <TextField fx:id="txtFdAtualizarIdId" disable="true" prefHeight="25.0" prefWidth="105.0" GridPane.columnIndex="1" GridPane.valignment="TOP" />
-                                          <TextField fx:id="txtFdAtualizarContactoId" text="Atualize o Contacto" GridPane.columnIndex="3" GridPane.valignment="TOP" />
-                                          <Label fx:id="labelIdErroAtualizaContacto" textFill="RED" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+                                          <TextField fx:id="txtFdAtualizarId" disable="true" prefHeight="25.0" prefWidth="105.0" GridPane.columnIndex="1" GridPane.valignment="TOP" />
+                                          <TextField fx:id="txtFdAtualizarContacto" text="Atualize o Contacto" GridPane.columnIndex="3" GridPane.valignment="TOP" />
+                                          <Label fx:id="lblErroAtualizaContacto" textFill="RED" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                                              <font>
                                                 <Font name="System Bold Italic" size="10.0" />
                                              </font>
@@ -336,29 +380,29 @@
                                        </rowConstraints>
                                        <children>
                                           <Label text="Nome :" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
-                                          <TextField fx:id="txtFdAtualizarNomeId" text="Atualize o Nome" GridPane.columnIndex="1" GridPane.valignment="TOP" />
+                                          <TextField fx:id="txtFdAtualizarNome" text="Atualize o Nome" GridPane.columnIndex="1" GridPane.valignment="TOP" />
                                           <Label text="Cidade :" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP" />
                                           <Label text="Localidade :" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP" />
                                           <Label prefHeight="0.0" prefWidth="39.0" text="Rua :" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                                          <TextField fx:id="txtFdAtualizarIdCidade" text="Atualize a Cidade" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                                          <TextField fx:id="txtFdAtualizarIdLocalidade" text="Atualize a Localidade" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                                          <TextField fx:id="txtFdAtualizarIdRua" text="Atualize a Rua" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                                          <Label fx:id="labelIdErroAtualizaNome" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+                                          <TextField fx:id="txtFdAtualizarCidade" text="Atualize a Cidade" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                                          <TextField fx:id="txtFdAtualizarLocalidade" text="Atualize a Localidade" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                                          <TextField fx:id="txtFdAtualizarRua" text="Atualize a Rua" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                                          <Label fx:id="lblErroAtualizaNome" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                                              <font>
                                                 <Font name="System Bold Italic" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="labelIdErroAtualizaCidade" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                                          <Label fx:id="lblErroAtualizaCidade" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                                              <font>
                                                 <Font name="System Bold Italic" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="labelIdErroAtualizaLocalidade" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                                          <Label fx:id="lblErroAtualizaLocalidade" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                                              <font>
                                                 <Font name="System Bold Italic" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="labelIdErroAtualizaRua" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                                          <Label fx:id="lblErroAtualizaRua" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                                              <font>
                                                 <Font name="System Bold Italic" size="10.0" />
                                              </font>
@@ -378,14 +422,14 @@
                                        <children>
                                           <Label text="Código Postal :" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
                                           <Label text="Nº Porta :" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
-                                          <TextField fx:id="txtFdAtualizarIdCP" prefWidth="139.0" text="Atualize o Código Postal" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-                                          <TextField fx:id="txtFdAtualizarIdN_Porta" text="Atualize o Nº da Porta" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-                                          <Label fx:id="labelIdErroAtualizaCP" textFill="RED" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+                                          <TextField fx:id="txtFdAtualizarCP" prefWidth="139.0" text="Atualize o Código Postal" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+                                          <TextField fx:id="txtFdAtualizarNPorta" text="Atualize o Nº da Porta" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+                                          <Label fx:id="lblErroAtualizaCP" textFill="RED" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                                              <font>
                                                 <Font name="System Bold Italic" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="labelIdErroAtualizaN_Porta" prefHeight="12.0" prefWidth="26.0" textFill="RED" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+                                          <Label fx:id="lblErroAtualizaNPorta" prefHeight="12.0" prefWidth="26.0" textFill="RED" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                                              <font>
                                                 <Font name="System Bold Italic" size="10.0" />
                                              </font>

@@ -69,16 +69,35 @@ public class AdicionarDoacaoController implements Initializable {
             System.out.println(numberFormatException.getMessage());
         }
 
-        for (Roupa r : this.roupaList) {
-            if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
-//                r.setStock(r.getStock() + Integer.valueOf(txtFdIdQtd.getText()));
-                atualizarRoupa();
-                r.setRoupa_doacao(this.roupa_doacao);
-                this.roupaDao.atualizarStock(r, r.getStock() + Integer.valueOf(txtFdIdQtd.getText()));
-            } else {
-                registaRoupa();
-            }
-        }
+//        for (Roupa r : this.roupaList) {
+//            if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
+////                r.setStock(r.getStock() + Integer.valueOf(txtFdIdQtd.getText()));
+//                atualizarRoupa();
+//                r.setRoupa_doacao(this.roupa_doacao);
+//                this.roupaDao.atualizarStock(r, r.getStock() + Integer.valueOf(txtFdIdQtd.getText()));
+//            } else {
+//                registaRoupa();
+//            }
+//        }
+
+
+//        for (Roupa r: this.roupaList) {
+//            roupaList = (List)this.roupaDao.buscarPorTipoTamanhoRoupa(r);
+//            Roupa foundRoupa = null;
+////            if (roupaList.contains(r)){
+////                r.setStock(r.getStock() + Integer.parseInt(txtFdIdQtd.getText()));
+////                this.roupaDao.atualizar(r);
+////            }
+//            if(r.equals(this.roupa)){
+//                foundRoupa = r;
+//                break;
+//            }
+//            if (foundRoupa != null) {
+//                foundRoupa.setStock(foundRoupa.getStock() + Integer.parseInt(txtFdIdQtd.getText()));
+//                this.roupaDao.atualizar(foundRoupa);
+//            }
+//        }
+
 
 //        if (this.roupaList.size() == 0) {
 //            registaRoupa();

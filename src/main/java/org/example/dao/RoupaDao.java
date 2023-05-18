@@ -124,9 +124,17 @@ public class RoupaDao {
         return entityManager.createQuery(jpql, Roupa.class).setParameter("tamanhoRoupa", tamanhoRoupa).getResultList();
     }
 
-    public Integer buscarPorTipoTamanhoRoupa(Roupa roupa) { //TipoRoupa tipoRoupa, TamanhoRoupa tamanhoRoupa
+//    public Integer buscarPorTipoTamanhoRoupa(Roupa roupa) { //TipoRoupa tipoRoupa, TamanhoRoupa tamanhoRoupa
+//        String jpql = "SELECT r.stock FROM Roupa r WHERE r.tipoRoupa=:tipoRoupa AND r.tamanhoRoupa=:tamanhoRoupa ";
+//        return  entityManager.createQuery(jpql, Integer.class)
+//                .setParameter("tipoRoupa", roupa.getTipoRoupa())
+//                .setParameter("tamanhoRoupa", roupa.getTamanhoRoupa())
+//                .getSingleResult();
+//    }
+
+    public Roupa buscarPorTipoTamanhoRoupa(Roupa roupa) { //TipoRoupa tipoRoupa, TamanhoRoupa tamanhoRoupa
         String jpql = "SELECT r.stock FROM Roupa r WHERE r.tipoRoupa=:tipoRoupa AND r.tamanhoRoupa=:tamanhoRoupa ";
-        return  entityManager.createQuery(jpql, Integer.class)
+        return  entityManager.createQuery(jpql, Roupa.class)
                 .setParameter("tipoRoupa", roupa.getTipoRoupa())
                 .setParameter("tamanhoRoupa", roupa.getTamanhoRoupa())
                 .getSingleResult();
