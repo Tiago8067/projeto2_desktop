@@ -54,6 +54,13 @@
             <version>4.7.0-9.1.2</version>
         </dependency>
 
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.openjfx/javafx-base &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.openjfx</groupId>-->
+<!--            <artifactId>javafx-base</artifactId>-->
+<!--            <version>19.0.2.1</version>-->
+<!--        </dependency>-->
+
     </dependencies>
 
     <build>

@@ -74,7 +74,7 @@
                                     <TableView fx:id="tableViewDoacao" prefHeight="300.0" prefWidth="600.0">
                                        <columns>
                                           <TableColumn fx:id="tableColumnIdDoacao" maxWidth="25.0" prefWidth="20.0" text="Id" />
-                                          <TableColumn fx:id="tableColumnNomeCliente" maxWidth="150.0" prefWidth="75.0" text="Nome" />
+                                          <TableColumn fx:id="tableColumnNomeCliente" maxWidth="150.0" prefWidth="75.0" text="Nome de Utilizador" />
                                           <TableColumn fx:id="tableColumnDataDoacao" maxWidth="150.0" prefWidth="75.0" text="Data" />
                                           <TableColumn maxWidth="150.0" prefWidth="75.0" text="Roupa">
                                              <columns>

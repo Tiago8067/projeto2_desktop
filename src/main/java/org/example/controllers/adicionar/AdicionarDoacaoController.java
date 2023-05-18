@@ -61,14 +61,6 @@ public class AdicionarDoacaoController implements Initializable {
 
     @FXML
     void btnAdicionar(ActionEvent event) {
-        int verificaQtd = 0;
-
-        try {
-            verificaQtd = Integer.parseInt(txtFdIdQtd.getText());
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(numberFormatException.getMessage());
-        }
-
 //        for (Roupa r : this.roupaList) {
 //            if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
 ////                r.setStock(r.getStock() + Integer.valueOf(txtFdIdQtd.getText()));
@@ -184,7 +176,9 @@ public class AdicionarDoacaoController implements Initializable {
 //                }
 //            }
         //}
-        //registaRoupa();
+
+
+        registaDoacao();
 
         this.goToUtil.goToHomePageAdmin();
         Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
@@ -252,7 +246,7 @@ public class AdicionarDoacaoController implements Initializable {
         };
     }
 
-    private void registaRoupa() {
+    private void registaDoacao() {
         int verificaQtd = 0;
 
         try {
@@ -299,7 +293,7 @@ public class AdicionarDoacaoController implements Initializable {
             labelIdErroTamanho.setText("");
         }
 
-        this.roupa.setStock(Integer.valueOf(txtFdIdQtd.getText()));
+        //this.roupa.setStock(Integer.valueOf(txtFdIdQtd.getText()));
 
         if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") &&
                 labelIdErroTamanho.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {

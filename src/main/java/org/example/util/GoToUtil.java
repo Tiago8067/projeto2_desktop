@@ -67,8 +67,9 @@ public class GoToUtil {
             stage.show();
 
             HomePageController homePageController = fxmlLoader.getController();
-            homePageController.listaFuncionarios();
+            homePageController.listarDoacoes();
             homePageController.listaFornecedor();
+            homePageController.listaFuncionarios();
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();

@@ -1,7 +1,9 @@
 package org.example.controllers;
 
 import com.sun.prism.shader.DrawRoundRect_Color_AlphaTest_Loader;
-import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.*;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,22 +20,20 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import org.example.controllers.card.CardDoacoesController;
-import org.example.dao.FornecedorDao;
-import org.example.dao.RoupaDao;
-import org.example.dao.UtilizadorDao;
+import org.example.dao.*;
 import org.example.models.*;
 import org.example.models.enums.*;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
+import org.hibernate.boot.model.relational.Database;
+
 import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class HomePageController implements Initializable {
     EntityManager entityManager;
@@ -42,6 +42,8 @@ public class HomePageController implements Initializable {
     RegexDados regexDados;
     Fornecedor fornecedor;
     FornecedorDao fornecedorDao;
+    DoacaoDao doacaoDao;
+    Roupa_DoacaoDao roupa_doacaoDao;
     RoupaDao roupaDao;
 
     //HOMEPAGE
@@ -51,24 +53,28 @@ public class HomePageController implements Initializable {
     private MenuItem idgotoLoginPage;
 
     //DOACOES
+    private ObservableList<Doacao> doacaoObservableList;
+    private ObservableList<Roupa_Doacao> roupa_doacaoObservableList;
+    private ObservableList<Roupa> roupaObservableList;
+    private ObservableList<Object[]> observableListDoacoes;
     @FXML
     private Tab tabIdDoacoes;
     @FXML
     private Button btnIdAddDoacao;
     @FXML
-    private TableView<Doacao> tableViewDoacao;
+    private TableView<Object[]> tableViewDoacao;
     @FXML
-    private TableColumn<Integer, Doacao> tableColumnIdDoacao;
+    private TableColumn<Doacao, Integer> tableColumnIdDoacao;
     @FXML
-    private TableColumn<String, Utilizador> tableColumnNomeCliente;
+    private TableColumn<Doacao, String> tableColumnNomeCliente;
     @FXML
-    private TableColumn<String, Doacao> tableColumnDataDoacao;
+    private TableColumn<?, ?> tableColumnDataDoacao;
     @FXML
-    private TableColumn<TipoRoupa, Roupa> tableColumnTipoRoupaDoacao;
+    private TableColumn<Roupa, TipoRoupa> tableColumnTipoRoupaDoacao;
     @FXML
-    private TableColumn<TamanhoRoupa, Roupa> tableColumnTamanhoRoupaDoacao;
+    private TableColumn<Roupa, TamanhoRoupa> tableColumnTamanhoRoupaDoacao;
     @FXML
-    private TableColumn<Integer, Roupa_Doacao> tableColumnQtdDoacao;
+    private TableColumn<Roupa_Doacao, Integer> tableColumnQtdDoacao;
     @FXML
     private TableColumn<Doacao, Doacao> tableColumnAcoesDoacao;
 
@@ -250,7 +256,7 @@ public class HomePageController implements Initializable {
     void btnEditarFuncionarioApagar(ActionEvent event) {
         int idFuncionarioAtualizar = Integer.parseInt(txtFdAtualizarId.getText());
 
-        for (Utilizador u: this.observableListFuncionarios) {
+        for (Utilizador u : this.observableListFuncionarios) {
             if (u.getIdUtilizador() == idFuncionarioAtualizar) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setContentText("Tem a Certeza de querer Eliminar este Funcionário.");
@@ -284,7 +290,7 @@ public class HomePageController implements Initializable {
             System.out.println(numberFormatException.getMessage());
         }
 
-        for (Utilizador u: this.observableListFuncionarios) {
+        for (Utilizador u : this.observableListFuncionarios) {
             if (u.getIdUtilizador() == idFuncionarioAtualizar) {
                 if (txtFdAtualizarNome.getText().isEmpty()) {
                     lblErroAtualizaNome.setText("Tem de preencher o Nome Completo.");
@@ -302,14 +308,14 @@ public class HomePageController implements Initializable {
                     lblErroAtualizaContacto.setText("");
                 }
 
-                if (txtFdAtualizarCidade.getText().isEmpty()){
+                if (txtFdAtualizarCidade.getText().isEmpty()) {
                     lblErroAtualizaCidade.setText("Tem de preencher o Distrito no seu Registro");
                 } else {
                     u.getLocalizacao().setCidade(txtFdAtualizarCidade.getText());
                     lblErroAtualizaCidade.setText("");
                 }
 
-                if (txtFdAtualizarCP.getText().isEmpty()){
+                if (txtFdAtualizarCP.getText().isEmpty()) {
                     lblErroAtualizaCP.setText("Tem de preencher o Código Postal no seu Registro");
                 } else if (!this.regexDados.isValidCP(txtFdAtualizarCP.getText())) {
                     lblErroAtualizaCP.setText("Por favor, preencha o Código Postal Corretamente");
@@ -318,21 +324,21 @@ public class HomePageController implements Initializable {
                     lblErroAtualizaCP.setText("");
                 }
 
-                if (txtFdAtualizarLocalidade.getText().isEmpty()){
+                if (txtFdAtualizarLocalidade.getText().isEmpty()) {
                     lblErroAtualizaLocalidade.setText("Tem de preencher a Localidade no seu Registro");
                 } else {
                     u.getLocalizacao().setLocalidade(txtFdAtualizarLocalidade.getText());
                     lblErroAtualizaLocalidade.setText("");
                 }
 
-                if (txtFdAtualizarRua.getText().isEmpty()){
+                if (txtFdAtualizarRua.getText().isEmpty()) {
                     lblErroAtualizaRua.setText("Tem de preencher a Rua no seu Registro");
                 } else {
                     u.getLocalizacao().setRua(txtFdAtualizarRua.getText());
                     lblErroAtualizaRua.setText("");
                 }
 
-                if (txtFdAtualizarNPorta.getText().isEmpty()){
+                if (txtFdAtualizarNPorta.getText().isEmpty()) {
                     lblErroAtualizaNPorta.setText("Tem de preencher o Número da Porta no seu Registro");
                 } else if (verificaNumPorta == 0) {
                     lblErroAtualizaNPorta.setText("Preencha corretamente o Número da Porta no seu Registro");
@@ -341,7 +347,7 @@ public class HomePageController implements Initializable {
                     lblErroAtualizaNPorta.setText("");
                 }
 
-                if (txtFdIdEstado.getText().equalsIgnoreCase("ATIVO")){
+                if (txtFdIdEstado.getText().equalsIgnoreCase("ATIVO")) {
                     u.setEstadoUtilizador(EstadoUtilizador.ATIVO);
                 } else if (txtFdIdEstado.getText().equalsIgnoreCase("INATIVO")) {
                     u.setEstadoUtilizador(EstadoUtilizador.INATIVO);
@@ -372,6 +378,8 @@ public class HomePageController implements Initializable {
         this.regexDados = new RegexDados();
         this.fornecedor = new Fornecedor();
         this.fornecedorDao = new FornecedorDao(entityManager);
+        this.doacaoDao = new DoacaoDao(entityManager);
+        this.roupa_doacaoDao = new Roupa_DoacaoDao(entityManager);
         this.roupaDao = new RoupaDao(entityManager);
 
 
@@ -380,9 +388,9 @@ public class HomePageController implements Initializable {
         int linha = 1;
 
         try {
-            for (Roupa r: this.listaRoupaParaCardSotck) {
+            for (Roupa r : this.listaRoupaParaCardSotck) {
                 //System.out.println(r);
-                FXMLLoader fxmlLoader =  new FXMLLoader();
+                FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
                 VBox cardBox = fxmlLoader.load();
                 CardDoacoesController cardDoacoesController = fxmlLoader.getController();
@@ -401,18 +409,91 @@ public class HomePageController implements Initializable {
         }
 
 
-        
         initializeNodes();
     }
 
+    /*
+    IntegerProperty id;
+
+    public IntegerProperty idProperty () {
+        if (id == null) id = new SimpleIntegerProperty(this, "id");
+        return id;
+    }
+
+     */
+
+
+
     private void initializeNodes() {
+//        TableColumn<Utilizador, String> nomeCliente = new TableColumn<>("Nome do Cliente");
+//        nomeCliente.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Utilizador,String>, ObservableValue<String>>() {
+//            @Override
+//            public ObservableValue<String> call(TableColumn.CellDataFeatures<Utilizador, String> data) {
+//                return new ReadOnlyStringWrapper(data.getValue().getUsername());//.getPatient().getFirstName()
+//                //return data.getValue().getUsername(); // the RelationManager
+//                        //.getPatient().firstNameProperty();
+//            }
+//        });
+
+//        tableColumnIdDoacao.setCellValueFactory(data -> {
+//            Doacao doacao = data.getValue();
+//            return new SimpleIntegerProperty(doacao.getIdDoacao());
+//        });
+//
+
+        //Integer integer = 1;
+        // Convert Integer to ObservableValue<Integer>
+        //ObservableValue<Integer> observableValue = Bindings.createObjectBinding(() -> integer);
+
+        tableColumnIdDoacao.setCellValueFactory(new PropertyValueFactory<Doacao, Integer>("idDoacao"));
+        //tableColumnNomeCliente.setCellValueFactory(new PropertyValueFactory<Doacao, Integer>(""));
+        tableColumnQtdDoacao.setCellValueFactory(new PropertyValueFactory<Roupa_Doacao, Integer>("quantidade"));
+        tableViewDoacao.getColumns().addAll(tableColumnIdDoacao, tableColumnQtdDoacao);
+        //tableColumnIdDoacao.setCellValueFactory(cellData -> cellData.getValue().getIdDoacao());
+
+        /*
+        tableColumnIdDoacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Doacao, Integer>, ObservableValue<Integer>>() {
+            SimpleIntegerProperty integerProperty = new SimpleIntegerProperty(10);
+            @Override
+            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Doacao, Integer> d) {
+                return d.getValue().idProperty();
+                //return new ReadOnlyObjectWrapper<>(doacaoIntegerCellDataFeatures.getValue().getIdDoacao());
+            }
+        });
+
+         */
+
+
+//
+//        tableColumnNomeCliente.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Doacao, String>, ObservableValue<String>>() {
+//            @Override
+//            public ObservableValue<String> call(TableColumn.CellDataFeatures<Doacao, String> doacaoStringCellDataFeatures) {
+//                return doacaoStringCellDataFeatures.getValue().getUtilizador().getUsername();
+//            }
+//        });
+
+
+        //TABLE VIEW DOACAO
+//        tableColumnIdDoacao.setCellValueFactory(cd -> new SimpleIntegerProperty(((Doacao)cd.getValue()).getIdDoacao()).asObject());
+
+//        tableColumnNomeCliente.setCellValueFactory(cd -> new SimpleStringProperty(((Doacao)cd.getValue()).getUtilizador().getUsername()));
+        //tableColumnDataDoacao
+//        tableColumnTipoRoupaDoacao.setCellValueFactory(cd -> new Enum);
+        //tableColumnTamanhoRoupaDoacao.setCellValueFactory(new PropertyValueFactory<Roupa, TamanhoRoupa>("tamanhoRoupa"));
+
+        //tableColumnQtdDoacao.setCellValueFactory(cd -> new SimpleIntegerProperty(((Roupa_Doacao)cd.getValue()).getQuantidade()).asObject());
+        //tableColumnQtdDoacao.setCellValueFactory(cellData -> new Database(cellData.getTableView().getColumns().get(observableListDoacoes.indexOf())));
+
+
+        //TABLE VIEW FORNECEDOR
+        tCIdFornecedor.setCellValueFactory(new PropertyValueFactory<>("idFornecedor"));
+        tCNomeFornecedor.setCellValueFactory(new PropertyValueFactory<>("nome"));
+
+        //TABLE VIEW FUNCIONARIO
         tCIdFuncionarios.setCellValueFactory(new PropertyValueFactory<>("idUtilizador"));
         tCUsernameFunc.setCellValueFactory(new PropertyValueFactory<>("username"));
         tCNomeFunc.setCellValueFactory(new PropertyValueFactory<>("nome"));
         tCIdEstadoFunc.setCellValueFactory(new PropertyValueFactory<>("estadoUtilizador"));
-
-        tCIdFornecedor.setCellValueFactory(new PropertyValueFactory<>("idFornecedor"));
-        tCNomeFornecedor.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
         // TODO => tornar javafx responsivo
 
@@ -425,6 +506,27 @@ public class HomePageController implements Initializable {
     //HOMEPAGE
 
     //DOACOES
+    public void listarDoacoes() {
+//        List<Doacao> doacaoList = this.doacaoDao.buscarTodas();
+//        List<Roupa_Doacao> roupa_doacaoList = this.roupa_doacaoDao.buscarTodas();
+//        List<Roupa> roupaList = this.roupaDao.buscarTodas();
+
+//        doacaoObservableList = FXCollections.observableArrayList(doacaoList);
+//        roupa_doacaoObservableList = FXCollections.observableArrayList(roupa_doacaoList);
+//        roupaObservableList = FXCollections.observableArrayList(roupaList);
+
+//        tableViewDoacao.setItems(doacaoObservableList);
+//        tableViewDoacao.setItems(roupa_doacaoObservableList);
+//        tableViewDoacao.setItems(roupaObservableList);
+        List<Object[]> listTodos = this.doacaoDao.buscarTodasDoacaoRoupa();
+        //for (Object[] o : listTodos) System.out.println(Arrays.toString(o));
+        observableListDoacoes = FXCollections.observableArrayList(listTodos);
+        //for (Object[] o : observableListDoacoes) System.out.println(Arrays.toString(o));
+        tableViewDoacao.setItems(observableListDoacoes);
+        //for (Object[] o : tableViewDoacao.getItems()) System.out.println(Arrays.toString(o));
+        //System.out.println(tableViewDoacao.getItems());
+//        tableViewDoacao.getColumns().addAll((TableColumn<Object[], ?>) observableListDoacoes);
+    }
 
     //STOCK
 
@@ -472,7 +574,7 @@ public class HomePageController implements Initializable {
         List<Utilizador> utilizadorList = this.utilizadorDao.buscarTodos();
         List<Utilizador> listaFuncionarios = new ArrayList<>();
 
-        for (Utilizador u: utilizadorList) {
+        for (Utilizador u : utilizadorList) {
             if (u.getTipoUtilizador().equals(TipoUtilizador.FUNCIONARIO)) {
                 listaFuncionarios.add(u);
             }
