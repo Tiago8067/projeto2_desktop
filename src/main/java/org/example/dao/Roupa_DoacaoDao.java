@@ -2,9 +2,6 @@ package org.example.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.example.models.Doacao;
-import org.example.models.Fornecedor;
-import org.example.models.Roupa;
 import org.example.models.Roupa_Doacao;
 
 import javax.persistence.EntityManager;
@@ -17,14 +14,6 @@ public class Roupa_DoacaoDao {
 
     public void registar(Roupa_Doacao roupa_doacao) {
         this.entityManager.persist(roupa_doacao);
-//        try {
-//            this.entityManager.getTransaction().begin();
-//            this.entityManager.persist(roupa_doacao);
-//            this.entityManager.getTransaction().commit();
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            this.entityManager.getTransaction().rollback();
-//        }
     }
 
     public void atualizar(Roupa_Doacao roupa_doacao) {

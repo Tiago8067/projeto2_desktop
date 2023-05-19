@@ -1,7 +1,5 @@
 package org.example.models;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,11 +25,4 @@ public class Doacao implements Serializable {
     @ManyToOne
     @JoinColumn(name = "roupa_doacao_id", referencedColumnName = "id_roupa_doacao")
     private Roupa_Doacao roupa_doacao;
-
-//    private IntegerProperty id;
-//
-//    public IntegerProperty idProperty() {
-//        if (id == null) id = new SimpleIntegerProperty(this, "id");
-//        return id;
-//    }
 }

@@ -18,7 +18,6 @@ import org.example.models.enums.TipoRoupa;
 import org.example.models.enums.TipoUtilizador;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
-
 import javax.persistence.EntityManager;
 import java.net.URL;
 import java.util.List;
@@ -61,123 +60,6 @@ public class AdicionarDoacaoController implements Initializable {
 
     @FXML
     void btnAdicionar(ActionEvent event) {
-//        for (Roupa r : this.roupaList) {
-//            if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
-////                r.setStock(r.getStock() + Integer.valueOf(txtFdIdQtd.getText()));
-//                atualizarRoupa();
-//                r.setRoupa_doacao(this.roupa_doacao);
-//                this.roupaDao.atualizarStock(r, r.getStock() + Integer.valueOf(txtFdIdQtd.getText()));
-//            } else {
-//                registaRoupa();
-//            }
-//        }
-
-
-//        for (Roupa r: this.roupaList) {
-//            roupaList = (List)this.roupaDao.buscarPorTipoTamanhoRoupa(r);
-//            Roupa foundRoupa = null;
-////            if (roupaList.contains(r)){
-////                r.setStock(r.getStock() + Integer.parseInt(txtFdIdQtd.getText()));
-////                this.roupaDao.atualizar(r);
-////            }
-//            if(r.equals(this.roupa)){
-//                foundRoupa = r;
-//                break;
-//            }
-//            if (foundRoupa != null) {
-//                foundRoupa.setStock(foundRoupa.getStock() + Integer.parseInt(txtFdIdQtd.getText()));
-//                this.roupaDao.atualizar(foundRoupa);
-//            }
-//        }
-
-
-//        if (this.roupaList.size() == 0) {
-//            registaRoupa();
-//        } else {
-//            //for (Roupa r: this.roupaList) {
-////                if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
-//            if (this.roupa.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && this.roupa.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
-//                    if (txtFdIdNomeCliente.getText().isEmpty()) {
-//                        labelIdErroNomeCliente.setText("Tem de preencher o Nome Completo.");
-//                    } else if (this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()) == null) {
-//                        labelIdErroNomeCliente.setText("Este utilizador não existe!");
-//                    } else if (!this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()).getTipoUtilizador().equals(TipoUtilizador.CLIENTE)) {
-//                        labelIdErroNomeCliente.setText("Este utilizador não é um Cliente!!! Introduza novamente!");
-//                    } else {
-//                        this.doacao.setUtilizador(this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()));
-//                        labelIdErroNomeCliente.setText("");
-//                    }
-//
-//                    if (txtFdIdQtd.getText().equals("")) {
-//                        labelIdErroQuantidade.setText("Tem de preencher a Quantidade.");
-//                    } else if (verificaQtd == 0) {
-//                        labelIdErroQuantidade.setText("Preencha corretamente a Quantidade!");
-//                    } else {
-//                        this.roupa_doacao.setQuantidade(Integer.valueOf(txtFdIdQtd.getText()));
-//                        labelIdErroQuantidade.setText("");
-//                    }
-//
-//                    // TODO - Falta a Data de Doação
-//
-////                    r.setStock(r.getStock() + Integer.parseInt(txtFdIdQtd.getText()));
-//                    //int stock = r.getStock() + Integer.parseInt(txtFdIdQtd.getText());
-//                    //this.atualizaStock.setStock(this.atualizaStock.getStock() + Integer.parseInt(txtFdIdQtd.getText()));
-//                    //this.roupaDao.atualizarStock(r.getIdRoupa(), stock);
-//
-//                    //entityManager.persist(r);
-//                    //entityManager.merge(r);
-//
-//
-////                    this.roupaDao.atualizarStock(r);
-//                    //this.roupaDao.buscarPorTipoTamanhoRoupa(r);//.setStock(r.getStock() + Integer.parseInt(txtFdIdQtd.getText()));
-////                    if(r.getStock() == this.roupaDao.buscarPorTipoTamanhoRoupa(r)){
-////                        r.setStock(r.getStock() + Integer.parseInt(txtFdIdQtd.getText()));
-////                        this.roupaDao.atualizar(r);
-////                    }
-//                    //r.setStock(this.roupaDao.buscarPorTipoTamanhoRoupa(r) + Integer.parseInt(txtFdIdQtd.getText()));
-//
-////                    List<Roupa> roupaList = this.roupaDao.buscarPorTipoTamanhoRoupa(r);
-////                    if (roupaList.contains(r)) {
-////                        r.setStock(r.getStock() + Integer.parseInt(txtFdIdQtd.getText()));
-////                        this.roupaDao.atualizar(r);
-////                    }
-//
-//                    this.roupaDao.buscarPorId(roupa.getIdRoupa()).setStock(roupa.getStock() + Integer.parseInt(txtFdIdQtd.getText()));
-//                    this.roupaDao.registar(this.roupaDao.buscarPorId(roupa.getIdRoupa()));
-//
-////                    this.roupaDao.atualizar(r);
-////                      this.roupaDao.registar(r);
-//
-//                    //TODO - TABELA STOCK A PARTE (IDEIA)
-//
-//                    if (labelIdErroNomeCliente.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
-////                        this.roupa_doacao.setRoupa(r);
-////                        this.roupa_doacao.setDoacao(this.doacao);
-//                        this.doacao.setRoupa_doacao(this.roupa_doacao);
-////                        this.roupa_doacao.getDoacoes().add(this.doacao);
-//
-//                        this.doacaoDao.registar(this.doacao);
-//                        this.roupa_doacaoDao.registar(this.roupa_doacao);
-//                        //entityManager.persist(this.doacao);
-//                        //entityManager.persist(this.roupa_doacao);
-//
-//                        //this.roupaDao.atualizar(r);
-//                        //this.roupaDao.atualizarStock(r.getIdRoupa(), stock);
-//                        //
-//                        // break;
-//                        //return; // duplica a linha na roupa
-//                        //this.roupaDao.atualizarStock(r.getIdRoupa(), Integer.valueOf(txtFdIdQtd.getText()));
-//                    }
-//
-//                    //todo - resolver depois situacao da duplicacao
-//                } else {
-//                    //System.out.println("Diferentes");
-//                    registaRoupa();
-//                }
-//            }
-        //}
-
-
         registaDoacao();
 
         this.goToUtil.goToHomePageAdmin();
@@ -293,19 +175,10 @@ public class AdicionarDoacaoController implements Initializable {
             labelIdErroTamanho.setText("");
         }
 
-        //this.roupa.setStock(Integer.valueOf(txtFdIdQtd.getText()));
-
         if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") &&
                 labelIdErroTamanho.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
-            //this.roupa_doacao.setRoupa(this.roupa);
             this.roupa.setRoupa_doacao(this.roupa_doacao);
             this.doacao.setRoupa_doacao(this.roupa_doacao);
-            //this.roupa_doacao.setDoacao(this.doacao);
-
-//            if(this.roupa_doacao.getRoupas() == null && this.roupa_doacao.getDoacoes() == null) {
-//                this.roupa_doacao.getRoupas().add(this.roupa);
-//                this.roupa_doacao.getDoacoes().add(this.doacao);
-//            }
 
             this.doacaoDao.registar(this.doacao);
             this.roupa_doacaoDao.registar(this.roupa_doacao);
@@ -344,31 +217,10 @@ public class AdicionarDoacaoController implements Initializable {
 
         // TODO - Falta a Data de Doação
 
-//        if (cBIdTipoRoupa.getValue() == null) {
-//            labelIdErroTipoRoupa.setText("Tem de preencher o Tipo de Roupa.");
-//        } else {
-//            this.roupa.setImageSrc(adicionarAssociarImagem());
-//            this.roupa.setCategoriaRoupa(adicionarAssociarCategoria());
-//            this.roupa.setTipoRoupa(cBIdTipoRoupa.getValue());
-//            labelIdErroTipoRoupa.setText("");
-//        }
-//
-//        if (cBIdTamanhoRoupa.getValue() == null) {
-//            labelIdErroTamanho.setText("Tem de preencher o Tamanho de Roupa.");
-//        } else {
-//            this.roupa.setTamanhoRoupa(cBIdTamanhoRoupa.getValue());
-//            labelIdErroTamanho.setText("");
-//        }
-//        this.roupa.setStock(this.roupa.getStock() + Integer.valueOf(txtFdIdQtd.getText()));
-//        this.roupa.setStock(Integer.valueOf(txtFdIdQtd.getText()));
-
         if (labelIdErroNomeCliente.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
-//            this.roupa.setRoupa_doacao(this.roupa_doacao);
             this.doacao.setRoupa_doacao(this.roupa_doacao);
-
             this.doacaoDao.registar(this.doacao);
             this.roupa_doacaoDao.registar(this.roupa_doacao);
-//            this.roupaDao.registar(this.roupa);
         }
     }
 }

@@ -74,6 +74,7 @@ public class AdicionarPedidoController implements Initializable {
     private MenuItem mIIdEstadoFinalizado;
     @FXML
     private Label lblAdicionaEstado;
+
     @FXML
     void mIEstadoEmPreparacao(ActionEvent event) {
         lblAdicionaEstado.setText(mIIdEstadoEmPreparacao.getText());
@@ -114,7 +115,7 @@ public class AdicionarPedidoController implements Initializable {
         if (cBIdTipoRoupa.getValue() == null) {
             labelIdErroTipoRoupa.setText("Tem de preencher o Tipo de Roupa.");
         } else {
-            for (Roupa r: this.verrificaTipoRoupaList) {
+            for (Roupa r : this.verrificaTipoRoupaList) {
                 if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue())) {
 //                    this.linhaEncomenda.setRoupa(r);
                     labelIdErroTipoRoupa.setText("");
@@ -127,9 +128,8 @@ public class AdicionarPedidoController implements Initializable {
         if (cBIdTamanhoRoupa.getValue() == null) {
             labelIdErroTamanho.setText("Tem de preencher o Tipo de Roupa.");
         } else {
-            for (Roupa r: this.verrificaTamanhoRoupaList) {
-                if (r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())){
-//                    this.linhaEncomenda.setRoupa(r);
+            for (Roupa r : this.verrificaTamanhoRoupaList) {
+                if (r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
                     labelIdErroTamanho.setText("");
                 } else {
                     System.out.println("Este Tamanho Roupa nao esta em Stock!");
@@ -138,23 +138,6 @@ public class AdicionarPedidoController implements Initializable {
         }
 
         //TODO - FALTA A DATA
-
-//        if (txtFdIdQtd.getText().equals("")) {
-//            labelIdErroQuantidade.setText("Tem de preencher a Quantidade.");
-//        } else if (verificaQtd == 0) {
-//            labelIdErroQuantidade.setText("Preencha corretamente a Quantidade!");
-//        } else {
-//            //verificaQtd--;
-//            this.roupa.setStock(Integer.valueOf(txtFdIdQtd.getText()));
-//            //this.roupa.getStock();
-//            labelIdErroNomeCliente.setText("");
-//        }
-
-//        public Integer getQtdStockEncomenda(){
-//            //FAZER SELECT BD
-////            Integer qtd = 0;
-////            return;
-//        }
 
         if (txtFIdFornecedor.getText().isEmpty()) {
             labelIdErroFornecedor.setText("Tem de preencher o Nome do Utilizador do Fornecedor.");
@@ -165,7 +148,7 @@ public class AdicionarPedidoController implements Initializable {
             labelIdErroFornecedor.setText("");
         }
 
-        if(lblAdicionaEstado.getText().isEmpty()){
+        if (lblAdicionaEstado.getText().isEmpty()) {
             labelIdErroEstadoEnc.setText("Tem de preencher o estado da Encomenda.");
         } else if (lblAdicionaEstado.getText().equals("Em Preparacao")) {
             this.encomenda.setEstadoEncomenda(EstadoEncomenda.EMPREPARACAO);
@@ -178,10 +161,8 @@ public class AdicionarPedidoController implements Initializable {
             labelIdErroEstadoEnc.setText("");
         }
 
-        if(labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") && labelIdErroTamanho.getText().equals("")
-                && labelIdErroFornecedor.getText().equals("") && labelIdErroEstadoEnc.getText().equals("")){
-//            this.linhaEncomenda.setEncomenda(this.encomenda);
-            //this.linhaEncomenda.setRoupa(this.roupa);
+        if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") && labelIdErroTamanho.getText().equals("")
+                && labelIdErroFornecedor.getText().equals("") && labelIdErroEstadoEnc.getText().equals("")) {
             this.encomendaDao.registar(this.encomenda);
             this.linhaEncomendaDao.registar(this.linhaEncomenda);
             this.roupaDao.registar(this.roupa);

@@ -11,6 +11,7 @@ import org.example.models.enums.EstadoUtilizador;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
+
 import javax.persistence.EntityManager;
 import java.net.URL;
 import java.util.ResourceBundle;

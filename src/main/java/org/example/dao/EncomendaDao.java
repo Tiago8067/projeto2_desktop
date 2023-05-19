@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 @AllArgsConstructor
 public class EncomendaDao {
     private EntityManager entityManager;
+
     public void registar(Encomenda encomenda) {
         try {
             this.entityManager.getTransaction().begin();

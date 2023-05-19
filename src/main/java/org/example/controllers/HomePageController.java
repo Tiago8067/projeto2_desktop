@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.example.controllers.card.CardDoacoesController;
+import org.example.dadosTableView.LinhaDoacoes;
 import org.example.dao.*;
 import org.example.models.*;
 import org.example.models.enums.*;
@@ -379,7 +380,6 @@ public class HomePageController implements Initializable {
         this.roupa_doacaoDao = new Roupa_DoacaoDao(entityManager);
         this.roupaDao = new RoupaDao(entityManager);
 
-
         this.listaRoupaParaCardSotck = this.roupaDao.buscarTodas();
         int coluna = 0;
         int linha = 1;
@@ -404,76 +404,12 @@ public class HomePageController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         initializeNodes();
     }
 
-    /*
-    IntegerProperty id;
-
-    public IntegerProperty idProperty () {
-        if (id == null) id = new SimpleIntegerProperty(this, "id");
-        return id;
-    }
-
-     */
-
-
-
     private void initializeNodes() {
-//        TableColumn<Utilizador, String> nomeCliente = new TableColumn<>("Nome do Cliente");
-//        nomeCliente.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Utilizador,String>, ObservableValue<String>>() {
-//            @Override
-//            public ObservableValue<String> call(TableColumn.CellDataFeatures<Utilizador, String> data) {
-//                return new ReadOnlyStringWrapper(data.getValue().getUsername());//.getPatient().getFirstName()
-//                //return data.getValue().getUsername(); // the RelationManager
-//                        //.getPatient().firstNameProperty();
-//            }
-//        });
 
-//        tableColumnIdDoacao.setCellValueFactory(data -> {
-//            Doacao doacao = data.getValue();
-//            return new SimpleIntegerProperty(doacao.getIdDoacao());
-//        });
-//
-
-        //Integer integer = 1;
-        // Convert Integer to ObservableValue<Integer>
-        //ObservableValue<Integer> observableValue = Bindings.createObjectBinding(() -> integer);
-
-//        tableColumnIdDoacao.setCellValueFactory(new PropertyValueFactory<Doacao, Integer>("idDoacao"));
-        //tableColumnNomeCliente.setCellValueFactory(new PropertyValueFactory<Doacao, Integer>(""));
-//        tableColumnQtdDoacao.setCellValueFactory(new PropertyValueFactory<Roupa_Doacao, Integer>("quantidade"));
-//        tableViewDoacao.getColumns().addAll(tableColumnIdDoacao, tableColumnQtdDoacao);
-        //tableColumnIdDoacao.setCellValueFactory(cellData -> cellData.getValue().getIdDoacao());
-
-
-//        tableColumnIdDoacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Doacao, Integer>, ObservableValue<Integer>>() {
-//            //SimpleIntegerProperty integerProperty = new SimpleIntegerProperty(10);
-//            @Override
-//            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Doacao, Integer> d) {
-////                return d.getValue().idProperty();
-//                return d
-//                //return new ReadOnlyObjectWrapper<>(doacaoIntegerCellDataFeatures.getValue().getIdDoacao());
-//            }
-//        });
-
-//        tableColumnIdDoacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Object[], Integer>, ObservableValue<Integer>>() {
-//            @Override
-//            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Object[], Integer> integerCellDataFeatures) {
-//                return integerCellDataFeatures.getTableColumn();
-//            }
-//        });
-//        tableColumnIdDoacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Doacao, Integer>, ObservableValue<Integer>>() {
-//            @Override
-//            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Doacao, Integer> doacaoIntegerCellDataFeatures) {
-//                // doacaoIntegerCellDataFeatures.getValue().getIdDoacao();
-//                ObservableValue<Integer> obsInt = new SimpleIntegerProperty(doacaoIntegerCellDataFeatures.getValue().getIdDoacao()).asObject();
-//                return obsInt;
-//            }
-//        });
-
+        //TABLEVIEW DOACOES
         tableColumnIdDoacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaDoacoes, Integer>, ObservableValue<Integer>>() {
             @Override
             public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaDoacoes, Integer> linhaDoacoesIntegerCellDataFeatures) {
@@ -509,30 +445,6 @@ public class HomePageController implements Initializable {
             }
         });
 
-
-
-
-//
-//        tableColumnNomeCliente.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Doacao, String>, ObservableValue<String>>() {
-//            @Override
-//            public ObservableValue<String> call(TableColumn.CellDataFeatures<Doacao, String> doacaoStringCellDataFeatures) {
-//                return doacaoStringCellDataFeatures.getValue().getUtilizador().getUsername();
-//            }
-//        });
-
-
-        //TABLE VIEW DOACAO
-//        tableColumnIdDoacao.setCellValueFactory(cd -> new SimpleIntegerProperty(((Doacao)cd.getValue()).getIdDoacao()).asObject());
-
-//        tableColumnNomeCliente.setCellValueFactory(cd -> new SimpleStringProperty(((Doacao)cd.getValue()).getUtilizador().getUsername()));
-        //tableColumnDataDoacao
-//        tableColumnTipoRoupaDoacao.setCellValueFactory(cd -> new Enum);
-        //tableColumnTamanhoRoupaDoacao.setCellValueFactory(new PropertyValueFactory<Roupa, TamanhoRoupa>("tamanhoRoupa"));
-
-        //tableColumnQtdDoacao.setCellValueFactory(cd -> new SimpleIntegerProperty(((Roupa_Doacao)cd.getValue()).getQuantidade()).asObject());
-        //tableColumnQtdDoacao.setCellValueFactory(cellData -> new Database(cellData.getTableView().getColumns().get(observableListDoacoes.indexOf())));
-
-
         //TABLE VIEW FORNECEDOR
         tCIdFornecedor.setCellValueFactory(new PropertyValueFactory<>("idFornecedor"));
         tCNomeFornecedor.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -544,39 +456,15 @@ public class HomePageController implements Initializable {
         tCIdEstadoFunc.setCellValueFactory(new PropertyValueFactory<>("estadoUtilizador"));
 
         // TODO => tornar javafx responsivo
-
-        /*
-        Stage stage = (Stage) new Stage().getScene().getWindow();
-        abasTabPaneId.prefHeightProperty().bind(stage.heightProperty());
-        */
     }
 
     //HOMEPAGE
 
     //DOACOES
     public void listarDoacoes() {
-//        List<Doacao> doacaoList = this.doacaoDao.buscarTodas();
-//        List<Roupa_Doacao> roupa_doacaoList = this.roupa_doacaoDao.buscarTodas();
-//        List<Roupa> roupaList = this.roupaDao.buscarTodas();
-
-//        doacaoObservableList = FXCollections.observableArrayList(doacaoList);
-//        roupa_doacaoObservableList = FXCollections.observableArrayList(roupa_doacaoList);
-//        roupaObservableList = FXCollections.observableArrayList(roupaList);
-
-//        tableViewDoacao.setItems(doacaoObservableList);
-//        tableViewDoacao.setItems(roupa_doacaoObservableList);
-//        tableViewDoacao.setItems(roupaObservableList);
         List<LinhaDoacoes> listTodos = this.doacaoDao.buscarTodasDoacaoRoupa();
-        //for (Object[] o : listTodos) System.out.println(Arrays.toString(o));
         observableListDoacoes = FXCollections.observableArrayList(listTodos);
-        //for (Object[] o : observableListDoacoes) System.out.println(Arrays.toString(o));
         tableViewDoacao.setItems(observableListDoacoes);
-        //for (Object[] o : tableViewDoacao.getItems()) System.out.println(Arrays.toString(o));
-//        for(int col = 0; col<tableViewDoacao.getItems().toArray().length; col++){
-//            System.out.println("i :" + tableViewDoacao.getItems().toArray()[col]);
-//        }
-        //System.out.println(tableViewDoacao.getItems());
-//        tableViewDoacao.getColumns().addAll((TableColumn<Object[], ?>) observableListDoacoes);
     }
 
     //STOCK
@@ -633,7 +521,6 @@ public class HomePageController implements Initializable {
 
         observableListFuncionarios = FXCollections.observableArrayList(listaFuncionarios);
         tvFuncionarios.setItems(observableListFuncionarios);
-
         initEditButtons();
     }
 
@@ -688,5 +575,4 @@ public class HomePageController implements Initializable {
         tabIdFuncionarios.setDisable(false);
         abasTabPaneId.getSelectionModel().select(tabIdFuncionarios);
     }
-
 }

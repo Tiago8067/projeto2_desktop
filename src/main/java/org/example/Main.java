@@ -9,14 +9,12 @@ import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.util.List;
 
-import org.example.controllers.HomePageController;
 import org.example.dao.UtilizadorDao;
 import org.example.models.Utilizador;
 import org.example.util.JPAUtil;
 
 public class Main extends Application {
     UtilizadorDao utilizadorDao;
-
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -33,7 +31,7 @@ public class Main extends Application {
 
         List<Utilizador> utilizadorList = utilizadorDao.buscarTodos();
 
-        for (Utilizador u: utilizadorList) {
+        for (Utilizador u : utilizadorList) {
             if (u.getUsername() == null) {
                 utilizadorDao.remover(u);
             }

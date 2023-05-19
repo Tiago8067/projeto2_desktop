@@ -3,12 +3,12 @@ package org.example.models;
 import lombok.*;
 import org.example.models.enums.EstadoUtilizador;
 import org.example.models.enums.TipoUtilizador;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.List;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -39,10 +39,9 @@ public class Utilizador implements Serializable {
     @JoinColumn(name = "localizacao_id", referencedColumnName = "idLocalizacao")
     private Localizacao localizacao;
 
-    @OneToMany(mappedBy="utilizador")   //Faz ser bidirecional
+    @OneToMany(mappedBy = "utilizador")   //Faz ser bidirecional
     private List<Doacao> doacoes;
 
     @OneToMany(mappedBy = "utilizador")
     private List<Encomenda> encomendas;
-
 }

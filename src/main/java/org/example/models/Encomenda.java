@@ -2,11 +2,11 @@ package org.example.models;
 
 import lombok.*;
 import org.example.models.enums.EstadoEncomenda;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

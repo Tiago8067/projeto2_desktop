@@ -128,8 +128,8 @@ public class GoToUtil {
         }
     }
 
-    public void goToAddDoacao(){
-        try{
+    public void goToAddDoacao() {
+        try {
             Parent root = FXMLLoader.load(getClass().getResource("/views/adicionar/adicionarDoacoes.fxml"));
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 600, 400));

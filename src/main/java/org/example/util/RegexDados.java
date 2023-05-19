@@ -13,7 +13,6 @@ public class RegexDados {
 
     public boolean validateEmail(String email) {
         String emailRegex = "^[\\w!#$%&amp;'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&amp;'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-
         Pattern p = Pattern.compile(emailRegex);
 
         if (email == null || email.isEmpty()) {
@@ -21,7 +20,6 @@ public class RegexDados {
         }
 
         Matcher m = p.matcher(email);
-
         return m.matches();
     }
 

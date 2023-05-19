@@ -15,6 +15,7 @@ import org.example.models.Utilizador;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
+
 import javax.persistence.EntityManager;
 import java.net.URL;
 import java.util.List;
@@ -65,14 +66,14 @@ public class RegistroDadosLocalizacaoController implements Initializable {
             System.out.println(numberFormatException.getMessage());
         }
 
-        if (txtFdRegistroDiistritoId.getText().isEmpty()){
+        if (txtFdRegistroDiistritoId.getText().isEmpty()) {
             labelIdErroDistrito.setText("Tem de preencher o Distrito!");
         } else {
             this.localizacao.setCidade(txtFdRegistroDiistritoId.getText());
             labelIdErroDistrito.setText("");
         }
 
-        if (txtFdRegistroCodPId.getText().isEmpty()){
+        if (txtFdRegistroCodPId.getText().isEmpty()) {
             labelIdErroCodP.setText("Tem de preencher o Código Postal!");
         } else if (!this.regexDados.isValidCP(txtFdRegistroCodPId.getText())) {
             labelIdErroCodP.setText("Preencha corretamente o Código Postal no formato(XXXX-YYY)!");
@@ -81,21 +82,21 @@ public class RegistroDadosLocalizacaoController implements Initializable {
             labelIdErroCodP.setText("");
         }
 
-        if (txtFdRegistroLocalidadeId.getText().isEmpty()){
+        if (txtFdRegistroLocalidadeId.getText().isEmpty()) {
             labelIdErroLocalidade.setText("Tem de preencher a Localidade!");
         } else {
             this.localizacao.setLocalidade(txtFdRegistroLocalidadeId.getText());
             labelIdErroLocalidade.setText("");
         }
 
-        if (txtFdRegistroRuaId.getText().isEmpty()){
+        if (txtFdRegistroRuaId.getText().isEmpty()) {
             labelIdErroRua.setText("Tem de preencher a Rua!");
         } else {
             this.localizacao.setRua(txtFdRegistroRuaId.getText());
             labelIdErroRua.setText("");
         }
 
-        if (txtFdRegistroNumPortaId.getText().isEmpty()){
+        if (txtFdRegistroNumPortaId.getText().isEmpty()) {
             labelIdErroNumPorta.setText("Tem de preencher o Número da Porta!");
         } else if (verificaNumPorta == 0) {
             labelIdErroNumPorta.setText("Preencha corretamente o Número da Porta!");
@@ -104,7 +105,7 @@ public class RegistroDadosLocalizacaoController implements Initializable {
             labelIdErroNumPorta.setText("");
         }
 
-        for (Utilizador u: this.utilizadorList) {
+        for (Utilizador u : this.utilizadorList) {
             if (u.getUsername() == null) {
                 u.setLocalizacao(this.localizacao);
                 if (labelIdErroDistrito.getText().equals("") && labelIdErroCodP.getText().equals("") && labelIdErroLocalidade.getText().equals("") &&
@@ -121,7 +122,7 @@ public class RegistroDadosLocalizacaoController implements Initializable {
 
     @FXML
     void hyperlinkLogin(ActionEvent event) {
-        for (Utilizador u: this.utilizadorList) {
+        for (Utilizador u : this.utilizadorList) {
             if (u.getUsername() == null) {
                 this.utilizadorDao.remover(u);
             }

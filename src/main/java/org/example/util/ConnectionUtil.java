@@ -1,6 +1,5 @@
 package org.example.util;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.sql.Connection;
@@ -26,13 +25,10 @@ public class ConnectionUtil {
             try {
                 conn = DriverManager.getConnection(
                         "jdbc:postgresql://localhost:5432/projeto2_desktop", "postgres", "1234");
-                //conn.setAutoCommit(false);
             } catch (Exception e) {
                 System.out.println("ERRO " + e.getMessage());
-                //javax.swing.JOptionPane.showMessageDialog(null,e.getMessage(),"ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
                 System.exit(-2);
             }
-
             return conn;
         }
     }

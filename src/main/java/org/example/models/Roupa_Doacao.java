@@ -1,16 +1,16 @@
 package org.example.models;
 
 import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-//@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-//@ToString
+@ToString
 @Entity
 @Table(name = "tb_roupa_doacao")
 public class Roupa_Doacao implements Serializable {

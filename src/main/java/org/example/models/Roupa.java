@@ -4,11 +4,11 @@ import lombok.*;
 import org.example.models.enums.CategoriaRoupa;
 import org.example.models.enums.TamanhoRoupa;
 import org.example.models.enums.TipoRoupa;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

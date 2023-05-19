@@ -12,6 +12,7 @@ import org.example.util.JPAUtil;
 import org.example.dao.UtilizadorDao;
 import org.example.models.Utilizador;
 import org.example.util.RegexDados;
+
 import javax.persistence.EntityManager;
 import java.net.URL;
 import java.util.List;
@@ -56,9 +57,9 @@ public class RegistroController implements Initializable {
     @FXML
     void btnRegistrar(ActionEvent event) {
 
-        for (Utilizador u: this.utilizadorList) {
+        for (Utilizador u : this.utilizadorList) {
             if (u.getUsername() == null) {
-                if (labelRegistroNome.getText().isEmpty()){
+                if (labelRegistroNome.getText().isEmpty()) {
                     labelErroRegistroNome.setText("Tem de preencher o Nome de Utilizador.");
                 } else if (labelRegistroNome.getText().length() < 4) {
                     labelErroRegistroNome.setText("O Nome de Utilizador tem pelo menos 4 carateres!");
@@ -69,7 +70,7 @@ public class RegistroController implements Initializable {
                     labelErroRegistroNome.setText("");
                 }
 
-                if (labelRegistroEmail.getText().isEmpty()){
+                if (labelRegistroEmail.getText().isEmpty()) {
                     labelErroRegistroEmail.setText("Tem de preencher o Email.");
                 } else if (!this.regexDados.validateEmail(labelRegistroEmail.getText())) {
                     labelErroRegistroEmail.setText("Por favor, preencha o Email Corretamente no formato(abc[123]@abc.abc)!");
@@ -80,7 +81,7 @@ public class RegistroController implements Initializable {
                     labelErroRegistroEmail.setText("");
                 }
 
-                if (labelRegistroPass.getText().isEmpty()){
+                if (labelRegistroPass.getText().isEmpty()) {
                     labelErroRegistroPass.setText("Tem de preencher a Palavra-passe");
                 } else if (!this.regexDados.isValidPassword(labelRegistroPass.getText())) {
                     labelErroRegistroPass.setText("Por favor, preencha a Palavra-passe Corretamente no formato([123].abc)!");
@@ -89,7 +90,7 @@ public class RegistroController implements Initializable {
                     labelErroRegistroPass.setText("");
                 }
 
-                if (labelRegistroConfirmaPass.getText().isEmpty()){
+                if (labelRegistroConfirmaPass.getText().isEmpty()) {
                     labelErroRegistroConfirmaPass.setText("Tem de preencher a confirmação da Palavra-passe");
                 } else if (!labelRegistroPass.getText().equals(labelRegistroConfirmaPass.getText())) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -100,9 +101,9 @@ public class RegistroController implements Initializable {
                     labelErroRegistroConfirmaPass.setText("");
                 }
 
-                if (labelTipoUtilziador.getText().isEmpty()){
+                if (labelTipoUtilziador.getText().isEmpty()) {
                     labelErroRegistroTipoUtilizador.setText("Tem de selecionar o Tipo de Utilizador!");
-                } else if (labelTipoUtilziador.getText().equalsIgnoreCase("admin")){
+                } else if (labelTipoUtilziador.getText().equalsIgnoreCase("admin")) {
                     u.setTipoUtilizador(TipoUtilizador.ADMIN);
                     labelErroRegistroTipoUtilizador.setText("");
                 } else if (labelTipoUtilziador.getText().equalsIgnoreCase("funcionario")) {
@@ -135,7 +136,7 @@ public class RegistroController implements Initializable {
     @FXML
     void hyperlinkLogin(ActionEvent event) {
 
-        for (Utilizador u: this.utilizadorList) {
+        for (Utilizador u : this.utilizadorList) {
             if (u.getUsername() == null) {
                 System.out.println(u);
                 this.utilizadorDao.remover(u);
@@ -146,8 +147,6 @@ public class RegistroController implements Initializable {
         Stage stage = (Stage) hyperlinkLoginId.getScene().getWindow();
         stage.close();
     }
-
-    // TODO => testar resitrcoes por label e nao por click do botao
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -3,6 +3,7 @@ package org.example.dao;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.example.models.LinhaEncomenda;
+
 import javax.persistence.EntityManager;
 
 @NoArgsConstructor

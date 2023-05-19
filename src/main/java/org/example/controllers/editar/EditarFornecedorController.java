@@ -11,6 +11,7 @@ import org.example.models.Fornecedor;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
+
 import javax.persistence.EntityManager;
 import java.net.URL;
 import java.util.Optional;
@@ -91,7 +92,7 @@ public class EditarFornecedorController implements Initializable {
             System.out.println(numberFormatException.getMessage());
         }
 
-        if (txtFdIdNome.getText().isEmpty()){
+        if (txtFdIdNome.getText().isEmpty()) {
             labelIdErroNome.setText("Tem de preencher o Nome do Fornecedor");
         } else if (txtFdIdNome.getText().length() < 4) {
             labelIdErroNome.setText("O Nome do Fornecedor tem pelo menos 4 carateres!");
@@ -111,28 +112,28 @@ public class EditarFornecedorController implements Initializable {
             labelIdErroContacto.setText("");
         }
 
-        if (txtFdIdDistrito.getText().isEmpty()){
+        if (txtFdIdDistrito.getText().isEmpty()) {
             labelIdErroDistrito.setText("Tem de preencher o Distrito do Fornecedor");
         } else {
             this.fornecedor.getLocalizacao().setCidade(txtFdIdDistrito.getText());
             labelIdErroDistrito.setText("");
         }
 
-        if (txtFdIdLocalidade.getText().isEmpty()){
+        if (txtFdIdLocalidade.getText().isEmpty()) {
             labelIdErroLocalidade.setText("Tem de preencher a Localidade do Fornecedor");
         } else {
             this.fornecedor.getLocalizacao().setLocalidade(txtFdIdLocalidade.getText());
             labelIdErroLocalidade.setText("");
         }
 
-        if (txtFdIdRua.getText().isEmpty()){
+        if (txtFdIdRua.getText().isEmpty()) {
             labelIdErroRua.setText("Tem de preencher a Rua do Fornecedor");
         } else {
             this.fornecedor.getLocalizacao().setRua(txtFdIdRua.getText());
             labelIdErroRua.setText("");
         }
 
-        if (txtFdIdCp.getText().isEmpty()){
+        if (txtFdIdCp.getText().isEmpty()) {
             labelIdErroCp.setText("Tem de preencher o Código Postal do Fornecedor");
         } else if (!this.regexDados.isValidCP(txtFdIdCp.getText())) {
             labelIdErroCp.setText("Preencha corretamente o Código Postal do Fornecedor no formato(XXXX-YYY)");
@@ -141,7 +142,7 @@ public class EditarFornecedorController implements Initializable {
             labelIdErroCp.setText("");
         }
 
-        if (txtFdIdN_Porta.getText().isEmpty()){
+        if (txtFdIdN_Porta.getText().isEmpty()) {
             labelIdErroN_Porta.setText("Tem de preencher o Número da Porta do Fornecedor");
         } else if (verificaNumPorta == 0) {
             labelIdErroN_Porta.setText("Preencha corretamente o Número da Porta do Fornecedor");

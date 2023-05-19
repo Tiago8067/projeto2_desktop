@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.example.models.Localizacao;
 import org.example.models.Utilizador;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.List;
