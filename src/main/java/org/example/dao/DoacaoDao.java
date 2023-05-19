@@ -71,6 +71,10 @@ public class DoacaoDao {
         try {
             preparedStatement = conn.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
+//            while (resultSet.next()) {
+//                linhaDoacoesList.add(new LinhaDoacoes(Integer.valueOf(resultSet.getInt(1)), resultSet.getString(2), resultSet.getString(3),
+//                        resultSet.getString(4), Integer.valueOf(resultSet.getInt(5))));
+//            }
             while (resultSet.next()) {
                 linhaDoacoesList.add(new LinhaDoacoes(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
                         resultSet.getString(4), resultSet.getInt(5)));
