@@ -1,28 +1,31 @@
 package org.example.dao;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
 
 public class LinhaDoacoes {
-    IntegerProperty idDoacao;
+    private IntegerProperty idDoacao;
     StringProperty username;
     StringProperty tipoRoupa;
     StringProperty tamanhoRoupa;
     IntegerProperty quantidade;
 
     public LinhaDoacoes(int idDoacao, String username, String tipoRoupa, String tamanhoRoupa, int quantidade) {
-        this.idDoacao.setValue(idDoacao);
-        this.username.setValue(username);
-        this.tipoRoupa.setValue(tipoRoupa);
-        this.tamanhoRoupa.setValue(tamanhoRoupa);
-        this.quantidade.setValue(quantidade);
+//        this.idDoacao.setValue(idDoacao);
+//        this.username.setValue(username);
+//        this.tipoRoupa.setValue(tipoRoupa);
+//        this.tamanhoRoupa.setValue(tamanhoRoupa);
+//        this.quantidade.setValue(quantidade);
+        this.idDoacao = new SimpleIntegerProperty();
+        this.username = new SimpleStringProperty();
+        this.tipoRoupa = new SimpleStringProperty();
+        this.tamanhoRoupa = new SimpleStringProperty();
+        this.quantidade = new SimpleIntegerProperty();
     }
 
     public ObservableValue<Integer> getIdDoacao() {
-        ObservableValue<Integer> x = new ReadOnlyObjectWrapper<>(idDoacao.getValue());
-        return x;
+        ObservableValue<Integer> valorIdDoacao = new ReadOnlyObjectWrapper<>(idDoacao.getValue());
+        return valorIdDoacao;
     }
 
     public IntegerProperty idDoacaoProperty() {
@@ -33,8 +36,9 @@ public class LinhaDoacoes {
         this.idDoacao.set(idDoacao);
     }
 
-    public String getUsername() {
-        return username.get();
+    public ObservableValue<String> getUsername() {
+        ObservableValue<String> valorUsername = new ReadOnlyObjectWrapper<>(username.getValue());
+        return valorUsername;
     }
 
     public StringProperty usernameProperty() {
@@ -45,8 +49,9 @@ public class LinhaDoacoes {
         this.username.set(username);
     }
 
-    public String getTipoRoupa() {
-        return tipoRoupa.get();
+    public ObservableValue<String> getTipoRoupa() {
+        ObservableValue<String> valorTipoRoupa = new ReadOnlyObjectWrapper<>(tipoRoupa.getValue());
+        return valorTipoRoupa;
     }
 
     public StringProperty tipoRoupaProperty() {
@@ -57,8 +62,9 @@ public class LinhaDoacoes {
         this.tipoRoupa.set(tipoRoupa);
     }
 
-    public String getTamanhoRoupa() {
-        return tamanhoRoupa.get();
+    public ObservableValue<String> getTamanhoRoupa() {
+        ObservableValue<String> valorTamanhoRoupa = new ReadOnlyObjectWrapper<>(tamanhoRoupa.getValue());
+        return valorTamanhoRoupa;
     }
 
     public StringProperty tamanhoRoupaProperty() {
@@ -69,8 +75,9 @@ public class LinhaDoacoes {
         this.tamanhoRoupa.set(tamanhoRoupa);
     }
 
-    public int getQuantidade() {
-        return quantidade.get();
+    public ObservableValue<Integer> getQuantidade() {
+        ObservableValue<Integer> valorQuantidade = new ReadOnlyObjectWrapper<>(quantidade.getValue());
+        return valorQuantidade;
     }
 
     public IntegerProperty quantidadeProperty() {

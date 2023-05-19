@@ -67,9 +67,9 @@ public class HomePageController implements Initializable {
     @FXML
     private TableColumn<?, ?> tableColumnDataDoacao;
     @FXML
-    private TableColumn<LinhaDoacoes, TipoRoupa> tableColumnTipoRoupaDoacao;
+    private TableColumn<LinhaDoacoes, String> tableColumnTipoRoupaDoacao;
     @FXML
-    private TableColumn<LinhaDoacoes, TamanhoRoupa> tableColumnTamanhoRoupaDoacao;
+    private TableColumn<LinhaDoacoes, String> tableColumnTamanhoRoupaDoacao;
     @FXML
     private TableColumn<LinhaDoacoes, Integer> tableColumnQtdDoacao;
     @FXML
@@ -480,6 +480,35 @@ public class HomePageController implements Initializable {
                 return linhaDoacoesIntegerCellDataFeatures.getValue().getIdDoacao();
             }
         });
+
+        tableColumnNomeCliente.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaDoacoes, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaDoacoes, String> linhaDoacoesStringCellDataFeatures) {
+                return linhaDoacoesStringCellDataFeatures.getValue().getUsername();
+            }
+        });
+
+        tableColumnTipoRoupaDoacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaDoacoes, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaDoacoes, String> linhaDoacoesStringCellDataFeatures) {
+                return linhaDoacoesStringCellDataFeatures.getValue().getTipoRoupa();
+            }
+        });
+
+        tableColumnTamanhoRoupaDoacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaDoacoes, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaDoacoes, String> linhaDoacoesStringCellDataFeatures) {
+                return linhaDoacoesStringCellDataFeatures.getValue().getTamanhoRoupa();
+            }
+        });
+
+        tableColumnQtdDoacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaDoacoes, Integer>, ObservableValue<Integer>>() {
+            @Override
+            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaDoacoes, Integer> linhaDoacoesIntegerCellDataFeatures) {
+                return linhaDoacoesIntegerCellDataFeatures.getValue().getQuantidade();
+            }
+        });
+
 
 
 
