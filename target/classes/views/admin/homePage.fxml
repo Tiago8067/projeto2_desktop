@@ -163,17 +163,6 @@
                                 </panes>
                               </Accordion>
                            </left>
-                           <top>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                 <children>
-                                    <Button fx:id="idBtnAddStock" alignment="CENTER_RIGHT" mnemonicParsing="false" text="Adicionar">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" right="10.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                           </top>
                            <center>
                               <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <content>
