@@ -2,11 +2,16 @@ package org.example.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.example.models.Doacao;
 import org.example.models.Localizacao;
 import org.example.models.Utilizador;
+import org.example.util.ConnectionUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 @NoArgsConstructor
@@ -73,6 +78,26 @@ public class UtilizadorDao {
             return entityManager.createQuery(jpql, Utilizador.class).setParameter("email", email).getSingleResult();
         } catch (NoResultException noResultException) {
             return null;
+        }
+    }
+
+    public void atualizarUtilizador(Integer id, String username) {
+        ConnectionUtil connectionUtil = new ConnectionUtil();
+        Connection conn = connectionUtil.criarConexao();
+
+        String sql = "UPDATE tb_utilizador " +
+                "SET username = ? " +
+//                "FROM tb_doacao d " +
+//                "JOIN tb_utilizador u ON u.idutilizador = d.utilizador_id " +
+                "WHERE idUtilizador = ? ";
+
+        try{
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            preparedStatement.setInt(2, id);
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            System.out.println("ERRO: " + sqlException.getMessage());
         }
     }
 }

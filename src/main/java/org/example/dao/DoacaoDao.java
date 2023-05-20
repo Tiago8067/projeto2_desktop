@@ -22,17 +22,6 @@ public class DoacaoDao {
         this.entityManager.persist(doacao);
     }
 
-    public void atualizar(Doacao doacao) {
-        try {
-            this.entityManager.getTransaction().begin();
-            this.entityManager.merge(doacao);
-            this.entityManager.getTransaction().commit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            this.entityManager.getTransaction().rollback();
-        }
-    }
-
     public List<Doacao> buscarTodas() {
         String jpql = "SELECT d FROM Doacao d";
         return entityManager.createQuery(jpql, Doacao.class).getResultList();
@@ -63,5 +52,11 @@ public class DoacaoDao {
             System.out.println("ERRO: " + e.getMessage());
         }
         return linhaDoacoesList;
+    }
+
+    public Doacao buscarPorId(Integer id) {
+//        String jpql = "SELECT d FROM Doacao d WHERE d.idDoacao = :id";
+//        return entityManager.createQuery(jpql, Doacao.class).getSingleResult();
+        return entityManager.find(Doacao.class, id);
     }
 }

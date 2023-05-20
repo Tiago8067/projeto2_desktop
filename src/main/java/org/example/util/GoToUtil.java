@@ -6,7 +6,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.NoArgsConstructor;
 import org.example.controllers.HomePageController;
+import org.example.controllers.editar.EditarDoacoesController;
 import org.example.controllers.editar.EditarFornecedorController;
+import org.example.dadosTableView.LinhaDoacoes;
 import org.example.models.Fornecedor;
 
 @NoArgsConstructor
@@ -134,6 +136,22 @@ public class GoToUtil {
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 600, 400));
             stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
+    public void gotoEditarDoacoes(LinhaDoacoes obj) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/editar/editarDoacao.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
+            stage.show();
+
+            EditarDoacoesController editarDoacoesController = fxmlLoader.getController();
+            editarDoacoesController.setDoacao(obj);
+            editarDoacoesController.passarDadosDoacoesEditar();
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();

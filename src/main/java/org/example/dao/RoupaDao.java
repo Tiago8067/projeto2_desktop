@@ -3,6 +3,7 @@ package org.example.dao;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.example.models.Roupa;
+import org.example.models.Roupa_Doacao;
 import org.example.models.enums.TamanhoRoupa;
 import org.example.models.enums.TipoRoupa;
 import org.example.util.ConnectionUtil;
@@ -84,6 +85,26 @@ public class RoupaDao {
 
     public Roupa buscarPorId(Integer id) {
         return entityManager.find(Roupa.class, id);
+    }
+
+    public void atualizarRoupa(Integer id, String tipoRoupa, String tamanhoRoupa) {
+        ConnectionUtil connectionUtil = new ConnectionUtil();
+        Connection conn = connectionUtil.criarConexao();
+
+        String sql = " UPDATE tb_roupa " +
+                " SET tiporoupa = ? " +
+                " , tamanhoroupa = ? " +
+                " WHERE idroupa = ? " ;
+
+        try{
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, tipoRoupa);
+            preparedStatement.setString(2, tamanhoRoupa);
+            preparedStatement.setInt(3, id);
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            System.out.println("ERRO: " + sqlException.getMessage());
+        }
     }
 
 }

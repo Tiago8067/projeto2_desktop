@@ -74,7 +74,7 @@ public class HomePageController implements Initializable {
     @FXML
     private TableColumn<LinhaDoacoes, Integer> tableColumnQtdDoacao;
     @FXML
-    private TableColumn<Doacao, Doacao> tableColumnAcoesDoacao;
+    private TableColumn<LinhaDoacoes, LinhaDoacoes> tableColumnAcoesDoacao;
 
     //STOCK
     private List<Roupa> listaRoupaParaCardSotck;
@@ -386,7 +386,6 @@ public class HomePageController implements Initializable {
 
         try {
             for (Roupa r : this.listaRoupaParaCardSotck) {
-                //System.out.println(r);
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
                 VBox cardBox = fxmlLoader.load();
@@ -465,6 +464,33 @@ public class HomePageController implements Initializable {
         List<LinhaDoacoes> listTodos = this.doacaoDao.buscarTodasDoacaoRoupa();
         observableListDoacoes = FXCollections.observableArrayList(listTodos);
         tableViewDoacao.setItems(observableListDoacoes);
+
+        initEditButtonDoacoes();
+    }
+
+    private void initEditButtonDoacoes() {
+        tableColumnAcoesDoacao.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        tableColumnAcoesDoacao.setCellFactory(param -> new TableCell<LinhaDoacoes, LinhaDoacoes>() {
+            private final Button button = new Button("Editar");
+
+            @Override
+            protected void updateItem(LinhaDoacoes obj, boolean empty) {
+                super.updateItem(obj, empty);
+                if (obj == null) {
+                    setGraphic(null);
+                    return;
+                }
+                setGraphic(button);
+                button.setPrefWidth(70);
+                button.setOnAction(event -> gotoEditarDoacoes(obj));
+            }
+        });
+    }
+
+    private void gotoEditarDoacoes(LinhaDoacoes obj) {
+        this.goToUtil.gotoEditarDoacoes(obj);
+        Stage stage = (Stage) btnIdAddDoacao.getScene().getWindow();
+        stage.close();
     }
 
     //STOCK

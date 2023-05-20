@@ -69,7 +69,6 @@ public class AdicionarDoacaoController implements Initializable {
 
     @FXML
     void btnVoltar(ActionEvent event) {
-        System.out.println(this.roupaList);
         this.goToUtil.goToHomePageAdmin();
         Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
         stage.close();
