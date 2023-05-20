@@ -3,7 +3,6 @@ package org.example.dao;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.example.models.Roupa;
-import org.example.models.Roupa_Doacao;
 import org.example.models.enums.TamanhoRoupa;
 import org.example.models.enums.TipoRoupa;
 import org.example.util.ConnectionUtil;
@@ -59,7 +58,6 @@ public class RoupaDao {
         }
     }
 
-
     public List<Roupa> buscarTodas() {
         String jpql = "SELECT r FROM Roupa r";
         return entityManager.createQuery(jpql, Roupa.class).getResultList();
@@ -94,9 +92,9 @@ public class RoupaDao {
         String sql = " UPDATE tb_roupa " +
                 " SET tiporoupa = ? " +
                 " , tamanhoroupa = ? " +
-                " WHERE idroupa = ? " ;
+                " WHERE idroupa = ? ";
 
-        try{
+        try {
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, tipoRoupa);
             preparedStatement.setString(2, tamanhoRoupa);
@@ -107,4 +105,18 @@ public class RoupaDao {
         }
     }
 
+    public void apagarRoupa(Integer id) {
+        ConnectionUtil connectionUtil = new ConnectionUtil();
+        Connection conn = connectionUtil.criarConexao();
+
+        String sql = " DELETE FROM tb_roupa WHERE idroupa = ?";
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            System.out.println("ERRO: " + sqlException.getMessage());
+        }
+    }
 }

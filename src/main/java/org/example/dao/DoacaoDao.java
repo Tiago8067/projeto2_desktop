@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.example.dadosTableView.LinhaDoacoes;
 import org.example.models.Doacao;
 import org.example.util.ConnectionUtil;
+
 import javax.persistence.EntityManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -55,8 +56,21 @@ public class DoacaoDao {
     }
 
     public Doacao buscarPorId(Integer id) {
-//        String jpql = "SELECT d FROM Doacao d WHERE d.idDoacao = :id";
-//        return entityManager.createQuery(jpql, Doacao.class).getSingleResult();
         return entityManager.find(Doacao.class, id);
+    }
+
+    public void apagarDoacaoPorId(Integer id) {
+        ConnectionUtil connectionUtil = new ConnectionUtil();
+        Connection conn = connectionUtil.criarConexao();
+
+        String sql = " DELETE FROM tb_doacao WHERE iddoacao = ?";
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            System.out.println("ERRO: " + sqlException.getMessage());
+        }
     }
 }

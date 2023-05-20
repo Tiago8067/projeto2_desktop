@@ -2,7 +2,6 @@ package org.example.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.example.models.Doacao;
 import org.example.models.Roupa_Doacao;
 import org.example.util.ConnectionUtil;
 
@@ -43,16 +42,26 @@ public class Roupa_DoacaoDao {
 
         String sql = "UPDATE tb_roupa_doacao " +
                 "SET quantidade = ? " +
-//                "FROM tb_doacao d " +
-//                "JOIN tb_utilizador u ON u.idutilizador = d.utilizador_id " +
                 "WHERE id_roupa_doacao = ? ";
-
-        //todo atualizar queries update do dao com as ligacoes da tabela ou mandar para a class LinhaDoacoes os outros ids da classes associadas
-
-        try{
+        try {
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, quantidade);
             preparedStatement.setInt(2, id);
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            System.out.println("ERRO: " + sqlException.getMessage());
+        }
+    }
+
+    public void apagarRoupa_DoacaoPorId(Integer id) {
+        ConnectionUtil connectionUtil = new ConnectionUtil();
+        Connection conn = connectionUtil.criarConexao();
+
+        String sql = " DELETE FROM tb_roupa_doacao WHERE id_roupa_doacao = ?";
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (SQLException sqlException) {
             System.out.println("ERRO: " + sqlException.getMessage());

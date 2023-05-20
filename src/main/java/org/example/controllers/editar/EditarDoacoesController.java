@@ -10,9 +10,9 @@ import org.example.dao.DoacaoDao;
 import org.example.dao.RoupaDao;
 import org.example.dao.Roupa_DoacaoDao;
 import org.example.dao.UtilizadorDao;
+import org.example.models.Doacao;
 import org.example.models.Roupa;
 import org.example.models.Roupa_Doacao;
-import org.example.models.Utilizador;
 import org.example.models.enums.TamanhoRoupa;
 import org.example.models.enums.TipoRoupa;
 import org.example.models.enums.TipoUtilizador;
@@ -72,7 +72,6 @@ public class EditarDoacoesController implements Initializable {
         } else if (!this.utilizadorDao.buscarUtilizadorPorUsername(txtFdUpdateUsernameCliente.getText()).getTipoUtilizador().equals(TipoUtilizador.CLIENTE)) {
             lblErroNomeClienteUpdate.setText("Este utilizador não é um Cliente!!! Introduza novamente!");
         } else {
-            //this.linhaDoacoes.setUsername(txtFdUpdateUsernameCliente.getText());
             lblErroNomeClienteUpdate.setText("");
         }
 
@@ -81,7 +80,6 @@ public class EditarDoacoesController implements Initializable {
         } else if (verificaQtd == 0) {
             lblErroQuantidadeUpdate.setText("Preencha corretamente a Quantidade!");
         } else {
-            //this.linhaDoacoes.setQuantidade(Integer.parseInt(txtFdUpdateQtd.getText()));
             lblErroQuantidadeUpdate.setText("");
         }
 
@@ -90,14 +88,12 @@ public class EditarDoacoesController implements Initializable {
         if (cBUpdateTipoRoupa.getValue() == null) {
             lblErroTipoRoupaUpdate.setText("Tem de preencher o Tipo de Roupa.");
         } else {
-            //this.linhaDoacoes.setTipoRoupa(String.valueOf(cBUpdateTipoRoupa.getValue()));
             lblErroTipoRoupaUpdate.setText("");
         }
 
         if (cBUpdateTamanhoRoupa.getValue() == null) {
             lblErroTamanhoUpdate.setText("Tem de preencher o Tamanho de Roupa.");
         } else {
-            //this.linhaDoacoes.setTamanhoRoupa(String.valueOf(cBUpdateTamanhoRoupa.getValue()));
             lblErroTamanhoUpdate.setText("");
         }
 
@@ -120,13 +116,10 @@ public class EditarDoacoesController implements Initializable {
                 }
 
                 for (Roupa r: this.roupaDao.buscarTodas()) {
-//                    if(r.getTipoRoupa().equals(this.linhaDoacoes.getTipoRoupa().getValue()) && r.getTamanhoRoupa().equals(this.linhaDoacoes.getTamanhoRoupa().getValue())){
                     if(r.getRoupa_doacao().getId_roupa_doacao() == this.doacaoDao.buscarPorId(this.linhaDoacoes.getIdDoacao().getValue()).getRoupa_doacao().getId_roupa_doacao()){
                         this.roupaDao.atualizarRoupa(r.getIdRoupa(), String.valueOf(cBUpdateTipoRoupa.getValue()), String.valueOf(cBUpdateTamanhoRoupa.getValue()));
-
                     }
                 }
-
 
                 this.goToUtil.goToHomePageAdmin();
                 Stage stage = (Stage) btnAtualizar.getScene().getWindow();
@@ -137,6 +130,31 @@ public class EditarDoacoesController implements Initializable {
 
     @FXML
     void btnApagar(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Tem a certeza que quer Eliminar esta Doacao?");
+        Optional<ButtonType> resultado = alert.showAndWait();
+        if (resultado.get() == ButtonType.OK) {
+            for (Doacao d : this.doacaoDao.buscarTodas()) {
+                if (d.getIdDoacao() == this.linhaDoacoes.getIdDoacao().getValue()) {
+                    this.doacaoDao.apagarDoacaoPorId(d.getIdDoacao());
+                }
+            }
+
+            for (Roupa_Doacao rd : this.roupa_doacaoDao.buscarTodas()) {
+                if (rd.getId_roupa_doacao() == this.doacaoDao.buscarPorId(this.linhaDoacoes.getIdDoacao().getValue()).getRoupa_doacao().getId_roupa_doacao()) {
+                    this.roupa_doacaoDao.apagarRoupa_DoacaoPorId(rd.getId_roupa_doacao());
+                }
+            }
+
+            for (Roupa r: this.roupaDao.buscarTodas()) {
+                if(r.getRoupa_doacao().getId_roupa_doacao() == this.doacaoDao.buscarPorId(this.linhaDoacoes.getIdDoacao().getValue()).getRoupa_doacao().getId_roupa_doacao()){
+                    this.roupaDao.apagarRoupa(r.getIdRoupa());
+                }
+            }
+            this.goToUtil.goToHomePageAdmin();
+            Stage stage = (Stage) btnApagar.getScene().getWindow();
+            stage.close();
+        }
     }
 
     @FXML
@@ -162,7 +180,6 @@ public class EditarDoacoesController implements Initializable {
         this.doacaoDao = new DoacaoDao(entityManager);
         this.roupa_doacaoDao = new Roupa_DoacaoDao(entityManager);
         this.goToUtil = new GoToUtil();
-
     }
 
     public void passarDadosDoacoesEditar() {
@@ -171,5 +188,4 @@ public class EditarDoacoesController implements Initializable {
         cBUpdateTipoRoupa.setValue(TipoRoupa.valueOf(this.linhaDoacoes.getTipoRoupa().getValue()));
         cBUpdateTamanhoRoupa.setValue(TamanhoRoupa.valueOf(this.linhaDoacoes.getTamanhoRoupa().getValue()));
     }
-
 }
