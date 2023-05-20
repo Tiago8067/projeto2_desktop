@@ -29,6 +29,7 @@ import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -385,12 +386,12 @@ public class HomePageController implements Initializable {
         int linha = 1;
 
         try {
-            for (Roupa r : this.listaRoupaParaCardSotck) {
+            for (Roupa roupas : this.roupaDao.buscarTipoTamanhoUnico()) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
                 VBox cardBox = fxmlLoader.load();
                 CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
+                cardDoacoesController.setCardDoacoes(roupas);
 
                 if (coluna == 3) {
                     coluna = 0;
