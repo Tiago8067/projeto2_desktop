@@ -90,20 +90,24 @@ public class RoupaDao {
         return entityManager.find(Roupa.class, id);
     }
 
-    public void atualizarRoupa(Integer id, String tipoRoupa, String tamanhoRoupa) {
+    public void atualizarRoupa(Integer id, String tipoRoupa, String tamanhoRoupa, String categoriaRopupa, String imgsrc) {
         ConnectionUtil connectionUtil = new ConnectionUtil();
         Connection conn = connectionUtil.criarConexao();
 
         String sql = " UPDATE tb_roupa " +
                 " SET tiporoupa = ? " +
                 " , tamanhoroupa = ? " +
+                " , categoriaroupa = ? " +
+                " , imagesrc = ? " +
                 " WHERE idroupa = ? ";
 
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, tipoRoupa);
             preparedStatement.setString(2, tamanhoRoupa);
-            preparedStatement.setInt(3, id);
+            preparedStatement.setString(3, categoriaRopupa);
+            preparedStatement.setString(4, imgsrc);
+            preparedStatement.setInt(5, id);
             preparedStatement.execute();
         } catch (SQLException sqlException) {
             System.out.println("ERRO: " + sqlException.getMessage());

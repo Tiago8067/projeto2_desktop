@@ -46,7 +46,7 @@ public class HomePageController implements Initializable {
 
     //HOMEPAGE
     @FXML
-    private TabPane abasTabPaneId;
+    public TabPane abasTabPaneId;
     @FXML
     private MenuItem idgotoLoginPage;
 
@@ -121,7 +121,7 @@ public class HomePageController implements Initializable {
     //FORNECEDOR
     private ObservableList<Fornecedor> observableListFornecedor;
     @FXML
-    private Tab tabIdFornecedor;
+    public Tab tabIdFornecedor;
     @FXML
     private Button btnIdAddFornecedor;
     @FXML
@@ -532,6 +532,10 @@ public class HomePageController implements Initializable {
         this.goToUtil.goToEditFornecedor(obj);
         Stage stage = (Stage) btnIdAddFornecedor.getScene().getWindow();
         stage.close();
+    }
+
+    public void voltarTabFornecdor() {
+        abasTabPaneId.getSelectionModel().select(tabIdFornecedor);
     }
 
     //FUNCIONARIOS
