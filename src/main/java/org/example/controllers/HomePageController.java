@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.example.controllers.card.CardDoacoesController;
-import org.example.dadosTableView.LinhaDoacoes;
+import org.example.modelsHelp.LinhaDoacoes;
 import org.example.dao.*;
 import org.example.models.*;
 import org.example.models.enums.*;
@@ -29,7 +29,6 @@ import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -47,7 +46,7 @@ public class HomePageController implements Initializable {
 
     //HOMEPAGE
     @FXML
-    private TabPane abasTabPaneId;
+    public TabPane abasTabPaneId;
     @FXML
     private MenuItem idgotoLoginPage;
 
@@ -122,7 +121,7 @@ public class HomePageController implements Initializable {
     //FORNECEDOR
     private ObservableList<Fornecedor> observableListFornecedor;
     @FXML
-    private Tab tabIdFornecedor;
+    public Tab tabIdFornecedor;
     @FXML
     private Button btnIdAddFornecedor;
     @FXML
@@ -534,6 +533,10 @@ public class HomePageController implements Initializable {
         this.goToUtil.goToEditFornecedor(obj);
         Stage stage = (Stage) btnIdAddFornecedor.getScene().getWindow();
         stage.close();
+    }
+
+    public void voltarTabFornecdor() {
+        abasTabPaneId.getSelectionModel().select(tabIdFornecedor);
     }
 
     //FUNCIONARIOS

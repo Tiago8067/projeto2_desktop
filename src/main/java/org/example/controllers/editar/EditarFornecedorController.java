@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.example.controllers.HomePageController;
 import org.example.dao.FornecedorDao;
 import org.example.dao.LocalizacaoDao;
 import org.example.models.Fornecedor;
@@ -67,11 +68,9 @@ public class EditarFornecedorController implements Initializable {
         if (resultado.get() == ButtonType.OK) {
             this.forncedorDao.remover(this.fornecedor);
             this.localizacaoDao.removerPeloFornecedor(this.fornecedor.getLocalizacao());
-            this.goToUtil.goToHomePageAdmin();
+            this.goToUtil.goToHomePageAdminDeTabFornecedor();
             Stage stage = (Stage) btnIdApagar.getScene().getWindow();
             stage.close();
-        } else {
-            return;
         }
     }
 
@@ -96,8 +95,6 @@ public class EditarFornecedorController implements Initializable {
             labelIdErroNome.setText("Tem de preencher o Nome do Fornecedor");
         } else if (txtFdIdNome.getText().length() < 4) {
             labelIdErroNome.setText("O Nome do Fornecedor tem pelo menos 4 carateres!");
-        } else if (this.forncedorDao.buscarFornecedorPorNome(txtFdIdNome.getText()) != null) {
-            labelIdErroNome.setText("O Nome do Fornecedor já existe. Insira Outro.");
         } else {
             this.fornecedor.setNome(txtFdIdNome.getText());
             labelIdErroNome.setText("");
@@ -159,18 +156,16 @@ public class EditarFornecedorController implements Initializable {
             if (resultado.get() == ButtonType.OK) {
                 this.localizacaoDao.atualizar(this.fornecedor.getLocalizacao());
                 this.forncedorDao.atualizar(this.fornecedor);
-                this.goToUtil.goToHomePageAdmin();
+                this.goToUtil.goToHomePageAdminDeTabFornecedor();
                 Stage stage = (Stage) btnIdAtualizar.getScene().getWindow();
                 stage.close();
-            } else {
-                return;
             }
         }
     }
 
     @FXML
     void btnVoltar(ActionEvent event) {
-        this.goToUtil.goToHomePageAdmin();
+        this.goToUtil.goToHomePageAdminDeTabFornecedor();
         Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
         stage.close();
     }

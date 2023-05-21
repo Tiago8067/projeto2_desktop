@@ -5,7 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.example.dadosTableView.LinhaDoacoes;
+import org.example.models.enums.*;
+import org.example.modelsHelp.LinhaDoacoes;
 import org.example.dao.DoacaoDao;
 import org.example.dao.RoupaDao;
 import org.example.dao.Roupa_DoacaoDao;
@@ -13,9 +14,6 @@ import org.example.dao.UtilizadorDao;
 import org.example.models.Doacao;
 import org.example.models.Roupa;
 import org.example.models.Roupa_Doacao;
-import org.example.models.enums.TamanhoRoupa;
-import org.example.models.enums.TipoRoupa;
-import org.example.models.enums.TipoUtilizador;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 
@@ -71,11 +69,13 @@ public class EditarDoacoesController implements Initializable {
             lblErroNomeClienteUpdate.setText("Este utilizador não existe!");
         } else if (!this.utilizadorDao.buscarUtilizadorPorUsername(txtFdUpdateUsernameCliente.getText()).getTipoUtilizador().equals(TipoUtilizador.CLIENTE)) {
             lblErroNomeClienteUpdate.setText("Este utilizador não é um Cliente!!! Introduza novamente!");
+        } else if (this.utilizadorDao.buscarUtilizadorPorUsername(txtFdUpdateUsernameCliente.getText()).getTipoUtilizador().equals(TipoUtilizador.CLIENTE) && (!this.utilizadorDao.buscarUtilizadorPorUsername(txtFdUpdateUsernameCliente.getText()).getEstadoUtilizador().equals(EstadoUtilizador.ATIVO))) {
+            lblErroNomeClienteUpdate.setText("Este Cliente não está Ativo!!! Introduza novamente!");
         } else {
             lblErroNomeClienteUpdate.setText("");
         }
 
-        if (txtFdUpdateQtd.getText().equals("")) {
+        if (txtFdUpdateQtd.getText().isEmpty()) {
             lblErroQuantidadeUpdate.setText("Tem de preencher a Quantidade.");
         } else if (verificaQtd == 0) {
             lblErroQuantidadeUpdate.setText("Preencha corretamente a Quantidade!");
@@ -117,7 +117,7 @@ public class EditarDoacoesController implements Initializable {
 
                 for (Roupa r: this.roupaDao.buscarTodas()) {
                     if(r.getRoupa_doacao().getId_roupa_doacao() == this.doacaoDao.buscarPorId(this.linhaDoacoes.getIdDoacao().getValue()).getRoupa_doacao().getId_roupa_doacao()){
-                        this.roupaDao.atualizarRoupa(r.getIdRoupa(), String.valueOf(cBUpdateTipoRoupa.getValue()), String.valueOf(cBUpdateTamanhoRoupa.getValue()));
+                        this.roupaDao.atualizarRoupa(r.getIdRoupa(), String.valueOf(cBUpdateTipoRoupa.getValue()), String.valueOf(cBUpdateTamanhoRoupa.getValue()), String.valueOf(atualizarAssociarCategoria()), String.valueOf(atualizarAssociarImagem()));
                     }
                 }
 
@@ -187,5 +187,38 @@ public class EditarDoacoesController implements Initializable {
         txtFdUpdateQtd.setText(String.valueOf(this.linhaDoacoes.getQuantidade().getValue()));
         cBUpdateTipoRoupa.setValue(TipoRoupa.valueOf(this.linhaDoacoes.getTipoRoupa().getValue()));
         cBUpdateTamanhoRoupa.setValue(TamanhoRoupa.valueOf(this.linhaDoacoes.getTamanhoRoupa().getValue()));
+    }
+
+    private CategoriaRoupa atualizarAssociarCategoria() {
+        if (cBUpdateTipoRoupa.getValue().equals(TipoRoupa.CALCOES) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.BERMUDAS) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.CALCAS) ||
+                cBUpdateTipoRoupa.getValue().equals(TipoRoupa.SAIA) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.MEIAS) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.MEIACALCA)) {
+            return CategoriaRoupa.PARTEDEBAIXO;
+        } else if (cBUpdateTipoRoupa.getValue().equals(TipoRoupa.BLUSA) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.VESTIDO) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.SWEAT) ||
+                cBUpdateTipoRoupa.getValue().equals(TipoRoupa.T_SHIRT) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.CAMISA) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.CASACO) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.COLETE)) {
+            return CategoriaRoupa.PARTEDECIMA;
+        } else {
+            return CategoriaRoupa.ACESSORIOS;
+        }
+    }
+
+    private String atualizarAssociarImagem() {
+        return switch (cBUpdateTipoRoupa.getValue()) {
+            case CALCAS -> "/images/calcas.jpg";
+            case CALCOES -> "/images/calcoes.jpg";
+            case BERMUDAS -> "/images/bermudas.jpg";
+            case VESTIDO -> "/images/vestido.jpg";
+            case SAIA -> "/images/saia.jpg";
+            case BLUSA -> "/images/blusa.jpg";
+            case SWEAT -> "/images/sweat.jpg";
+            case T_SHIRT -> "/images/tshirt.jpg";
+            case CAMISA -> "/images/camisa.jpg";
+            case CASACO -> "/images/casaco.jpg";
+            case COLETE -> "/images/colete.jpg";
+            case MEIACALCA -> "/images/meia_calca.jpg";
+            case MEIAS -> "/images/meias.jpg";
+            case SAPATOSCLASSICO -> "/images/sapato_classico.jpg";
+            case SAPATOSDESPORTIVO -> "/images/sapato_desportivo.jpg";
+            case BOLSA -> "/images/bolsa.jpg";
+        };
     }
 }

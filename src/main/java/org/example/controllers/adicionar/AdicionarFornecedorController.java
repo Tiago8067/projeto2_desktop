@@ -156,7 +156,7 @@ public class AdicionarFornecedorController implements Initializable {
             this.fornecedor.setLocalizacao(this.localizacao);
             this.localizacaoDao.registrar(this.localizacao);
             this.forncedorDao.registrar(this.fornecedor);
-            this.goToUtil.goToHomePageAdmin();
+            this.goToUtil.goToHomePageAdminDeTabFornecedor();
             Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
             stage.close();
         }
@@ -164,7 +164,7 @@ public class AdicionarFornecedorController implements Initializable {
 
     @FXML
     void btnVoltar(ActionEvent event) {
-        this.goToUtil.goToHomePageAdmin();
+        this.goToUtil.goToHomePageAdminDeTabFornecedor();
         Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
         stage.close();
     }

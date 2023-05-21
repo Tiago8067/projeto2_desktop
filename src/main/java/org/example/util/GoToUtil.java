@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.example.controllers.HomePageController;
 import org.example.controllers.editar.EditarDoacoesController;
 import org.example.controllers.editar.EditarFornecedorController;
-import org.example.dadosTableView.LinhaDoacoes;
+import org.example.modelsHelp.LinhaDoacoes;
 import org.example.models.Fornecedor;
 
 @NoArgsConstructor
@@ -71,6 +71,24 @@ public class GoToUtil {
             HomePageController homePageController = fxmlLoader.getController();
             homePageController.listarDoacoes();
             homePageController.listaFornecedor();
+            homePageController.listaFuncionarios();
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
+    public void goToHomePageAdminDeTabFornecedor() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/admin/homePage.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
+            stage.show();
+
+            HomePageController homePageController = fxmlLoader.getController();
+            homePageController.listarDoacoes();
+            homePageController.listaFornecedor();
+            homePageController.voltarTabFornecdor();
             homePageController.listaFuncionarios();
         } catch (Exception e) {
             e.printStackTrace();

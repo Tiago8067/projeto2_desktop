@@ -12,10 +12,7 @@ import org.example.dao.*;
 import org.example.models.Doacao;
 import org.example.models.Roupa;
 import org.example.models.Roupa_Doacao;
-import org.example.models.enums.CategoriaRoupa;
-import org.example.models.enums.TamanhoRoupa;
-import org.example.models.enums.TipoRoupa;
-import org.example.models.enums.TipoUtilizador;
+import org.example.models.enums.*;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import javax.persistence.EntityManager;
@@ -60,11 +57,66 @@ public class AdicionarDoacaoController implements Initializable {
 
     @FXML
     void btnAdicionar(ActionEvent event) {
-        registaDoacao();
+        int verificaQtd = 0;
 
-        this.goToUtil.goToHomePageAdmin();
-        Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
-        stage.close();
+        try {
+            verificaQtd = Integer.parseInt(txtFdIdQtd.getText());
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(numberFormatException.getMessage());
+        }
+
+        if (txtFdIdNomeCliente.getText().isEmpty()) {
+            labelIdErroNomeCliente.setText("Tem de preencher o Nome Completo.");
+        } else if (this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()) == null) {
+            labelIdErroNomeCliente.setText("Este utilizador não existe!");
+        } else if (!this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()).getTipoUtilizador().equals(TipoUtilizador.CLIENTE)) {
+            labelIdErroNomeCliente.setText("Este utilizador não é um Cliente!!! Introduza novamente!");
+        } else if (this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()).getTipoUtilizador().equals(TipoUtilizador.CLIENTE) && (!this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()).getEstadoUtilizador().equals(EstadoUtilizador.ATIVO))) {
+            labelIdErroNomeCliente.setText("Este Cliente não está Ativo!!! Introduza novamente!");
+        } else {
+            this.doacao.setUtilizador(this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()));
+            labelIdErroNomeCliente.setText("");
+        }
+
+        if (txtFdIdQtd.getText().isEmpty()) {
+            labelIdErroQuantidade.setText("Tem de preencher a Quantidade.");
+        } else if (verificaQtd == 0) {
+            labelIdErroQuantidade.setText("Preencha corretamente a Quantidade!");
+        } else {
+            this.roupa_doacao.setQuantidade(Integer.valueOf(txtFdIdQtd.getText()));
+            labelIdErroQuantidade.setText("");
+        }
+
+        // TODO - Falta a Data de Doação
+
+        if (cBIdTipoRoupa.getValue() == null) {
+            labelIdErroTipoRoupa.setText("Tem de preencher o Tipo de Roupa.");
+        } else {
+            this.roupa.setImageSrc(adicionarAssociarImagem());
+            this.roupa.setCategoriaRoupa(adicionarAssociarCategoria());
+            this.roupa.setTipoRoupa(cBIdTipoRoupa.getValue());
+            labelIdErroTipoRoupa.setText("");
+        }
+
+        if (cBIdTamanhoRoupa.getValue() == null) {
+            labelIdErroTamanho.setText("Tem de preencher o Tamanho de Roupa.");
+        } else {
+            this.roupa.setTamanhoRoupa(cBIdTamanhoRoupa.getValue());
+            labelIdErroTamanho.setText("");
+        }
+
+        if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") &&
+                labelIdErroTamanho.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
+            this.roupa.setRoupa_doacao(this.roupa_doacao);
+            this.doacao.setRoupa_doacao(this.roupa_doacao);
+
+            this.doacaoDao.registar(this.doacao);
+            this.roupa_doacaoDao.registar(this.roupa_doacao);
+            this.roupaDao.registar(this.roupa);
+            this.goToUtil.goToHomePageAdmin();
+            Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
+            stage.close();
+        }
     }
 
     @FXML
@@ -125,101 +177,5 @@ public class AdicionarDoacaoController implements Initializable {
             case SAPATOSDESPORTIVO -> "/images/sapato_desportivo.jpg";
             case BOLSA -> "/images/bolsa.jpg";
         };
-    }
-
-    private void registaDoacao() {
-        int verificaQtd = 0;
-
-        try {
-            verificaQtd = Integer.parseInt(txtFdIdQtd.getText());
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(numberFormatException.getMessage());
-        }
-
-        if (txtFdIdNomeCliente.getText().isEmpty()) {
-            labelIdErroNomeCliente.setText("Tem de preencher o Nome Completo.");
-        } else if (this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()) == null) {
-            labelIdErroNomeCliente.setText("Este utilizador não existe!");
-        } else if (!this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()).getTipoUtilizador().equals(TipoUtilizador.CLIENTE)) {
-            labelIdErroNomeCliente.setText("Este utilizador não é um Cliente!!! Introduza novamente!");
-        } else {
-            this.doacao.setUtilizador(this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()));
-            labelIdErroNomeCliente.setText("");
-        }
-
-        if (txtFdIdQtd.getText().equals("")) {
-            labelIdErroQuantidade.setText("Tem de preencher a Quantidade.");
-        } else if (verificaQtd == 0) {
-            labelIdErroQuantidade.setText("Preencha corretamente a Quantidade!");
-        } else {
-            this.roupa_doacao.setQuantidade(Integer.valueOf(txtFdIdQtd.getText()));
-            labelIdErroQuantidade.setText("");
-        }
-
-        // TODO - Falta a Data de Doação
-
-        if (cBIdTipoRoupa.getValue() == null) {
-            labelIdErroTipoRoupa.setText("Tem de preencher o Tipo de Roupa.");
-        } else {
-            this.roupa.setImageSrc(adicionarAssociarImagem());
-            this.roupa.setCategoriaRoupa(adicionarAssociarCategoria());
-            this.roupa.setTipoRoupa(cBIdTipoRoupa.getValue());
-            labelIdErroTipoRoupa.setText("");
-        }
-
-        if (cBIdTamanhoRoupa.getValue() == null) {
-            labelIdErroTamanho.setText("Tem de preencher o Tamanho de Roupa.");
-        } else {
-            this.roupa.setTamanhoRoupa(cBIdTamanhoRoupa.getValue());
-            labelIdErroTamanho.setText("");
-        }
-
-        if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") &&
-                labelIdErroTamanho.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
-            this.roupa.setRoupa_doacao(this.roupa_doacao);
-            this.doacao.setRoupa_doacao(this.roupa_doacao);
-
-            this.doacaoDao.registar(this.doacao);
-            this.roupa_doacaoDao.registar(this.roupa_doacao);
-            this.roupaDao.registar(this.roupa);
-        }
-    }
-
-    private void atualizarRoupa() {
-        int verificaQtd = 0;
-
-        try {
-            verificaQtd = Integer.parseInt(txtFdIdQtd.getText());
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(numberFormatException.getMessage());
-        }
-
-        if (txtFdIdNomeCliente.getText().isEmpty()) {
-            labelIdErroNomeCliente.setText("Tem de preencher o Nome Completo.");
-        } else if (this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()) == null) {
-            labelIdErroNomeCliente.setText("Este utilizador não existe!");
-        } else if (!this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()).getTipoUtilizador().equals(TipoUtilizador.CLIENTE)) {
-            labelIdErroNomeCliente.setText("Este utilizador não é um Cliente!!! Introduza novamente!");
-        } else {
-            this.doacao.setUtilizador(this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()));
-            labelIdErroNomeCliente.setText("");
-        }
-
-        if (txtFdIdQtd.getText().equals("")) {
-            labelIdErroQuantidade.setText("Tem de preencher a Quantidade.");
-        } else if (verificaQtd == 0) {
-            labelIdErroQuantidade.setText("Preencha corretamente a Quantidade!");
-        } else {
-            this.roupa_doacao.setQuantidade(Integer.valueOf(txtFdIdQtd.getText()));
-            labelIdErroQuantidade.setText("");
-        }
-
-        // TODO - Falta a Data de Doação
-
-        if (labelIdErroNomeCliente.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
-            this.doacao.setRoupa_doacao(this.roupa_doacao);
-            this.doacaoDao.registar(this.doacao);
-            this.roupa_doacaoDao.registar(this.roupa_doacao);
-        }
     }
 }
