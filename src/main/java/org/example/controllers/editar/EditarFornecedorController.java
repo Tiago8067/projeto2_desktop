@@ -68,7 +68,7 @@ public class EditarFornecedorController implements Initializable {
         if (resultado.get() == ButtonType.OK) {
             this.forncedorDao.remover(this.fornecedor);
             this.localizacaoDao.removerPeloFornecedor(this.fornecedor.getLocalizacao());
-            this.goToUtil.goToHomePageAdmin();
+            this.goToUtil.goToHomePageAdminDeTabFornecedor();
             Stage stage = (Stage) btnIdApagar.getScene().getWindow();
             stage.close();
         }
@@ -156,7 +156,7 @@ public class EditarFornecedorController implements Initializable {
             if (resultado.get() == ButtonType.OK) {
                 this.localizacaoDao.atualizar(this.fornecedor.getLocalizacao());
                 this.forncedorDao.atualizar(this.fornecedor);
-                this.goToUtil.goToHomePageAdmin();
+                this.goToUtil.goToHomePageAdminDeTabFornecedor();
                 Stage stage = (Stage) btnIdAtualizar.getScene().getWindow();
                 stage.close();
             }
