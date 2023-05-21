@@ -1,4 +1,4 @@
-package org.example.dadosTableView;
+package org.example.modelsHelp;
 
 
 import lombok.AllArgsConstructor;

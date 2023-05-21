@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.example.controllers.card.CardDoacoesController;
-import org.example.dadosTableView.LinhaDoacoes;
+import org.example.modelsHelp.LinhaDoacoes;
 import org.example.dao.*;
 import org.example.models.*;
 import org.example.models.enums.*;
@@ -29,7 +29,6 @@ import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;

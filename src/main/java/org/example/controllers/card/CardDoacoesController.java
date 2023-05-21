@@ -5,7 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import org.example.dadosTableView.LinhaRoupa;
+import org.example.modelsHelp.LinhaRoupa;
 import org.example.dao.RoupaDao;
 import org.example.dao.Roupa_DoacaoDao;
 import org.example.models.Roupa;

@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.example.dadosTableView.LinhaDoacoes;
+import org.example.modelsHelp.LinhaDoacoes;
 import org.example.dao.DoacaoDao;
 import org.example.dao.RoupaDao;
 import org.example.dao.Roupa_DoacaoDao;

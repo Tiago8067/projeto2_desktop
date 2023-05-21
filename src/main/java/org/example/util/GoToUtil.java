@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.example.controllers.HomePageController;
 import org.example.controllers.editar.EditarDoacoesController;
 import org.example.controllers.editar.EditarFornecedorController;
-import org.example.dadosTableView.LinhaDoacoes;
+import org.example.modelsHelp.LinhaDoacoes;
 import org.example.models.Fornecedor;
 
 @NoArgsConstructor

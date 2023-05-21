@@ -1,4 +1,4 @@
-package org.example.dadosTableView;
+package org.example.modelsHelp;
 
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;

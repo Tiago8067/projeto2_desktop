@@ -2,7 +2,7 @@ package org.example.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.example.dadosTableView.LinhaDoacoes;
+import org.example.modelsHelp.LinhaDoacoes;
 import org.example.models.Doacao;
 import org.example.util.ConnectionUtil;
 
