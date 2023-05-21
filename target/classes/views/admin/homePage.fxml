@@ -127,16 +127,6 @@
                                           </VBox>
                                        </content>
                                     </TitledPane>
-                                  <TitledPane animated="false" text="Género">
-                                       <content>
-                                          <VBox prefHeight="200.0" prefWidth="100.0">
-                                             <children>
-                                                <Button contentDisplay="CENTER" mnemonicParsing="false" prefWidth="200.0" text="Masculino" />
-                                                <Button mnemonicParsing="false" prefWidth="200.0" text="Feminino" />
-                                             </children>
-                                          </VBox>
-                                       </content>
-                                    </TitledPane>
                                     <TitledPane animated="false" text="Tamanho">
                                        <content>
                                           <ScrollPane prefHeight="200.0" prefWidth="200.0">

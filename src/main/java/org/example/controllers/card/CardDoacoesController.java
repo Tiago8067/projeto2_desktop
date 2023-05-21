@@ -32,7 +32,6 @@ public class CardDoacoesController implements Initializable {
     Roupa_DoacaoDao roupa_doacaoDao;
     RoupaDao roupaDao;
 
-
     public void setCardDoacoes(Roupa roupa) throws FileNotFoundException {
         Image image = new Image(roupa.getImageSrc());
         idImageView.setImage(image);
