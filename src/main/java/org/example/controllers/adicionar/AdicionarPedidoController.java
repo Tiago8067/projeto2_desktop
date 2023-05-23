@@ -171,11 +171,19 @@ public class AdicionarPedidoController implements Initializable {
 
             for (Roupa r : this.verificaRoupaList) {
                 if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
-                    r.setLinha_encomenda(this.linhaEncomenda);
-                    this.roupaDao.registar(r);
+                    if (r.getLinha_encomenda() == null) {
+                        r.setLinha_encomenda(this.linhaEncomenda);
+                        this.roupaDao.registar(r);
+                    }
+                    else {
+                        this.roupaDao.inserirRoupaEmPedidos(r);
+                        /*r.setLinha_encomenda(this.linhaEncomenda);
+                        this.roupaDao.registar(r);*/
+                    }
                 }
             }
 
+/*
             Integer diferenca = 0;
             for (Roupa r : this.verificaRoupaList) {
                 if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
@@ -195,7 +203,7 @@ public class AdicionarPedidoController implements Initializable {
                     this.roupaDao.atualizarRoupaEmPedidos(r.getIdRoupa(), diferenca);
                     //return Collections.singletonList(r);
                 }
-            }
+            }*/
 
             this.goToUtil.goToHomePageAdmin();
             Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();

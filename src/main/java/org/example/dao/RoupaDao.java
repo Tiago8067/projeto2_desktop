@@ -218,4 +218,31 @@ public class RoupaDao {
         }
         return linhaRoupaList;
     }
+
+    public void inserirRoupaEmPedidos(Roupa roupa) {
+        ConnectionUtil connectionUtil = new ConnectionUtil();
+        Connection conn = connectionUtil.criarConexao();
+
+        /*insert into tb_roupa (idroupa, categoriaroupa, data, imagesrc, nome, stock, tamanhoroupa, tiporoupa, linha_encomenda_id,
+                roupa_doacao_id)
+        values ();
+
+        todo falta a data
+        */
+
+        String sql = "INSERT INTO tb_roupa (categoriaroupa, imagesrc, stock, tamanhoroupa, tiporoupa, roupa_doacao_id) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, String.valueOf(roupa.getCategoriaRoupa()));
+            preparedStatement.setString(2, roupa.getImageSrc());
+            preparedStatement.setInt(3, roupa.getStock());
+            preparedStatement.setString(4, String.valueOf(roupa.getTamanhoRoupa()));
+            preparedStatement.setString(5, String.valueOf(roupa.getTipoRoupa()));
+            preparedStatement.setInt(6, roupa.getRoupa_doacao().getId_roupa_doacao());
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            System.out.println("ERRO: " + sqlException.getMessage());
+        }
+    }
 }
