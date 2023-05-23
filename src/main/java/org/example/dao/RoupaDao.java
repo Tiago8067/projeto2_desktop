@@ -246,7 +246,7 @@ public class RoupaDao {
         }
     }
 
-    public List<Roupa> buscarTamanhoBebe(TamanhoRoupa tamanhoRoupa) {
+    public List<Roupa> buscarTamanhoBtnEspecifico(TamanhoRoupa tamanhoRoupa) {
         ConnectionUtil connectionUtil = new ConnectionUtil();
         Connection conn = connectionUtil.criarConexao();
 

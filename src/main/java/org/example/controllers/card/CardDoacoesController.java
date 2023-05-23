@@ -59,12 +59,4 @@ public class CardDoacoesController implements Initializable {
         this.roupa_doacaoDao = new Roupa_DoacaoDao(entityManager);
         this.roupaDao = new RoupaDao(entityManager);
     }
-
-    public Label getIdLblTamanho() {
-        return IdLblTamanho;
-    }
-
-    public Label getIdLblSubTitulo() {
-        return idLblSubTitulo;
-    }
 }
