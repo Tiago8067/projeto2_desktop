@@ -3,6 +3,7 @@ package org.example.dao;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.example.models.Fornecedor;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.List;

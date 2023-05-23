@@ -2,7 +2,6 @@ package org.example.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.example.models.Doacao;
 import org.example.models.Localizacao;
 import org.example.models.Utilizador;
 import org.example.util.ConnectionUtil;
@@ -91,7 +90,7 @@ public class UtilizadorDao {
 //                "JOIN tb_utilizador u ON u.idutilizador = d.utilizador_id " +
                 "WHERE idUtilizador = ? ";
 
-        try{
+        try {
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, username);
             preparedStatement.setInt(2, id);

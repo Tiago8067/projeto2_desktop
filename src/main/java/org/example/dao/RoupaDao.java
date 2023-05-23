@@ -2,10 +2,6 @@ package org.example.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.example.models.Fornecedor;
-import org.example.models.LinhaEncomenda;
-import org.example.models.Utilizador;
-import org.example.modelsHelp.LinhaEncomendas;
 import org.example.modelsHelp.LinhaRoupa;
 import org.example.models.Roupa;
 import org.example.models.enums.CategoriaRoupa;
@@ -141,7 +137,7 @@ public class RoupaDao {
         Connection conn = connectionUtil.criarConexao();
 
         String sql = "UPDATE tb_roupa " +
-                "SET linha_encomenda_id = ? "+
+                "SET linha_encomenda_id = ? " +
                 "WHERE idencomenda = ? ";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(sql);

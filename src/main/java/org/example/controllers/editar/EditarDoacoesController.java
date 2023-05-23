@@ -115,8 +115,8 @@ public class EditarDoacoesController implements Initializable {
                     }
                 }
 
-                for (Roupa r: this.roupaDao.buscarTodas()) {
-                    if(r.getRoupa_doacao().getId_roupa_doacao() == this.doacaoDao.buscarPorId(this.linhaDoacoes.getIdDoacao().getValue()).getRoupa_doacao().getId_roupa_doacao()){
+                for (Roupa r : this.roupaDao.buscarTodas()) {
+                    if (r.getRoupa_doacao().getId_roupa_doacao() == this.doacaoDao.buscarPorId(this.linhaDoacoes.getIdDoacao().getValue()).getRoupa_doacao().getId_roupa_doacao()) {
                         this.roupaDao.atualizarRoupa(r.getIdRoupa(), String.valueOf(cBUpdateTipoRoupa.getValue()), String.valueOf(cBUpdateTamanhoRoupa.getValue()), String.valueOf(atualizarAssociarCategoria()), String.valueOf(atualizarAssociarImagem()));
                     }
                 }
@@ -146,8 +146,8 @@ public class EditarDoacoesController implements Initializable {
                 }
             }
 
-            for (Roupa r: this.roupaDao.buscarTodas()) {
-                if(r.getRoupa_doacao().getId_roupa_doacao() == this.doacaoDao.buscarPorId(this.linhaDoacoes.getIdDoacao().getValue()).getRoupa_doacao().getId_roupa_doacao()){
+            for (Roupa r : this.roupaDao.buscarTodas()) {
+                if (r.getRoupa_doacao().getId_roupa_doacao() == this.doacaoDao.buscarPorId(this.linhaDoacoes.getIdDoacao().getValue()).getRoupa_doacao().getId_roupa_doacao()) {
                     this.roupaDao.apagarRoupa(r.getIdRoupa());
                 }
             }

@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.example.controllers.HomePageController;
 import org.example.dao.FornecedorDao;
 import org.example.dao.LocalizacaoDao;
 import org.example.models.Fornecedor;

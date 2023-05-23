@@ -13,7 +13,6 @@ import org.example.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
-import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -174,8 +173,7 @@ public class AdicionarPedidoController implements Initializable {
                     if (r.getLinha_encomenda() == null) {
                         r.setLinha_encomenda(this.linhaEncomenda);
                         this.roupaDao.registar(r);
-                    }
-                    else {
+                    } else {
                         this.roupaDao.inserirRoupaEmPedidos(r);
                         /*r.setLinha_encomenda(this.linhaEncomenda);
                         this.roupaDao.registar(r);*/
