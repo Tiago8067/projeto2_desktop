@@ -2,6 +2,10 @@ package org.example.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.example.models.Fornecedor;
+import org.example.models.LinhaEncomenda;
+import org.example.models.Utilizador;
+import org.example.modelsHelp.LinhaEncomendas;
 import org.example.modelsHelp.LinhaRoupa;
 import org.example.models.Roupa;
 import org.example.models.enums.CategoriaRoupa;
@@ -108,6 +112,41 @@ public class RoupaDao {
             preparedStatement.setString(3, categoriaRopupa);
             preparedStatement.setString(4, imgsrc);
             preparedStatement.setInt(5, id);
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            System.out.println("ERRO: " + sqlException.getMessage());
+        }
+    }
+
+    public void atualizarRoupaEmPedidos(Integer id, Integer stock) {
+        ConnectionUtil connectionUtil = new ConnectionUtil();
+        Connection conn = connectionUtil.criarConexao();
+
+        String sql = " UPDATE tb_roupa " +
+                " SET stock = ? " +
+                " WHERE idroupa = ? ";
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, stock);
+            preparedStatement.setInt(2, id);
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            System.out.println("ERRO: " + sqlException.getMessage());
+        }
+    }
+
+    public void atualizarRoupaEncomendas(Integer idLinhaEncomenda, Integer id) {
+        ConnectionUtil connectionUtil = new ConnectionUtil();
+        Connection conn = connectionUtil.criarConexao();
+
+        String sql = "UPDATE tb_roupa " +
+                "SET linha_encomenda_id = ? "+
+                "WHERE idencomenda = ? ";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, idLinhaEncomenda);
+            preparedStatement.setInt(2, id);
             preparedStatement.execute();
         } catch (SQLException sqlException) {
             System.out.println("ERRO: " + sqlException.getMessage());

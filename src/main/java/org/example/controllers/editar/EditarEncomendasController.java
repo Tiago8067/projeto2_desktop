@@ -1,45 +1,44 @@
-package org.example.controllers.adicionar;
+package org.example.controllers.editar;
 
-import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.dao.*;
 import org.example.models.*;
 import org.example.models.enums.*;
+import org.example.modelsHelp.LinhaEncomendas;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class AdicionarPedidoController implements Initializable {
-    EntityManager entityManager;
-    Encomenda encomenda;
-    EncomendaDao encomendaDao;
-    UtilizadorDao utilizadorDao;
-    FornecedorDao fornecedorDao;
-    Roupa roupa;
-    RoupaDao roupaDao;
-    LinhaEncomenda linhaEncomenda;
-    LinhaEncomendaDao linhaEncomendaDao;
+public class EditarEncomendasController implements Initializable {
+    LinhaEncomendas linhaEncomendas;
     GoToUtil goToUtil;
-
+    EntityManager entityManager;
+    UtilizadorDao utilizadorDao;
+    RoupaDao roupaDao;
+    FornecedorDao fornecedorDao;
+    EncomendaDao encomendaDao;
+    LinhaEncomendaDao linhaEncomendaDao;
+    LinhaEncomenda linhaEncomenda;
     private List<Roupa> verificaRoupaList;
-    private List<Roupa> verificaTamanhoRoupaList;
-
     @FXML
     private Button btnIdAdicionar;
     @FXML
     private Button btnIdVoltar;
     @FXML
-    private ChoiceBox<TipoRoupa> cBIdTipoRoupa;
+    private Button btnApagar;
     @FXML
     private ChoiceBox<TamanhoRoupa> cBIdTamanhoRoupa;
+    @FXML
+    private ChoiceBox<TipoRoupa> cBIdTipoRoupa;
     @FXML
     private Label labelIdErroDataPedido;
     @FXML
@@ -55,40 +54,51 @@ public class AdicionarPedidoController implements Initializable {
     @FXML
     private Label labelIdErroTipoRoupa;
     @FXML
+    private Label lblAdicionaEstado;
+    @FXML
+    private MenuItem mIIdEstadoEmPreparacao;
+    @FXML
+    private MenuItem mIIdEstadoEnviado;
+    @FXML
+    private MenuItem mIIdEstadoFinalizado;
+    @FXML
     private TextField txtFIdFornecedor;
     @FXML
     private TextField txtFdIdNomeCliente;
     @FXML
     private TextField txtFdIdQtd;
-    @FXML
-    private TextField txtFdIdTamanhoRoupa;
-    @FXML
-    private MenuItem mIIdEstadoEmPreparacao;
 
     @FXML
-    private MenuItem mIIdEstadoEnviado;
+    void btnApagar(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Tem a certeza que quer Eliminar esta Doacao?");
+        Optional<ButtonType> resultado = alert.showAndWait();
+        if (resultado.get() == ButtonType.OK) {
+            for (Encomenda e : this.encomendaDao.buscarTodas()) {
+                if (e.getIdEncomenda() == this.linhaEncomendas.getIdEncomenda().getValue()) {
+                    this.encomendaDao.apagarEncomenda(e.getIdEncomenda());
+                }
+            }
 
-    @FXML
-    private MenuItem mIIdEstadoFinalizado;
-    @FXML
-    private Label lblAdicionaEstado;
+            for (LinhaEncomenda ld : this.linhaEncomendaDao.buscarTodas()) {
+                if (ld.getIdLinhaEncomenda() == this.linhaEncomendas.getIdLinhaEncomenda().getValue()) {
+                    this.linhaEncomendaDao.apagarLinhaEncomenda(ld.getIdLinhaEncomenda());
+                }
+            }
 
-    @FXML
-    void mIEstadoEmPreparacao(ActionEvent event) {
-        lblAdicionaEstado.setText(mIIdEstadoEmPreparacao.getText());
+            for (Roupa r : this.roupaDao.buscarTodas()) {
+                if (r.getIdRoupa() == this.linhaEncomendas.getIdRoupa().getValue()) {
+                    r.setLinha_encomenda(null);
+                    this.roupaDao.registar(r);
+                }
+            }
+
+            this.goToUtil.goToHomePageAdmin();
+            Stage stage = (Stage) btnApagar.getScene().getWindow();
+            stage.close();
+        }
     }
 
-    @FXML
-    void mIEstadoEnviado(ActionEvent event) {
-        lblAdicionaEstado.setText(mIIdEstadoEnviado.getText());
-    }
-
-    @FXML
-    void mIEstadoFinalizado(ActionEvent event) {
-        lblAdicionaEstado.setText(mIIdEstadoFinalizado.getText());
-    }
-
-    //todo verificar porque nao adiciona e repete quando o pedido e do mesmo tipo e tamanho
     @FXML
     void btnAdicionar(ActionEvent event) {
         int verificaQtd = 0;
@@ -108,7 +118,6 @@ public class AdicionarPedidoController implements Initializable {
         } else if (this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()).getTipoUtilizador().equals(TipoUtilizador.CLIENTE) && (!this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()).getEstadoUtilizador().equals(EstadoUtilizador.ATIVO))) {
             labelIdErroNomeCliente.setText("Este Cliente não está Ativo!!! Introduza novamente!");
         } else {
-            this.encomenda.setUtilizador(this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()));
             labelIdErroNomeCliente.setText("");
         }
 
@@ -121,7 +130,6 @@ public class AdicionarPedidoController implements Initializable {
             labelIdErroTipoRoupa.setText("Não está em Stock! ");
             labelIdErroTamanho.setText("Não está em Stock!");
         } else {
-            //todo atualizar stock roupa
             labelIdErroTipoRoupa.setText("");
             labelIdErroTamanho.setText("");
         }
@@ -135,7 +143,6 @@ public class AdicionarPedidoController implements Initializable {
         } else if (!verificaQuantidadeStock()) {
             labelIdErroQuantidade.setText("Quantidade ultrapassa o total em Stock!");
         } else {
-            this.linhaEncomenda.setQuantidade(Integer.valueOf(txtFdIdQtd.getText()));
             labelIdErroQuantidade.setText("");
         }
 
@@ -144,62 +151,56 @@ public class AdicionarPedidoController implements Initializable {
         } else if (this.fornecedorDao.buscarFornecedorPorNome(txtFIdFornecedor.getText()) == null) {
             labelIdErroFornecedor.setText("Este Fornecedor não existe!");
         } else {
-            this.encomenda.setFornecedor(this.fornecedorDao.buscarFornecedorPorNome(txtFIdFornecedor.getText()));
             labelIdErroFornecedor.setText("");
         }
 
         if (lblAdicionaEstado.getText().isEmpty()) {
             labelIdErroEstadoEnc.setText("Tem de preencher o estado da Encomenda.");
-        } else if (lblAdicionaEstado.getText().equals("Em Preparacao")) {
-            this.encomenda.setEstadoEncomenda(EstadoEncomenda.EMPREPARACAO);
-            labelIdErroEstadoEnc.setText("");
-        } else if (lblAdicionaEstado.getText().equals("Enviado")) {
-            this.encomenda.setEstadoEncomenda(EstadoEncomenda.ENVIADO);
-            labelIdErroEstadoEnc.setText("");
-        } else if (lblAdicionaEstado.getText().equals("Finalizado")) {
-            this.encomenda.setEstadoEncomenda(EstadoEncomenda.FINALIZADO);
+        } else {
             labelIdErroEstadoEnc.setText("");
         }
 
         if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") &&
                 labelIdErroTamanho.getText().equals("") && labelIdErroFornecedor.getText().equals("") &&
-                labelIdErroEstadoEnc.getText().equals("")) {
-            this.encomenda.setLinha_encomenda(this.linhaEncomenda);
+                labelIdErroEstadoEnc.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
 
-            this.encomendaDao.registar(this.encomenda);
-            this.linhaEncomendaDao.registar(this.linhaEncomenda);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setContentText("Tem a certeza que deseja Editar esta Doacao?");
+            Optional<ButtonType> resultado = alert.showAndWait();
+            if (resultado.get() == ButtonType.OK) {
 
-            for (Roupa r : this.verificaRoupaList) {
-                if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
-                    r.setLinha_encomenda(this.linhaEncomenda);
-                    this.roupaDao.registar(r);
+                for (Encomenda e : this.encomendaDao.buscarTodas()) {
+                    if (e.getIdEncomenda() == this.linhaEncomendas.getIdEncomenda().getValue()) {
+                        if (lblAdicionaEstado.getText().equals("Em Preparacao")) {
+                            this.encomendaDao.atualizarEncomenda(String.valueOf(EstadoEncomenda.EMPREPARACAO), e.getIdEncomenda());
+                        } else if (lblAdicionaEstado.getText().equals("Enviado")) {
+                            this.encomendaDao.atualizarEncomenda(String.valueOf(EstadoEncomenda.ENVIADO), e.getIdEncomenda());
+                        } else if (lblAdicionaEstado.getText().equals("Finalizado")) {
+                            this.encomendaDao.atualizarEncomenda(String.valueOf(EstadoEncomenda.FINALIZADO), e.getIdEncomenda());
+                        }
+                        this.encomendaDao.atualizarFornecedorEncomenda(this.fornecedorDao.buscarFornecedorPorNome(txtFIdFornecedor.getText()).getIdFornecedor(), e.getIdEncomenda());
+                        this.encomendaDao.atualizarUtilizadorEncomenda(this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()).getIdUtilizador(), e.getIdEncomenda());
+                    }
                 }
-            }
 
-            Integer diferenca = 0;
-            for (Roupa r : this.verificaRoupaList) {
-                if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
-                    diferenca = r.getStock();
-                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                    System.out.println(diferenca);
-                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                    //r.setStock(r.getStock() - Integer.parseInt(txtFdIdQtd.getText()));
-                    diferenca -= Integer.parseInt(txtFdIdQtd.getText());
-
-                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                    System.out.println( diferenca);
-                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-
-                    //r.setStock(diferenca);
-                    //this.roupaDao.atualizar(r);
-                    this.roupaDao.atualizarRoupaEmPedidos(r.getIdRoupa(), diferenca);
-                    //return Collections.singletonList(r);
+                for (LinhaEncomenda ld : this.linhaEncomendaDao.buscarTodas()) {
+                    if (ld.getIdLinhaEncomenda() == this.linhaEncomendas.getIdLinhaEncomenda().getValue()) {
+                        this.linhaEncomendaDao.atualizarLinha_Encomenda(Integer.parseInt(txtFdIdQtd.getText()), ld.getIdLinhaEncomenda());
+                    }
                 }
-            }
 
-            this.goToUtil.goToHomePageAdmin();
-            Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
-            stage.close();
+                /*todo atualizar stock*/
+
+                /*for (Roupa r: this.roupaDao.buscarTodas()) {
+                    if(r.getIdRoupa() == this.linhaEncomendas.getIdRoupa().getValue()){
+                        this.roupaDao.atualizarRoupaEncomendas(this.linhaEncomendas.getIdLinhaEncomenda().getValue(), r.getIdRoupa());
+                    }
+                }*/
+
+                this.goToUtil.goToHomePageAdmin();
+                Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
+                stage.close();
+            }
         }
     }
 
@@ -210,23 +211,50 @@ public class AdicionarPedidoController implements Initializable {
         stage.close();
     }
 
+    @FXML
+    void mIEstadoEmPreparacao(ActionEvent event) {
+        lblAdicionaEstado.setText(mIIdEstadoEmPreparacao.getText());
+    }
+
+    @FXML
+    void mIEstadoEnviado(ActionEvent event) {
+        lblAdicionaEstado.setText(mIIdEstadoEnviado.getText());
+    }
+
+    @FXML
+    void mIEstadoFinalizado(ActionEvent event) {
+        lblAdicionaEstado.setText(mIIdEstadoFinalizado.getText());
+    }
+
+
+    public void setEncomenda(LinhaEncomendas linhaEncomendas) {
+        this.linhaEncomendas = linhaEncomendas;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cBIdTipoRoupa.getItems().addAll(TipoRoupa.values());
         cBIdTamanhoRoupa.getItems().addAll(TamanhoRoupa.values());
 
         this.entityManager = JPAUtil.getEntityManager();
-        this.encomenda = new Encomenda();
-        this.encomendaDao = new EncomendaDao(entityManager);
+        this.linhaEncomendas = new LinhaEncomendas();
         this.utilizadorDao = new UtilizadorDao(entityManager);
-        this.fornecedorDao = new FornecedorDao(entityManager);
-        this.roupa = new Roupa();
         this.roupaDao = new RoupaDao(entityManager);
-        this.linhaEncomenda = new LinhaEncomenda();
-        this.linhaEncomendaDao = new LinhaEncomendaDao(entityManager);
         this.goToUtil = new GoToUtil();
         this.verificaRoupaList = this.roupaDao.buscarTodas();
-        this.verificaTamanhoRoupaList = this.roupaDao.buscarPorTamanhoRoupa(cBIdTamanhoRoupa.getValue());
+        this.fornecedorDao = new FornecedorDao(entityManager);
+        this.encomendaDao = new EncomendaDao(entityManager);
+        this.linhaEncomendaDao = new LinhaEncomendaDao(entityManager);
+        this.linhaEncomenda = new LinhaEncomenda();
+    }
+
+    public void passarDadosEncomendasEditar() {
+        txtFdIdNomeCliente.setText(String.valueOf(this.linhaEncomendas.getUsernameCliente().getValue()));
+        cBIdTipoRoupa.setValue(TipoRoupa.valueOf(this.linhaEncomendas.getTipoRoupa().getValue()));
+        cBIdTamanhoRoupa.setValue(TamanhoRoupa.valueOf(this.linhaEncomendas.getTamanhoRoupa().getValue()));
+        txtFdIdQtd.setText(String.valueOf(this.linhaEncomendas.getQuantidade().getValue()));
+        txtFIdFornecedor.setText(String.valueOf(this.linhaEncomendas.getUsernameFonecedor().getValue()));
+        lblAdicionaEstado.setText(String.valueOf(this.linhaEncomendas.getEstado().getValue()));
     }
 
     private Boolean verificaTipoTamanhoStock() {
@@ -246,5 +274,4 @@ public class AdicionarPedidoController implements Initializable {
         }
         return false;
     }
-
 }
