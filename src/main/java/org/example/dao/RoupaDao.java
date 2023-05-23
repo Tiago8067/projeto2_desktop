@@ -2,6 +2,10 @@ package org.example.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.example.models.Fornecedor;
+import org.example.models.LinhaEncomenda;
+import org.example.models.Utilizador;
+import org.example.modelsHelp.LinhaEncomendas;
 import org.example.modelsHelp.LinhaRoupa;
 import org.example.models.Roupa;
 import org.example.models.enums.CategoriaRoupa;
@@ -114,6 +118,41 @@ public class RoupaDao {
         }
     }
 
+    public void atualizarRoupaEmPedidos(Integer id, Integer stock) {
+        ConnectionUtil connectionUtil = new ConnectionUtil();
+        Connection conn = connectionUtil.criarConexao();
+
+        String sql = " UPDATE tb_roupa " +
+                " SET stock = ? " +
+                " WHERE idroupa = ? ";
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, stock);
+            preparedStatement.setInt(2, id);
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            System.out.println("ERRO: " + sqlException.getMessage());
+        }
+    }
+
+    public void atualizarRoupaEncomendas(Integer idLinhaEncomenda, Integer id) {
+        ConnectionUtil connectionUtil = new ConnectionUtil();
+        Connection conn = connectionUtil.criarConexao();
+
+        String sql = "UPDATE tb_roupa " +
+                "SET linha_encomenda_id = ? "+
+                "WHERE idencomenda = ? ";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, idLinhaEncomenda);
+            preparedStatement.setInt(2, id);
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            System.out.println("ERRO: " + sqlException.getMessage());
+        }
+    }
+
     public void apagarRoupa(Integer id) {
         ConnectionUtil connectionUtil = new ConnectionUtil();
         Connection conn = connectionUtil.criarConexao();
@@ -178,5 +217,62 @@ public class RoupaDao {
             System.out.println("ERRO: " + e.getMessage());
         }
         return linhaRoupaList;
+    }
+
+    public void inserirRoupaEmPedidos(Roupa roupa) {
+        ConnectionUtil connectionUtil = new ConnectionUtil();
+        Connection conn = connectionUtil.criarConexao();
+
+        /*insert into tb_roupa (idroupa, categoriaroupa, data, imagesrc, nome, stock, tamanhoroupa, tiporoupa, linha_encomenda_id,
+                roupa_doacao_id)
+        values ();
+
+        todo falta a data
+        */
+
+        String sql = "INSERT INTO tb_roupa (categoriaroupa, imagesrc, stock, tamanhoroupa, tiporoupa, roupa_doacao_id) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, String.valueOf(roupa.getCategoriaRoupa()));
+            preparedStatement.setString(2, roupa.getImageSrc());
+            preparedStatement.setInt(3, roupa.getStock());
+            preparedStatement.setString(4, String.valueOf(roupa.getTamanhoRoupa()));
+            preparedStatement.setString(5, String.valueOf(roupa.getTipoRoupa()));
+            preparedStatement.setInt(6, roupa.getRoupa_doacao().getId_roupa_doacao());
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            System.out.println("ERRO: " + sqlException.getMessage());
+        }
+    }
+
+    public List<Roupa> buscarTamanhoBebe(TamanhoRoupa tamanhoRoupa) {
+        ConnectionUtil connectionUtil = new ConnectionUtil();
+        Connection conn = connectionUtil.criarConexao();
+
+        String sql = " SELECT DISTINCT categoriaroupa, imagesrc, tiporoupa, tamanhoroupa " +
+                "FROM tb_roupa " +
+                " WHERE tamanhoroupa = ? ";
+
+        List<Roupa> listaRoupas = new ArrayList<>();
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, String.valueOf(tamanhoRoupa));
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Roupa roupa = new Roupa();
+                roupa.setTipoRoupa(TipoRoupa.valueOf(rs.getString("tiporoupa")));
+                roupa.setTamanhoRoupa(TamanhoRoupa.valueOf(rs.getString("tamanhoroupa")));
+                roupa.setCategoriaRoupa(CategoriaRoupa.valueOf(rs.getString("categoriaroupa")));
+                roupa.setImageSrc(rs.getString("imagesrc"));
+                listaRoupas.add(roupa);
+            }
+        } catch (SQLException e) {
+            System.out.println("ERRO: " + e.getMessage());
+        }
+        return listaRoupas;
     }
 }

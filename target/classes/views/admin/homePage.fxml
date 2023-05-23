@@ -133,7 +133,7 @@
                                              <content>
                                                 <VBox prefHeight="250.0" prefWidth="200.0">
                                                    <children>
-                                                      <Button fx:id="btnBebeId" mnemonicParsing="false" prefWidth="200.0" text="Bebe" />
+                                                      <Button fx:id="btnBebeId" mnemonicParsing="false" onAction="#btnBebe" prefWidth="200.0" text="Bebe" />
                                                       <Button fx:id="btnCriancaId" mnemonicParsing="false" prefWidth="200.0" text="Criança" />
                                                       <Button fx:id="btnAdolescente12Id" mnemonicParsing="false" prefWidth="200.0" text="Adolescente12" />
                                                       <Button fx:id="btnAdolescente14Id" mnemonicParsing="false" prefWidth="200.0" text="Adolescente14" />

@@ -7,15 +7,13 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.dao.*;
 import org.example.models.*;
-import org.example.models.enums.EstadoEncomenda;
-import org.example.models.enums.TamanhoRoupa;
-import org.example.models.enums.TipoRoupa;
-import org.example.models.enums.TipoUtilizador;
+import org.example.models.enums.*;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -31,8 +29,8 @@ public class AdicionarPedidoController implements Initializable {
     LinhaEncomendaDao linhaEncomendaDao;
     GoToUtil goToUtil;
 
-    private List<Roupa> verrificaTipoRoupaList;
-    private List<Roupa> verrificaTamanhoRoupaList;
+    private List<Roupa> verificaRoupaList;
+    private List<Roupa> verificaTamanhoRoupaList;
 
     @FXML
     private Button btnIdAdicionar;
@@ -90,6 +88,7 @@ public class AdicionarPedidoController implements Initializable {
         lblAdicionaEstado.setText(mIIdEstadoFinalizado.getText());
     }
 
+    //todo verificar porque nao adiciona e repete quando o pedido e do mesmo tipo e tamanho
     @FXML
     void btnAdicionar(ActionEvent event) {
         int verificaQtd = 0;
@@ -106,38 +105,39 @@ public class AdicionarPedidoController implements Initializable {
             labelIdErroNomeCliente.setText("Este Utilizador não existe!");
         } else if (!this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()).getTipoUtilizador().equals(TipoUtilizador.CLIENTE)) {
             labelIdErroNomeCliente.setText("Este Utilizador não é um Cliente!!! Introduza novamente!");
+        } else if (this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()).getTipoUtilizador().equals(TipoUtilizador.CLIENTE) && (!this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()).getEstadoUtilizador().equals(EstadoUtilizador.ATIVO))) {
+            labelIdErroNomeCliente.setText("Este Cliente não está Ativo!!! Introduza novamente!");
         } else {
             this.encomenda.setUtilizador(this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()));
             labelIdErroNomeCliente.setText("");
         }
+
         //todo - falta vberificar o estado do cliente
 
-        if (cBIdTipoRoupa.getValue() == null) {
+        if (cBIdTipoRoupa.getValue() == null && cBIdTamanhoRoupa.getValue() == null) {
             labelIdErroTipoRoupa.setText("Tem de preencher o Tipo de Roupa.");
+            labelIdErroTamanho.setText("Tem de preencher o Tamanho de Roupa.");
+        } else if (!verificaTipoTamanhoStock()) {
+            labelIdErroTipoRoupa.setText("Não está em Stock! ");
+            labelIdErroTamanho.setText("Não está em Stock!");
         } else {
-            for (Roupa r : this.verrificaTipoRoupaList) {
-                if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue())) {
-//                    this.linhaEncomenda.setRoupa(r);
-                    labelIdErroTipoRoupa.setText("");
-                } else {
-                    System.out.println("Este Tipo Roupa nao esta em Stock!");
-                }
-            }
-        }
-
-        if (cBIdTamanhoRoupa.getValue() == null) {
-            labelIdErroTamanho.setText("Tem de preencher o Tipo de Roupa.");
-        } else {
-            for (Roupa r : this.verrificaTamanhoRoupaList) {
-                if (r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
-                    labelIdErroTamanho.setText("");
-                } else {
-                    System.out.println("Este Tamanho Roupa nao esta em Stock!");
-                }
-            }
+            //todo atualizar stock roupa
+            labelIdErroTipoRoupa.setText("");
+            labelIdErroTamanho.setText("");
         }
 
         //TODO - FALTA A DATA
+
+        if (txtFdIdQtd.getText().isEmpty()) {
+            labelIdErroQuantidade.setText("Tem de preencher a Quantidade.");
+        } else if (verificaQtd == 0) {
+            labelIdErroQuantidade.setText("Preencha corretamente a Quantidade!");
+        } else if (!verificaQuantidadeStock()) {
+            labelIdErroQuantidade.setText("Quantidade ultrapassa o total em Stock!");
+        } else {
+            this.linhaEncomenda.setQuantidade(Integer.valueOf(txtFdIdQtd.getText()));
+            labelIdErroQuantidade.setText("");
+        }
 
         if (txtFIdFornecedor.getText().isEmpty()) {
             labelIdErroFornecedor.setText("Tem de preencher o Nome do Utilizador do Fornecedor.");
@@ -161,11 +161,50 @@ public class AdicionarPedidoController implements Initializable {
             labelIdErroEstadoEnc.setText("");
         }
 
-        if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") && labelIdErroTamanho.getText().equals("")
-                && labelIdErroFornecedor.getText().equals("") && labelIdErroEstadoEnc.getText().equals("")) {
+        if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") &&
+                labelIdErroTamanho.getText().equals("") && labelIdErroFornecedor.getText().equals("") &&
+                labelIdErroEstadoEnc.getText().equals("")) {
+            this.encomenda.setLinha_encomenda(this.linhaEncomenda);
+
             this.encomendaDao.registar(this.encomenda);
             this.linhaEncomendaDao.registar(this.linhaEncomenda);
-            this.roupaDao.registar(this.roupa);
+
+            for (Roupa r : this.verificaRoupaList) {
+                if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
+                    if (r.getLinha_encomenda() == null) {
+                        r.setLinha_encomenda(this.linhaEncomenda);
+                        this.roupaDao.registar(r);
+                    }
+                    else {
+                        this.roupaDao.inserirRoupaEmPedidos(r);
+                        /*r.setLinha_encomenda(this.linhaEncomenda);
+                        this.roupaDao.registar(r);*/
+                    }
+                }
+            }
+
+/*
+            Integer diferenca = 0;
+            for (Roupa r : this.verificaRoupaList) {
+                if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
+                    diferenca = r.getStock();
+                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                    System.out.println(diferenca);
+                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                    //r.setStock(r.getStock() - Integer.parseInt(txtFdIdQtd.getText()));
+                    diferenca -= Integer.parseInt(txtFdIdQtd.getText());
+
+                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                    System.out.println( diferenca);
+                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+                    //r.setStock(diferenca);
+                    //this.roupaDao.atualizar(r);
+                    this.roupaDao.atualizarRoupaEmPedidos(r.getIdRoupa(), diferenca);
+                    //return Collections.singletonList(r);
+                }
+            }*/
+
             this.goToUtil.goToHomePageAdmin();
             Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
             stage.close();
@@ -194,7 +233,26 @@ public class AdicionarPedidoController implements Initializable {
         this.linhaEncomenda = new LinhaEncomenda();
         this.linhaEncomendaDao = new LinhaEncomendaDao(entityManager);
         this.goToUtil = new GoToUtil();
-        this.verrificaTipoRoupaList = this.roupaDao.buscarPorTipoRoupa(cBIdTipoRoupa.getValue());
-        this.verrificaTamanhoRoupaList = this.roupaDao.buscarPorTamanhoRoupa(cBIdTamanhoRoupa.getValue());
+        this.verificaRoupaList = this.roupaDao.buscarTodas();
+        this.verificaTamanhoRoupaList = this.roupaDao.buscarPorTamanhoRoupa(cBIdTamanhoRoupa.getValue());
     }
+
+    private Boolean verificaTipoTamanhoStock() {
+        for (Roupa r : this.verificaRoupaList) {
+            if (cBIdTipoRoupa.getValue().equals(r.getTipoRoupa()) && cBIdTamanhoRoupa.getValue().equals(r.getTamanhoRoupa())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Boolean verificaQuantidadeStock() {
+        for (Roupa r : this.verificaRoupaList) {
+            if (cBIdTipoRoupa.getValue().equals(r.getTipoRoupa()) && cBIdTamanhoRoupa.getValue().equals(r.getTamanhoRoupa()) && Integer.parseInt(txtFdIdQtd.getText()) < r.getStock()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

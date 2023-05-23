@@ -24,6 +24,7 @@ import org.example.modelsHelp.LinhaDoacoes;
 import org.example.dao.*;
 import org.example.models.*;
 import org.example.models.enums.*;
+import org.example.modelsHelp.LinhaEncomendas;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
@@ -43,6 +44,7 @@ public class HomePageController implements Initializable {
     DoacaoDao doacaoDao;
     Roupa_DoacaoDao roupa_doacaoDao;
     RoupaDao roupaDao;
+    EncomendaDao encomendaDao;
 
     //HOMEPAGE
     @FXML
@@ -86,37 +88,37 @@ public class HomePageController implements Initializable {
     private GridPane idCardStock;
 
     //PEDIDOS
-    private ObservableList<Encomenda> encomendaObservableList;
+    private ObservableList<LinhaEncomendas> encomendaObservableList;
     @FXML
     private Tab tabIdPedidos;
     @FXML
     private Button btnIdPedidoAdicionar;
     @FXML
-    private TableView<Encomenda> tvPedidos;
+    private TableView<LinhaEncomendas> tvPedidos;
     @FXML
-    private TableColumn<Encomenda, String> tcIdPedidoDestinatario;
+    private TableColumn<LinhaEncomendas, String> tcIdPedidoDestinatario;
     @FXML
-    private TableColumn<Encomenda, String> tcIdPedidoTipoRoupa;
+    private TableColumn<LinhaEncomendas, String> tcIdPedidoTipoRoupa;
     @FXML
-    private TableColumn<Encomenda, String> tcIdPedidoTamanhoRoupa;
+    private TableColumn<LinhaEncomendas, String> tcIdPedidoTamanhoRoupa;
     @FXML
-    private TableColumn<Encomenda, Integer> tcIdPedidoQuantidade;
+    private TableColumn<LinhaEncomendas, Integer> tcIdPedidoQuantidade;
     @FXML
     private TableColumn<?, ?> tcIdDataPedido;
     @FXML
-    private TableColumn<Encomenda, Encomenda> tcIdPedidoAcoes;
+    private TableColumn<LinhaEncomendas, LinhaEncomendas> tcIdPedidoAcoes;
 
     //ENTREGAS
     @FXML
     private Tab tabEntregas;
     @FXML
-    private TableView<?> tvEntregas;
+    private TableView<LinhaEncomendas> tvEntregas;
     @FXML
-    private TableColumn<?, ?> tCNomeForn;
+    private TableColumn<LinhaEncomendas, String> tCNomeForn;
     @FXML
     private TableColumn<?, ?> tCDataEntrega;
     @FXML
-    private TableColumn<?, ?> tCEstado;
+    private TableColumn<LinhaEncomendas, String> tCEstado;
 
     //FORNECEDOR
     private ObservableList<Fornecedor> observableListFornecedor;
@@ -213,6 +215,32 @@ public class HomePageController implements Initializable {
     }
 
     //STOCK
+    @FXML
+    void btnBebe(ActionEvent event) {
+        idCardStock.getChildren().clear();
+        int coluna = 0;
+        int linha = 1;
+
+        try {
+            for (Roupa r : this.roupaDao.buscarTamanhoBebe(TamanhoRoupa.BEBE)) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
+                VBox cardBox = fxmlLoader.load();
+                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
+                cardDoacoesController.setCardDoacoes(r);
+
+                if (coluna == 3) {
+                    coluna = 0;
+                    ++linha;
+                }
+
+                idCardStock.add(cardBox, coluna++, linha);
+                GridPane.setMargin(cardBox, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     //PEDIDOS
     @FXML
@@ -379,6 +407,7 @@ public class HomePageController implements Initializable {
         this.doacaoDao = new DoacaoDao(entityManager);
         this.roupa_doacaoDao = new Roupa_DoacaoDao(entityManager);
         this.roupaDao = new RoupaDao(entityManager);
+        this.encomendaDao = new EncomendaDao(entityManager);
 
         this.listaRoupaParaCardSotck = this.roupaDao.buscarTodas();
         int coluna = 0;
@@ -444,6 +473,52 @@ public class HomePageController implements Initializable {
             }
         });
 
+        //TABLE VIEW PEDIDOS
+        tcIdPedidoDestinatario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameCliente();
+            }
+        });
+
+        tcIdPedidoTipoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getTipoRoupa();
+            }
+        });
+
+        tcIdPedidoTamanhoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getTamanhoRoupa();
+            }
+        });
+
+        tcIdPedidoQuantidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, Integer>, ObservableValue<Integer>>() {
+            @Override
+            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaEncomendas, Integer> linhaEncomendasIntegerCellDataFeatures) {
+                return linhaEncomendasIntegerCellDataFeatures.getValue().getQuantidade();
+            }
+        });
+
+        //TABLE VIEW ENTREGAS
+        tCNomeForn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameFonecedor();
+            }
+        });
+
+        // todo falta a data
+
+        tCEstado.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getEstado();
+            }
+        });
+
         //TABLE VIEW FORNECEDOR
         tCIdFornecedor.setCellValueFactory(new PropertyValueFactory<>("idFornecedor"));
         tCNomeFornecedor.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -495,10 +570,40 @@ public class HomePageController implements Initializable {
 
     //STOCK
 
+    //PEDIDOS ENTREGAS
+    public void listarEncomendas() {
+        List<LinhaEncomendas> listTodos = this.encomendaDao.buscarTodasEncomendas();
+        encomendaObservableList = FXCollections.observableArrayList(listTodos);
+        tvPedidos.setItems(encomendaObservableList);
+        tvEntregas.setItems(encomendaObservableList);
 
-    //PEDIDOS
+        initEditButtonEnomendas();
+    }
 
-    //ENTREGAS
+    private void initEditButtonEnomendas() {
+        tcIdPedidoAcoes.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        tcIdPedidoAcoes.setCellFactory(param -> new TableCell<LinhaEncomendas, LinhaEncomendas>() {
+            private final Button button = new Button("Editar");
+
+            @Override
+            protected void updateItem(LinhaEncomendas obj, boolean empty) {
+                super.updateItem(obj, empty);
+                if (obj == null) {
+                    setGraphic(null);
+                    return;
+                }
+                setGraphic(button);
+                button.setPrefWidth(70);
+                button.setOnAction(event -> gotoEditarEncomendas(obj));
+            }
+        });
+    }
+
+    private void gotoEditarEncomendas(LinhaEncomendas obj) {
+        this.goToUtil.gotoEditarEncomendas(obj);
+        Stage stage = (Stage) btnIdPedidoAdicionar.getScene().getWindow();
+        stage.close();
+    }
 
     //FORNECEDOR
     public void listaFornecedor() {
