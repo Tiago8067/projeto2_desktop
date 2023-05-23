@@ -133,17 +133,17 @@
                                              <content>
                                                 <VBox prefHeight="250.0" prefWidth="200.0">
                                                    <children>
-                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="Bebe" />
-                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="Criança" />
-                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="Adolescente12" />
-                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="Adolescente14" />
-                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="Adolescente16" />
-                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="XS" />
-                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="S" />
-                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="M" />
-                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="L" />
-                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="XL" />
-                                                      <Button mnemonicParsing="false" prefWidth="200.0" text="XXL" />
+                                                      <Button fx:id="btnBebeId" mnemonicParsing="false" prefWidth="200.0" text="Bebe" />
+                                                      <Button fx:id="btnCriancaId" mnemonicParsing="false" prefWidth="200.0" text="Criança" />
+                                                      <Button fx:id="btnAdolescente12Id" mnemonicParsing="false" prefWidth="200.0" text="Adolescente12" />
+                                                      <Button fx:id="btnAdolescente14Id" mnemonicParsing="false" prefWidth="200.0" text="Adolescente14" />
+                                                      <Button fx:id="btnAdolescente16Id" mnemonicParsing="false" prefWidth="200.0" text="Adolescente16" />
+                                                      <Button fx:id="btnXSId" mnemonicParsing="false" prefWidth="200.0" text="XS" />
+                                                      <Button fx:id="btnSId" mnemonicParsing="false" prefWidth="200.0" text="S" />
+                                                      <Button fx:id="btnMId" mnemonicParsing="false" prefWidth="200.0" text="M" />
+                                                      <Button fx:id="btnLId" mnemonicParsing="false" prefWidth="200.0" text="L" />
+                                                      <Button fx:id="btnXLId" mnemonicParsing="false" prefWidth="200.0" text="XL" />
+                                                      <Button fx:id="btnXXLId" mnemonicParsing="false" prefWidth="200.0" text="XXL" />
                                                    </children>
                                                 </VBox>
                                              </content>
