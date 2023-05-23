@@ -81,13 +81,14 @@ public class EditarEncomendasController implements Initializable {
             }
 
             for (LinhaEncomenda ld : this.linhaEncomendaDao.buscarTodas()) {
-                if (ld.getIdLinhaEncomenda() == this.linhaEncomendas.getIdLinhaEncomenda().getValue()) {
+                /*this.linhaEncomendas.getIdLinhaEncomenda().getValue())*/
+                if (ld.getIdLinhaEncomenda() == this.encomendaDao.buscarPorId(this.linhaEncomendas.getIdEncomenda().getValue()).getLinha_encomenda().getIdLinhaEncomenda()) {
                     this.linhaEncomendaDao.apagarLinhaEncomenda(ld.getIdLinhaEncomenda());
                 }
             }
 
             for (Roupa r : this.roupaDao.buscarTodas()) {
-                if (r.getIdRoupa() == this.linhaEncomendas.getIdRoupa().getValue()) {
+                if (r.getLinha_encomenda().getIdLinhaEncomenda() == this.encomendaDao.buscarPorId(this.linhaEncomendas.getIdEncomenda().getValue()).getLinha_encomenda().getIdLinhaEncomenda()) {
                     r.setLinha_encomenda(null);
                     this.roupaDao.registar(r);
                 }
