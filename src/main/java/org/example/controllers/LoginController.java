@@ -51,12 +51,20 @@ public class LoginController implements Initializable {
             labelErroLoginNomeEmail.setText("");
         }
 
-        if (tfLoginPass.getText().isEmpty()) {
-            labelErroLoginPass.setText("Tem de inserir a sua Palavra-passe(campo Obrigatorio!!!)");
-        } else if (!this.utilizadorDao.buscarUtilizadorPorUsername(tfLoginNome.getText()).getPassword().equals(tfLoginPass.getText())) {
-            labelErroLoginPass.setText("A Palavra-passe está Incorreta. Tente Novamente.");
-        } else {
-            labelErroLoginPass.setText("");
+        try {
+            if (tfLoginPass.getText().isEmpty()) {
+                labelErroLoginPass.setText("Tem de inserir a sua Palavra-passe(campo Obrigatorio!!!)");
+            } else if (!this.utilizadorDao.buscarUtilizadorPorUsername(tfLoginNome.getText()).getPassword().equals(tfLoginPass.getText())) {
+                labelErroLoginPass.setText("A Palavra-passe está Incorreta. Tente Novamente.");
+            } else {
+                labelErroLoginPass.setText("");
+            }
+        } catch (NullPointerException e) {
+            System.out.println("ERRO: " + e.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.getDialogPane().setPrefSize(450, 150);
+            alert.setContentText("Este Utilizador não existe!");
+            alert.show();
         }
 
         if (labelErroLoginNomeEmail.getText().equals("") && labelErroLoginPass.getText().equals("")) {

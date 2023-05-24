@@ -113,8 +113,6 @@ public class AdicionarPedidoController implements Initializable {
             labelIdErroNomeCliente.setText("");
         }
 
-        //todo - falta vberificar o estado do cliente
-
         if (cBIdTipoRoupa.getValue() == null && cBIdTamanhoRoupa.getValue() == null) {
             labelIdErroTipoRoupa.setText("Tem de preencher o Tipo de Roupa.");
             labelIdErroTamanho.setText("Tem de preencher o Tamanho de Roupa.");
@@ -175,22 +173,7 @@ public class AdicionarPedidoController implements Initializable {
             this.roupaDasEncomendas.setLinha_encomenda(this.linhaEncomenda);
             this.roupaDasEncomendasDao.registar(this.roupaDasEncomendas);
 
-            /*
-            for (Roupa r : this.verificaRoupaList) {
-                if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
-                    if (r.getLinha_encomenda() == null) {
-                        r.setLinha_encomenda(this.linhaEncomenda);
-                        this.roupaDao.registar(r);
-                    } else {
-                        this.roupaDao.inserirRoupaEmPedidos(r);
-                        *//*r.setLinha_encomenda(this.linhaEncomenda);
-                        this.roupaDao.registar(r);*//*
-                    }
-                }
-            }
-            */
 
-            /*
             Integer diferenca = 0;
             for (Roupa r : this.verificaRoupaList) {
                 if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
@@ -207,11 +190,17 @@ public class AdicionarPedidoController implements Initializable {
 
                     //r.setStock(diferenca);
                     //this.roupaDao.atualizar(r);
-                    this.roupaDao.atualizarRoupaEmPedidos(r.getIdRoupa(), diferenca);
+                    //this.roupaDao.atualizarRoupaEmPedidos(r.getIdRoupa(), diferenca);
                     //return Collections.singletonList(r);
                 }
             }
-            */
+
+            for (Roupa r : this.verificaRoupaList) {
+                if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
+                    this.roupaDao.atualizarRoupaEmPedidos(r.getIdRoupa(), diferenca);
+                }
+            }
+
 
             this.goToUtil.goToHomePageAdminDeTabPedidos();
             Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();

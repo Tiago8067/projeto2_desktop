@@ -118,9 +118,9 @@ public class RoupaDao {
         ConnectionUtil connectionUtil = new ConnectionUtil();
         Connection conn = connectionUtil.criarConexao();
 
-        String sql = " UPDATE tb_roupa " +
-                " SET stock = ? " +
-                " WHERE idroupa = ? ";
+        String sql = "UPDATE tb_roupa " +
+                "SET stock = ? " +
+                "WHERE idroupa = ? ";
 
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
