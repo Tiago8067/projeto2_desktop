@@ -9,6 +9,7 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -120,9 +121,9 @@
                                        <content>
                                           <VBox prefHeight="200.0" prefWidth="100.0">
                                              <children>
-                                                <Button contentDisplay="CENTER" mnemonicParsing="false" prefWidth="200.0" text="Parte de Cima" />
-                                                <Button mnemonicParsing="false" prefWidth="200.0" text="Parte de Baixo" />
-                                                <Button mnemonicParsing="false" prefWidth="200.0" text="Acessórios" />
+                                                <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnParteCima" prefWidth="200.0" text="Parte de Cima" />
+                                                <Button mnemonicParsing="false" onAction="#btnParteBaixo" prefWidth="200.0" text="Parte de Baixo" />
+                                                <Button mnemonicParsing="false" onAction="#btnAcessorios" prefWidth="200.0" text="Acessórios" />
                                              </children>
                                           </VBox>
                                        </content>
@@ -164,6 +165,37 @@
                                  </content>
                               </ScrollPane>
                            </center>
+                           <top>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="10.0" prefWidth="200.0" BorderPane.alignment="CENTER_RIGHT">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="513.0">
+                                       <children>
+                                          <Label text="Filtrar Sotck : ">
+                                             <HBox.margin>
+                                                <Insets bottom="5.0" left="10.0" top="5.0" />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </Label>
+                                          <Separator orientation="VERTICAL" prefHeight="200.0">
+                                             <HBox.margin>
+                                                <Insets left="97.0" />
+                                             </HBox.margin>
+                                          </Separator>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </HBox>
+                                    <Button mnemonicParsing="false" onAction="#btnVerSotck" text="Ver Stock">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" right="10.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </top>
                         </BorderPane>
                      </children>
                   </AnchorPane>

@@ -215,6 +215,167 @@ public class HomePageController implements Initializable {
     }
 
     //STOCK
+    @FXML
+    void btnVerSotck(ActionEvent event) {
+        idCardStock.getChildren().clear();
+        int coluna = 0;
+        int linha = 1;
+
+        try {
+            for (Roupa roupas : this.roupaDao.buscarTipoTamanhoUnico()) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
+                VBox cardBox = fxmlLoader.load();
+                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
+                cardDoacoesController.setCardDoacoes(roupas);
+
+                if (coluna == 3) {
+                    coluna = 0;
+                    ++linha;
+                }
+
+                idCardStock.add(cardBox, coluna++, linha);
+                GridPane.setMargin(cardBox, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void btnParteCima(ActionEvent event) {
+        idCardStock.getChildren().clear();
+        int coluna = 0;
+        int linha = 1;
+
+        try {
+            for (Roupa r : this.roupaDao.buscarCategoriaBtnEspecifico(CategoriaRoupa.PARTEDECIMA)) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
+                VBox cardBox = fxmlLoader.load();
+                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
+                cardDoacoesController.setCardDoacoes(r);
+
+                if (coluna == 3) {
+                    coluna = 0;
+                    ++linha;
+                }
+
+                idCardStock.add(cardBox, coluna++, linha);
+                GridPane.setMargin(cardBox, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void btnParteBaixo(ActionEvent event) {
+        idCardStock.getChildren().clear();
+        int coluna = 0;
+        int linha = 1;
+
+        try {
+            for (Roupa r : this.roupaDao.buscarCategoriaBtnEspecifico(CategoriaRoupa.PARTEDEBAIXO)) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
+                VBox cardBox = fxmlLoader.load();
+                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
+                cardDoacoesController.setCardDoacoes(r);
+
+                if (coluna == 3) {
+                    coluna = 0;
+                    ++linha;
+                }
+
+                idCardStock.add(cardBox, coluna++, linha);
+                GridPane.setMargin(cardBox, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void btnAcessorios(ActionEvent event) {
+        idCardStock.getChildren().clear();
+        int coluna = 0;
+        int linha = 1;
+
+        try {
+            for (Roupa r : this.roupaDao.buscarCategoriaBtnEspecifico(CategoriaRoupa.ACESSORIOS)) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
+                VBox cardBox = fxmlLoader.load();
+                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
+                cardDoacoesController.setCardDoacoes(r);
+
+                if (coluna == 3) {
+                    coluna = 0;
+                    ++linha;
+                }
+
+                idCardStock.add(cardBox, coluna++, linha);
+                GridPane.setMargin(cardBox, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void btnBebe(ActionEvent event) {
+        idCardStock.getChildren().clear();
+        int coluna = 0;
+        int linha = 1;
+
+        try {
+            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.BEBE)) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
+                VBox cardBox = fxmlLoader.load();
+                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
+                cardDoacoesController.setCardDoacoes(r);
+
+                if (coluna == 3) {
+                    coluna = 0;
+                    ++linha;
+                }
+
+                idCardStock.add(cardBox, coluna++, linha);
+                GridPane.setMargin(cardBox, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void btnCrianca(ActionEvent event) {
+        idCardStock.getChildren().clear();
+        int coluna = 0;
+        int linha = 1;
+
+        try {
+            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.Crianca)) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
+                VBox cardBox = fxmlLoader.load();
+                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
+                cardDoacoesController.setCardDoacoes(r);
+
+                if (coluna == 3) {
+                    coluna = 0;
+                    ++linha;
+                }
+
+                idCardStock.add(cardBox, coluna++, linha);
+                GridPane.setMargin(cardBox, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void btnAdolescente12(ActionEvent event) {
@@ -296,14 +457,15 @@ public class HomePageController implements Initializable {
             e.printStackTrace();
         }
     }
+
     @FXML
-    void btnBebe(ActionEvent event) {
+    void btnXS(ActionEvent event) {
         idCardStock.getChildren().clear();
         int coluna = 0;
         int linha = 1;
 
         try {
-            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.BEBE)) {
+            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.XS)) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
                 VBox cardBox = fxmlLoader.load();
@@ -324,13 +486,40 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
-    void btnCrianca(ActionEvent event) {
+    void btnS(ActionEvent event) {
         idCardStock.getChildren().clear();
         int coluna = 0;
         int linha = 1;
 
         try {
-            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.Crianca)) {
+            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.S)) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
+                VBox cardBox = fxmlLoader.load();
+                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
+                cardDoacoesController.setCardDoacoes(r);
+
+                if (coluna == 3) {
+                    coluna = 0;
+                    ++linha;
+                }
+
+                idCardStock.add(cardBox, coluna++, linha);
+                GridPane.setMargin(cardBox, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void btnM(ActionEvent event) {
+        idCardStock.getChildren().clear();
+        int coluna = 0;
+        int linha = 1;
+
+        try {
+            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.M)) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
                 VBox cardBox = fxmlLoader.load();
@@ -378,59 +567,6 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
-    void btnM(ActionEvent event) {
-        idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.M)) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @FXML
-    void btnS(ActionEvent event) {
-        idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.S)) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
     void btnXL(ActionEvent event) {
         idCardStock.getChildren().clear();
         int coluna = 0;
@@ -438,33 +574,6 @@ public class HomePageController implements Initializable {
 
         try {
             for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.XL)) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void btnXS(ActionEvent event) {
-        idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.XS)) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
                 VBox cardBox = fxmlLoader.load();
