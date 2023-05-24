@@ -100,6 +100,25 @@ public class GoToUtil {
         }
     }
 
+    public void goToHomePageAdminDeTabPedidos() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/admin/homePage.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
+            stage.show();
+
+            HomePageController homePageController = fxmlLoader.getController();
+            homePageController.listarDoacoes();
+            homePageController.listaFornecedor();
+            homePageController.voltarTabPedidos();
+            homePageController.listaFuncionarios();
+            homePageController.listarEncomendas();
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
     public void goToHomePageFuncionario() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/views/funcionario/homePage.fxml"));

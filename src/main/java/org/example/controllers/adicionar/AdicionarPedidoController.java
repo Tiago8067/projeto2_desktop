@@ -213,7 +213,7 @@ public class AdicionarPedidoController implements Initializable {
             }
             */
 
-            this.goToUtil.goToHomePageAdmin();
+            this.goToUtil.goToHomePageAdminDeTabPedidos();
             Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
             stage.close();
         }
@@ -221,7 +221,7 @@ public class AdicionarPedidoController implements Initializable {
 
     @FXML
     void btnVoltar(ActionEvent event) {
-        this.goToUtil.goToHomePageAdmin();
+        this.goToUtil.goToHomePageAdminDeTabPedidos();
         Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
         stage.close();
     }

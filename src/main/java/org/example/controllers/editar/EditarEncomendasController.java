@@ -100,7 +100,7 @@ public class EditarEncomendasController implements Initializable {
                 }
             }*/
 
-            this.goToUtil.goToHomePageAdmin();
+            this.goToUtil.goToHomePageAdminDeTabPedidos();
             Stage stage = (Stage) btnApagar.getScene().getWindow();
             stage.close();
         }
@@ -210,7 +210,7 @@ public class EditarEncomendasController implements Initializable {
                     }
                 }*/
 
-                this.goToUtil.goToHomePageAdmin();
+                this.goToUtil.goToHomePageAdminDeTabPedidos();
                 Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
                 stage.close();
             }
@@ -219,7 +219,7 @@ public class EditarEncomendasController implements Initializable {
 
     @FXML
     void btnVoltar(ActionEvent event) {
-        this.goToUtil.goToHomePageAdmin();
+        this.goToUtil.goToHomePageAdminDeTabPedidos();
         Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
         stage.close();
     }

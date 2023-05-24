@@ -982,6 +982,10 @@ public class HomePageController implements Initializable {
         stage.close();
     }
 
+    public void voltarTabPedidos() {
+        abasTabPaneId.getSelectionModel().select(tabIdPedidos);
+    }
+
     //FORNECEDOR
     public void listaFornecedor() {
         List<Fornecedor> fornecedorList = this.fornecedorDao.buscarTodosFornecedor();
