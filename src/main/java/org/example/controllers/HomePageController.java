@@ -25,6 +25,7 @@ import org.example.dao.*;
 import org.example.models.*;
 import org.example.models.enums.*;
 import org.example.modelsHelp.LinhaEncomendas;
+import org.example.util.ConnectionUtil;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
@@ -32,6 +33,10 @@ import org.example.util.RegexDados;
 import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 public class HomePageController implements Initializable {
@@ -634,6 +639,283 @@ public class HomePageController implements Initializable {
         this.goToUtil.goToAddFornecedor();
         Stage stage = (Stage) btnIdAddFornecedor.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    void filtrarEntregasEstadoTodos(ActionEvent event) {
+        List<LinhaEncomendas> listTodos = this.encomendaDao.buscarTodasEncomendas();
+        encomendaObservableList = FXCollections.observableArrayList(listTodos);
+        tvPedidos.setItems(encomendaObservableList);
+        tvEntregas.setItems(encomendaObservableList);
+
+        //TABLE VIEW PEDIDOS
+        tcIdPedidoDestinatario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameCliente();
+            }
+        });
+
+        tcIdPedidoTipoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getTipoRoupa();
+            }
+        });
+
+        tcIdPedidoTamanhoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getTamanhoRoupa();
+            }
+        });
+
+        tcIdPedidoQuantidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, Integer>, ObservableValue<Integer>>() {
+            @Override
+            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaEncomendas, Integer> linhaEncomendasIntegerCellDataFeatures) {
+                return linhaEncomendasIntegerCellDataFeatures.getValue().getQuantidade();
+            }
+        });
+
+        //TABLE VIEW ENTREGAS
+        tCNomeForn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameFonecedor();
+            }
+        });
+
+        // todo falta a data
+
+        tCEstado.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getEstado();
+            }
+        });
+    }
+
+    @FXML
+    void filtrarEntregasEstadoPorEnviar(ActionEvent event) {
+        List<LinhaEncomendas> listTodos = this.encomendaDao.buscarTodasEncomendasEmPreparacao(String.valueOf(EstadoEncomenda.EMPREPARACAO));
+        encomendaObservableList = FXCollections.observableArrayList(listTodos);
+        tvPedidos.setItems(encomendaObservableList);
+        tvEntregas.setItems(encomendaObservableList);
+
+        //TABLE VIEW PEDIDOS
+        tcIdPedidoDestinatario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameCliente();
+            }
+        });
+
+        tcIdPedidoTipoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getTipoRoupa();
+            }
+        });
+
+        tcIdPedidoTamanhoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getTamanhoRoupa();
+            }
+        });
+
+        tcIdPedidoQuantidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, Integer>, ObservableValue<Integer>>() {
+            @Override
+            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaEncomendas, Integer> linhaEncomendasIntegerCellDataFeatures) {
+                return linhaEncomendasIntegerCellDataFeatures.getValue().getQuantidade();
+            }
+        });
+
+        //TABLE VIEW ENTREGAS
+        tCNomeForn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameFonecedor();
+            }
+        });
+
+        // todo falta a data
+
+        tCEstado.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getEstado();
+            }
+        });
+
+        initEditButtonEnomendas();
+
+
+        /*for (LinhaEncomendas le : this.encomendaDao.buscarTodasEncomendas()) {
+            if (le.getEstado().getValue().equals(String.valueOf(EstadoEncomenda.EMPREPARACAO))) {
+                encomendaObservableList = FXCollections.observableArrayList(le);
+                tvPedidos.setItems(encomendaObservableList);
+                tvEntregas.setItems(encomendaObservableList);
+
+                //TABLE VIEW PEDIDOS
+                tcIdPedidoDestinatario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                        return linhaEncomendasStringCellDataFeatures.getValue().getUsernameCliente();
+                    }
+                });
+
+                tcIdPedidoTipoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                        return linhaEncomendasStringCellDataFeatures.getValue().getTipoRoupa();
+                    }
+                });
+
+                tcIdPedidoTamanhoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                        return linhaEncomendasStringCellDataFeatures.getValue().getTamanhoRoupa();
+                    }
+                });
+
+                tcIdPedidoQuantidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, Integer>, ObservableValue<Integer>>() {
+                    @Override
+                    public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaEncomendas, Integer> linhaEncomendasIntegerCellDataFeatures) {
+                        return linhaEncomendasIntegerCellDataFeatures.getValue().getQuantidade();
+                    }
+                });
+
+                //TABLE VIEW ENTREGAS
+                tCNomeForn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                        return linhaEncomendasStringCellDataFeatures.getValue().getUsernameFonecedor();
+                    }
+                });
+
+                // todo falta a data
+
+                tCEstado.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                        return linhaEncomendasStringCellDataFeatures.getValue().getEstado();
+                    }
+                });
+
+                initEditButtonEnomendas();
+            }
+        }*/
+    }
+
+    @FXML
+    void filtrarEntregasEstadoEnviado(ActionEvent event) {
+        List<LinhaEncomendas> listTodos = this.encomendaDao.buscarTodasEncomendasEnviado(String.valueOf(EstadoEncomenda.ENVIADO));
+        encomendaObservableList = FXCollections.observableArrayList(listTodos);
+        tvPedidos.setItems(encomendaObservableList);
+        tvEntregas.setItems(encomendaObservableList);
+
+        //TABLE VIEW PEDIDOS
+        tcIdPedidoDestinatario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameCliente();
+            }
+        });
+
+        tcIdPedidoTipoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getTipoRoupa();
+            }
+        });
+
+        tcIdPedidoTamanhoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getTamanhoRoupa();
+            }
+        });
+
+        tcIdPedidoQuantidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, Integer>, ObservableValue<Integer>>() {
+            @Override
+            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaEncomendas, Integer> linhaEncomendasIntegerCellDataFeatures) {
+                return linhaEncomendasIntegerCellDataFeatures.getValue().getQuantidade();
+            }
+        });
+
+        //TABLE VIEW ENTREGAS
+        tCNomeForn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameFonecedor();
+            }
+        });
+
+        // todo falta a data
+
+        tCEstado.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getEstado();
+            }
+        });
+
+        initEditButtonEnomendas();
+    }
+
+    @FXML
+    void filtrarEntregasEstadoFinalizado(ActionEvent event) {
+        List<LinhaEncomendas> listTodos = this.encomendaDao.buscarTodasEncomendasEnviado(String.valueOf(EstadoEncomenda.FINALIZADO));
+        encomendaObservableList = FXCollections.observableArrayList(listTodos);
+        tvPedidos.setItems(encomendaObservableList);
+        tvEntregas.setItems(encomendaObservableList);
+
+        //TABLE VIEW PEDIDOS
+        tcIdPedidoDestinatario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameCliente();
+            }
+        });
+
+        tcIdPedidoTipoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getTipoRoupa();
+            }
+        });
+
+        tcIdPedidoTamanhoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getTamanhoRoupa();
+            }
+        });
+
+        tcIdPedidoQuantidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, Integer>, ObservableValue<Integer>>() {
+            @Override
+            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaEncomendas, Integer> linhaEncomendasIntegerCellDataFeatures) {
+                return linhaEncomendasIntegerCellDataFeatures.getValue().getQuantidade();
+            }
+        });
+
+        //TABLE VIEW ENTREGAS
+        tCNomeForn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameFonecedor();
+            }
+        });
+
+        // todo falta a data
+
+        tCEstado.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getEstado();
+            }
+        });
     }
 
     //FUNCIONARIO

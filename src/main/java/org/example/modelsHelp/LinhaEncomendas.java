@@ -145,4 +145,19 @@ public class LinhaEncomendas {
     public void setEstado(String estado) {
         this.estado.set(estado);
     }
+
+    @Override
+    public String toString() {
+        return "LinhaEncomendas{" +
+                "idEncomenda=" + idEncomenda +
+                ", idLinhaEncomenda=" + idLinhaEncomenda +
+                ", idRoupa=" + idRoupa +
+                ", usernameCliente=" + usernameCliente +
+                ", usernameFonecedor=" + usernameFonecedor +
+                ", tipoRoupa=" + tipoRoupa +
+                ", tamanhoRoupa=" + tamanhoRoupa +
+                ", quantidade=" + quantidade +
+                ", estado=" + estado +
+                '}';
+    }
 }

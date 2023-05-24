@@ -255,10 +255,10 @@
                                              <graphic>
                                                 <SplitMenuButton mnemonicParsing="false" prefHeight="23.0" prefWidth="182.0" text="Selecione o Estado">
                                                    <items>
-                                                      <MenuItem mnemonicParsing="false" text="Todos" />
-                                                      <MenuItem mnemonicParsing="false" text="Por Enviar" />
-                                                      <MenuItem mnemonicParsing="false" text="Enviado" />
-                                                      <MenuItem mnemonicParsing="false" text="Finalizado" />
+                                                      <MenuItem mnemonicParsing="false" onAction="#filtrarEntregasEstadoTodos" text="Todos" />
+                                                      <MenuItem mnemonicParsing="false" onAction="#filtrarEntregasEstadoPorEnviar" text="Por Enviar" />
+                                                      <MenuItem mnemonicParsing="false" onAction="#filtrarEntregasEstadoEnviado" text="Enviado" />
+                                                      <MenuItem mnemonicParsing="false" onAction="#filtrarEntregasEstadoFinalizado" text="Finalizado" />
                                                    </items>
                                                 </SplitMenuButton>
                                              </graphic>
