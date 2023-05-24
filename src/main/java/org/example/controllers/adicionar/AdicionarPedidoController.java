@@ -201,7 +201,6 @@ public class AdicionarPedidoController implements Initializable {
                 }
             }
 
-
             this.goToUtil.goToHomePageAdminDeTabPedidos();
             Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
             stage.close();
