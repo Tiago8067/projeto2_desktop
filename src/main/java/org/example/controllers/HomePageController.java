@@ -786,6 +786,7 @@ public class HomePageController implements Initializable {
         this.encomendaDao = new EncomendaDao(entityManager);
 
         this.listaRoupaParaCardSotck = this.roupaDao.buscarTodas();
+
         int coluna = 0;
         int linha = 1;
 

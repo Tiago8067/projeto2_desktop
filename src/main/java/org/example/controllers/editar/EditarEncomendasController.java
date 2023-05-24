@@ -28,6 +28,7 @@ public class EditarEncomendasController implements Initializable {
     EncomendaDao encomendaDao;
     LinhaEncomendaDao linhaEncomendaDao;
     LinhaEncomenda linhaEncomenda;
+    RoupaDasEncomendasDao roupaDasEncomendasDao;
     private List<Roupa> verificaRoupaList;
     @FXML
     private Button btnIdAdicionar;
@@ -80,19 +81,24 @@ public class EditarEncomendasController implements Initializable {
                 }
             }
 
+            for (RoupaDasEncomendas r : this.roupaDasEncomendasDao.buscarTodas()) {
+                if (r.getLinha_encomenda().getIdLinhaEncomenda() == this.encomendaDao.buscarPorId(this.linhaEncomendas.getIdEncomenda().getValue()).getLinha_encomenda().getIdLinhaEncomenda()) {
+                    this.roupaDasEncomendasDao.apagarRoupaDasEncomendas(r.getIdRoupaDasEncomendas());
+                }
+            }
+
             for (LinhaEncomenda ld : this.linhaEncomendaDao.buscarTodas()) {
                 /*this.linhaEncomendas.getIdLinhaEncomenda().getValue())*/
                 if (ld.getIdLinhaEncomenda() == this.encomendaDao.buscarPorId(this.linhaEncomendas.getIdEncomenda().getValue()).getLinha_encomenda().getIdLinhaEncomenda()) {
                     this.linhaEncomendaDao.apagarLinhaEncomenda(ld.getIdLinhaEncomenda());
                 }
             }
-
-            for (Roupa r : this.roupaDao.buscarTodas()) {
+            /*for (Roupa r : this.roupaDao.buscarTodas()) {
                 if (r.getLinha_encomenda().getIdLinhaEncomenda() == this.encomendaDao.buscarPorId(this.linhaEncomendas.getIdEncomenda().getValue()).getLinha_encomenda().getIdLinhaEncomenda()) {
                     r.setLinha_encomenda(null);
                     this.roupaDao.registar(r);
                 }
-            }
+            }*/
 
             this.goToUtil.goToHomePageAdmin();
             Stage stage = (Stage) btnApagar.getScene().getWindow();
@@ -190,6 +196,12 @@ public class EditarEncomendasController implements Initializable {
                     }
                 }
 
+                for (RoupaDasEncomendas r : this.roupaDasEncomendasDao.buscarTodas()) {
+                    if (r.getIdRoupaDasEncomendas() == this.linhaEncomendas.getIdRoupa().getValue()) {
+                        this.roupaDasEncomendasDao.atualizarRoupaDasEncomendas(String.valueOf(cBIdTipoRoupa.getValue()), String.valueOf(cBIdTamanhoRoupa.getValue()), r.getIdRoupaDasEncomendas());
+                    }
+                }
+
                 /*todo atualizar stock*/
 
                 /*for (Roupa r: this.roupaDao.buscarTodas()) {
@@ -247,6 +259,7 @@ public class EditarEncomendasController implements Initializable {
         this.encomendaDao = new EncomendaDao(entityManager);
         this.linhaEncomendaDao = new LinhaEncomendaDao(entityManager);
         this.linhaEncomenda = new LinhaEncomenda();
+        this.roupaDasEncomendasDao = new RoupaDasEncomendasDao(entityManager);
     }
 
     public void passarDadosEncomendasEditar() {

@@ -23,5 +23,5 @@ public class LinhaEncomenda implements Serializable {
     private List<Encomenda> encomendas;
 
     @OneToMany(mappedBy = "linha_encomenda")
-    private List<Roupa> roupas;
+    private List<RoupaDasEncomendas> roupaDasEncomendas;
 }

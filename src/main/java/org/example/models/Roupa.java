@@ -33,8 +33,4 @@ public class Roupa implements Serializable {
     @ManyToOne
     @JoinColumn(name = "roupa_doacao_id", referencedColumnName = "id_roupa_doacao")
     private Roupa_Doacao roupa_doacao;
-
-    /*@ManyToOne
-    @JoinColumn(name = "linha_encomenda_id", referencedColumnName = "idLinhaEncomenda")
-    private LinhaEncomenda linha_encomenda;*/
 }

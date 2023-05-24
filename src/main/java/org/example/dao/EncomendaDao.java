@@ -101,10 +101,10 @@ public class EncomendaDao {
         ConnectionUtil connectionUtil = new ConnectionUtil();
         Connection conn = connectionUtil.criarConexao();
 
-        String sql = "SELECT u.username, r.tiporoupa, r.tamanhoroupa, le.quantidade, f.nome, e.estadoencomenda, e.idencomenda, le.idlinhaencomenda, r.idroupa " +
+        String sql = "SELECT u.username, r.tiporoupa, r.tamanhoroupa, le.quantidade, f.nome, e.estadoencomenda, e.idencomenda, le.idlinhaencomenda, r.idroupadasencomendas " +
                 "FROM tb_linha_encomenda le " +
                 "INNER JOIN tb_encomenda e ON e.linha_encomenda_id = le.idlinhaencomenda " +
-                "INNER JOIN tb_roupa r ON r.linha_encomenda_id = le.idlinhaencomenda " +
+                "INNER JOIN tb_roupa_das_encomendas r ON r.linha_encomenda_id = le.idlinhaencomenda " +
                 "INNER JOIN tb_fornecedor f ON f.idfornecedor = e.fornecedor_id " +
                 "INNER JOIN tb_utilizador u ON u.idutilizador = e.utilizador_id ";
 
