@@ -17,7 +17,7 @@ public class Doacao implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDoacao;
-    private Instant data;
+    private Instant dataDaDoacao;
     @ManyToOne
     @JoinColumn(name = "utilizador_id", referencedColumnName = "idUtilizador")
     private Utilizador utilizador;

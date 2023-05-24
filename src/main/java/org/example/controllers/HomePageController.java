@@ -620,15 +620,13 @@ public class HomePageController implements Initializable {
         }
     }
 
-    //PEDIDOS
+    //PEDIDOS => ENTREGAS
     @FXML
     void btnPedidoAdicionar(ActionEvent event) {
         this.goToUtil.goToAddPedido();
         Stage stage = (Stage) btnIdPedidoAdicionar.getScene().getWindow();
         stage.close();
     }
-
-    //ENTREGAS
 
     //FORNECEDOR
     @FXML
@@ -948,7 +946,7 @@ public class HomePageController implements Initializable {
 
     //STOCK
 
-    //PEDIDOS ENTREGAS
+    //PEDIDOS => ENTREGAS
     public void listarEncomendas() {
         List<LinhaEncomendas> listTodos = this.encomendaDao.buscarTodasEncomendas();
         encomendaObservableList = FXCollections.observableArrayList(listTodos);

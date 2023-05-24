@@ -19,7 +19,7 @@ public class Encomenda implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idEncomenda;
-    private Instant data;
+    private Instant dataDePedido;
     @Enumerated(EnumType.STRING)
     private EstadoEncomenda estadoEncomenda;
     @ManyToOne

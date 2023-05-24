@@ -15,14 +15,13 @@ import java.time.Instant;
 @Setter
 @ToString
 @Entity
-@Table(name = "tb_roupa")
-public class Roupa implements Serializable {
+@Table(name = "tb_roupa_das_encomendas")
+public class RoupaDasEncomendas implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(unique = true, updatable = false)
-    private Integer idRoupa;
-    private String imageSrc;
-    private Integer stock;
+    private Integer idRoupaDasEncomendas;
+    private Instant dataDeEntrega;
     @Enumerated(EnumType.STRING)
     private CategoriaRoupa categoriaRoupa;
     @Enumerated(EnumType.STRING)
@@ -31,10 +30,7 @@ public class Roupa implements Serializable {
     private TipoRoupa tipoRoupa;
 
     @ManyToOne
-    @JoinColumn(name = "roupa_doacao_id", referencedColumnName = "id_roupa_doacao")
-    private Roupa_Doacao roupa_doacao;
-
-    /*@ManyToOne
     @JoinColumn(name = "linha_encomenda_id", referencedColumnName = "idLinhaEncomenda")
-    private LinhaEncomenda linha_encomenda;*/
+    private LinhaEncomenda linha_encomenda;
+
 }
