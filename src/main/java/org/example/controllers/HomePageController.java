@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -40,6 +41,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class HomePageController implements Initializable {
+    private String recebeUsernameLogin;
     EntityManager entityManager;
     UtilizadorDao utilizadorDao;
     GoToUtil goToUtil;
@@ -54,6 +56,8 @@ public class HomePageController implements Initializable {
     //HOMEPAGE
     @FXML
     public TabPane abasTabPaneId;
+    @FXML
+    private MenuItem idgotoPerfilPage;
     @FXML
     private MenuItem idgotoLoginPage;
 
@@ -165,6 +169,12 @@ public class HomePageController implements Initializable {
     @FXML
     private MenuItem menuItemIdInativo;
     @FXML
+    private MenuItem mtIdTipoAtualizeAdmin;
+    @FXML
+    private MenuItem mtIdTipoAtualizeFuncionario;
+    @FXML
+    private TextField txtFdIdTipo;
+    @FXML
     private TextField txtFdIdEstado;
     @FXML
     private TextField txtFdAtualizarId;
@@ -204,6 +214,26 @@ public class HomePageController implements Initializable {
     private Button idEditarFuncionarioAtualizar;
 
     //HOMEPAGE
+    @FXML
+    void gotoPerfilPage(ActionEvent event) {
+        System.out.println(getRecebeUsernameLogin());
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/perfilPage.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
+            stage.show();
+
+            PerfilPageController perfilPageController = fxmlLoader.getController();
+            perfilPageController.retornaUsernameLogin(getRecebeUsernameLogin());
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+
+        Stage stage = (Stage) idgotoPerfilPage.getParentPopup().getOwnerWindow();
+        stage.close();
+    }
+
     @FXML
     void gotoLoginPage(ActionEvent event) {
         this.goToUtil.goToLogin();
@@ -932,6 +962,16 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
+    void mtTipoAtualizeAdmin(ActionEvent event) {
+        txtFdIdTipo.setText(mtIdTipoAtualizeAdmin.getText());
+    }
+
+    @FXML
+    void mtTipoAtualizeFuncionario(ActionEvent event) {
+        txtFdIdTipo.setText(mtIdTipoAtualizeFuncionario.getText());
+    }
+
+    @FXML
     void btnEditarFuncionarioVoltar(ActionEvent event) {
         gotoTabFuncionarios();
     }
@@ -1035,6 +1075,12 @@ public class HomePageController implements Initializable {
                     u.setEstadoUtilizador(EstadoUtilizador.ATIVO);
                 } else if (txtFdIdEstado.getText().equalsIgnoreCase("INATIVO")) {
                     u.setEstadoUtilizador(EstadoUtilizador.INATIVO);
+                }
+
+                if (txtFdIdTipo.getText().equalsIgnoreCase("ADMIN")) {
+                    u.setTipoUtilizador(TipoUtilizador.ADMIN);
+                } else if (txtFdIdTipo.getText().equalsIgnoreCase("FUNCIONARIO")) {
+                    u.setTipoUtilizador(TipoUtilizador.FUNCIONARIO);
                 }
 
                 if (lblErroAtualizaNome.getText().equals("") && lblErroAtualizaContacto.getText().equals("") && lblErroAtualizaCidade.getText().equals("") && lblErroAtualizaCP.getText().equals("")
@@ -1192,6 +1238,17 @@ public class HomePageController implements Initializable {
     }
 
     //HOMEPAGE
+    public String getRecebeUsernameLogin() {
+        return recebeUsernameLogin;
+    }
+
+    public void setRecebeUsernameLogin(String recebeUsernameLogin) {
+        this.recebeUsernameLogin = recebeUsernameLogin;
+    }
+
+    public void retornaUsernameLogin(String username) {
+        setRecebeUsernameLogin(username);
+    }
 
     //DOACOES
     public void listarDoacoes() {
@@ -1341,6 +1398,7 @@ public class HomePageController implements Initializable {
         txtFdAtualizarNPorta.setText(String.valueOf(obj.getLocalizacao().getNumeroPorta()));
         txtFdAtualizarContacto.setText(String.valueOf(obj.getContacto()));
         txtFdIdEstado.setText(String.valueOf(obj.getEstadoUtilizador()));
+        txtFdIdTipo.setText(String.valueOf(obj.getTipoUtilizador()));
     }
 
     private void initEditButtons() {

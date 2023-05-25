@@ -44,7 +44,7 @@
                      <children>
                         <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="196.0" text=" Minha Conta" HBox.hgrow="ALWAYS">
                            <items>
-                              <MenuItem mnemonicParsing="false" text="Entrar no Perfil" />
+                              <MenuItem fx:id="idgotoPerfilPage" mnemonicParsing="false" onAction="#gotoPerfilPage" text="Entrar no Perfil" />
                               <MenuItem fx:id="idgotoLoginPage" mnemonicParsing="false" onAction="#gotoLoginPage" text="Sair" />
                            </items>
                            <HBox.margin>
@@ -340,7 +340,7 @@
                            <children>
                               <VBox prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <ImageView fitHeight="200.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                                     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="152.0" text="Estado do Utizador" />
                                     <SplitMenuButton alignment="CENTER" mnemonicParsing="false" popupSide="RIGHT" prefHeight="25.0" prefWidth="159.0" text="Atualize:">
                                        <items>
@@ -349,6 +349,14 @@
                                        </items>
                                     </SplitMenuButton>
                                     <TextField fx:id="txtFdIdEstado" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="152.0" text="Tipo do Utizador" />
+                                    <SplitMenuButton alignment="CENTER" mnemonicParsing="false" popupSide="RIGHT" prefHeight="25.0" prefWidth="159.0" text="Atualize:">
+                                       <items>
+                                          <MenuItem fx:id="mtIdTipoAtualizeAdmin" mnemonicParsing="false" onAction="#mtTipoAtualizeAdmin" text="ADMIN" />
+                                          <MenuItem fx:id="mtIdTipoAtualizeFuncionario" mnemonicParsing="false" onAction="#mtTipoAtualizeFuncionario" text="FUNCIONARIO" />
+                                       </items>
+                                    </SplitMenuButton>
+                                    <TextField fx:id="txtFdIdTipo" />
                                  </children>
                               </VBox>
                               <VBox prefHeight="289.0" prefWidth="486.0">
@@ -454,7 +462,7 @@
                                           <Button fx:id="idEditarFuncionarioAtualizar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnEditarFuncionarioAtualizar" text="Atualizar Informação" />
                                        </buttons>
                                        <VBox.margin>
-                                          <Insets left="10.0" right="20.0" />
+                                          <Insets bottom="10.0" left="10.0" right="20.0" />
                                        </VBox.margin>
                                     </ButtonBar>
                                  </children>
