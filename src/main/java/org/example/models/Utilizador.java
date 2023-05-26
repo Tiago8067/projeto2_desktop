@@ -31,6 +31,7 @@ public class Utilizador implements Serializable {
 
     private Instant dataNascimento;
     private Integer contacto;
+    private String imagemPerfil;
     @Enumerated(EnumType.STRING)
     private TipoUtilizador tipoUtilizador;
     @Enumerated(EnumType.STRING)

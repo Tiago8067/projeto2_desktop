@@ -7,6 +7,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.dao.UtilizadorDao;
 import org.example.models.Utilizador;
@@ -15,6 +18,7 @@ import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
 
 import javax.persistence.EntityManager;
+import java.io.File;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -26,6 +30,7 @@ public class PerfilPageController implements Initializable {
     RegexDados regexDados;
     LoginController loginController = new LoginController();
     String guardaUsernameLogin = LoginController.usernameGuardado;
+    private static String guardaCaminhoImagemPerfil;
 
     @FXML
     private TextField txtPerfilUsername;
@@ -57,6 +62,8 @@ public class PerfilPageController implements Initializable {
     private TextField txtPerfilNome;
     @FXML
     private TextField txtPerfilRua;
+    @FXML
+    private ImageView idImagemPerfil;
 
     @FXML
     void ativaEditarDadosPerfil(ActionEvent event) {
@@ -129,6 +136,7 @@ public class PerfilPageController implements Initializable {
                     u.getLocalizacao().setRua(txtPerfilRua.getText());
                     u.getLocalizacao().setCodigoPostal(txtPerfilCodPostal.getText());
                     u.getLocalizacao().setNumeroPorta(Integer.valueOf(txtPerfilNPorta.getText()));
+                    u.setImagemPerfil(guardaCaminhoImagemPerfil);
 
                     this.utilizadorDao.registrar(u);
 
@@ -143,6 +151,24 @@ public class PerfilPageController implements Initializable {
         this.goToUtil.goToHomePageAdmin();
         Stage stage = (Stage) idVoltar.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    void selecionarImagemPerfil(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("C:\\"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPEG image", "*.jpg"), new FileChooser.ExtensionFilter("PNG image", "*.png"),
+                new FileChooser.ExtensionFilter("All images", "*.jpg", "*.png"));
+        Stage stage = (Stage) idSelecionarImagem.getScene().getWindow();
+        File ficheiroSelecionado = fileChooser.showOpenDialog(stage);
+
+        if (ficheiroSelecionado != null) {
+            guardaCaminhoImagemPerfil = ficheiroSelecionado.getPath();
+            Image image = new Image(ficheiroSelecionado.getPath());
+            idImagemPerfil.setImage(image);
+        } else {
+            System.out.println("Nenhum Ficheiro foi Selecionado!");
+        }
     }
 
     @Override
@@ -169,6 +195,10 @@ public class PerfilPageController implements Initializable {
                 txtPerfilCidade.setText(u.getLocalizacao().getCidade());
                 txtPerfilCodPostal.setText(u.getLocalizacao().getCodigoPostal());
                 txtPerfilNPorta.setText(String.valueOf(u.getLocalizacao().getNumeroPorta()));
+                if (u.getImagemPerfil() != null) {
+                    Image image = new Image(u.getImagemPerfil());
+                    idImagemPerfil.setImage(image);
+                }
             }
         }
     }
