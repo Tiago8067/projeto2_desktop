@@ -12,6 +12,7 @@ import org.example.dao.UtilizadorDao;
 import org.example.models.Utilizador;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
+import org.example.util.RegexDados;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
@@ -19,13 +20,21 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class PerfilPageController implements Initializable {
-    private String usernameLogin;
     EntityManager entityManager;
     UtilizadorDao utilizadorDao;
     GoToUtil goToUtil;
+    RegexDados regexDados;
+    LoginController loginController = new LoginController();
+    String guardaUsernameLogin = LoginController.usernameGuardado;
 
     @FXML
+    private TextField txtPerfilUsername;
+    @FXML
     private Button idVoltar;
+    @FXML
+    private Button idAtualizar;
+    @FXML
+    private Button idSelecionarImagem;
     @FXML
     private TextField txtPerfilCidade;
     @FXML
@@ -48,8 +57,6 @@ public class PerfilPageController implements Initializable {
     private TextField txtPerfilNome;
     @FXML
     private TextField txtPerfilRua;
-    @FXML
-    private TextField txtPerfilUsername;
 
     @FXML
     void ativaEditarDadosPerfil(ActionEvent event) {
@@ -68,12 +75,67 @@ public class PerfilPageController implements Initializable {
             txtPerfilCidade.setEditable(true);
             txtPerfilCodPostal.setEditable(true);
             txtPerfilNPorta.setEditable(true);
+            idAtualizar.setDisable(false);
+            idSelecionarImagem.setDisable(false);
         }
     }
 
     @FXML
     void btnAtualizar(ActionEvent event) {
+        int verificaContacto = 0;
+        int verificaNumPorta = 0;
+        int verificaNumCC = 0;
+        int verificaNIF = 0;
 
+        try {
+            verificaNumPorta = Integer.parseInt(txtPerfilNPorta.getText());
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(numberFormatException.getMessage());
+        }
+
+        try {
+            verificaContacto = Integer.parseInt(txtPerfilContacto.getText());
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(numberFormatException.getMessage());
+        }
+
+        try {
+            verificaNumCC = Integer.parseInt(txtPerfilNCC.getText());
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(numberFormatException.getMessage());
+        }
+
+        try {
+            verificaNIF = Integer.parseInt(txtPerfilNIF.getText());
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(numberFormatException.getMessage());
+        }
+
+        for (Utilizador u : this.utilizadorDao.buscarTodos()) {
+            if (u.getUsername().equals(guardaUsernameLogin)) {
+                if (txtPerfilNome.getText().isEmpty() || txtPerfilNCC.getText().isEmpty() || txtPerfilNIF.getText().isEmpty() || txtPerfilContacto.getText().isEmpty()
+                        || txtPerfilCidade.getText().isEmpty() || txtPerfilLocalidade.getText().isEmpty() || txtPerfilRua.getText().isEmpty()
+                        || txtPerfilCodPostal.getText().isEmpty() || txtPerfilNPorta.getText().isEmpty()
+                        || verificaNumCC == 0 || verificaNIF == 0 || verificaContacto == 0
+                        || !this.regexDados.isValidCP(txtPerfilCodPostal.getText()) || verificaNumPorta == 0) {
+                    lancarErroAtualizacao("Realizou alguma edição nos seus Dados do Perfil Errado! Verifique Corretamente.");
+                } else {
+                    u.setNome(txtPerfilNome.getText());
+                    u.setNumeroCc(Integer.valueOf(txtPerfilNCC.getText()));
+                    u.setNif(Integer.valueOf(txtPerfilNIF.getText()));
+                    u.setContacto(Integer.valueOf(txtPerfilContacto.getText()));
+                    u.getLocalizacao().setCidade(txtPerfilCidade.getText());
+                    u.getLocalizacao().setLocalidade(txtPerfilLocalidade.getText());
+                    u.getLocalizacao().setRua(txtPerfilRua.getText());
+                    u.getLocalizacao().setCodigoPostal(txtPerfilCodPostal.getText());
+                    u.getLocalizacao().setNumeroPorta(Integer.valueOf(txtPerfilNPorta.getText()));
+
+                    this.utilizadorDao.registrar(u);
+
+                    depoisDeAtualizarVoltaBloqueado();
+                }
+            }
+        }
     }
 
     @FXML
@@ -88,21 +150,12 @@ public class PerfilPageController implements Initializable {
         this.entityManager = JPAUtil.getEntityManager();
         this.utilizadorDao = new UtilizadorDao(entityManager);
         this.goToUtil = new GoToUtil();
+        this.regexDados = new RegexDados();
     }
 
-    public String getUsernameLogin() {
-        return usernameLogin;
-    }
-
-    public void setUsernameLogin(String usernameLogin) {
-        this.usernameLogin = usernameLogin;
-    }
-
-    public void retornaUsernameLogin(String username) {
-        setUsernameLogin(username);
-
+    public void retornaUsernameLogin() {
         for (Utilizador u : this.utilizadorDao.buscarTodos()) {
-            if (u.getUsername().equals(getUsernameLogin())) {
+            if (u.getUsername().equals(guardaUsernameLogin)) {
                 txtPerfilNome.setText(u.getNome());
                 txtPerfilUsername.setText(u.getUsername());
                 //txtPerfilDataNasc.setText(u.getDataNascimento());
@@ -118,5 +171,29 @@ public class PerfilPageController implements Initializable {
                 txtPerfilNPorta.setText(String.valueOf(u.getLocalizacao().getNumeroPorta()));
             }
         }
+    }
+
+    private void lancarErroAtualizacao(String erro) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText(erro);
+        alert.setResizable(true);
+        alert.getDialogPane().setMinWidth(500);
+        alert.show();
+    }
+
+    private void depoisDeAtualizarVoltaBloqueado() {
+        txtPerfilNome.setEditable(false);
+        //txtPerfilDataNasc.setEditable(true);
+        txtPerfilNCC.setEditable(false);
+        txtPerfilNIF.setEditable(false);
+        txtPerfilContacto.setEditable(false);
+        txtPerfilCidade.setEditable(false);
+        txtPerfilLocalidade.setEditable(false);
+        txtPerfilRua.setEditable(false);
+        txtPerfilCidade.setEditable(false);
+        txtPerfilCodPostal.setEditable(false);
+        txtPerfilNPorta.setEditable(false);
+        idAtualizar.setDisable(true);
+        idSelecionarImagem.setDisable(true);
     }
 }

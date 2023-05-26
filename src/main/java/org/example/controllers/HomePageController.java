@@ -26,7 +26,6 @@ import org.example.dao.*;
 import org.example.models.*;
 import org.example.models.enums.*;
 import org.example.modelsHelp.LinhaEncomendas;
-import org.example.util.ConnectionUtil;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
@@ -34,14 +33,9 @@ import org.example.util.RegexDados;
 import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 
 public class HomePageController implements Initializable {
-    private String recebeUsernameLogin;
     EntityManager entityManager;
     UtilizadorDao utilizadorDao;
     GoToUtil goToUtil;
@@ -216,7 +210,6 @@ public class HomePageController implements Initializable {
     //HOMEPAGE
     @FXML
     void gotoPerfilPage(ActionEvent event) {
-        System.out.println(getRecebeUsernameLogin());
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/perfilPage.fxml"));
             Stage stage = new Stage();
@@ -224,7 +217,7 @@ public class HomePageController implements Initializable {
             stage.show();
 
             PerfilPageController perfilPageController = fxmlLoader.getController();
-            perfilPageController.retornaUsernameLogin(getRecebeUsernameLogin());
+            perfilPageController.retornaUsernameLogin();
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();
@@ -1238,17 +1231,6 @@ public class HomePageController implements Initializable {
     }
 
     //HOMEPAGE
-    public String getRecebeUsernameLogin() {
-        return recebeUsernameLogin;
-    }
-
-    public void setRecebeUsernameLogin(String recebeUsernameLogin) {
-        this.recebeUsernameLogin = recebeUsernameLogin;
-    }
-
-    public void retornaUsernameLogin(String username) {
-        setRecebeUsernameLogin(username);
-    }
 
     //DOACOES
     public void listarDoacoes() {

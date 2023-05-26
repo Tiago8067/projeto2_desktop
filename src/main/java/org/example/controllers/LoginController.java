@@ -2,11 +2,10 @@ package org.example.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import lombok.NoArgsConstructor;
 import org.example.dao.RoupaDao;
 import org.example.dao.UtilizadorDao;
 import org.example.models.Roupa;
@@ -21,12 +20,14 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+@NoArgsConstructor
 public class LoginController implements Initializable {
     EntityManager entityManager;
     UtilizadorDao utilizadorDao;
     Utilizador utilizador;
     GoToUtil goToUtil;
     RoupaDao roupaDao;
+    public static String usernameGuardado;
 
     private List<Roupa> listaRoupaParaCardSotck;
     @FXML
@@ -83,26 +84,9 @@ public class LoginController implements Initializable {
                 alert.show();
             } else if (this.utilizadorDao.buscarUtilizadorPorUsername(tfLoginNome.getText()).getEstadoUtilizador().equals(EstadoUtilizador.ATIVO)) {
                 if (this.utilizadorDao.buscarUtilizadorPorUsername(tfLoginNome.getText()).getTipoUtilizador().equals(TipoUtilizador.ADMIN)) {
-                    /*this.goToUtil.goToHomePageAdmin();*/
-                    String username = tfLoginNome.getText();
+                    usernameGuardado = tfLoginNome.getText();
 
-                    try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/admin/homePage.fxml"));
-                        Stage stage = new Stage();
-                        stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
-                        stage.show();
-
-                        HomePageController homePageController = fxmlLoader.getController();
-                        homePageController.retornaUsernameLogin(username);
-                        homePageController.listarDoacoes();
-                        homePageController.listaFornecedor();
-                        homePageController.listaFuncionarios();
-                        homePageController.listarEncomendas();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        e.getCause();
-                    }
-
+                    this.goToUtil.goToHomePageAdmin();
                     Stage stage = (Stage) btnLoginId.getScene().getWindow();
                     stage.close();
                 }
@@ -130,9 +114,5 @@ public class LoginController implements Initializable {
         this.utilizador = new Utilizador();
         this.goToUtil = new GoToUtil();
         this.roupaDao = new RoupaDao(entityManager);
-    }
-
-    public void testaRetornoUsername() {
-        System.out.println(this.utilizadorDao.buscarUtilizadorPorUsername(tfLoginNome.getText()));
     }
 }
