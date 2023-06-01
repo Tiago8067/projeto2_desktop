@@ -14,6 +14,9 @@ import org.example.util.RegexDados;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 
 public class RegistroDadosPessoaisController implements Initializable {
@@ -107,6 +110,49 @@ public class RegistroDadosPessoaisController implements Initializable {
         }
 
         // TODO=> falta a data
+
+        String data = txtFdRegistroDataNascId.getEditor().getText();
+        System.out.println(data);
+        try {
+            if (data == null) { //&& txtFdRegistroDataNascId.isEditable()
+                //txtFdRegistroDataNascId.setValue(null);
+                labeldErroDataNasc.setText("Tem de preencher a Data de Nascimento.");
+                //return;
+            }
+//        } else if (!this.regexDados.validateJavaDate(data)) {
+//            labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato(dd/MM/yyyy)!");
+//        }
+            else {
+//            LocalDate selectedDate = txtFdRegistroDataNascId.getValue();
+                this.utilizador.setDataNascimento(data); //Date.valueOf(txtFdRegistroDataNascId.getValue())
+                System.out.println(data);
+//            this.utilizador.setDataNascimento(Date.valueOf(txtFdRegistroDataNascId.getEditor().getText()));
+                System.out.println("-------------------------------");
+                System.out.println("-------------------------------");
+                System.out.println("-------------------------------");
+                System.out.println(txtFdRegistroDataNascId.getValue());
+                System.out.println(txtFdRegistroDataNascId.getEditor().getText()); //usar este
+                System.out.println("-------------------------------");
+                System.out.println("-------------------------------");
+                System.out.println("-------------------------------");
+            }
+        } catch (DateTimeParseException ex){
+            labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato(dd/MM/yyyy)!");
+            System.out.println(ex.getMessage());
+        }
+//        this.utilizador.setDataNascimento(txtFdRegistroDataNascId.getEditor().getText());
+
+        System.out.println(txtFdRegistroDataNascId.getValue());
+        System.out.println(txtFdRegistroDataNascId.getEditor().getText()); //usar este
+
+//        if (txtFdRegistroDataNascId.getValue() == null) { //&& txtFdRegistroDataNascId.isEditable()
+//            labeldErroDataNasc.setText("Tem de preencher a Data de Nascimento.");
+//        } else if (!this.regexDados.validateJavaDate(String.valueOf(txtFdRegistroDataNascId.getValue()))) {
+//            labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato(dd/MM/yyyy)!");
+//        } else{
+////            this.utilizador.setDataNascimento(Date.valueOf(txtFdRegistroDataNascId.getValue()));
+//            this.utilizador.setDataNascimento(Date.valueOf(txtFdRegistroDataNascId.getEditor().getText()));
+//        }
 
         if (labelIdErroNomeCompleto.getText().equals("") && labelIdErroNumCC.getText().equals("") && labelIdErroNIF.getText().equals("") &&
                 labelIdErroContacto.getText().equals("")) {

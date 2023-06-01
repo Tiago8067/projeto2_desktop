@@ -6,7 +6,7 @@ import org.example.models.enums.TipoUtilizador;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -29,7 +29,7 @@ public class Utilizador implements Serializable {
 
     // TODO => Acrescentar data no registo
 
-    private Instant dataNascimento;
+    private String dataNascimento;
     private Integer contacto;
     private String imagemPerfil;
     @Enumerated(EnumType.STRING)
