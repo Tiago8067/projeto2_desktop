@@ -14,13 +14,6 @@ public class LinhaDoacoes {
 
     }
 
-    public LinhaDoacoes(String username, String tipoRoupa, String tamanhoRoupa, int quantidade) {
-        this.username = new SimpleStringProperty(username);
-        this.tipoRoupa = new SimpleStringProperty(tipoRoupa);
-        this.tamanhoRoupa = new SimpleStringProperty(tamanhoRoupa);
-        this.quantidade = new SimpleIntegerProperty(quantidade);
-    }
-
     public LinhaDoacoes(int idDoacao, String username, String tipoRoupa, String tamanhoRoupa, int quantidade) {
         this.idDoacao = new SimpleIntegerProperty(idDoacao);
         this.username = new SimpleStringProperty(username);

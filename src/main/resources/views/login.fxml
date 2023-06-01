@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -41,7 +42,7 @@
             </rowConstraints>
             <children>
                 <TextField fx:id="tfLoginNome" prefHeight="25.0" prefWidth="505.0" promptText="Nome de Utilizador" GridPane.valignment="CENTER" />
-                <TextField fx:id="tfLoginPass" prefHeight="25.0" prefWidth="429.0" promptText="Palavra-Passe" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <PasswordField fx:id="tfLoginPass" prefHeight="25.0" prefWidth="505.0" promptText="Palavra-Passe" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                 <Label fx:id="labelErroLoginNomeEmail" textFill="RED" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                     <font>
                         <Font name="System Bold Italic" size="10.0" />

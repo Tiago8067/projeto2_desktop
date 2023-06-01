@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -14,7 +15,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.RegistroController">
    <top>
@@ -45,8 +45,6 @@
             <Label text="Tipo de Utilizador:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
             <TextField fx:id="labelRegistroNome" prefHeight="25.0" prefWidth="262.0" promptText="Insira o Nome de Utilizador" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
             <TextField fx:id="labelRegistroEmail" prefHeight="25.0" prefWidth="429.0" promptText="Insira o Email" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <TextField fx:id="labelRegistroPass" prefHeight="25.0" prefWidth="429.0" promptText="Insira a Palavra-Passe" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <TextField fx:id="labelRegistroConfirmaPass" prefHeight="25.0" prefWidth="429.0" promptText="Confirme a Palavra-Passe" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
             <Label fx:id="labelErroRegistroNome" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="System Bold Italic" size="10.0" />
@@ -79,6 +77,8 @@
                </items>
             </SplitMenuButton>
             <Label fx:id="labelTipoUtilziador" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="188.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <PasswordField fx:id="labelRegistroPass" prefHeight="25.0" prefWidth="429.0" promptText="Insira a Palavra-Passe" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <PasswordField fx:id="labelRegistroConfirmaPass" prefHeight="25.0" prefWidth="429.0" promptText="Confirme a Palavra-Passe" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </center>

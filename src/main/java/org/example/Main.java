@@ -4,16 +4,16 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.util.List;
+
 import org.example.dao.UtilizadorDao;
 import org.example.models.Utilizador;
 import org.example.util.JPAUtil;
 
 public class Main extends Application {
-    UtilizadorDao utilizadorDao;
-
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/views/login.fxml"));
