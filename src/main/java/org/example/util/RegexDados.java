@@ -1,11 +1,7 @@
 package org.example.util;
 
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -90,8 +86,7 @@ public class RegexDados {
             try {
                 Date javaDate = sdfrmt.parse(strDate);
             }
-            /* Date format is invalid */
-            catch (Exception e) {
+            /* Date format is invalid */ catch (ParseException e) {
                 System.out.println(e.getMessage());
                 return false;
             }
@@ -100,28 +95,11 @@ public class RegexDados {
         }
     }
 
-    public boolean validateDatePicker(DatePicker datePicker){
-        if(datePicker.getValue() == null){
-            return false;
-        }
-
-        else{
-            SimpleDateFormat sdfrmt = new SimpleDateFormat("dd/MM/yyyy");
-            sdfrmt.setLenient(false);
-            /*
-             * Convert DatePicker value to a string
-             * parse the string into date
-             */
-            try {
-                String strDate = datePicker.getValue().toString();
-                Date javaDate = sdfrmt.parse(strDate);
-            }
-            /* Date format is invalid */
-            catch (ParseException e) {
-                return false;
-            }
-            /* Return true if date format is valid */
-            return true;
-        }
+    public boolean isValidDateFormat(String input) {
+//        String pattern2 = "\\d{2}/\\d{2}/\\d{4}";
+        String pattern = "^(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[0-2])/\\d{4}$";
+        Pattern regexPattern = Pattern.compile(pattern);
+        Matcher matcher = regexPattern.matcher(input);
+        return matcher.matches();
     }
 }
