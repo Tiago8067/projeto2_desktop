@@ -11,9 +11,11 @@ import org.example.models.enums.EstadoUtilizador;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
+import org.example.util.SecureLocalDateStringConverter;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -25,6 +27,7 @@ public class RegistroDadosPessoaisController implements Initializable {
     Utilizador utilizador;
     RegexDados regexDados;
     GoToUtil goToUtil;
+    SecureLocalDateStringConverter secureLocalDateStringConverter;
 
     @FXML
     private Button btnRegistrarSeguinteId;
@@ -56,9 +59,6 @@ public class RegistroDadosPessoaisController implements Initializable {
         int verificaNumCC = 0;
         int verificaNIF = 0;
         int verificaContacto = 0;
-
-        LocalDate verficaData = null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         try {
             verificaNumCC = Integer.parseInt(txtFdRegistroNccId.getText());
@@ -113,7 +113,62 @@ public class RegistroDadosPessoaisController implements Initializable {
         }
 
         // TODO=> falta a data corrigir a excecao no terminal para nao ser mostrada
-        if (this.regexDados.isValidDateFormat(txtFdRegistroDataNascId.getEditor().getText())) {
+
+        System.out.println("+++++++++++++++++++++++++++++++++++++++");
+        System.out.println(txtFdRegistroDataNascId.getValue());
+        //System.out.println(txtFdRegistroDataNascId.getValue().toString());
+        System.out.println(txtFdRegistroDataNascId.getEditor());
+        System.out.println(txtFdRegistroDataNascId.getEditor().getText());
+        System.out.println("+++++++++++++++++++++++++++++++++++++++");
+
+
+        System.out.println("++++++++++++++++++++++");
+        System.out.println("É aqui OH!!! Que se vê a Diferença Oh");
+        //while(true) {
+        //txtFdRegistroDataNascId.getEditor().getText().trim();
+
+        /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try {
+            LocalDate date = LocalDate.parse(txtFdRegistroDataNascId.getEditor().getText(), formatter);
+            System.out.println("A data inserida é: " + date);
+            //break;
+        } catch (DateTimeParseException e) {
+            System.out.println("Data Inválida");
+            System.out.println(e.getMessage());
+        }
+        //}
+
+        System.out.println("++++++++++++++++++++++");
+
+        if (txtFdRegistroDataNascId.getValue() == null) {
+            labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato(dd/MM/yyyy)!");
+        } *//*else if (!this.regexDados.isValidDateFormatLocalDate(txtFdRegistroDataNascId.getEditor().getText())) {
+            labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato(dd/MM/yyyy)!");
+        }*//* else {
+            this.utilizador.setDataNascimento(txtFdRegistroDataNascId.getValue().toString());
+            labeldErroDataNasc.setText("");
+        }*/
+
+        /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String inputText = txtFdRegistroDataNascId.getEditor().getText();
+
+        if (inputText.isEmpty()) {
+            labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato (dd/MM/yyyy)!");
+        } else {
+            try {
+                LocalDate date = LocalDate.parse(inputText, formatter);
+                System.out.println("A data inserida é: " + date);
+                this.utilizador.setDataNascimento(txtFdRegistroDataNascId.getValue().toString());
+                labeldErroDataNasc.setText("");
+            } catch (DateTimeParseException e) {
+                System.out.println("Data Inválida");
+                System.out.println(e.getMessage());
+                labeldErroDataNasc.setText("Data Inválida. Preencha no formato (dd/MM/yyyy)!");
+            }
+        }*/
+
+
+        /*if (this.regexDados.isValidDateFormat(txtFdRegistroDataNascId.getValue())) {
             String data = txtFdRegistroDataNascId.getEditor().getText();
 
             if (data.isEmpty()) {
@@ -125,6 +180,20 @@ public class RegistroDadosPessoaisController implements Initializable {
 
         } else {
             labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato(dd/MM/yyyy)!");
+        }*/
+
+        /*if (txtFdRegistroDataNascId.getValue() == null) {
+            labeldErroDataNasc.setText("Tem de preencher a Data de Nascimento.");
+        } else
+        if (this.secureLocalDateStringConverter.fromString(String.valueOf(txtFdRegistroDataNascId.getValue())) == null) {
+        */
+        if (txtFdRegistroDataNascId.getValue() == null) {
+            labeldErroDataNasc.setText("Tem de preencher a Data de Nascimento.");
+        } else if (this.secureLocalDateStringConverter.fromString(txtFdRegistroDataNascId.getValue().toString()) == null) {
+            labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato (dd/MM/yyyy)!");
+        } else {
+            this.utilizador.setDataNascimento(txtFdRegistroDataNascId.getValue().toString());
+            labeldErroDataNasc.setText("");
         }
 
         if (labelIdErroNomeCompleto.getText().equals("") && labelIdErroNumCC.getText().equals("") && labelIdErroNIF.getText().equals("") &&
@@ -151,5 +220,6 @@ public class RegistroDadosPessoaisController implements Initializable {
         this.utilizador = new Utilizador();
         this.regexDados = new RegexDados();
         this.goToUtil = new GoToUtil();
+        this.secureLocalDateStringConverter = new SecureLocalDateStringConverter();
     }
 }

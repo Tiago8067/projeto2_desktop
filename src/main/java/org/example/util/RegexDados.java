@@ -2,6 +2,8 @@ package org.example.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -101,5 +103,20 @@ public class RegexDados {
         Pattern regexPattern = Pattern.compile(pattern);
         Matcher matcher = regexPattern.matcher(input);
         return matcher.matches();
+    }
+
+    public boolean isValidDateFormatLocalDate(String input) {
+        System.out.println("++++++++++++++++++++++");
+        System.out.println("É aqui OH!!! Que se vê a Diferença Oh");
+        try {
+            LocalDate date = LocalDate.parse(input);
+            System.out.println("A data inserida é: " + date);
+        } catch (DateTimeException e) {
+            System.out.println("Data Inválida");
+            System.out.println(e.getMessage());
+            return false;
+        }
+        System.out.println("++++++++++++++++++++++");
+        return true;
     }
 }
