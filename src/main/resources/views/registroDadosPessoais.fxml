@@ -51,7 +51,7 @@
                 </Label>
                 <Label text="Contacto :" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                 <TextField fx:id="txtFdRegistroNomeCompletoId" prefHeight="25.0" promptText="Insira o Nome Completo" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
-                <DatePicker fx:id="txtFdRegistroDataNascId" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                <DatePicker fx:id="txtFdRegistroDataNascId" onKeyTyped="#verificaData" onMouseClicked="#verificaDataClicked" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                 <TextField fx:id="txtFdRegistroNccId" prefHeight="25.0" promptText="Insira o Numero CC" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField fx:id="txtFdRegistroNIFD" prefHeight="25.0" promptText="Insira o NIF" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
                 <TextField fx:id="txtFdRegistroContactoId" prefHeight="25.0" promptText="Insira o Contacto" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER" />

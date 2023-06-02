@@ -1,9 +1,11 @@
 package org.example.util;
 
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -89,7 +91,8 @@ public class RegexDados {
                 Date javaDate = sdfrmt.parse(strDate);
             }
             /* Date format is invalid */
-            catch (ParseException e) {
+            catch (Exception e) {
+                System.out.println(e.getMessage());
                 return false;
             }
             /* Return true if date format is valid */
