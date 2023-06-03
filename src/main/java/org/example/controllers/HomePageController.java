@@ -33,6 +33,7 @@ import org.example.util.RegexDados;
 import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
 
 public class HomePageController implements Initializable {
@@ -71,7 +72,7 @@ public class HomePageController implements Initializable {
     @FXML
     private TableColumn<LinhaDoacoes, String> tableColumnNomeCliente;
     @FXML
-    private TableColumn<?, ?> tableColumnDataDoacao;
+    private TableColumn<LinhaDoacoes, String> tableColumnDataDoacao;
     @FXML
     private TableColumn<LinhaDoacoes, String> tableColumnTipoRoupaDoacao;
     @FXML
@@ -107,7 +108,7 @@ public class HomePageController implements Initializable {
     @FXML
     private TableColumn<LinhaEncomendas, Integer> tcIdPedidoQuantidade;
     @FXML
-    private TableColumn<?, ?> tcIdDataPedido;
+    private TableColumn<LinhaEncomendas, String> tcIdDataPedido;
     @FXML
     private TableColumn<LinhaEncomendas, LinhaEncomendas> tcIdPedidoAcoes;
 
@@ -119,7 +120,7 @@ public class HomePageController implements Initializable {
     @FXML
     private TableColumn<LinhaEncomendas, String> tCNomeForn;
     @FXML
-    private TableColumn<?, ?> tCDataEntrega;
+    private TableColumn<LinhaEncomendas, String> tCDataEntrega;
     @FXML
     private TableColumn<LinhaEncomendas, String> tCEstado;
 
@@ -1171,6 +1172,13 @@ public class HomePageController implements Initializable {
             }
         });
 
+        tableColumnDataDoacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaDoacoes, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaDoacoes, String> linhaDoacoesStringCellDataFeatures) {
+                return linhaDoacoesStringCellDataFeatures.getValue().getDataDoacao();
+            }
+        });
+
         //TABLE VIEW PEDIDOS
         tcIdPedidoDestinatario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
             @Override
@@ -1209,6 +1217,13 @@ public class HomePageController implements Initializable {
         });
 
         // todo falta a data
+
+        tcIdDataPedido.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getDataDePedido();
+            }
+        });
 
         tCEstado.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
             @Override

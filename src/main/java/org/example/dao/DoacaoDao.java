@@ -33,7 +33,7 @@ public class DoacaoDao {
         ConnectionUtil connectionUtil = new ConnectionUtil();
         Connection conn = connectionUtil.criarConexao();
 
-        String sql = "SELECT d.idDoacao, u.username, r.tipoRoupa, r.tamanhoRoupa, rd.quantidade " +
+        String sql = "SELECT d.idDoacao, u.username, r.tipoRoupa, r.tamanhoRoupa, rd.quantidade, d.datadadoacao " +
                 "FROM tb_roupa_doacao rd " +
                 "INNER JOIN tb_doacao d ON d.roupa_doacao_id = rd.id_roupa_doacao " +
                 "INNER JOIN tb_roupa r ON r.roupa_doacao_id = rd.id_roupa_doacao " +
@@ -47,7 +47,7 @@ public class DoacaoDao {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 linhaDoacoesList.add(new LinhaDoacoes(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
-                        resultSet.getString(4), resultSet.getInt(5)));
+                        resultSet.getString(4), resultSet.getInt(5), resultSet.getString(6)));
             }
         } catch (SQLException e) {
             System.out.println("ERRO: " + e.getMessage());

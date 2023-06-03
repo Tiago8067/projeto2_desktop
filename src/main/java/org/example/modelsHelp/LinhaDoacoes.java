@@ -3,23 +3,27 @@ package org.example.modelsHelp;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
 
+import java.time.LocalDate;
+
 public class LinhaDoacoes {
     private IntegerProperty idDoacao;
     private StringProperty username;
     private StringProperty tipoRoupa;
     private StringProperty tamanhoRoupa;
     private IntegerProperty quantidade;
+    private StringProperty dataDoacao;
 
     public LinhaDoacoes() {
 
     }
 
-    public LinhaDoacoes(int idDoacao, String username, String tipoRoupa, String tamanhoRoupa, int quantidade) {
+    public LinhaDoacoes(int idDoacao, String username, String tipoRoupa, String tamanhoRoupa, int quantidade, String dataDoacao) {
         this.idDoacao = new SimpleIntegerProperty(idDoacao);
         this.username = new SimpleStringProperty(username);
         this.tipoRoupa = new SimpleStringProperty(tipoRoupa);
         this.tamanhoRoupa = new SimpleStringProperty(tamanhoRoupa);
         this.quantidade = new SimpleIntegerProperty(quantidade);
+        this.dataDoacao = new SimpleStringProperty(dataDoacao);
     }
 
     public ObservableValue<Integer> getIdDoacao() {
@@ -85,5 +89,18 @@ public class LinhaDoacoes {
 
     public void setQuantidade(int quantidade) {
         this.quantidade.set(quantidade);
+    }
+
+    public ObservableValue<String> getDataDoacao() {
+        ObservableValue<String> valorData = new ReadOnlyObjectWrapper<>(dataDoacao.getValue());
+        return valorData;
+    }
+
+    public StringProperty dataDoacaoProperty() {
+        return dataDoacao;
+    }
+
+    public void setDataDoacao(String dataDoacao) {
+        this.dataDoacao.set(dataDoacao);
     }
 }

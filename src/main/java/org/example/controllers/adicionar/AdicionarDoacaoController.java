@@ -18,6 +18,7 @@ import org.example.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -110,6 +111,7 @@ public class AdicionarDoacaoController implements Initializable {
                 labelIdErroTamanho.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
             this.roupa.setRoupa_doacao(this.roupa_doacao);
             this.doacao.setRoupa_doacao(this.roupa_doacao);
+            this.doacao.setDataDaDoacao(LocalDate.now());
 
             this.doacaoDao.registar(this.doacao);
             this.roupa_doacaoDao.registar(this.roupa_doacao);

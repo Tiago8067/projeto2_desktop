@@ -13,11 +13,13 @@ public class LinhaEncomendas {
     private StringProperty tamanhoRoupa;
     private IntegerProperty quantidade;
     private StringProperty estado;
+    private StringProperty dataDePedido;
+    private StringProperty dataDeEntrega;
 
     public LinhaEncomendas() {
     }
 
-    public LinhaEncomendas(int idEncomenda, int idLinhaEncomenda, int idRoupa, String usernameCliente, String usernameFonecedor, String tipoRoupa, String tamanhoRoupa, int quantidade, String estado) {
+    public LinhaEncomendas(int idEncomenda, int idLinhaEncomenda, int idRoupa, String usernameCliente, String usernameFonecedor, String tipoRoupa, String tamanhoRoupa, int quantidade, String estado, String dataDePedido, String dataDeEntrega) {
         this.idEncomenda = new SimpleIntegerProperty(idEncomenda);
         this.idLinhaEncomenda = new SimpleIntegerProperty(idLinhaEncomenda);
         this.idRoupa = new SimpleIntegerProperty(idRoupa);
@@ -27,6 +29,8 @@ public class LinhaEncomendas {
         this.tamanhoRoupa = new SimpleStringProperty(tamanhoRoupa);
         this.quantidade = new SimpleIntegerProperty(quantidade);
         this.estado = new SimpleStringProperty(estado);
+        this.dataDePedido = new SimpleStringProperty(dataDePedido);
+        this.dataDeEntrega = new SimpleStringProperty(dataDeEntrega);
     }
 
     public ObservableValue<Integer> getIdEncomenda() {
@@ -144,6 +148,32 @@ public class LinhaEncomendas {
 
     public void setEstado(String estado) {
         this.estado.set(estado);
+    }
+
+    public ObservableValue<String> getDataDePedido() {
+        ObservableValue<String> valorDataPedido = new ReadOnlyObjectWrapper<>(dataDePedido.getValue());
+        return valorDataPedido;
+    }
+
+    public StringProperty dataDePedidoProperty() {
+        return dataDePedido;
+    }
+
+    public void setDataDePedido(String dataDePedido) {
+        this.dataDePedido.set(dataDePedido);
+    }
+
+    public ObservableValue<String> getDataDeEntrega() {
+        ObservableValue<String> valorDataEntrega = new ReadOnlyObjectWrapper<>(dataDeEntrega.getValue());
+        return valorDataEntrega;
+    }
+
+    public StringProperty dataDeEntregaProperty() {
+        return dataDeEntrega;
+    }
+
+    public void setDataDeEntrega(String dataDeEntrega) {
+        this.dataDeEntrega.set(dataDeEntrega);
     }
 
     @Override

@@ -6,6 +6,7 @@ import org.example.models.enums.EstadoEncomenda;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,7 +20,7 @@ public class Encomenda implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idEncomenda;
-    private Instant dataDePedido;
+    private LocalDate dataDePedido;
     @Enumerated(EnumType.STRING)
     private EstadoEncomenda estadoEncomenda;
     @ManyToOne

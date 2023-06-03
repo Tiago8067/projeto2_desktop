@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,7 +18,7 @@ public class Doacao implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDoacao;
-    private Instant dataDaDoacao;
+    private LocalDate dataDaDoacao;
     @ManyToOne
     @JoinColumn(name = "utilizador_id", referencedColumnName = "idUtilizador")
     private Utilizador utilizador;

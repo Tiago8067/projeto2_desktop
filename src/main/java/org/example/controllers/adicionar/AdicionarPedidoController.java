@@ -13,6 +13,7 @@ import org.example.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -166,6 +167,7 @@ public class AdicionarPedidoController implements Initializable {
                 labelIdErroTamanho.getText().equals("") && labelIdErroFornecedor.getText().equals("") &&
                 labelIdErroEstadoEnc.getText().equals("")) {
             this.encomenda.setLinha_encomenda(this.linhaEncomenda);
+            this.encomenda.setDataDePedido(LocalDate.now());
 
             this.encomendaDao.registar(this.encomenda);
             this.linhaEncomendaDao.registar(this.linhaEncomenda);

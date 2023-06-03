@@ -8,6 +8,7 @@ import org.example.models.enums.TipoRoupa;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,9 +22,7 @@ public class RoupaDasEncomendas implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idRoupaDasEncomendas;
-    private Instant dataDeEntrega;
-    @Enumerated(EnumType.STRING)
-    private CategoriaRoupa categoriaRoupa;
+    private LocalDate dataDeEntrega;
     @Enumerated(EnumType.STRING)
     private TamanhoRoupa tamanhoRoupa;
     @Enumerated(EnumType.STRING)
