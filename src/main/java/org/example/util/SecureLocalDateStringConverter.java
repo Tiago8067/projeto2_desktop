@@ -22,7 +22,7 @@ public class SecureLocalDateStringConverter extends StringConverter<LocalDate> {
 
     private boolean hasParseError = false;
 
-    public boolean hasParseError(){
+    public boolean hasParseError() {
         return hasParseError;
     }
 
@@ -35,11 +35,11 @@ public class SecureLocalDateStringConverter extends StringConverter<LocalDate> {
     public LocalDate fromString(String formattedString) {
 
         try {
-            LocalDate date=LocalDate.from(DATE_FORMATTER.parse(formattedString));
-            hasParseError=false;
+            LocalDate date = LocalDate.from(DATE_FORMATTER.parse(formattedString));
+            hasParseError = false;
             return date;
-        } catch (DateTimeParseException parseExc){
-            hasParseError=true;
+        } catch (DateTimeParseException parseExc) {
+            hasParseError = true;
             return null;
         } catch (RuntimeException runtimeException) {
             return null;

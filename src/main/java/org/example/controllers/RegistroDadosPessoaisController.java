@@ -4,7 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.*;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import org.example.dao.UtilizadorDao;
 import org.example.models.Utilizador;
 import org.example.models.enums.EstadoUtilizador;
@@ -115,10 +117,10 @@ public class RegistroDadosPessoaisController implements Initializable {
         // TODO=> falta a data corrigir a excecao no terminal para nao ser mostrada
 
         System.out.println("+++++++++++++++++++++++++++++++++++++++");
-        System.out.println(txtFdRegistroDataNascId.getValue());
+        /*System.out.println(txtFdRegistroDataNascId.getValue());
         //System.out.println(txtFdRegistroDataNascId.getValue().toString());
         System.out.println(txtFdRegistroDataNascId.getEditor());
-        System.out.println(txtFdRegistroDataNascId.getEditor().getText());
+        System.out.println(txtFdRegistroDataNascId.getEditor().getText());*/
         System.out.println("+++++++++++++++++++++++++++++++++++++++");
 
 
@@ -187,17 +189,56 @@ public class RegistroDadosPessoaisController implements Initializable {
         } else
         if (this.secureLocalDateStringConverter.fromString(String.valueOf(txtFdRegistroDataNascId.getValue())) == null) {
         */
+
+        /*final StringConverter<LocalDate> defaultConverter = txtFdRegistroDataNascId.getConverter();
+        txtFdRegistroDataNascId.setConverter(new StringConverter<LocalDate>() {
+            @Override public String toString (LocalDate value){
+                return defaultConverter.toString(value);
+            }
+
+            @Override public LocalDate fromString (String text){
+                try {
+                    return defaultConverter.fromString(text);
+                } catch (DateTimeParseException ex) {
+                    System.out.println("SAI DO SOL");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    throw ex;
+                }
+            }
+        });*/
+
+        /*final StringConverter<LocalDate> defaultConverter = txtFdRegistroDataNascId.getConverter();
+        txtFdRegistroDataNascId.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate value) {
+                return defaultConverter.toString(value);
+            }
+
+            @Override
+            public LocalDate fromString(String text) {
+                try {
+                    *//*if (defaultConverter.fromString(text) == true)*//*
+                    return defaultConverter.fromString(text);
+                } catch (DateTimeParseException ex) {
+                    labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato (dd/MM/yyyy)!");
+                    System.out.println("SAI DO SOL");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    throw ex;
+                }
+            }
+        });*/
+
+
         if (txtFdRegistroDataNascId.getValue() == null) {
             labeldErroDataNasc.setText("Tem de preencher a Data de Nascimento.");
-        } else if (this.secureLocalDateStringConverter.fromString(txtFdRegistroDataNascId.getValue().toString()) == null) {
+        } /*else if (this.secureLocalDateStringConverter.fromString(txtFdRegistroDataNascId.getValue().toString()) == null) {
             labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato (dd/MM/yyyy)!");
-        } else {
+        }*/ else {
             this.utilizador.setDataNascimento(txtFdRegistroDataNascId.getValue().toString());
             labeldErroDataNasc.setText("");
         }
 
-        if (labelIdErroNomeCompleto.getText().equals("") && labelIdErroNumCC.getText().equals("") && labelIdErroNIF.getText().equals("") &&
-                labelIdErroContacto.getText().equals("") && labeldErroDataNasc.getText().equals("")) {
+        if (labelIdErroNomeCompleto.getText().equals("") && labelIdErroNumCC.getText().equals("") && labelIdErroNIF.getText().equals("") && labelIdErroContacto.getText().equals("") && labeldErroDataNasc.getText().equals("")) {
             this.utilizador.setEstadoUtilizador(EstadoUtilizador.PENDENTE);
             this.utilizadorDao.registrar(utilizador);
             this.goToUtil.goToRegistroDadosLocalizacao();
@@ -211,6 +252,333 @@ public class RegistroDadosPessoaisController implements Initializable {
         this.goToUtil.goToLogin();
         Stage stage = (Stage) hyperlinkLoginId.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    void verficaValor(ActionEvent event) {
+        /*final StringConverter<LocalDate> defaultConverter = txtFdRegistroDataNascId.getConverter();
+        txtFdRegistroDataNascId.setConverter(new StringConverter<LocalDate>() {
+            @Override public String toString (LocalDate value){
+                return defaultConverter.toString(value);
+            }
+
+            @Override public LocalDate fromString (String text){
+                try {
+                    return defaultConverter.fromString(text);
+                } catch (DateTimeParseException ex) {
+                    System.out.println("SAI DO SOL");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    throw ex;
+                }
+            }
+        });*/
+    }
+
+    @FXML
+    void verficaValorteste1(InputMethodEvent event) {
+        /*final StringConverter<LocalDate> defaultConverter = txtFdRegistroDataNascId.getConverter();
+        txtFdRegistroDataNascId.setConverter(new StringConverter<LocalDate>() {
+            @Override public String toString (LocalDate value){
+                return defaultConverter.toString(value);
+            }
+
+            @Override public LocalDate fromString (String text){
+                try {
+                    return defaultConverter.fromString(text);
+                } catch (DateTimeParseException ex) {
+                    System.out.println("SAI DO SOL");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    throw ex;
+                }
+            }
+        });*/
+    }
+
+    @FXML
+    void verficaValorteste2(KeyEvent event) {
+        /*final StringConverter<LocalDate> defaultConverter = txtFdRegistroDataNascId.getConverter();
+        txtFdRegistroDataNascId.setConverter(new StringConverter<LocalDate>() {
+            @Override public String toString (LocalDate value){
+                return defaultConverter.toString(value);
+            }
+
+            @Override public LocalDate fromString (String text){
+                try {
+                    return defaultConverter.fromString(text);
+                } catch (DateTimeParseException ex) {
+                    System.out.println("SAI DO SOL");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    throw ex;
+                }
+            }
+        });*/
+    }
+
+    @FXML
+    void verficaValorteste3(KeyEvent event) {
+        //try { // este try secalhar nao e preciso
+        final StringConverter<LocalDate> defaultConverter = txtFdRegistroDataNascId.getConverter();
+        txtFdRegistroDataNascId.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate value) {
+                try {
+                    //System.out.println("------------------------------");
+                    //System.out.println(defaultConverter.toString(value)); // retorna vazio retorna nada
+                    //System.out.println("------------------------------");
+                    return defaultConverter.toString(value);
+                } catch (DateTimeParseException ex) {
+                    labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato (dd/MM/yyyy)!");
+                    System.out.println("SAI DO SOL");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    throw ex;
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String text) {
+                try {
+                    /*System.out.println("------------------------------");
+                    System.out.println(defaultConverter.fromString(text)); // tambem retorna vazio
+                    System.out.println("------------------------------");*/
+                    /*if (defaultConverter.fromString(text).equals("")) {
+                        return null;
+                    } else {
+                        return defaultConverter.fromString(text);
+                    }*/
+
+                    if (text == null || text.trim().isEmpty()) {
+                        return null;
+                    } else {
+                        return defaultConverter.fromString(text);
+                    }
+
+                } catch (DateTimeParseException ex) {
+                    labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato (dd/MM/yyyy)!");
+                    System.out.println("SAI DO SOL");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    //throw ex;
+                    return null;
+                }
+            }
+        });
+        /*} catch (DateTimeParseException ex) {
+            System.out.println("SAI DO SOL. O VERDADEIRO");
+            System.err.println("HelloDatePicker: " + ex.getMessage());
+            throw ex;
+        }*/
+    }
+
+    @FXML
+    void verficaValorteste4(KeyEvent event) {
+        /*final StringConverter<LocalDate> defaultConverter = txtFdRegistroDataNascId.getConverter();
+        txtFdRegistroDataNascId.setConverter(new StringConverter<LocalDate>() {
+            @Override public String toString (LocalDate value){
+                return defaultConverter.toString(value);
+            }
+
+            @Override public LocalDate fromString (String text){
+                try {
+                    return defaultConverter.fromString(text);
+                } catch (DateTimeParseException ex) {
+                    System.out.println("SAI DO SOL");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    throw ex;
+                }
+            }
+        });*/
+    }
+
+    @FXML
+    void verficaValorteste5(MouseEvent event) {
+        /*final StringConverter<LocalDate> defaultConverter = txtFdRegistroDataNascId.getConverter();
+        txtFdRegistroDataNascId.setConverter(new StringConverter<LocalDate>() {
+            @Override public String toString (LocalDate value){
+                return defaultConverter.toString(value);
+            }
+
+            @Override public LocalDate fromString (String text){
+                try {
+                    return defaultConverter.fromString(text);
+                } catch (DateTimeParseException ex) {
+                    System.out.println("SAI DO SOL");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    throw ex;
+                }
+            }
+        });*/
+    }
+
+    @FXML
+    void verficaValorteste6(ContextMenuEvent event) {
+        /*final StringConverter<LocalDate> defaultConverter = txtFdRegistroDataNascId.getConverter();
+        txtFdRegistroDataNascId.setConverter(new StringConverter<LocalDate>() {
+            @Override public String toString (LocalDate value){
+                return defaultConverter.toString(value);
+            }
+
+            @Override public LocalDate fromString (String text){
+                try {
+                    return defaultConverter.fromString(text);
+                } catch (DateTimeParseException ex) {
+                    System.out.println("SAI DO SOL");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    throw ex;
+                }
+            }
+        });*/
+    }
+
+    @FXML
+    void verficaValorteste7(MouseEvent event) {
+        /*final StringConverter<LocalDate> defaultConverter = txtFdRegistroDataNascId.getConverter();
+        txtFdRegistroDataNascId.setConverter(new StringConverter<LocalDate>() {
+            @Override public String toString (LocalDate value){
+                return defaultConverter.toString(value);
+            }
+
+            @Override public LocalDate fromString (String text){
+                try {
+                    return defaultConverter.fromString(text);
+                } catch (DateTimeParseException ex) {
+                    labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato (dd/MM/yyyy)!");
+                    System.out.println("SAI DO SOL");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    throw ex;
+                }
+            }
+        });
+
+         */
+    }
+
+    @FXML
+    void verficaValorteste8(MouseEvent event) {
+        /*final StringConverter<LocalDate> defaultConverter = txtFdRegistroDataNascId.getConverter();
+        txtFdRegistroDataNascId.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate value) {
+                return defaultConverter.toString(value);
+            }
+
+            @Override
+            public LocalDate fromString(String text) {
+                try {
+                    return defaultConverter.fromString(text);
+                } catch (DateTimeParseException ex) {
+                    labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato (dd/MM/yyyy)!");
+                    System.out.println("SAI DO SOL");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    throw ex;
+                }
+            }
+        });*/
+    }
+
+    @FXML
+    void verficaValorteste9(MouseEvent event) {
+        /*final StringConverter<LocalDate> defaultConverter = txtFdRegistroDataNascId.getConverter();
+        txtFdRegistroDataNascId.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate value) {
+                return defaultConverter.toString(value);
+            }
+
+            @Override
+            public LocalDate fromString(String text) {
+                try {
+                    return defaultConverter.fromString(text);
+                } catch (DateTimeParseException ex) {
+                    labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato (dd/MM/yyyy)!");
+                    System.out.println("SAI DO SOL");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    throw ex;
+                }
+            }
+        });*/
+    }
+
+    @FXML
+    void verficaValorteste10(MouseEvent event) {
+        /*final StringConverter<LocalDate> defaultConverter = txtFdRegistroDataNascId.getConverter();
+        txtFdRegistroDataNascId.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate value) {
+                return defaultConverter.toString(value);
+            }
+
+            @Override
+            public LocalDate fromString(String text) {
+                try {
+                    return defaultConverter.fromString(text);
+                } catch (DateTimeParseException ex) {
+                    labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato (dd/MM/yyyy)!");
+                    System.out.println("SAI DO SOL");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    throw ex;
+                }
+            }
+        });*/
+    }
+
+    @FXML
+    void verficaValorteste11(MouseEvent event) {
+        /*final StringConverter<LocalDate> defaultConverter = txtFdRegistroDataNascId.getConverter();
+        txtFdRegistroDataNascId.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate value) {
+                return defaultConverter.toString(value);
+            }
+
+            @Override
+            public LocalDate fromString(String text) {
+                try {
+                    return defaultConverter.fromString(text);
+                } catch (DateTimeParseException ex) {
+                    labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato (dd/MM/yyyy)!");
+                    System.out.println("SAI DO SOL");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    throw ex;
+                }
+            }
+        });*/
+    }
+
+    @FXML
+    void verficaValorteste12(MouseEvent event) {
+        /*final StringConverter<LocalDate> defaultConverter = txtFdRegistroDataNascId.getConverter();
+        txtFdRegistroDataNascId.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate value) {
+                return defaultConverter.toString(value);
+            }
+
+            @Override
+            public LocalDate fromString(String text) {
+                try {
+                    return defaultConverter.fromString(text);
+                } catch (DateTimeParseException ex) {
+                    labeldErroDataNasc.setText("Por favor, preencha a Data Corretamente no formato (dd/MM/yyyy)!");
+                    System.out.println("SAI DO SOL");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    throw ex;
+                }
+            }
+        });*/
+    }
+
+    @FXML
+    void verficaValorteste13(ScrollEvent event) {
+
+    }
+
+    @FXML
+    void verficaValorteste14(ScrollEvent event) {
+
+    }
+
+    @FXML
+    void verficaValorteste15(ScrollEvent event) {
+
     }
 
     @Override
