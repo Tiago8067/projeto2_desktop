@@ -14,6 +14,7 @@ import org.example.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -29,6 +30,7 @@ public class EditarEncomendasController implements Initializable {
     LinhaEncomendaDao linhaEncomendaDao;
     LinhaEncomenda linhaEncomenda;
     RoupaDasEncomendasDao roupaDasEncomendasDao;
+    RoupaDasEncomendas roupaDasEncomendas;
     private List<Roupa> verificaRoupaList;
     @FXML
     private Button btnIdAdicionar;
@@ -184,6 +186,9 @@ public class EditarEncomendasController implements Initializable {
                             this.encomendaDao.atualizarEncomenda(String.valueOf(EstadoEncomenda.ENVIADO), e.getIdEncomenda());
                         } else if (lblAdicionaEstado.getText().equals("Finalizado")) {
                             this.encomendaDao.atualizarEncomenda(String.valueOf(EstadoEncomenda.FINALIZADO), e.getIdEncomenda());
+                            //this.roupaDasEncomendas.setDataDeEntrega(LocalDate.now());
+                            //this.roupaDasEncomendasDao.registar(this.roupaDasEncomendas);
+                            this.roupaDasEncomendasDao.atualizarDataEntrega(LocalDate.now(), e.getLinha_encomenda().getIdLinhaEncomenda());
                         }
                         this.encomendaDao.atualizarFornecedorEncomenda(this.fornecedorDao.buscarFornecedorPorNome(txtFIdFornecedor.getText()).getIdFornecedor(), e.getIdEncomenda());
                         this.encomendaDao.atualizarUtilizadorEncomenda(this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()).getIdUtilizador(), e.getIdEncomenda());
@@ -260,6 +265,7 @@ public class EditarEncomendasController implements Initializable {
         this.linhaEncomendaDao = new LinhaEncomendaDao(entityManager);
         this.linhaEncomenda = new LinhaEncomenda();
         this.roupaDasEncomendasDao = new RoupaDasEncomendasDao(entityManager);
+        this.roupaDasEncomendas = new RoupaDasEncomendas();
     }
 
     public void passarDadosEncomendasEditar() {

@@ -50,7 +50,7 @@ public class EncomendaDao {
         Connection conn = connectionUtil.criarConexao();
 
         String sql = "UPDATE tb_encomenda " +
-                "SET estadoencomenda = ? " +
+                "SET estadoencomenda = ?  " +
                 "WHERE idencomenda = ? ";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
@@ -119,7 +119,7 @@ public class EncomendaDao {
             while (resultSet.next()) {
                 linhaEncomendaList.add(new LinhaEncomendas(resultSet.getInt(7), resultSet.getInt(8), resultSet.getInt(9), resultSet.getString(1),
                         resultSet.getString(5), resultSet.getString(2), resultSet.getString(3), resultSet.getInt(4), resultSet.getString(6),
-                        resultSet.getString(7), resultSet.getString(8)));
+                        resultSet.getString(10), resultSet.getString(11)));
             }
         } catch (SQLException e) {
             System.out.println("ERRO: " + e.getMessage());

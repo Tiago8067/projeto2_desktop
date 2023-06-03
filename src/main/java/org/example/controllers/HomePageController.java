@@ -1208,6 +1208,13 @@ public class HomePageController implements Initializable {
             }
         });
 
+        tcIdDataPedido.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getDataDePedido();
+            }
+        });
+
         //TABLE VIEW ENTREGAS
         tCNomeForn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
             @Override
@@ -1218,10 +1225,10 @@ public class HomePageController implements Initializable {
 
         // todo falta a data
 
-        tcIdDataPedido.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+        tCDataEntrega.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getDataDePedido();
+                return linhaEncomendasStringCellDataFeatures.getValue().getDataDeEntrega();
             }
         });
 

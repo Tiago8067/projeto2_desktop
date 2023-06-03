@@ -73,4 +73,21 @@ public class DoacaoDao {
             System.out.println("ERRO: " + sqlException.getMessage());
         }
     }
+
+    public void atualizarDoacao(Integer id, String data) {
+        ConnectionUtil connectionUtil = new ConnectionUtil();
+        Connection conn = connectionUtil.criarConexao();
+
+        String sql = "UPDATE tb_roupa_doacao " +
+                "SET datadadoacao = ? " +
+                "WHERE id_doacao = ? ";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, data);
+            preparedStatement.setInt(2, id);
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            System.out.println("ERRO: " + sqlException.getMessage());
+        }
+    }
 }

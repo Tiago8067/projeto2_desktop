@@ -3,14 +3,13 @@ package org.example.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import org.example.dao.UtilizadorDao;
 import org.example.models.Utilizador;
 import org.example.util.GoToUtil;
@@ -20,6 +19,10 @@ import org.example.util.RegexDados;
 import javax.persistence.EntityManager;
 import java.io.File;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -47,7 +50,7 @@ public class PerfilPageController implements Initializable {
     @FXML
     private TextField txtPerfilContacto;
     @FXML
-    private TextField txtPerfilDataNasc;
+    private DatePicker txtPerfilDataNasc;
     @FXML
     private TextField txtPerfilEmail;
     @FXML
@@ -82,6 +85,7 @@ public class PerfilPageController implements Initializable {
             txtPerfilCidade.setEditable(true);
             txtPerfilCodPostal.setEditable(true);
             txtPerfilNPorta.setEditable(true);
+            txtPerfilDataNasc.setEditable(true);
             idAtualizar.setDisable(false);
             idSelecionarImagem.setDisable(false);
         }
@@ -124,7 +128,8 @@ public class PerfilPageController implements Initializable {
                         || txtPerfilCidade.getText().isEmpty() || txtPerfilLocalidade.getText().isEmpty() || txtPerfilRua.getText().isEmpty()
                         || txtPerfilCodPostal.getText().isEmpty() || txtPerfilNPorta.getText().isEmpty()
                         || verificaNumCC == 0 || verificaNIF == 0 || verificaContacto == 0
-                        || !this.regexDados.isValidCP(txtPerfilCodPostal.getText()) || verificaNumPorta == 0) {
+                        || !this.regexDados.isValidCP(txtPerfilCodPostal.getText()) || verificaNumPorta == 0
+                        || txtPerfilDataNasc.getValue() == null) {
                     lancarErroAtualizacao("Realizou alguma edição nos seus Dados do Perfil Errado! Verifique Corretamente.");
                 } else {
                     u.setNome(txtPerfilNome.getText());
@@ -137,6 +142,7 @@ public class PerfilPageController implements Initializable {
                     u.getLocalizacao().setCodigoPostal(txtPerfilCodPostal.getText());
                     u.getLocalizacao().setNumeroPorta(Integer.valueOf(txtPerfilNPorta.getText()));
                     u.setImagemPerfil(guardaCaminhoImagemPerfil);
+                    u.setDataNascimento(txtPerfilDataNasc.getValue().toString());
 
                     this.utilizadorDao.registrar(u);
 
@@ -171,6 +177,39 @@ public class PerfilPageController implements Initializable {
         }
     }
 
+    @FXML
+    void verficaValorteste3(KeyEvent event) {
+        final StringConverter<LocalDate> defaultConverter = txtPerfilDataNasc.getConverter();
+        txtPerfilDataNasc.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate value) {
+                try {
+                    return defaultConverter.toString(value);
+                } catch (DateTimeParseException ex) {
+                    lancarErroAtualizacao("Realizou alguma edição nos seus Dados do Perfil Errado! Verifique Corretamente.");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    throw ex;
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String text) {
+                try {
+                    if (text == null || text.trim().isEmpty()) {
+                        return null;
+                    } else {
+                        return defaultConverter.fromString(text);
+                    }
+
+                } catch (DateTimeParseException ex) {
+                    lancarErroAtualizacao("Realizou alguma edição nos seus Dados do Perfil Errado! Verifique Corretamente.");
+                    System.err.println("HelloDatePicker: " + ex.getMessage());
+                    return null;
+                }
+            }
+        });
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.entityManager = JPAUtil.getEntityManager();
@@ -195,6 +234,10 @@ public class PerfilPageController implements Initializable {
                 txtPerfilCidade.setText(u.getLocalizacao().getCidade());
                 txtPerfilCodPostal.setText(u.getLocalizacao().getCodigoPostal());
                 txtPerfilNPorta.setText(String.valueOf(u.getLocalizacao().getNumeroPorta()));
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate date = LocalDate.parse(u.getDataNascimento(), formatter);
+                txtPerfilDataNasc.setValue(date);
+                //txtPerfilDataNasc.setAccessibleText(String.valueOf(date));
                 if (u.getImagemPerfil() != null) {
                     Image image = new Image(u.getImagemPerfil());
                     idImagemPerfil.setImage(image);
@@ -223,6 +266,7 @@ public class PerfilPageController implements Initializable {
         txtPerfilCidade.setEditable(false);
         txtPerfilCodPostal.setEditable(false);
         txtPerfilNPorta.setEditable(false);
+        txtPerfilDataNasc.setEditable(false);
         idAtualizar.setDisable(true);
         idSelecionarImagem.setDisable(true);
     }

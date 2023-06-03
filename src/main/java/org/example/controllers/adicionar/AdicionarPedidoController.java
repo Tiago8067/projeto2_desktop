@@ -150,7 +150,7 @@ public class AdicionarPedidoController implements Initializable {
             labelIdErroFornecedor.setText("");
         }
 
-        if (lblAdicionaEstado.getText().isEmpty()) {
+        /*if (lblAdicionaEstado.getText().isEmpty()) {
             labelIdErroEstadoEnc.setText("Tem de preencher o estado da Encomenda.");
         } else if (lblAdicionaEstado.getText().equals("Em Preparacao")) {
             this.encomenda.setEstadoEncomenda(EstadoEncomenda.EMPREPARACAO);
@@ -162,12 +162,14 @@ public class AdicionarPedidoController implements Initializable {
             this.encomenda.setEstadoEncomenda(EstadoEncomenda.FINALIZADO);
             labelIdErroEstadoEnc.setText("");
         }
+        labelIdErroEstadoEnc.getText().equals("")
+        */
 
         if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") &&
-                labelIdErroTamanho.getText().equals("") && labelIdErroFornecedor.getText().equals("") &&
-                labelIdErroEstadoEnc.getText().equals("")) {
+                labelIdErroTamanho.getText().equals("") && labelIdErroFornecedor.getText().equals("")) {
             this.encomenda.setLinha_encomenda(this.linhaEncomenda);
             this.encomenda.setDataDePedido(LocalDate.now());
+            this.encomenda.setEstadoEncomenda(EstadoEncomenda.EMPREPARACAO);
 
             this.encomendaDao.registar(this.encomenda);
             this.linhaEncomendaDao.registar(this.linhaEncomenda);

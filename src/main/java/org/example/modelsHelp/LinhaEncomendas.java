@@ -19,7 +19,8 @@ public class LinhaEncomendas {
     public LinhaEncomendas() {
     }
 
-    public LinhaEncomendas(int idEncomenda, int idLinhaEncomenda, int idRoupa, String usernameCliente, String usernameFonecedor, String tipoRoupa, String tamanhoRoupa, int quantidade, String estado, String dataDePedido, String dataDeEntrega) {
+    public LinhaEncomendas(int idEncomenda, int idLinhaEncomenda, int idRoupa, String usernameCliente, String usernameFonecedor, String tipoRoupa,
+                           String tamanhoRoupa, int quantidade, String estado, String dataDePedido, String dataDeEntrega) {
         this.idEncomenda = new SimpleIntegerProperty(idEncomenda);
         this.idLinhaEncomenda = new SimpleIntegerProperty(idLinhaEncomenda);
         this.idRoupa = new SimpleIntegerProperty(idRoupa);
@@ -174,20 +175,5 @@ public class LinhaEncomendas {
 
     public void setDataDeEntrega(String dataDeEntrega) {
         this.dataDeEntrega.set(dataDeEntrega);
-    }
-
-    @Override
-    public String toString() {
-        return "LinhaEncomendas{" +
-                "idEncomenda=" + idEncomenda +
-                ", idLinhaEncomenda=" + idLinhaEncomenda +
-                ", idRoupa=" + idRoupa +
-                ", usernameCliente=" + usernameCliente +
-                ", usernameFonecedor=" + usernameFonecedor +
-                ", tipoRoupa=" + tipoRoupa +
-                ", tamanhoRoupa=" + tamanhoRoupa +
-                ", quantidade=" + quantidade +
-                ", estado=" + estado +
-                '}';
     }
 }

@@ -19,6 +19,7 @@ import org.example.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -103,11 +104,17 @@ public class EditarDoacoesController implements Initializable {
             alert.setContentText("Tem a certeza que deseja Editar esta Doacao?");
             Optional<ButtonType> resultado = alert.showAndWait();
             if (resultado.get() == ButtonType.OK) {
-//                for (Utilizador u: this.utilizadorDao.buscarTodos()) {
-//                    if (u.getUsername().equals(this.linhaDoacoes.getUsername().getValue())){
-//                        this.utilizadorDao.atualizarUtilizador(u.getIdUtilizador() ,txtFdUpdateUsernameCliente.getText());
-//                    }
-//                }
+/*                for (Utilizador u : this.utilizadorDao.buscarTodos()) {
+                    if (u.getUsername().equals(this.linhaDoacoes.getUsername().getValue())) {
+                        this.utilizadorDao.atualizarUtilizador(u.getIdUtilizador(), txtFdUpdateUsernameCliente.getText());
+                    }
+                }*/
+
+                for (Doacao d : this.doacaoDao.buscarTodas()) {
+                    if (d.getRoupa_doacao().getId_roupa_doacao() == this.doacaoDao.buscarPorId(this.linhaDoacoes.getIdDoacao().getValue()).getRoupa_doacao().getId_roupa_doacao()) {
+                        this.doacaoDao.atualizarDoacao(d.getIdDoacao(), String.valueOf(LocalDate.now()));
+                    }
+                }
 
                 for (Roupa_Doacao rd : this.roupa_doacaoDao.buscarTodas()) {
                     if (rd.getId_roupa_doacao() == this.doacaoDao.buscarPorId(this.linhaDoacoes.getIdDoacao().getValue()).getRoupa_doacao().getId_roupa_doacao()) {
