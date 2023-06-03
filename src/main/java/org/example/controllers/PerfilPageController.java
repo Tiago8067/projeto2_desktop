@@ -15,11 +15,11 @@ import org.example.models.Utilizador;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
+import org.example.util.Verificacoes;
 
 import javax.persistence.EntityManager;
 import java.io.File;
 import java.net.URL;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -31,9 +31,9 @@ public class PerfilPageController implements Initializable {
     UtilizadorDao utilizadorDao;
     GoToUtil goToUtil;
     RegexDados regexDados;
-    LoginController loginController = new LoginController();
     String guardaUsernameLogin = LoginController.usernameGuardado;
     private static String guardaCaminhoImagemPerfil;
+    Verificacoes verificacoes;
 
     @FXML
     private TextField txtPerfilUsername;
@@ -75,7 +75,6 @@ public class PerfilPageController implements Initializable {
         Optional<ButtonType> resultado = alert.showAndWait();
         if (resultado.get() == ButtonType.OK) {
             txtPerfilNome.setEditable(true);
-            //txtPerfilDataNasc.setEditable(true);
             txtPerfilNCC.setEditable(true);
             txtPerfilNIF.setEditable(true);
             txtPerfilContacto.setEditable(true);
@@ -98,37 +97,16 @@ public class PerfilPageController implements Initializable {
         int verificaNumCC = 0;
         int verificaNIF = 0;
 
-        try {
-            verificaNumPorta = Integer.parseInt(txtPerfilNPorta.getText());
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(numberFormatException.getMessage());
-        }
-
-        try {
-            verificaContacto = Integer.parseInt(txtPerfilContacto.getText());
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(numberFormatException.getMessage());
-        }
-
-        try {
-            verificaNumCC = Integer.parseInt(txtPerfilNCC.getText());
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(numberFormatException.getMessage());
-        }
-
-        try {
-            verificaNIF = Integer.parseInt(txtPerfilNIF.getText());
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(numberFormatException.getMessage());
-        }
-
         for (Utilizador u : this.utilizadorDao.buscarTodos()) {
             if (u.getUsername().equals(guardaUsernameLogin)) {
                 if (txtPerfilNome.getText().isEmpty() || txtPerfilNCC.getText().isEmpty() || txtPerfilNIF.getText().isEmpty() || txtPerfilContacto.getText().isEmpty()
                         || txtPerfilCidade.getText().isEmpty() || txtPerfilLocalidade.getText().isEmpty() || txtPerfilRua.getText().isEmpty()
                         || txtPerfilCodPostal.getText().isEmpty() || txtPerfilNPorta.getText().isEmpty()
-                        || verificaNumCC == 0 || verificaNIF == 0 || verificaContacto == 0
-                        || !this.regexDados.isValidCP(txtPerfilCodPostal.getText()) || verificaNumPorta == 0
+                        || this.verificacoes.verficaInteiro(verificaContacto, txtPerfilContacto.getText()) == 0
+                        || this.verificacoes.verficaInteiro(verificaNumCC, txtPerfilNCC.getText()) == 0
+                        || this.verificacoes.verficaInteiro(verificaNIF, txtPerfilNIF.getText()) == 0
+                        || !this.regexDados.isValidCP(txtPerfilCodPostal.getText())
+                        || this.verificacoes.verficaInteiro(verificaNumPorta, txtPerfilNPorta.getText()) == 0
                         || txtPerfilDataNasc.getValue() == null) {
                     lancarErroAtualizacao("Realizou alguma edição nos seus Dados do Perfil Errado! Verifique Corretamente.");
                 } else {
@@ -216,6 +194,7 @@ public class PerfilPageController implements Initializable {
         this.utilizadorDao = new UtilizadorDao(entityManager);
         this.goToUtil = new GoToUtil();
         this.regexDados = new RegexDados();
+        this.verificacoes = new Verificacoes();
     }
 
     public void retornaUsernameLogin() {
@@ -223,7 +202,6 @@ public class PerfilPageController implements Initializable {
             if (u.getUsername().equals(guardaUsernameLogin)) {
                 txtPerfilNome.setText(u.getNome());
                 txtPerfilUsername.setText(u.getUsername());
-                //txtPerfilDataNasc.setText(u.getDataNascimento());
                 txtPerfilNCC.setText(String.valueOf(u.getNumeroCc()));
                 txtPerfilNIF.setText(String.valueOf(u.getNif()));
                 txtPerfilContacto.setText(String.valueOf(u.getContacto()));
@@ -237,7 +215,6 @@ public class PerfilPageController implements Initializable {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 LocalDate date = LocalDate.parse(u.getDataNascimento(), formatter);
                 txtPerfilDataNasc.setValue(date);
-                //txtPerfilDataNasc.setAccessibleText(String.valueOf(date));
                 if (u.getImagemPerfil() != null) {
                     Image image = new Image(u.getImagemPerfil());
                     idImagemPerfil.setImage(image);
@@ -256,7 +233,6 @@ public class PerfilPageController implements Initializable {
 
     private void depoisDeAtualizarVoltaBloqueado() {
         txtPerfilNome.setEditable(false);
-        //txtPerfilDataNasc.setEditable(true);
         txtPerfilNCC.setEditable(false);
         txtPerfilNIF.setEditable(false);
         txtPerfilContacto.setEditable(false);

@@ -15,6 +15,7 @@ import org.example.models.Utilizador;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
+import org.example.util.Verificacoes;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
@@ -29,6 +30,7 @@ public class RegistroDadosLocalizacaoController implements Initializable {
     LocalizacaoDao localizacaoDao;
     RegexDados regexDados;
     GoToUtil goToUtil;
+    Verificacoes verificacoes;
     List<Utilizador> utilizadorList;
 
     @FXML
@@ -59,12 +61,6 @@ public class RegistroDadosLocalizacaoController implements Initializable {
     @FXML
     void btnRegistrarSeguinteDF(ActionEvent event) {
         int verificaNumPorta = 0;
-
-        try {
-            verificaNumPorta = Integer.parseInt(txtFdRegistroNumPortaId.getText());
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(numberFormatException.getMessage());
-        }
 
         if (txtFdRegistroDiistritoId.getText().isEmpty()) {
             labelIdErroDistrito.setText("Tem de preencher o Distrito!");
@@ -98,7 +94,7 @@ public class RegistroDadosLocalizacaoController implements Initializable {
 
         if (txtFdRegistroNumPortaId.getText().isEmpty()) {
             labelIdErroNumPorta.setText("Tem de preencher o Número da Porta!");
-        } else if (verificaNumPorta == 0) {
+        } else if (this.verificacoes.verficaInteiro(verificaNumPorta, txtFdRegistroNumPortaId.getText()) == 0) {
             labelIdErroNumPorta.setText("Preencha corretamente o Número da Porta!");
         } else {
             this.localizacao.setNumeroPorta(Integer.valueOf(txtFdRegistroNumPortaId.getText()));
@@ -143,5 +139,6 @@ public class RegistroDadosLocalizacaoController implements Initializable {
         this.regexDados = new RegexDados();
         this.goToUtil = new GoToUtil();
         utilizadorList = this.utilizadorDao.buscarTodos();
+        this.verificacoes = new Verificacoes();
     }
 }

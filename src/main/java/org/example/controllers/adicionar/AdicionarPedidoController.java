@@ -10,6 +10,7 @@ import org.example.models.*;
 import org.example.models.enums.*;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
+import org.example.util.Verificacoes;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
@@ -30,9 +31,9 @@ public class AdicionarPedidoController implements Initializable {
     GoToUtil goToUtil;
     RoupaDasEncomendas roupaDasEncomendas;
     RoupaDasEncomendasDao roupaDasEncomendasDao;
+    Verificacoes verificacoes;
 
     private List<Roupa> verificaRoupaList;
-    private List<Roupa> verificaTamanhoRoupaList;
 
     @FXML
     private Button btnIdAdicionar;
@@ -42,10 +43,6 @@ public class AdicionarPedidoController implements Initializable {
     private ChoiceBox<TipoRoupa> cBIdTipoRoupa;
     @FXML
     private ChoiceBox<TamanhoRoupa> cBIdTamanhoRoupa;
-    @FXML
-    private Label labelIdErroDataPedido;
-    @FXML
-    private Label labelIdErroEstadoEnc;
     @FXML
     private Label labelIdErroFornecedor;
     @FXML
@@ -62,44 +59,10 @@ public class AdicionarPedidoController implements Initializable {
     private TextField txtFdIdNomeCliente;
     @FXML
     private TextField txtFdIdQtd;
-    @FXML
-    private TextField txtFdIdTamanhoRoupa;
-    @FXML
-    private MenuItem mIIdEstadoEmPreparacao;
 
-    @FXML
-    private MenuItem mIIdEstadoEnviado;
-
-    @FXML
-    private MenuItem mIIdEstadoFinalizado;
-    @FXML
-    private Label lblAdicionaEstado;
-
-    @FXML
-    void mIEstadoEmPreparacao(ActionEvent event) {
-        lblAdicionaEstado.setText(mIIdEstadoEmPreparacao.getText());
-    }
-
-    @FXML
-    void mIEstadoEnviado(ActionEvent event) {
-        lblAdicionaEstado.setText(mIIdEstadoEnviado.getText());
-    }
-
-    @FXML
-    void mIEstadoFinalizado(ActionEvent event) {
-        lblAdicionaEstado.setText(mIIdEstadoFinalizado.getText());
-    }
-
-    //todo verificar porque nao adiciona e repete quando o pedido e do mesmo tipo e tamanho
     @FXML
     void btnAdicionar(ActionEvent event) {
         int verificaQtd = 0;
-
-        try {
-            verificaQtd = Integer.parseInt(txtFdIdQtd.getText());
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(numberFormatException.getMessage());
-        }
 
         if (txtFdIdNomeCliente.getText().isEmpty()) {
             labelIdErroNomeCliente.setText("Tem de preencher o Nome de Utilizador.");
@@ -128,11 +91,9 @@ public class AdicionarPedidoController implements Initializable {
             labelIdErroTamanho.setText("");
         }
 
-        //TODO - FALTA A DATA
-
         if (txtFdIdQtd.getText().isEmpty()) {
             labelIdErroQuantidade.setText("Tem de preencher a Quantidade.");
-        } else if (verificaQtd == 0) {
+        } else if (this.verificacoes.verficaInteiro(verificaQtd, txtFdIdQtd.getText()) == 0) {
             labelIdErroQuantidade.setText("Preencha corretamente a Quantidade!");
         } else if (!verificaQuantidadeStock()) {
             labelIdErroQuantidade.setText("Quantidade ultrapassa o total em Stock!");
@@ -149,21 +110,6 @@ public class AdicionarPedidoController implements Initializable {
             this.encomenda.setFornecedor(this.fornecedorDao.buscarFornecedorPorNome(txtFIdFornecedor.getText()));
             labelIdErroFornecedor.setText("");
         }
-
-        /*if (lblAdicionaEstado.getText().isEmpty()) {
-            labelIdErroEstadoEnc.setText("Tem de preencher o estado da Encomenda.");
-        } else if (lblAdicionaEstado.getText().equals("Em Preparacao")) {
-            this.encomenda.setEstadoEncomenda(EstadoEncomenda.EMPREPARACAO);
-            labelIdErroEstadoEnc.setText("");
-        } else if (lblAdicionaEstado.getText().equals("Enviado")) {
-            this.encomenda.setEstadoEncomenda(EstadoEncomenda.ENVIADO);
-            labelIdErroEstadoEnc.setText("");
-        } else if (lblAdicionaEstado.getText().equals("Finalizado")) {
-            this.encomenda.setEstadoEncomenda(EstadoEncomenda.FINALIZADO);
-            labelIdErroEstadoEnc.setText("");
-        }
-        labelIdErroEstadoEnc.getText().equals("")
-        */
 
         if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") &&
                 labelIdErroTamanho.getText().equals("") && labelIdErroFornecedor.getText().equals("")) {
@@ -235,9 +181,9 @@ public class AdicionarPedidoController implements Initializable {
         this.goToUtil = new GoToUtil();
         this.roupaDasEncomendas = new RoupaDasEncomendas();
         this.roupaDasEncomendasDao = new RoupaDasEncomendasDao(entityManager);
+        this.verificacoes = new Verificacoes();
 
         this.verificaRoupaList = this.roupaDao.buscarTodas();
-        this.verificaTamanhoRoupaList = this.roupaDao.buscarPorTamanhoRoupa(cBIdTamanhoRoupa.getValue());
     }
 
     private Boolean verificaTipoTamanhoStock() {

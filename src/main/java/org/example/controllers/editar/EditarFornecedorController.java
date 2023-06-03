@@ -11,6 +11,7 @@ import org.example.models.Fornecedor;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
+import org.example.util.Verificacoes;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
@@ -24,6 +25,8 @@ public class EditarFornecedorController implements Initializable {
     GoToUtil goToUtil;
     RegexDados regexDados;
     LocalizacaoDao localizacaoDao;
+    Verificacoes verificacoes;
+
     @FXML
     private Button btnIdApagar;
     @FXML
@@ -78,18 +81,6 @@ public class EditarFornecedorController implements Initializable {
         int verificaNumPorta = 0;
         int verificaContacto = 0;
 
-        try {
-            verificaNumPorta = Integer.parseInt(txtFdIdN_Porta.getText());
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(numberFormatException.getMessage());
-        }
-
-        try {
-            verificaContacto = Integer.parseInt(txtFdIdContacto.getText());
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(numberFormatException.getMessage());
-        }
-
         if (txtFdIdNome.getText().isEmpty()) {
             labelIdErroNome.setText("Tem de preencher o Nome do Fornecedor");
         } else if (txtFdIdNome.getText().length() < 4) {
@@ -101,7 +92,7 @@ public class EditarFornecedorController implements Initializable {
 
         if (txtFdIdContacto.getText().isEmpty()) {
             labelIdErroContacto.setText("Tem de preencher o Contacto do Fornecedor");
-        } else if (verificaContacto == 0) {
+        } else if (this.verificacoes.verficaInteiro(verificaContacto, txtFdIdContacto.getText()) == 0) {
             labelIdErroContacto.setText("Preencha corretamente o Contacto do Fornecedor");
         } else {
             this.fornecedor.setContacto(Integer.valueOf(txtFdIdContacto.getText()));
@@ -140,7 +131,7 @@ public class EditarFornecedorController implements Initializable {
 
         if (txtFdIdN_Porta.getText().isEmpty()) {
             labelIdErroN_Porta.setText("Tem de preencher o Número da Porta do Fornecedor");
-        } else if (verificaNumPorta == 0) {
+        } else if (this.verificacoes.verficaInteiro(verificaNumPorta, txtFdIdN_Porta.getText()) == 0) {
             labelIdErroN_Porta.setText("Preencha corretamente o Número da Porta do Fornecedor");
         } else {
             this.fornecedor.getLocalizacao().setNumeroPorta(Integer.valueOf(txtFdIdN_Porta.getText()));
@@ -180,6 +171,7 @@ public class EditarFornecedorController implements Initializable {
         this.localizacaoDao = new LocalizacaoDao(this.entityManager);
         this.goToUtil = new GoToUtil();
         this.regexDados = new RegexDados();
+        this.verificacoes = new Verificacoes();
     }
 
     public void passarDadosFornecedorEditar() {

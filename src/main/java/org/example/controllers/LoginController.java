@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import lombok.NoArgsConstructor;
 import org.example.dao.RoupaDao;
 import org.example.dao.UtilizadorDao;
-import org.example.models.Roupa;
 import org.example.models.Utilizador;
 import org.example.models.enums.EstadoUtilizador;
 import org.example.models.enums.TipoUtilizador;
@@ -17,7 +16,6 @@ import org.example.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 @NoArgsConstructor
@@ -28,12 +26,8 @@ public class LoginController implements Initializable {
     GoToUtil goToUtil;
     RoupaDao roupaDao;
     public static String usernameGuardado;
-
-    private List<Roupa> listaRoupaParaCardSotck;
     @FXML
     private Button btnLoginId;
-    @FXML
-    private CheckBox checkBoxLoginGuardaPass;
     @FXML
     private Hyperlink hyperlinkLoginId;
     @FXML

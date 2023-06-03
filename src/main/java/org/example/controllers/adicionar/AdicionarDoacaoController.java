@@ -15,11 +15,11 @@ import org.example.models.Roupa_Doacao;
 import org.example.models.enums.*;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
+import org.example.util.Verificacoes;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdicionarDoacaoController implements Initializable {
@@ -32,10 +32,8 @@ public class AdicionarDoacaoController implements Initializable {
     DoacaoDao doacaoDao;
     Roupa_DoacaoDao roupa_doacaoDao;
     RoupaDao roupaDao;
-    private List<Roupa> roupaList;
-    private List<Roupa> roupaListTipo;
-    private List<Roupa> roupaListTamanho;
-    private List<Roupa> atualizaStock;
+    Verificacoes verificacoes;
+
     @FXML
     private Button btnIdAdicionar;
     @FXML
@@ -61,12 +59,6 @@ public class AdicionarDoacaoController implements Initializable {
     void btnAdicionar(ActionEvent event) {
         int verificaQtd = 0;
 
-        try {
-            verificaQtd = Integer.parseInt(txtFdIdQtd.getText());
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(numberFormatException.getMessage());
-        }
-
         if (txtFdIdNomeCliente.getText().isEmpty()) {
             labelIdErroNomeCliente.setText("Tem de preencher o Nome Completo.");
         } else if (this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()) == null) {
@@ -82,14 +74,12 @@ public class AdicionarDoacaoController implements Initializable {
 
         if (txtFdIdQtd.getText().isEmpty()) {
             labelIdErroQuantidade.setText("Tem de preencher a Quantidade.");
-        } else if (verificaQtd == 0) {
+        } else if (this.verificacoes.verficaInteiro(verificaQtd, txtFdIdQtd.getText()) == 0) {
             labelIdErroQuantidade.setText("Preencha corretamente a Quantidade!");
         } else {
             this.roupa_doacao.setQuantidade(Integer.valueOf(txtFdIdQtd.getText()));
             labelIdErroQuantidade.setText("");
         }
-
-        // TODO - Falta a Data de Doação
 
         if (cBIdTipoRoupa.getValue() == null) {
             labelIdErroTipoRoupa.setText("Tem de preencher o Tipo de Roupa.");
@@ -143,10 +133,7 @@ public class AdicionarDoacaoController implements Initializable {
         this.doacaoDao = new DoacaoDao(entityManager);
         this.roupa_doacaoDao = new Roupa_DoacaoDao(entityManager);
         this.roupaDao = new RoupaDao(entityManager);
-        this.roupaList = this.roupaDao.buscarTodas();
-        this.roupaListTipo = this.roupaDao.buscarPorTipoRoupa(cBIdTipoRoupa.getValue());
-        this.roupaListTamanho = this.roupaDao.buscarPorTamanhoRoupa(cBIdTamanhoRoupa.getValue());
-        //this.atualizaStock = this.roupaDao.buscarPorTipoTamanhoRoupa(cBIdTipoRoupa.getValue(), cBIdTamanhoRoupa.getValue());
+        this.verificacoes = new Verificacoes();
     }
 
     private CategoriaRoupa adicionarAssociarCategoria() {

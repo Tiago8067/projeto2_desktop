@@ -11,6 +11,7 @@ import org.example.models.enums.*;
 import org.example.modelsHelp.LinhaEncomendas;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
+import org.example.util.Verificacoes;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
@@ -31,6 +32,8 @@ public class EditarEncomendasController implements Initializable {
     LinhaEncomenda linhaEncomenda;
     RoupaDasEncomendasDao roupaDasEncomendasDao;
     RoupaDasEncomendas roupaDasEncomendas;
+    Verificacoes verificacoes;
+
     private List<Roupa> verificaRoupaList;
     @FXML
     private Button btnIdAdicionar;
@@ -42,8 +45,6 @@ public class EditarEncomendasController implements Initializable {
     private ChoiceBox<TamanhoRoupa> cBIdTamanhoRoupa;
     @FXML
     private ChoiceBox<TipoRoupa> cBIdTipoRoupa;
-    @FXML
-    private Label labelIdErroDataPedido;
     @FXML
     private Label labelIdErroEstadoEnc;
     @FXML
@@ -112,12 +113,6 @@ public class EditarEncomendasController implements Initializable {
     void btnAdicionar(ActionEvent event) {
         int verificaQtd = 0;
 
-        try {
-            verificaQtd = Integer.parseInt(txtFdIdQtd.getText());
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(numberFormatException.getMessage());
-        }
-
         if (txtFdIdNomeCliente.getText().isEmpty()) {
             labelIdErroNomeCliente.setText("Tem de preencher o Nome de Utilizador.");
         } else if (this.utilizadorDao.buscarUtilizadorPorUsername(txtFdIdNomeCliente.getText()) == null) {
@@ -130,8 +125,6 @@ public class EditarEncomendasController implements Initializable {
             labelIdErroNomeCliente.setText("");
         }
 
-        //todo - falta vberificar o estado do cliente
-
         if (cBIdTipoRoupa.getValue() == null && cBIdTamanhoRoupa.getValue() == null) {
             labelIdErroTipoRoupa.setText("Tem de preencher o Tipo de Roupa.");
             labelIdErroTamanho.setText("Tem de preencher o Tamanho de Roupa.");
@@ -143,11 +136,9 @@ public class EditarEncomendasController implements Initializable {
             labelIdErroTamanho.setText("");
         }
 
-        //TODO - FALTA A DATA
-
         if (txtFdIdQtd.getText().isEmpty()) {
             labelIdErroQuantidade.setText("Tem de preencher a Quantidade.");
-        } else if (verificaQtd == 0) {
+        } else if (this.verificacoes.verficaInteiro(verificaQtd, txtFdIdQtd.getText()) == 0) {
             labelIdErroQuantidade.setText("Preencha corretamente a Quantidade!");
         } else if (!verificaQuantidadeStock()) {
             labelIdErroQuantidade.setText("Quantidade ultrapassa o total em Stock!");
@@ -266,6 +257,7 @@ public class EditarEncomendasController implements Initializable {
         this.linhaEncomenda = new LinhaEncomenda();
         this.roupaDasEncomendasDao = new RoupaDasEncomendasDao(entityManager);
         this.roupaDasEncomendas = new RoupaDasEncomendas();
+        this.verificacoes = new Verificacoes();
     }
 
     public void passarDadosEncomendasEditar() {

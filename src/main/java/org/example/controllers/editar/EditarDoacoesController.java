@@ -16,6 +16,7 @@ import org.example.models.Roupa;
 import org.example.models.Roupa_Doacao;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
+import org.example.util.Verificacoes;
 
 import javax.persistence.EntityManager;
 import java.net.URL;
@@ -31,6 +32,8 @@ public class EditarDoacoesController implements Initializable {
     DoacaoDao doacaoDao;
     Roupa_DoacaoDao roupa_doacaoDao;
     RoupaDao roupaDao;
+    Verificacoes verificacoes;
+
     @FXML
     private TextField txtFdUpdateUsernameCliente;
     @FXML
@@ -58,12 +61,6 @@ public class EditarDoacoesController implements Initializable {
     void btnAtualizar(ActionEvent event) {
         int verificaQtd = 0;
 
-        try {
-            verificaQtd = Integer.parseInt(txtFdUpdateQtd.getText());
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(numberFormatException.getMessage());
-        }
-
         if (txtFdUpdateUsernameCliente.getText().isEmpty()) {
             lblErroNomeClienteUpdate.setText("Tem de preencher o Nome Completo.");
         } else if (this.utilizadorDao.buscarUtilizadorPorUsername(txtFdUpdateUsernameCliente.getText()) == null) {
@@ -78,13 +75,11 @@ public class EditarDoacoesController implements Initializable {
 
         if (txtFdUpdateQtd.getText().isEmpty()) {
             lblErroQuantidadeUpdate.setText("Tem de preencher a Quantidade.");
-        } else if (verificaQtd == 0) {
+        } else if (this.verificacoes.verficaInteiro(verificaQtd, txtFdUpdateQtd.getText()) == 0) {
             lblErroQuantidadeUpdate.setText("Preencha corretamente a Quantidade!");
         } else {
             lblErroQuantidadeUpdate.setText("");
         }
-
-        // TODO - Falta a Data de Doação
 
         if (cBUpdateTipoRoupa.getValue() == null) {
             lblErroTipoRoupaUpdate.setText("Tem de preencher o Tipo de Roupa.");
@@ -187,6 +182,7 @@ public class EditarDoacoesController implements Initializable {
         this.doacaoDao = new DoacaoDao(entityManager);
         this.roupa_doacaoDao = new Roupa_DoacaoDao(entityManager);
         this.goToUtil = new GoToUtil();
+        this.verificacoes = new Verificacoes();
     }
 
     public void passarDadosDoacoesEditar() {
