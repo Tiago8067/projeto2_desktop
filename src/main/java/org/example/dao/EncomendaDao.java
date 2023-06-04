@@ -3,8 +3,6 @@ package org.example.dao;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.example.models.*;
-import org.example.models.enums.EstadoEncomenda;
-import org.example.modelsHelp.LinhaDoacoes;
 import org.example.modelsHelp.LinhaEncomendas;
 import org.example.util.ConnectionUtil;
 
@@ -23,16 +21,6 @@ public class EncomendaDao {
 
     public void registar(Encomenda encomenda) {
         this.entityManager.persist(encomenda);
-        /*
-        try {
-            this.entityManager.getTransaction().begin();
-            this.entityManager.persist(encomenda);
-            this.entityManager.getTransaction().commit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            this.entityManager.getTransaction().rollback();
-        }
-         */
     }
 
     public List<Encomenda> buscarTodas() {
@@ -96,8 +84,6 @@ public class EncomendaDao {
         }
     }
 
-
-    //todo falta a data pedido e data entrega
     public List<LinhaEncomendas> buscarTodasEncomendas() {
         ConnectionUtil connectionUtil = new ConnectionUtil();
         Connection conn = connectionUtil.criarConexao();
@@ -143,68 +129,6 @@ public class EncomendaDao {
     }
 
     public List<LinhaEncomendas> buscarTodasEncomendasFiltradasPeloEstado(String estado) {
-        ConnectionUtil connectionUtil = new ConnectionUtil();
-        Connection conn = connectionUtil.criarConexao();
-
-        String sql = "SELECT u.username, r.tiporoupa, r.tamanhoroupa, le.quantidade, f.nome, e.estadoencomenda, e.idencomenda, le.idlinhaencomenda, r.idroupadasencomendas, e.datadepedido, r.datadeentrega " +
-                "FROM tb_linha_encomenda le " +
-                "INNER JOIN tb_encomenda e ON e.linha_encomenda_id = le.idlinhaencomenda " +
-                "INNER JOIN tb_roupa_das_encomendas r ON r.linha_encomenda_id = le.idlinhaencomenda " +
-                "INNER JOIN tb_fornecedor f ON f.idfornecedor = e.fornecedor_id " +
-                "INNER JOIN tb_utilizador u ON u.idutilizador = e.utilizador_id " +
-                "WHERE e.estadoencomenda = ? ";
-
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        List<LinhaEncomendas> linhaEncomendaList = new ArrayList<>();
-        try {
-            preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, estado);
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                linhaEncomendaList.add(new LinhaEncomendas(resultSet.getInt(7), resultSet.getInt(8), resultSet.getInt(9), resultSet.getString(1),
-                        resultSet.getString(5), resultSet.getString(2), resultSet.getString(3), resultSet.getInt(4), resultSet.getString(6),
-                        resultSet.getString(7), resultSet.getString(8)));
-            }
-        } catch (SQLException e) {
-            System.out.println("ERRO: " + e.getMessage());
-        }
-        return linhaEncomendaList;
-    }
-
-    public List<LinhaEncomendas> buscarTodasEncomendasEmPreparacao(String estado) {
-        ConnectionUtil connectionUtil = new ConnectionUtil();
-        Connection conn = connectionUtil.criarConexao();
-
-        String sql = "SELECT u.username, r.tiporoupa, r.tamanhoroupa, le.quantidade, f.nome, e.estadoencomenda, e.idencomenda, le.idlinhaencomenda, r.idroupadasencomendas, e.datadepedido, r.datadeentrega " +
-                "FROM tb_linha_encomenda le " +
-                "INNER JOIN tb_encomenda e ON e.linha_encomenda_id = le.idlinhaencomenda " +
-                "INNER JOIN tb_roupa_das_encomendas r ON r.linha_encomenda_id = le.idlinhaencomenda " +
-                "INNER JOIN tb_fornecedor f ON f.idfornecedor = e.fornecedor_id " +
-                "INNER JOIN tb_utilizador u ON u.idutilizador = e.utilizador_id " +
-                "WHERE e.estadoencomenda = ? ";
-
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        List<LinhaEncomendas> linhaEncomendaList = new ArrayList<>();
-        try {
-            preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, estado);
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                linhaEncomendaList.add(new LinhaEncomendas(resultSet.getInt(7), resultSet.getInt(8), resultSet.getInt(9), resultSet.getString(1),
-                        resultSet.getString(5), resultSet.getString(2), resultSet.getString(3), resultSet.getInt(4), resultSet.getString(6),
-                        resultSet.getString(7), resultSet.getString(8)));
-            }
-        } catch (SQLException e) {
-            System.out.println("ERRO: " + e.getMessage());
-        }
-        return linhaEncomendaList;
-    }
-
-    public List<LinhaEncomendas> buscarTodasEncomendasEnviado(String estado) {
         ConnectionUtil connectionUtil = new ConnectionUtil();
         Connection conn = connectionUtil.criarConexao();
 

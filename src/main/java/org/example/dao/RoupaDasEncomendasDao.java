@@ -2,7 +2,6 @@ package org.example.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.example.models.LinhaEncomenda;
 import org.example.models.RoupaDasEncomendas;
 import org.example.util.ConnectionUtil;
 

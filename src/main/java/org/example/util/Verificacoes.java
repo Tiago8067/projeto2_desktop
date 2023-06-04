@@ -1,8 +1,6 @@
 package org.example.util;
 
 import lombok.NoArgsConstructor;
-import org.example.models.enums.CategoriaRoupa;
-import org.example.models.enums.TipoRoupa;
 
 @NoArgsConstructor
 public class Verificacoes {

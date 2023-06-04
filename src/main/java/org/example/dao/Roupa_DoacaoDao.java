@@ -20,17 +20,6 @@ public class Roupa_DoacaoDao {
         this.entityManager.persist(roupa_doacao);
     }
 
-    public void atualizar(Roupa_Doacao roupa_doacao) {
-        try {
-            this.entityManager.getTransaction().begin();
-            this.entityManager.merge(roupa_doacao);
-            this.entityManager.getTransaction().commit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            this.entityManager.getTransaction().rollback();
-        }
-    }
-
     public List<Roupa_Doacao> buscarTodas() {
         String jpql = "SELECT r_d FROM Roupa_Doacao r_d";
         return entityManager.createQuery(jpql, Roupa_Doacao.class).getResultList();

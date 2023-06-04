@@ -2,9 +2,7 @@ package org.example.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.example.models.Encomenda;
 import org.example.models.LinhaEncomenda;
-import org.example.modelsHelp.LinhaEncomendas;
 import org.example.util.ConnectionUtil;
 
 import javax.persistence.EntityManager;
@@ -25,10 +23,6 @@ public class LinhaEncomendaDao {
     public List<LinhaEncomenda> buscarTodas() {
         String jpql = "SELECT le FROM LinhaEncomenda le";
         return entityManager.createQuery(jpql, LinhaEncomenda.class).getResultList();
-    }
-
-    public LinhaEncomenda buscarPorId(Integer id) {
-        return entityManager.find(LinhaEncomenda.class, id);
     }
 
     public void atualizarLinha_Encomenda(Integer quantidade, Integer id) {

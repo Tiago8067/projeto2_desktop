@@ -39,25 +39,9 @@ public class LinhaEncomendas {
         return valorIdEncomenda;
     }
 
-    public IntegerProperty idEncomendaProperty() {
-        return idEncomenda;
-    }
-
-    public void setIdEncomenda(int idEncomenda) {
-        this.idEncomenda.set(idEncomenda);
-    }
-
     public ObservableValue<Integer> getIdLinhaEncomenda() {
         ObservableValue<Integer> valorIdLinhaEncomenda = new ReadOnlyObjectWrapper<>(idLinhaEncomenda.getValue());
         return valorIdLinhaEncomenda;
-    }
-
-    public IntegerProperty idLinhaEncomendaProperty() {
-        return idLinhaEncomenda;
-    }
-
-    public void setIdLinhaEncomenda(int idLinhaEncomenda) {
-        this.idLinhaEncomenda.set(idLinhaEncomenda);
     }
 
     public ObservableValue<Integer> getIdRoupa() {
@@ -65,25 +49,9 @@ public class LinhaEncomendas {
         return valorIdRoupa;
     }
 
-    public IntegerProperty idRoupaProperty() {
-        return idRoupa;
-    }
-
-    public void setIdRoupa(int idRoupa) {
-        this.idRoupa.set(idRoupa);
-    }
-
     public ObservableValue<String> getUsernameCliente() {
         ObservableValue<String> valorUsernameCliente = new ReadOnlyObjectWrapper<>(usernameCliente.getValue());
         return valorUsernameCliente;
-    }
-
-    public StringProperty usernameClienteProperty() {
-        return usernameCliente;
-    }
-
-    public void setUsernameCliente(String usernameCliente) {
-        this.usernameCliente.set(usernameCliente);
     }
 
     public ObservableValue<String> getUsernameFonecedor() {
@@ -91,25 +59,9 @@ public class LinhaEncomendas {
         return valorUsernameFonecedor;
     }
 
-    public StringProperty usernameFonecedorProperty() {
-        return usernameFonecedor;
-    }
-
-    public void setUsernameFonecedor(String usernameFonecedor) {
-        this.usernameFonecedor.set(usernameFonecedor);
-    }
-
     public ObservableValue<String> getTipoRoupa() {
         ObservableValue<String> valorTipoRoupa = new ReadOnlyObjectWrapper<>(tipoRoupa.getValue());
         return valorTipoRoupa;
-    }
-
-    public StringProperty tipoRoupaProperty() {
-        return tipoRoupa;
-    }
-
-    public void setTipoRoupa(String tipoRoupa) {
-        this.tipoRoupa.set(tipoRoupa);
     }
 
     public ObservableValue<String> getTamanhoRoupa() {
@@ -117,25 +69,9 @@ public class LinhaEncomendas {
         return valorTamanhoRoupa;
     }
 
-    public StringProperty tamanhoRoupaProperty() {
-        return tamanhoRoupa;
-    }
-
-    public void setTamanhoRoupa(String tamanhoRoupa) {
-        this.tamanhoRoupa.set(tamanhoRoupa);
-    }
-
     public ObservableValue<Integer> getQuantidade() {
         ObservableValue<Integer> valorQuantidade = new ReadOnlyObjectWrapper<>(quantidade.getValue());
         return valorQuantidade;
-    }
-
-    public IntegerProperty quantidadeProperty() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade.set(quantidade);
     }
 
     public ObservableValue<String> getEstado() {
@@ -143,37 +79,13 @@ public class LinhaEncomendas {
         return valorEstado;
     }
 
-    public StringProperty estadoProperty() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado.set(estado);
-    }
-
     public ObservableValue<String> getDataDePedido() {
         ObservableValue<String> valorDataPedido = new ReadOnlyObjectWrapper<>(dataDePedido.getValue());
         return valorDataPedido;
     }
 
-    public StringProperty dataDePedidoProperty() {
-        return dataDePedido;
-    }
-
-    public void setDataDePedido(String dataDePedido) {
-        this.dataDePedido.set(dataDePedido);
-    }
-
     public ObservableValue<String> getDataDeEntrega() {
         ObservableValue<String> valorDataEntrega = new ReadOnlyObjectWrapper<>(dataDeEntrega.getValue());
         return valorDataEntrega;
-    }
-
-    public StringProperty dataDeEntregaProperty() {
-        return dataDeEntrega;
-    }
-
-    public void setDataDeEntrega(String dataDeEntrega) {
-        this.dataDeEntrega.set(dataDeEntrega);
     }
 }

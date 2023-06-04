@@ -28,7 +28,6 @@ public class DoacaoDao {
         return entityManager.createQuery(jpql, Doacao.class).getResultList();
     }
 
-    //todo falta data
     public List<LinhaDoacoes> buscarTodasDoacaoRoupa() {
         ConnectionUtil connectionUtil = new ConnectionUtil();
         Connection conn = connectionUtil.criarConexao();

@@ -7,7 +7,6 @@ import org.example.models.enums.TipoRoupa;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.Instant;
 
 @NoArgsConstructor
 @AllArgsConstructor

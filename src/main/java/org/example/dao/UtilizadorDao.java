@@ -61,10 +61,6 @@ public class UtilizadorDao {
         }
     }
 
-    public Utilizador buscarPorId(Integer id) {
-        return entityManager.find(Utilizador.class, id);
-    }
-
     public List<Utilizador> buscarTodos() {
         String jpql = "SELECT u FROM Utilizador u";
         return entityManager.createQuery(jpql, Utilizador.class).getResultList();
@@ -85,26 +81,6 @@ public class UtilizadorDao {
             return entityManager.createQuery(jpql, Utilizador.class).setParameter("email", email).getSingleResult();
         } catch (NoResultException noResultException) {
             return null;
-        }
-    }
-
-    public void atualizarUtilizador(Integer id, String username) {
-        ConnectionUtil connectionUtil = new ConnectionUtil();
-        Connection conn = connectionUtil.criarConexao();
-
-        String sql = "UPDATE tb_utilizador " +
-                "SET username = ? " +
-//                "FROM tb_doacao d " +
-//                "JOIN tb_utilizador u ON u.idutilizador = d.utilizador_id " +
-                "WHERE idUtilizador = ? ";
-
-        try {
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, username);
-            preparedStatement.setInt(2, id);
-            preparedStatement.execute();
-        } catch (SQLException sqlException) {
-            System.out.println("ERRO: " + sqlException.getMessage());
         }
     }
 }

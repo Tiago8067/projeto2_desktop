@@ -3,8 +3,6 @@ package org.example.modelsHelp;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
 
-import java.time.LocalDate;
-
 public class LinhaDoacoes {
     private IntegerProperty idDoacao;
     private StringProperty username;
@@ -31,25 +29,9 @@ public class LinhaDoacoes {
         return valorIdDoacao;
     }
 
-    public IntegerProperty idDoacaoProperty() {
-        return idDoacao;
-    }
-
-    public void setIdDoacao(int idDoacao) {
-        this.idDoacao.set(idDoacao);
-    }
-
     public ObservableValue<String> getUsername() {
         ObservableValue<String> valorUsername = new ReadOnlyObjectWrapper<>(username.getValue());
         return valorUsername;
-    }
-
-    public StringProperty usernameProperty() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username.set(username);
     }
 
     public ObservableValue<String> getTipoRoupa() {
@@ -57,25 +39,9 @@ public class LinhaDoacoes {
         return valorTipoRoupa;
     }
 
-    public StringProperty tipoRoupaProperty() {
-        return tipoRoupa;
-    }
-
-    public void setTipoRoupa(String tipoRoupa) {
-        this.tipoRoupa.set(tipoRoupa);
-    }
-
     public ObservableValue<String> getTamanhoRoupa() {
         ObservableValue<String> valorTamanhoRoupa = new ReadOnlyObjectWrapper<>(tamanhoRoupa.getValue());
         return valorTamanhoRoupa;
-    }
-
-    public StringProperty tamanhoRoupaProperty() {
-        return tamanhoRoupa;
-    }
-
-    public void setTamanhoRoupa(String tamanhoRoupa) {
-        this.tamanhoRoupa.set(tamanhoRoupa);
     }
 
     public ObservableValue<Integer> getQuantidade() {
@@ -83,24 +49,8 @@ public class LinhaDoacoes {
         return valorQuantidade;
     }
 
-    public IntegerProperty quantidadeProperty() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade.set(quantidade);
-    }
-
     public ObservableValue<String> getDataDoacao() {
         ObservableValue<String> valorData = new ReadOnlyObjectWrapper<>(dataDoacao.getValue());
         return valorData;
-    }
-
-    public StringProperty dataDoacaoProperty() {
-        return dataDoacao;
-    }
-
-    public void setDataDoacao(String dataDoacao) {
-        this.dataDoacao.set(dataDoacao);
     }
 }

@@ -33,49 +33,9 @@ public class RoupaDao {
         }
     }
 
-    public void atualizar(Roupa roupa) {
-        try {
-            this.entityManager.getTransaction().begin();
-            this.entityManager.merge(roupa);
-//            this.entityManager.merge(entityManager.getReference(Roupa.class, roupa.getIdRoupa()));
-            this.entityManager.getTransaction().commit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            this.entityManager.getTransaction().rollback();
-        }
-    }
-
-    public void atualizarStock(Roupa roupa, Integer stock) {
-        ConnectionUtil connectionUtil = new ConnectionUtil();
-        Connection conn = connectionUtil.criarConexao();
-
-        String sql = "UPDATE Roupa SET Stock = ? WHERE tipoRoupa = ? AND tamanhoRoupa = ?";
-
-        try {
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1, stock);
-            statement.setString(2, String.valueOf(roupa.getTipoRoupa()));
-            statement.setString(3, String.valueOf(roupa.getTamanhoRoupa()));
-
-            statement.execute();
-        } catch (SQLException sqlException) {
-            System.out.println("ERRO: " + sqlException.getMessage());
-        }
-    }
-
     public List<Roupa> buscarTodas() {
         String jpql = "SELECT r FROM Roupa r";
         return entityManager.createQuery(jpql, Roupa.class).getResultList();
-    }
-
-    public List<Roupa> buscarPorTipoRoupa(TipoRoupa tipoRoupa) {
-        String jpql = "SELECT r FROM Roupa r WHERE r.tipoRoupa = :tipoRoupa";
-        return entityManager.createQuery(jpql, Roupa.class).setParameter("tipoRoupa", tipoRoupa).getResultList();
-    }
-
-    public List<Roupa> buscarPorTamanhoRoupa(TamanhoRoupa tamanhoRoupa) {
-        String jpql = "SELECT r FROM Roupa r WHERE r.tamanhoRoupa = :tamanhoRoupa";
-        return entityManager.createQuery(jpql, Roupa.class).setParameter("tamanhoRoupa", tamanhoRoupa).getResultList();
     }
 
     public List<Roupa> buscarPorTipoTamanhoRoupa(Roupa roupa) {
@@ -84,10 +44,6 @@ public class RoupaDao {
                 .setParameter("tipoRoupa", roupa.getTipoRoupa())
                 .setParameter("tamanhoRoupa", roupa.getTamanhoRoupa())
                 .getResultList();
-    }
-
-    public Roupa buscarPorId(Integer id) {
-        return entityManager.find(Roupa.class, id);
     }
 
     public void atualizarRoupa(Integer id, String tipoRoupa, String tamanhoRoupa, String categoriaRopupa, String imgsrc) {
@@ -132,23 +88,6 @@ public class RoupaDao {
         }
     }
 
-    public void atualizarRoupaEncomendas(Integer idLinhaEncomenda, Integer id) {
-        ConnectionUtil connectionUtil = new ConnectionUtil();
-        Connection conn = connectionUtil.criarConexao();
-
-        String sql = "UPDATE tb_roupa " +
-                "SET linha_encomenda_id = ? " +
-                "WHERE idencomenda = ? ";
-        try {
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setInt(1, idLinhaEncomenda);
-            preparedStatement.setInt(2, id);
-            preparedStatement.execute();
-        } catch (SQLException sqlException) {
-            System.out.println("ERRO: " + sqlException.getMessage());
-        }
-    }
-
     public void apagarRoupa(Integer id) {
         ConnectionUtil connectionUtil = new ConnectionUtil();
         Connection conn = connectionUtil.criarConexao();
@@ -173,7 +112,6 @@ public class RoupaDao {
 
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
-//            preparedStatement.execute();
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
@@ -213,33 +151,6 @@ public class RoupaDao {
             System.out.println("ERRO: " + e.getMessage());
         }
         return linhaRoupaList;
-    }
-
-    public void inserirRoupaEmPedidos(Roupa roupa) {
-        ConnectionUtil connectionUtil = new ConnectionUtil();
-        Connection conn = connectionUtil.criarConexao();
-
-        /*insert into tb_roupa (idroupa, categoriaroupa, data, imagesrc, nome, stock, tamanhoroupa, tiporoupa, linha_encomenda_id,
-                roupa_doacao_id)
-        values ();
-
-        todo falta a data
-        */
-
-        String sql = "INSERT INTO tb_roupa (categoriaroupa, imagesrc, stock, tamanhoroupa, tiporoupa, roupa_doacao_id) VALUES (?, ?, ?, ?, ?, ?)";
-
-        try {
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, String.valueOf(roupa.getCategoriaRoupa()));
-            preparedStatement.setString(2, roupa.getImageSrc());
-            preparedStatement.setInt(3, roupa.getStock());
-            preparedStatement.setString(4, String.valueOf(roupa.getTamanhoRoupa()));
-            preparedStatement.setString(5, String.valueOf(roupa.getTipoRoupa()));
-            preparedStatement.setInt(6, roupa.getRoupa_doacao().getId_roupa_doacao());
-            preparedStatement.execute();
-        } catch (SQLException sqlException) {
-            System.out.println("ERRO: " + sqlException.getMessage());
-        }
     }
 
     public List<Roupa> buscarTamanhoBtnEspecifico(TamanhoRoupa tamanhoRoupa) {

@@ -156,7 +156,7 @@ public class EditarClienteController implements Initializable {
     @FXML
     void verficaValorCliente(KeyEvent event) {
         final StringConverter<LocalDate> defaultConverter = txtPerfilDataNasc.getConverter();
-        txtPerfilDataNasc.setConverter(new StringConverter<LocalDate>() {
+        txtPerfilDataNasc.setConverter(new StringConverter<>() {
             @Override
             public String toString(LocalDate value) {
                 try {
