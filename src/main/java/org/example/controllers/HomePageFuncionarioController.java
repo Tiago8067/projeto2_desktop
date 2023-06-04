@@ -24,7 +24,6 @@ import org.example.modelsHelp.LinhaDoacoes;
 import org.example.modelsHelp.LinhaEncomendas;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
-import org.example.util.RegexDados;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
@@ -37,11 +36,8 @@ public class HomePageFuncionarioController implements Initializable {
     EntityManager entityManager;
     UtilizadorDao utilizadorDao;
     GoToUtil goToUtil;
-    RegexDados regexDados;
-    Fornecedor fornecedor;
     FornecedorDao fornecedorDao;
     DoacaoDao doacaoDao;
-    Roupa_DoacaoDao roupa_doacaoDao;
     RoupaDao roupaDao;
     EncomendaDao encomendaDao;
 
@@ -54,9 +50,7 @@ public class HomePageFuncionarioController implements Initializable {
     private MenuItem idgotoLoginPage;
 
     //DOACOES
-    private ObservableList<LinhaDoacoes> observableListDoacoes;
-    @FXML
-    private Tab tabIdDoacoes;
+    ObservableList<LinhaDoacoes> observableListDoacoes;
     @FXML
     private Button btnIdAddDoacao;
     @FXML
@@ -77,9 +71,6 @@ public class HomePageFuncionarioController implements Initializable {
     private TableColumn<LinhaDoacoes, LinhaDoacoes> tableColumnAcoesDoacao;
 
     //STOCK
-    private List<Roupa> listaRoupaParaCardSotck;
-    @FXML
-    private Tab tabIdStock;
     @FXML
     private GridPane idCardStock;
 
@@ -106,8 +97,6 @@ public class HomePageFuncionarioController implements Initializable {
 
     //ENTREGAS
     @FXML
-    private Tab tabEntregas;
-    @FXML
     private TableView<LinhaEncomendas> tvEntregas;
     @FXML
     private TableColumn<LinhaEncomendas, String> tCNomeForn;
@@ -117,7 +106,7 @@ public class HomePageFuncionarioController implements Initializable {
     private TableColumn<LinhaEncomendas, String> tCEstado;
 
     //FORNECEDOR
-    private ObservableList<Fornecedor> observableListFornecedor;
+    ObservableList<Fornecedor> observableListFornecedor;
     @FXML
     public Tab tabIdFornecedor;
     @FXML
@@ -126,13 +115,9 @@ public class HomePageFuncionarioController implements Initializable {
     private TableColumn<Fornecedor, Integer> tCIdFornecedor;
     @FXML
     private TableColumn<Fornecedor, String> tCNomeFornecedor;
-    @FXML
-    private TableColumn<Fornecedor, Fornecedor> tCAcoesFornecedor;
 
     //ÇLIENTES
-    private ObservableList<Utilizador> observableListClientes;
-    @FXML
-    private Tab tabIdClientes;
+    ObservableList<Utilizador> observableListClientes;
     @FXML
     private TableView<Utilizador> tvClientes;
     @FXML
@@ -184,406 +169,77 @@ public class HomePageFuncionarioController implements Initializable {
     @FXML
     void btnVerSotck(ActionEvent event) {
         idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa roupas : this.roupaDao.buscarTipoTamanhoUnico()) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(roupas);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        verCardStock();
     }
 
     @FXML
     void btnParteCima(ActionEvent event) {
-        idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa r : this.roupaDao.buscarCategoriaBtnEspecifico(CategoriaRoupa.PARTEDECIMA)) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        filtrarCardSotckPorCategoria(CategoriaRoupa.PARTEDECIMA);
     }
 
     @FXML
     void btnParteBaixo(ActionEvent event) {
-        idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa r : this.roupaDao.buscarCategoriaBtnEspecifico(CategoriaRoupa.PARTEDEBAIXO)) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        filtrarCardSotckPorCategoria(CategoriaRoupa.PARTEDEBAIXO);
     }
 
     @FXML
     void btnAcessorios(ActionEvent event) {
-        idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa r : this.roupaDao.buscarCategoriaBtnEspecifico(CategoriaRoupa.ACESSORIOS)) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        filtrarCardSotckPorCategoria(CategoriaRoupa.ACESSORIOS);
     }
 
     @FXML
     void btnBebe(ActionEvent event) {
-        idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.BEBE)) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        filtrarCardSotckPorTamanho(TamanhoRoupa.BEBE);
     }
 
     @FXML
     void btnCrianca(ActionEvent event) {
-        idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.Crianca)) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        filtrarCardSotckPorTamanho(TamanhoRoupa.Crianca);
     }
 
     @FXML
     void btnAdolescente12(ActionEvent event) {
-        idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.Adolescente12)) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        filtrarCardSotckPorTamanho(TamanhoRoupa.Adolescente12);
     }
 
     @FXML
     void btnAdolescente14(ActionEvent event) {
-        idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.Adolescente14)) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        filtrarCardSotckPorTamanho(TamanhoRoupa.Adolescente14);
     }
 
     @FXML
     void btnAdolescente16(ActionEvent event) {
-        idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.Adolescente16)) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        filtrarCardSotckPorTamanho(TamanhoRoupa.Adolescente16);
     }
 
     @FXML
     void btnXS(ActionEvent event) {
-        idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.XS)) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        filtrarCardSotckPorTamanho(TamanhoRoupa.XS);
     }
 
     @FXML
     void btnS(ActionEvent event) {
-        idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.S)) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        filtrarCardSotckPorTamanho(TamanhoRoupa.S);
     }
 
     @FXML
     void btnM(ActionEvent event) {
-        idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.M)) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        filtrarCardSotckPorTamanho(TamanhoRoupa.M);
     }
 
     @FXML
     void btnL(ActionEvent event) {
-        idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.L)) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        filtrarCardSotckPorTamanho(TamanhoRoupa.L);
     }
 
     @FXML
     void btnXL(ActionEvent event) {
-        idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.XL)) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        filtrarCardSotckPorTamanho(TamanhoRoupa.XL);
     }
 
     @FXML
     void btnXXL(ActionEvent event) {
-        idCardStock.getChildren().clear();
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(TamanhoRoupa.XXL)) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(r);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        filtrarCardSotckPorTamanho(TamanhoRoupa.XXL);
     }
 
     //PEDIDOS => ENTREGAS
@@ -594,8 +250,6 @@ public class HomePageFuncionarioController implements Initializable {
         stage.close();
     }
 
-    //FORNECEDOR
-
     @FXML
     void filtrarEntregasEstadoTodos(ActionEvent event) {
         List<LinhaEncomendas> listTodos = this.encomendaDao.buscarTodasEncomendas();
@@ -603,313 +257,52 @@ public class HomePageFuncionarioController implements Initializable {
         tvPedidos.setItems(encomendaObservableList);
         tvEntregas.setItems(encomendaObservableList);
 
-        //TABLE VIEW PEDIDOS
-        tcIdPedidoDestinatario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameCliente();
-            }
-        });
-
-        tcIdPedidoTipoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getTipoRoupa();
-            }
-        });
-
-        tcIdPedidoTamanhoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getTamanhoRoupa();
-            }
-        });
-
-        tcIdPedidoQuantidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, Integer>, ObservableValue<Integer>>() {
-            @Override
-            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaEncomendas, Integer> linhaEncomendasIntegerCellDataFeatures) {
-                return linhaEncomendasIntegerCellDataFeatures.getValue().getQuantidade();
-            }
-        });
-
-        //TABLE VIEW ENTREGAS
-        tCNomeForn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameFonecedor();
-            }
-        });
-
-        // todo falta a data
-
-        tCEstado.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getEstado();
-            }
-        });
+        mostrarDadosTableView();
     }
 
     @FXML
     void filtrarEntregasEstadoPorEnviar(ActionEvent event) {
-        List<LinhaEncomendas> listTodos = this.encomendaDao.buscarTodasEncomendasEmPreparacao(String.valueOf(EstadoEncomenda.EMPREPARACAO));
+        List<LinhaEncomendas> listTodos = this.encomendaDao.buscarTodasEncomendasFiltradasPeloEstado(String.valueOf(EstadoEncomenda.EMPREPARACAO));
         encomendaObservableList = FXCollections.observableArrayList(listTodos);
         tvPedidos.setItems(encomendaObservableList);
         tvEntregas.setItems(encomendaObservableList);
 
-        //TABLE VIEW PEDIDOS
-        tcIdPedidoDestinatario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameCliente();
-            }
-        });
-
-        tcIdPedidoTipoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getTipoRoupa();
-            }
-        });
-
-        tcIdPedidoTamanhoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getTamanhoRoupa();
-            }
-        });
-
-        tcIdPedidoQuantidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, Integer>, ObservableValue<Integer>>() {
-            @Override
-            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaEncomendas, Integer> linhaEncomendasIntegerCellDataFeatures) {
-                return linhaEncomendasIntegerCellDataFeatures.getValue().getQuantidade();
-            }
-        });
-
-        //TABLE VIEW ENTREGAS
-        tCNomeForn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameFonecedor();
-            }
-        });
-
-        // todo falta a data
-
-        tCEstado.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getEstado();
-            }
-        });
-
-        initEditButtonEnomendas();
-
-
-        /*for (LinhaEncomendas le : this.encomendaDao.buscarTodasEncomendas()) {
-            if (le.getEstado().getValue().equals(String.valueOf(EstadoEncomenda.EMPREPARACAO))) {
-                encomendaObservableList = FXCollections.observableArrayList(le);
-                tvPedidos.setItems(encomendaObservableList);
-                tvEntregas.setItems(encomendaObservableList);
-
-                //TABLE VIEW PEDIDOS
-                tcIdPedidoDestinatario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-                    @Override
-                    public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                        return linhaEncomendasStringCellDataFeatures.getValue().getUsernameCliente();
-                    }
-                });
-
-                tcIdPedidoTipoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-                    @Override
-                    public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                        return linhaEncomendasStringCellDataFeatures.getValue().getTipoRoupa();
-                    }
-                });
-
-                tcIdPedidoTamanhoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-                    @Override
-                    public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                        return linhaEncomendasStringCellDataFeatures.getValue().getTamanhoRoupa();
-                    }
-                });
-
-                tcIdPedidoQuantidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, Integer>, ObservableValue<Integer>>() {
-                    @Override
-                    public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaEncomendas, Integer> linhaEncomendasIntegerCellDataFeatures) {
-                        return linhaEncomendasIntegerCellDataFeatures.getValue().getQuantidade();
-                    }
-                });
-
-                //TABLE VIEW ENTREGAS
-                tCNomeForn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-                    @Override
-                    public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                        return linhaEncomendasStringCellDataFeatures.getValue().getUsernameFonecedor();
-                    }
-                });
-
-                // todo falta a data
-
-                tCEstado.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-                    @Override
-                    public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                        return linhaEncomendasStringCellDataFeatures.getValue().getEstado();
-                    }
-                });
-
-                initEditButtonEnomendas();
-            }
-        }*/
+        mostrarDadosTableView();
     }
 
     @FXML
     void filtrarEntregasEstadoEnviado(ActionEvent event) {
-        List<LinhaEncomendas> listTodos = this.encomendaDao.buscarTodasEncomendasEnviado(String.valueOf(EstadoEncomenda.ENVIADO));
+        List<LinhaEncomendas> listTodos = this.encomendaDao.buscarTodasEncomendasFiltradasPeloEstado(String.valueOf(EstadoEncomenda.ENVIADO));
         encomendaObservableList = FXCollections.observableArrayList(listTodos);
         tvPedidos.setItems(encomendaObservableList);
         tvEntregas.setItems(encomendaObservableList);
 
-        //TABLE VIEW PEDIDOS
-        tcIdPedidoDestinatario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameCliente();
-            }
-        });
-
-        tcIdPedidoTipoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getTipoRoupa();
-            }
-        });
-
-        tcIdPedidoTamanhoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getTamanhoRoupa();
-            }
-        });
-
-        tcIdPedidoQuantidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, Integer>, ObservableValue<Integer>>() {
-            @Override
-            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaEncomendas, Integer> linhaEncomendasIntegerCellDataFeatures) {
-                return linhaEncomendasIntegerCellDataFeatures.getValue().getQuantidade();
-            }
-        });
-
-        //TABLE VIEW ENTREGAS
-        tCNomeForn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameFonecedor();
-            }
-        });
-
-        // todo falta a data
-
-        tCEstado.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getEstado();
-            }
-        });
-
-        initEditButtonEnomendas();
+        mostrarDadosTableView();
     }
 
     @FXML
     void filtrarEntregasEstadoFinalizado(ActionEvent event) {
-        List<LinhaEncomendas> listTodos = this.encomendaDao.buscarTodasEncomendasEnviado(String.valueOf(EstadoEncomenda.FINALIZADO));
+        List<LinhaEncomendas> listTodos = this.encomendaDao.buscarTodasEncomendasFiltradasPeloEstado(String.valueOf(EstadoEncomenda.FINALIZADO));
         encomendaObservableList = FXCollections.observableArrayList(listTodos);
         tvPedidos.setItems(encomendaObservableList);
         tvEntregas.setItems(encomendaObservableList);
 
-        //TABLE VIEW PEDIDOS
-        tcIdPedidoDestinatario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameCliente();
-            }
-        });
-
-        tcIdPedidoTipoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getTipoRoupa();
-            }
-        });
-
-        tcIdPedidoTamanhoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getTamanhoRoupa();
-            }
-        });
-
-        tcIdPedidoQuantidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, Integer>, ObservableValue<Integer>>() {
-            @Override
-            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaEncomendas, Integer> linhaEncomendasIntegerCellDataFeatures) {
-                return linhaEncomendasIntegerCellDataFeatures.getValue().getQuantidade();
-            }
-        });
-
-        //TABLE VIEW ENTREGAS
-        tCNomeForn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameFonecedor();
-            }
-        });
-
-        // todo falta a data
-
-        tCEstado.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getEstado();
-            }
-        });
+        mostrarDadosTableView();
     }
+
+    //FORNECEDOR
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.entityManager = JPAUtil.getEntityManager();
         this.utilizadorDao = new UtilizadorDao(entityManager);
         this.goToUtil = new GoToUtil();
-        this.regexDados = new RegexDados();
-        this.fornecedor = new Fornecedor();
         this.fornecedorDao = new FornecedorDao(entityManager);
         this.doacaoDao = new DoacaoDao(entityManager);
-        this.roupa_doacaoDao = new Roupa_DoacaoDao(entityManager);
         this.roupaDao = new RoupaDao(entityManager);
         this.encomendaDao = new EncomendaDao(entityManager);
 
-        this.listaRoupaParaCardSotck = this.roupaDao.buscarTodas();
-
-        int coluna = 0;
-        int linha = 1;
-
-        try {
-            for (Roupa roupas : this.roupaDao.buscarTipoTamanhoUnico()) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
-                VBox cardBox = fxmlLoader.load();
-                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
-                cardDoacoesController.setCardDoacoes(roupas);
-
-                if (coluna == 3) {
-                    coluna = 0;
-                    ++linha;
-                }
-
-                idCardStock.add(cardBox, coluna++, linha);
-                GridPane.setMargin(cardBox, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        verCardStock();
         initializeNodes();
     }
 
@@ -958,65 +351,8 @@ public class HomePageFuncionarioController implements Initializable {
             }
         });
 
-        //TABLE VIEW PEDIDOS
-        tcIdPedidoDestinatario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameCliente();
-            }
-        });
-
-        tcIdPedidoTipoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getTipoRoupa();
-            }
-        });
-
-        tcIdPedidoTamanhoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getTamanhoRoupa();
-            }
-        });
-
-        tcIdPedidoQuantidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, Integer>, ObservableValue<Integer>>() {
-            @Override
-            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaEncomendas, Integer> linhaEncomendasIntegerCellDataFeatures) {
-                return linhaEncomendasIntegerCellDataFeatures.getValue().getQuantidade();
-            }
-        });
-
-        tcIdDataPedido.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getDataDePedido();
-            }
-        });
-
-        //TABLE VIEW ENTREGAS
-        tCNomeForn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameFonecedor();
-            }
-        });
-
-        // todo falta a data
-
-        tCDataEntrega.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getDataDeEntrega();
-            }
-        });
-
-        tCEstado.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getEstado();
-            }
-        });
+        //TABLE VIEW PEDIDOS E ENTREGAS
+        mostrarDadosTableView();
 
         //TABLE VIEW FORNECEDOR
         tCIdFornecedor.setCellValueFactory(new PropertyValueFactory<>("idFornecedor"));
@@ -1066,8 +402,144 @@ public class HomePageFuncionarioController implements Initializable {
     }
 
     //STOCK
+    private void verCardStock() {
+        int coluna = 0;
+        int linha = 1;
+
+        try {
+            for (Roupa roupas : this.roupaDao.buscarTipoTamanhoUnico()) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
+                VBox cardBox = fxmlLoader.load();
+                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
+                cardDoacoesController.setCardDoacoes(roupas);
+
+                if (coluna == 3) {
+                    coluna = 0;
+                    ++linha;
+                }
+
+                idCardStock.add(cardBox, coluna++, linha);
+                GridPane.setMargin(cardBox, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void filtrarCardSotckPorCategoria(CategoriaRoupa categoriaRoupa) {
+        idCardStock.getChildren().clear();
+        int coluna = 0;
+        int linha = 1;
+
+        try {
+            for (Roupa r : this.roupaDao.buscarCategoriaBtnEspecifico(categoriaRoupa)) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
+                VBox cardBox = fxmlLoader.load();
+                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
+                cardDoacoesController.setCardDoacoes(r);
+
+                if (coluna == 3) {
+                    coluna = 0;
+                    ++linha;
+                }
+
+                idCardStock.add(cardBox, coluna++, linha);
+                GridPane.setMargin(cardBox, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void filtrarCardSotckPorTamanho(TamanhoRoupa tamanhoRoupa) {
+        idCardStock.getChildren().clear();
+        int coluna = 0;
+        int linha = 1;
+
+        try {
+            for (Roupa r : this.roupaDao.buscarTamanhoBtnEspecifico(tamanhoRoupa)) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/views/cards/cardDoacoes.fxml"));
+                VBox cardBox = fxmlLoader.load();
+                CardDoacoesController cardDoacoesController = fxmlLoader.getController();
+                cardDoacoesController.setCardDoacoes(r);
+
+                if (coluna == 3) {
+                    coluna = 0;
+                    ++linha;
+                }
+
+                idCardStock.add(cardBox, coluna++, linha);
+                GridPane.setMargin(cardBox, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     //PEDIDOS => ENTREGAS
+    private void mostrarDadosTableView() {
+        //TABLE VIEW PEDIDOS
+        tcIdPedidoDestinatario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameCliente();
+            }
+        });
+
+        tcIdPedidoTipoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getTipoRoupa();
+            }
+        });
+
+        tcIdPedidoTamanhoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getTamanhoRoupa();
+            }
+        });
+
+        tcIdPedidoQuantidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, Integer>, ObservableValue<Integer>>() {
+            @Override
+            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaEncomendas, Integer> linhaEncomendasIntegerCellDataFeatures) {
+                return linhaEncomendasIntegerCellDataFeatures.getValue().getQuantidade();
+            }
+        });
+
+        tcIdDataPedido.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getDataDePedido();
+            }
+        });
+
+        //TABLE VIEW ENTREGAS
+        tCNomeForn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameFonecedor();
+            }
+        });
+
+        tCDataEntrega.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getDataDeEntrega();
+            }
+        });
+
+        tCEstado.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
+                return linhaEncomendasStringCellDataFeatures.getValue().getEstado();
+            }
+        });
+    }
+
     public void listarEncomendas() {
         List<LinhaEncomendas> listTodos = this.encomendaDao.buscarTodasEncomendas();
         encomendaObservableList = FXCollections.observableArrayList(listTodos);

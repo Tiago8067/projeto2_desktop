@@ -1150,6 +1150,7 @@ public class HomePageController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         initializeNodes();
     }
 
