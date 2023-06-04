@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.example.controllers.LoginController;
 import org.example.dao.*;
 import org.example.models.*;
 import org.example.models.enums.*;
@@ -33,6 +34,7 @@ public class EditarEncomendasController implements Initializable {
     RoupaDasEncomendasDao roupaDasEncomendasDao;
     RoupaDasEncomendas roupaDasEncomendas;
     Verificacoes verificacoes;
+    String guardaUsernameLogin = LoginController.usernameGuardado;
 
     private List<Roupa> verificaRoupaList;
     @FXML
@@ -215,9 +217,19 @@ public class EditarEncomendasController implements Initializable {
 
     @FXML
     void btnVoltar(ActionEvent event) {
-        this.goToUtil.goToHomePageAdminDeTabPedidos();
-        Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
-        stage.close();
+        for (Utilizador u : this.utilizadorDao.buscarTodos()) {
+            if (u.getUsername().equals(guardaUsernameLogin)) {
+                if (u.getTipoUtilizador().equals(TipoUtilizador.ADMIN)) {
+                    this.goToUtil.goToHomePageAdminDeTabPedidos();
+                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
+                    stage.close();
+                } else {
+                    this.goToUtil.goToHomePageFuncionarioDeTabPedidos();
+                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
+                    stage.close();
+                }
+            }
+        }
     }
 
     @FXML

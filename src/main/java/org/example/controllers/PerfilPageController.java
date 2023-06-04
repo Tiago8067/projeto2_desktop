@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.example.dao.UtilizadorDao;
 import org.example.models.Utilizador;
+import org.example.models.enums.TipoUtilizador;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
@@ -132,9 +133,19 @@ public class PerfilPageController implements Initializable {
 
     @FXML
     void btnVoltar(ActionEvent event) {
-        this.goToUtil.goToHomePageAdmin();
-        Stage stage = (Stage) idVoltar.getScene().getWindow();
-        stage.close();
+        for (Utilizador u : this.utilizadorDao.buscarTodos()) {
+            if (u.getUsername().equals(guardaUsernameLogin)) {
+               if (u.getTipoUtilizador().equals(TipoUtilizador.ADMIN)) {
+                   this.goToUtil.goToHomePageAdmin();
+                   Stage stage = (Stage) idVoltar.getScene().getWindow();
+                   stage.close();
+               } else {
+                   this.goToUtil.goToHomePageFuncionario();
+                   Stage stage = (Stage) idVoltar.getScene().getWindow();
+                   stage.close();
+               }
+            }
+        }
     }
 
     @FXML

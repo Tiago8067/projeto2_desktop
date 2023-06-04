@@ -5,9 +5,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.example.controllers.LoginController;
 import org.example.dao.FornecedorDao;
 import org.example.dao.LocalizacaoDao;
+import org.example.dao.UtilizadorDao;
 import org.example.models.Fornecedor;
+import org.example.models.Utilizador;
+import org.example.models.enums.TipoUtilizador;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
@@ -26,6 +30,8 @@ public class EditarFornecedorController implements Initializable {
     RegexDados regexDados;
     LocalizacaoDao localizacaoDao;
     Verificacoes verificacoes;
+    String guardaUsernameLogin = LoginController.usernameGuardado;
+    UtilizadorDao utilizadorDao;
 
     @FXML
     private Button btnIdApagar;
@@ -172,6 +178,7 @@ public class EditarFornecedorController implements Initializable {
         this.goToUtil = new GoToUtil();
         this.regexDados = new RegexDados();
         this.verificacoes = new Verificacoes();
+        this.utilizadorDao = new UtilizadorDao(this.entityManager);
     }
 
     public void passarDadosFornecedorEditar() {

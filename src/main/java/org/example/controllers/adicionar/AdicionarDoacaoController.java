@@ -8,10 +8,12 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.example.controllers.LoginController;
 import org.example.dao.*;
 import org.example.models.Doacao;
 import org.example.models.Roupa;
 import org.example.models.Roupa_Doacao;
+import org.example.models.Utilizador;
 import org.example.models.enums.*;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
@@ -33,6 +35,7 @@ public class AdicionarDoacaoController implements Initializable {
     Roupa_DoacaoDao roupa_doacaoDao;
     RoupaDao roupaDao;
     Verificacoes verificacoes;
+    String guardaUsernameLogin = LoginController.usernameGuardado;
 
     @FXML
     private Button btnIdAdicionar;
@@ -114,9 +117,19 @@ public class AdicionarDoacaoController implements Initializable {
 
     @FXML
     void btnVoltar(ActionEvent event) {
-        this.goToUtil.goToHomePageAdmin();
-        Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
-        stage.close();
+        for (Utilizador u : this.utilizadorDao.buscarTodos()) {
+            if (u.getUsername().equals(guardaUsernameLogin)) {
+                if (u.getTipoUtilizador().equals(TipoUtilizador.ADMIN)) {
+                    this.goToUtil.goToHomePageAdmin();
+                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
+                    stage.close();
+                } else {
+                    this.goToUtil.goToHomePageFuncionario();
+                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
+                    stage.close();
+                }
+            }
+        }
     }
 
     @Override

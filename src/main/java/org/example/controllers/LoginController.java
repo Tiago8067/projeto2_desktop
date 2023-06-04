@@ -86,6 +86,8 @@ public class LoginController implements Initializable {
                 }
 
                 if (this.utilizadorDao.buscarUtilizadorPorUsername(tfLoginNome.getText()).getTipoUtilizador().equals(TipoUtilizador.FUNCIONARIO)) {
+                    usernameGuardado = tfLoginNome.getText();
+
                     this.goToUtil.goToHomePageFuncionario();
                     Stage stage = (Stage) btnLoginId.getScene().getWindow();
                     stage.close();

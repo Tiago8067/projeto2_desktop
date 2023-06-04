@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.NoArgsConstructor;
 import org.example.controllers.HomePageController;
+import org.example.controllers.HomePageFuncionarioController;
 import org.example.controllers.editar.EditarClienteController;
 import org.example.controllers.editar.EditarDoacoesController;
 import org.example.controllers.editar.EditarEncomendasController;
@@ -146,10 +147,35 @@ public class GoToUtil {
 
     public void goToHomePageFuncionario() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/views/funcionario/homePage.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/funcionario/homePage.fxml"));
             Stage stage = new Stage();
-            stage.setScene(new Scene(root, 600, 400));
+            stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
             stage.show();
+
+            HomePageFuncionarioController homePageFuncionarioController = fxmlLoader.getController();
+            homePageFuncionarioController.listarDoacoes();
+            homePageFuncionarioController.listaFornecedor();
+            homePageFuncionarioController.listarEncomendas();
+            homePageFuncionarioController.listaClientes();
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
+    public void goToHomePageFuncionarioDeTabPedidos() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/funcionario/homePage.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
+            stage.show();
+
+            HomePageFuncionarioController homePageFuncionarioController = fxmlLoader.getController();
+            homePageFuncionarioController.listarDoacoes();
+            homePageFuncionarioController.listaFornecedor();
+            homePageFuncionarioController.listarEncomendas();
+            homePageFuncionarioController.listaClientes();
+            homePageFuncionarioController.voltarTabPedidos();
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();

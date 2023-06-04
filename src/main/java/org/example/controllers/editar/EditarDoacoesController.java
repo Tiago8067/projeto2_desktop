@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.example.controllers.LoginController;
+import org.example.models.Utilizador;
 import org.example.models.enums.*;
 import org.example.modelsHelp.LinhaDoacoes;
 import org.example.dao.DoacaoDao;
@@ -33,6 +35,7 @@ public class EditarDoacoesController implements Initializable {
     Roupa_DoacaoDao roupa_doacaoDao;
     RoupaDao roupaDao;
     Verificacoes verificacoes;
+    String guardaUsernameLogin = LoginController.usernameGuardado;
 
     @FXML
     private TextField txtFdUpdateUsernameCliente;
@@ -161,9 +164,19 @@ public class EditarDoacoesController implements Initializable {
 
     @FXML
     void btnVoltar(ActionEvent event) {
-        this.goToUtil.goToHomePageAdmin();
-        Stage stage = (Stage) btnVoltar.getScene().getWindow();
-        stage.close();
+        for (Utilizador u : this.utilizadorDao.buscarTodos()) {
+            if (u.getUsername().equals(guardaUsernameLogin)) {
+                if (u.getTipoUtilizador().equals(TipoUtilizador.ADMIN)) {
+                    this.goToUtil.goToHomePageAdmin();
+                    Stage stage = (Stage) btnVoltar.getScene().getWindow();
+                    stage.close();
+                } else {
+                    this.goToUtil.goToHomePageFuncionario();
+                    Stage stage = (Stage) btnVoltar.getScene().getWindow();
+                    stage.close();
+                }
+            }
+        }
     }
 
     public void setDoacao(LinhaDoacoes linhaDoacoes) {
