@@ -105,9 +105,7 @@ public class EditarEncomendasController implements Initializable {
                 }
             }*/
 
-            this.goToUtil.goToHomePageAdminDeTabPedidos();
-            Stage stage = (Stage) btnApagar.getScene().getWindow();
-            stage.close();
+            retornaParaHomePageCorreto();
         }
     }
 
@@ -208,28 +206,14 @@ public class EditarEncomendasController implements Initializable {
                     }
                 }*/
 
-                this.goToUtil.goToHomePageAdminDeTabPedidos();
-                Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
-                stage.close();
+                retornaParaHomePageCorreto();
             }
         }
     }
 
     @FXML
     void btnVoltar(ActionEvent event) {
-        for (Utilizador u : this.utilizadorDao.buscarTodos()) {
-            if (u.getUsername().equals(guardaUsernameLogin)) {
-                if (u.getTipoUtilizador().equals(TipoUtilizador.ADMIN)) {
-                    this.goToUtil.goToHomePageAdminDeTabPedidos();
-                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
-                    stage.close();
-                } else {
-                    this.goToUtil.goToHomePageFuncionarioDeTabPedidos();
-                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
-                    stage.close();
-                }
-            }
-        }
+        retornaParaHomePageCorreto();
     }
 
     @FXML
@@ -297,5 +281,21 @@ public class EditarEncomendasController implements Initializable {
             }
         }
         return false;
+    }
+
+    private void retornaParaHomePageCorreto() {
+        for (Utilizador u : this.utilizadorDao.buscarTodos()) {
+            if (u.getUsername().equals(guardaUsernameLogin)) {
+                if (u.getTipoUtilizador().equals(TipoUtilizador.ADMIN)) {
+                    this.goToUtil.goToHomePageAdmin();
+                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
+                    stage.close();
+                } else {
+                    this.goToUtil.goToHomePageFuncionario();
+                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
+                    stage.close();
+                }
+            }
+        }
     }
 }

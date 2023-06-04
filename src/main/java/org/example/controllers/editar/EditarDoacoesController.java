@@ -120,9 +120,7 @@ public class EditarDoacoesController implements Initializable {
                     }
                 }
 
-                this.goToUtil.goToHomePageAdmin();
-                Stage stage = (Stage) btnAtualizar.getScene().getWindow();
-                stage.close();
+                retornaParaHomePageCorreto();
             }
         }
     }
@@ -150,27 +148,13 @@ public class EditarDoacoesController implements Initializable {
                     this.roupaDao.apagarRoupa(r.getIdRoupa());
                 }
             }
-            this.goToUtil.goToHomePageAdmin();
-            Stage stage = (Stage) btnApagar.getScene().getWindow();
-            stage.close();
+            retornaParaHomePageCorreto();
         }
     }
 
     @FXML
     void btnVoltar(ActionEvent event) {
-        for (Utilizador u : this.utilizadorDao.buscarTodos()) {
-            if (u.getUsername().equals(guardaUsernameLogin)) {
-                if (u.getTipoUtilizador().equals(TipoUtilizador.ADMIN)) {
-                    this.goToUtil.goToHomePageAdmin();
-                    Stage stage = (Stage) btnVoltar.getScene().getWindow();
-                    stage.close();
-                } else {
-                    this.goToUtil.goToHomePageFuncionario();
-                    Stage stage = (Stage) btnVoltar.getScene().getWindow();
-                    stage.close();
-                }
-            }
-        }
+        retornaParaHomePageCorreto();
     }
 
     public void setDoacao(LinhaDoacoes linhaDoacoes) {
@@ -230,5 +214,21 @@ public class EditarDoacoesController implements Initializable {
             case SAPATOSDESPORTIVO -> "/images/sapato_desportivo.jpg";
             case BOLSA -> "/images/bolsa.jpg";
         };
+    }
+
+    private void retornaParaHomePageCorreto() {
+        for (Utilizador u : this.utilizadorDao.buscarTodos()) {
+            if (u.getUsername().equals(guardaUsernameLogin)) {
+                if (u.getTipoUtilizador().equals(TipoUtilizador.ADMIN)) {
+                    this.goToUtil.goToHomePageAdmin();
+                    Stage stage = (Stage) btnVoltar.getScene().getWindow();
+                    stage.close();
+                } else {
+                    this.goToUtil.goToHomePageFuncionario();
+                    Stage stage = (Stage) btnVoltar.getScene().getWindow();
+                    stage.close();
+                }
+            }
+        }
     }
 }

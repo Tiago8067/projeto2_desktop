@@ -26,6 +26,7 @@ import org.example.modelsHelp.LinhaEncomendas;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.RegexDados;
+import org.example.util.Verificacoes;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
@@ -43,6 +44,7 @@ public class HomePageController implements Initializable {
     Roupa_DoacaoDao roupa_doacaoDao;
     RoupaDao roupaDao;
     EncomendaDao encomendaDao;
+    Verificacoes verificacoes;
 
     //HOMEPAGE
     @FXML
@@ -422,18 +424,6 @@ public class HomePageController implements Initializable {
         int verificaNumPorta = 0;
         int idFuncionarioAtualizar = Integer.parseInt(txtFdAtualizarId.getText());
 
-        try {
-            verificaNumPorta = Integer.parseInt(txtFdAtualizarNPorta.getText());
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(numberFormatException.getMessage());
-        }
-
-        try {
-            verificaContacto = Integer.parseInt(txtFdAtualizarContacto.getText());
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(numberFormatException.getMessage());
-        }
-
         for (Utilizador u : this.observableListFuncionarios) {
             if (u.getIdUtilizador() == idFuncionarioAtualizar) {
                 if (txtFdAtualizarNome.getText().isEmpty()) {
@@ -445,7 +435,7 @@ public class HomePageController implements Initializable {
 
                 if (txtFdAtualizarContacto.getText().isEmpty()) {
                     lblErroAtualizaContacto.setText("Tem de preencher o Contacto no seu Registro");
-                } else if (verificaContacto == 0) {
+                } else if (this.verificacoes.verficaInteiro(verificaContacto, txtFdAtualizarContacto.getText()) == 0) {
                     lblErroAtualizaContacto.setText("Preencha corretamente o Contacto no seu Registro");
                 } else {
                     u.setContacto(Integer.valueOf(txtFdAtualizarContacto.getText()));
@@ -484,7 +474,7 @@ public class HomePageController implements Initializable {
 
                 if (txtFdAtualizarNPorta.getText().isEmpty()) {
                     lblErroAtualizaNPorta.setText("Tem de preencher o Número da Porta no seu Registro");
-                } else if (verificaNumPorta == 0) {
+                } else if (this.verificacoes.verficaInteiro(verificaNumPorta, txtFdAtualizarNPorta.getText()) == 0) {
                     lblErroAtualizaNPorta.setText("Preencha corretamente o Número da Porta no seu Registro");
                 } else {
                     u.getLocalizacao().setNumeroPorta(Integer.valueOf(txtFdAtualizarNPorta.getText()));
@@ -532,6 +522,7 @@ public class HomePageController implements Initializable {
         this.roupa_doacaoDao = new Roupa_DoacaoDao(entityManager);
         this.roupaDao = new RoupaDao(entityManager);
         this.encomendaDao = new EncomendaDao(entityManager);
+        this.verificacoes = new Verificacoes();
 
         this.listaRoupaParaCardSotck = this.roupaDao.buscarTodas();
 
@@ -860,6 +851,7 @@ public class HomePageController implements Initializable {
         tabEntregas.setDisable(true);
         tabIdFornecedor.setDisable(true);
         tabIdFuncionarios.setDisable(true);
+        tabIdClientes.setDisable(true);
         abasTabPaneId.getSelectionModel().select(tabEditarFuncionario);
         txtFdAtualizarId.setText(String.valueOf(obj.getIdUtilizador()));
         txtFdAtualizarNome.setText(obj.getNome());
@@ -902,6 +894,7 @@ public class HomePageController implements Initializable {
         tabEntregas.setDisable(false);
         tabIdFornecedor.setDisable(false);
         tabIdFuncionarios.setDisable(false);
+        tabIdClientes.setDisable(false);
         abasTabPaneId.getSelectionModel().select(tabIdFuncionarios);
     }
 }

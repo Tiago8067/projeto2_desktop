@@ -109,27 +109,13 @@ public class AdicionarDoacaoController implements Initializable {
             this.doacaoDao.registar(this.doacao);
             this.roupa_doacaoDao.registar(this.roupa_doacao);
             this.roupaDao.registar(this.roupa);
-            this.goToUtil.goToHomePageAdmin();
-            Stage stage = (Stage) btnIdAdicionar.getScene().getWindow();
-            stage.close();
+            retornaParaHomePageCorreto();
         }
     }
 
     @FXML
     void btnVoltar(ActionEvent event) {
-        for (Utilizador u : this.utilizadorDao.buscarTodos()) {
-            if (u.getUsername().equals(guardaUsernameLogin)) {
-                if (u.getTipoUtilizador().equals(TipoUtilizador.ADMIN)) {
-                    this.goToUtil.goToHomePageAdmin();
-                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
-                    stage.close();
-                } else {
-                    this.goToUtil.goToHomePageFuncionario();
-                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
-                    stage.close();
-                }
-            }
-        }
+        retornaParaHomePageCorreto();
     }
 
     @Override
@@ -180,5 +166,21 @@ public class AdicionarDoacaoController implements Initializable {
             case SAPATOSDESPORTIVO -> "/images/sapato_desportivo.jpg";
             case BOLSA -> "/images/bolsa.jpg";
         };
+    }
+
+    private void retornaParaHomePageCorreto() {
+        for (Utilizador u : this.utilizadorDao.buscarTodos()) {
+            if (u.getUsername().equals(guardaUsernameLogin)) {
+                if (u.getTipoUtilizador().equals(TipoUtilizador.ADMIN)) {
+                    this.goToUtil.goToHomePageAdmin();
+                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
+                    stage.close();
+                } else {
+                    this.goToUtil.goToHomePageFuncionario();
+                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
+                    stage.close();
+                }
+            }
+        }
     }
 }
