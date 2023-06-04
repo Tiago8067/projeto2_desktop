@@ -66,25 +66,21 @@
                      <children>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <center>
-                              <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                 <content>
-                                    <TableView fx:id="tableViewDoacao" prefHeight="300.0" prefWidth="600.0">
+                              <TableView fx:id="tableViewDoacao" prefHeight="300.0" prefWidth="600.0">
+                                 <columns>
+                                    <TableColumn fx:id="tableColumnIdDoacao" maxWidth="25.0" prefWidth="20.0" text="Id" />
+                                    <TableColumn fx:id="tableColumnNomeCliente" maxWidth="150.0" prefWidth="75.0" text="Nome de Utilizador" />
+                                    <TableColumn fx:id="tableColumnDataDoacao" maxWidth="150.0" prefWidth="75.0" text="Data" />
+                                    <TableColumn maxWidth="150.0" prefWidth="75.0" text="Roupa">
                                        <columns>
-                                          <TableColumn fx:id="tableColumnIdDoacao" maxWidth="25.0" prefWidth="20.0" text="Id" />
-                                          <TableColumn fx:id="tableColumnNomeCliente" maxWidth="150.0" prefWidth="75.0" text="Nome de Utilizador" />
-                                          <TableColumn fx:id="tableColumnDataDoacao" maxWidth="150.0" prefWidth="75.0" text="Data" />
-                                          <TableColumn maxWidth="150.0" prefWidth="75.0" text="Roupa">
-                                             <columns>
-                                                <TableColumn fx:id="tableColumnTipoRoupaDoacao" maxWidth="150.0" prefWidth="75.0" text="Tipo" />
-                                                <TableColumn fx:id="tableColumnTamanhoRoupaDoacao" maxWidth="150.0" prefWidth="75.0" text="Tamanho" />
-                                             </columns>
-                                          </TableColumn>
-                                          <TableColumn fx:id="tableColumnQtdDoacao" maxWidth="150.0" prefWidth="75.0" text="Quantidade" />
-                                          <TableColumn fx:id="tableColumnAcoesDoacao" maxWidth="75.0" prefWidth="73.0" text="Ações" />
+                                          <TableColumn fx:id="tableColumnTipoRoupaDoacao" maxWidth="150.0" prefWidth="75.0" text="Tipo" />
+                                          <TableColumn fx:id="tableColumnTamanhoRoupaDoacao" maxWidth="150.0" prefWidth="75.0" text="Tamanho" />
                                        </columns>
-                                    </TableView>
-                                 </content>
-                              </ScrollPane>
+                                    </TableColumn>
+                                    <TableColumn fx:id="tableColumnQtdDoacao" maxWidth="150.0" prefWidth="75.0" text="Quantidade" />
+                                    <TableColumn fx:id="tableColumnAcoesDoacao" maxWidth="75.0" prefWidth="73.0" text="Ações" />
+                                 </columns>
+                              </TableView>
                            </center>
                            <top>
                               <HBox alignment="CENTER_RIGHT" prefHeight="10.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -240,29 +236,25 @@
                      <children>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <center>
-                              <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                 <content>
-                                    <TableView fx:id="tvEntregas" prefHeight="300.0" prefWidth="600.0">
-                                       <columns>
-                                          <TableColumn fx:id="tCNomeForn" prefWidth="75.0" text="Fornecedor" />
-                                          <TableColumn fx:id="tCDataEntrega" prefWidth="104.0" text="Data de Entrega" />
-                                          <TableColumn fx:id="tCEstado" prefWidth="46.39994812011719" text="Estado" />
-                                          <TableColumn prefWidth="174.0">
-                                             <graphic>
-                                                <SplitMenuButton mnemonicParsing="false" prefHeight="23.0" prefWidth="182.0" text="Selecione o Estado">
-                                                   <items>
-                                                      <MenuItem mnemonicParsing="false" onAction="#filtrarEntregasEstadoTodos" text="Todos" />
-                                                      <MenuItem mnemonicParsing="false" onAction="#filtrarEntregasEstadoPorEnviar" text="Por Enviar" />
-                                                      <MenuItem mnemonicParsing="false" onAction="#filtrarEntregasEstadoEnviado" text="Enviado" />
-                                                      <MenuItem mnemonicParsing="false" onAction="#filtrarEntregasEstadoFinalizado" text="Finalizado" />
-                                                   </items>
-                                                </SplitMenuButton>
-                                             </graphic>
-                                          </TableColumn>
-                                       </columns>
-                                    </TableView>
-                                 </content>
-                              </ScrollPane>
+                              <TableView fx:id="tvEntregas" prefHeight="300.0" prefWidth="600.0">
+                                 <columns>
+                                    <TableColumn fx:id="tCNomeForn" prefWidth="75.0" text="Fornecedor" />
+                                    <TableColumn fx:id="tCDataEntrega" prefWidth="104.0" text="Data de Entrega" />
+                                    <TableColumn fx:id="tCEstado" prefWidth="46.39994812011719" text="Estado" />
+                                    <TableColumn prefWidth="174.0">
+                                       <graphic>
+                                          <SplitMenuButton mnemonicParsing="false" prefHeight="23.0" prefWidth="182.0" text="Selecione o Estado">
+                                             <items>
+                                                <MenuItem mnemonicParsing="false" onAction="#filtrarEntregasEstadoTodos" text="Todos" />
+                                                <MenuItem mnemonicParsing="false" onAction="#filtrarEntregasEstadoPorEnviar" text="Por Enviar" />
+                                                <MenuItem mnemonicParsing="false" onAction="#filtrarEntregasEstadoEnviado" text="Enviado" />
+                                                <MenuItem mnemonicParsing="false" onAction="#filtrarEntregasEstadoFinalizado" text="Finalizado" />
+                                             </items>
+                                          </SplitMenuButton>
+                                       </graphic>
+                                    </TableColumn>
+                                 </columns>
+                              </TableView>
                            </center></BorderPane>
                      </children>
                   </AnchorPane>
@@ -274,16 +266,12 @@
                      <children>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <center>
-                              <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                 <content>
-                                    <TableView fx:id="tvFornecedor" prefHeight="300.0" prefWidth="600.0">
-                                       <columns>
-                                          <TableColumn fx:id="tCIdFornecedor" maxWidth="25.0" prefWidth="20.0" text="Id" />
-                                          <TableColumn fx:id="tCNomeFornecedor" maxWidth="150.0" prefWidth="75.0" text="Nome" />
-                                       </columns>
-                                    </TableView>
-                                 </content>
-                              </ScrollPane>
+                              <TableView fx:id="tvFornecedor" prefHeight="300.0" prefWidth="600.0">
+                                 <columns>
+                                    <TableColumn fx:id="tCIdFornecedor" maxWidth="25.0" prefWidth="20.0" text="Id" />
+                                    <TableColumn fx:id="tCNomeFornecedor" maxWidth="150.0" prefWidth="75.0" text="Nome" />
+                                 </columns>
+                              </TableView>
                            </center>
                            <top>
                               <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="600.0" BorderPane.alignment="CENTER">
@@ -303,18 +291,14 @@
                      <children>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <center>
-                              <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                 <content>
-                                    <TableView fx:id="tvClientes" prefHeight="250.0" prefWidth="600.0">
-                                       <columns>
-                                          <TableColumn fx:id="tCIdCliente" maxWidth="25.0" prefWidth="20.0" text="Id" />
-                                          <TableColumn fx:id="tCUsernameCliente" maxWidth="80.0" prefWidth="75.0" text="Username" />
-                                          <TableColumn fx:id="tCNomeCliente" maxWidth="150.0" prefWidth="75.0" text="Nome" />
-                                          <TableColumn fx:id="tCIdEstadoCliente" maxWidth="80.0" prefWidth="75.0" text="Estado" />
-                                       </columns>
-                                    </TableView>
-                                 </content>
-                              </ScrollPane>
+                              <TableView fx:id="tvClientes" prefHeight="250.0" prefWidth="600.0">
+                                 <columns>
+                                    <TableColumn fx:id="tCIdCliente" maxWidth="25.0" prefWidth="20.0" text="Id" />
+                                    <TableColumn fx:id="tCUsernameCliente" maxWidth="80.0" prefWidth="75.0" text="Username" />
+                                    <TableColumn fx:id="tCNomeCliente" maxWidth="150.0" prefWidth="75.0" text="Nome" />
+                                    <TableColumn fx:id="tCIdEstadoCliente" maxWidth="80.0" prefWidth="75.0" text="Estado" />
+                                 </columns>
+                              </TableView>
                            </center>
                         </BorderPane>
                      </children>
