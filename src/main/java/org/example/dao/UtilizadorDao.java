@@ -30,7 +30,15 @@ public class UtilizadorDao {
     }
 
     public void atualizar(Utilizador utilizador) {
-        this.entityManager.merge(utilizador);
+        /*this.entityManager.merge(utilizador);*/
+        try {
+            entityManager.getTransaction().begin();
+            this.entityManager.merge(utilizador);
+            entityManager.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            this.entityManager.getTransaction().rollback();
+        }
     }
 
     public void remover(Utilizador utilizador) {

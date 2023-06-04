@@ -139,6 +139,23 @@ public class HomePageController implements Initializable {
     @FXML
     private TableColumn<Fornecedor, Fornecedor> tCAcoesFornecedor;
 
+    //ÇLIENTES
+    private ObservableList<Utilizador> observableListClientes;
+    @FXML
+    private Tab tabIdClientes;
+    @FXML
+    private TableView<Utilizador> tvClientes;
+    @FXML
+    private TableColumn<Utilizador, Integer> tCIdCliente;
+    @FXML
+    private TableColumn<Utilizador, String> tCUsernameCliente;
+    @FXML
+    private TableColumn<Utilizador, String> tCNomeCliente;
+    @FXML
+    private TableColumn<Utilizador, EstadoUtilizador> tCIdEstadoCliente;
+    @FXML
+    private TableColumn<Utilizador, Utilizador> tCAcoesCliente;
+
     //FUNCIONARIOS
     private ObservableList<Utilizador> observableListFuncionarios;
     @FXML
@@ -942,6 +959,8 @@ public class HomePageController implements Initializable {
         });
     }
 
+    //CLIENTES
+
     //FUNCIONARIO
 
     //EDITAR FUNCIONARIO
@@ -1243,6 +1262,12 @@ public class HomePageController implements Initializable {
         tCIdFornecedor.setCellValueFactory(new PropertyValueFactory<>("idFornecedor"));
         tCNomeFornecedor.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
+        //TABLE VIEW Cliente
+        tCIdCliente.setCellValueFactory(new PropertyValueFactory<>("idUtilizador"));
+        tCUsernameCliente.setCellValueFactory(new PropertyValueFactory<>("username"));
+        tCNomeCliente.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        tCIdEstadoCliente.setCellValueFactory(new PropertyValueFactory<>("estadoUtilizador"));
+
         //TABLE VIEW FUNCIONARIO
         tCIdFuncionarios.setCellValueFactory(new PropertyValueFactory<>("idUtilizador"));
         tCUsernameFunc.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -1368,6 +1393,53 @@ public class HomePageController implements Initializable {
         abasTabPaneId.getSelectionModel().select(tabIdFornecedor);
     }
 
+    //ÇLIENTES
+    public void listaClientes() {
+        List<Utilizador> utilizadorList = this.utilizadorDao.buscarTodos();
+        List<Utilizador> listaClientes = new ArrayList<>();
+
+        for (Utilizador u : utilizadorList) {
+            if (u.getTipoUtilizador().equals(TipoUtilizador.CLIENTE)) {
+                listaClientes.add(u);
+            }
+        }
+
+        observableListClientes = FXCollections.observableArrayList(listaClientes);
+        tvClientes.setItems(observableListClientes);
+
+        initEditButtonsCliente();
+    }
+
+    private void initEditButtonsCliente() {
+        tCAcoesCliente.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        tCAcoesCliente.setCellFactory(param -> new TableCell<Utilizador, Utilizador>() {
+            private final Button button = new Button("Editar");
+
+            @Override
+            protected void updateItem(Utilizador obj, boolean empty) {
+                super.updateItem(obj, empty);
+                if (obj == null) {
+                    setGraphic(null);
+                    return;
+                }
+                setGraphic(button);
+                button.setPrefWidth(70);
+                button.setOnAction(
+                        event -> gotoEditarCliente(obj));
+            }
+        });
+    }
+
+    private void gotoEditarCliente(Utilizador obj) {
+        this.goToUtil.goToEditCliente(obj);
+        Stage stage = (Stage) btnIdAddFornecedor.getScene().getWindow();
+        stage.close();
+    }
+
+    public void voltarTabClientes() {
+        abasTabPaneId.getSelectionModel().select(tabIdClientes);
+    }
+
     //FUNCIONARIOS
     public void listaFuncionarios() {
         List<Utilizador> utilizadorList = this.utilizadorDao.buscarTodos();
@@ -1381,6 +1453,7 @@ public class HomePageController implements Initializable {
 
         observableListFuncionarios = FXCollections.observableArrayList(listaFuncionarios);
         tvFuncionarios.setItems(observableListFuncionarios);
+
         initEditButtons();
     }
 

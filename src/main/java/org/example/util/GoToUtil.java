@@ -6,9 +6,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.NoArgsConstructor;
 import org.example.controllers.HomePageController;
+import org.example.controllers.editar.EditarClienteController;
 import org.example.controllers.editar.EditarDoacoesController;
 import org.example.controllers.editar.EditarEncomendasController;
 import org.example.controllers.editar.EditarFornecedorController;
+import org.example.models.Utilizador;
 import org.example.modelsHelp.LinhaDoacoes;
 import org.example.models.Fornecedor;
 import org.example.modelsHelp.LinhaEncomendas;
@@ -75,6 +77,7 @@ public class GoToUtil {
             homePageController.listaFornecedor();
             homePageController.listaFuncionarios();
             homePageController.listarEncomendas();
+            homePageController.listaClientes();
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();
@@ -94,6 +97,7 @@ public class GoToUtil {
             homePageController.voltarTabFornecdor();
             homePageController.listaFuncionarios();
             homePageController.listarEncomendas();
+            homePageController.listaClientes();
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();
@@ -113,6 +117,27 @@ public class GoToUtil {
             homePageController.voltarTabPedidos();
             homePageController.listaFuncionarios();
             homePageController.listarEncomendas();
+            homePageController.listaClientes();
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
+    public void goToHomePageAdminDeTabClientes() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/admin/homePage.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
+            stage.show();
+
+            HomePageController homePageController = fxmlLoader.getController();
+            homePageController.listarDoacoes();
+            homePageController.listaFornecedor();
+            homePageController.voltarTabClientes();
+            homePageController.listaFuncionarios();
+            homePageController.listarEncomendas();
+            homePageController.listaClientes();
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();
@@ -153,6 +178,22 @@ public class GoToUtil {
             EditarFornecedorController editarFornecedorController = fxmlLoader.getController();
             editarFornecedorController.setFornecedor(obj);
             editarFornecedorController.passarDadosFornecedorEditar();
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
+    public void goToEditCliente(Utilizador obj) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/editar/editarCliente.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
+            stage.show();
+
+            EditarClienteController editarClienteController = fxmlLoader.getController();
+            editarClienteController.setCliente(obj);
+            editarClienteController.passarDadosClienteEditar();
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();
