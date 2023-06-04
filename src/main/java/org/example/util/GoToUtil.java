@@ -1,5 +1,6 @@
 package org.example.util;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -7,6 +8,7 @@ import javafx.stage.Stage;
 import lombok.NoArgsConstructor;
 import org.example.controllers.HomePageController;
 import org.example.controllers.HomePageFuncionarioController;
+import org.example.controllers.PerfilPageController;
 import org.example.controllers.editar.EditarClienteController;
 import org.example.controllers.editar.EditarDoacoesController;
 import org.example.controllers.editar.EditarEncomendasController;
@@ -276,6 +278,21 @@ public class GoToUtil {
             EditarEncomendasController editarEncomendasController = fxmlLoader.getController();
             editarEncomendasController.setEncomenda(obj);
             editarEncomendasController.passarDadosEncomendasEditar();
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
+    public void gotoPerfilPage() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/perfilPage.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
+            stage.show();
+
+            PerfilPageController perfilPageController = fxmlLoader.getController();
+            perfilPageController.retornaUsernameLogin();
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();

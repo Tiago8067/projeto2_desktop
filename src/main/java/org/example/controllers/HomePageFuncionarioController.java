@@ -1,7 +1,6 @@
 package org.example.controllers;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,13 +8,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.example.controllers.card.CardDoacoesController;
 import org.example.dao.*;
 import org.example.models.*;
@@ -129,23 +126,10 @@ public class HomePageFuncionarioController implements Initializable {
     @FXML
     private TableColumn<Utilizador, EstadoUtilizador> tCIdEstadoCliente;
 
-
     //HOMEPAGE
     @FXML
     void gotoPerfilPage(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/perfilPage.fxml"));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
-            stage.show();
-
-            PerfilPageController perfilPageController = fxmlLoader.getController();
-            perfilPageController.retornaUsernameLogin();
-        } catch (Exception e) {
-            e.printStackTrace();
-            e.getCause();
-        }
-
+        this.goToUtil.gotoPerfilPage();
         Stage stage = (Stage) idgotoPerfilPage.getParentPopup().getOwnerWindow();
         stage.close();
     }
@@ -309,47 +293,17 @@ public class HomePageFuncionarioController implements Initializable {
     private void initializeNodes() {
 
         //TABLEVIEW DOACOES
-        tableColumnIdDoacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaDoacoes, Integer>, ObservableValue<Integer>>() {
-            @Override
-            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaDoacoes, Integer> linhaDoacoesIntegerCellDataFeatures) {
-                return linhaDoacoesIntegerCellDataFeatures.getValue().getIdDoacao();
-            }
-        });
+        tableColumnIdDoacao.setCellValueFactory(linhaDoacoesIntegerCellDataFeatures -> linhaDoacoesIntegerCellDataFeatures.getValue().getIdDoacao());
 
-        tableColumnNomeCliente.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaDoacoes, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaDoacoes, String> linhaDoacoesStringCellDataFeatures) {
-                return linhaDoacoesStringCellDataFeatures.getValue().getUsername();
-            }
-        });
+        tableColumnNomeCliente.setCellValueFactory(linhaDoacoesStringCellDataFeatures -> linhaDoacoesStringCellDataFeatures.getValue().getUsername());
 
-        tableColumnTipoRoupaDoacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaDoacoes, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaDoacoes, String> linhaDoacoesStringCellDataFeatures) {
-                return linhaDoacoesStringCellDataFeatures.getValue().getTipoRoupa();
-            }
-        });
+        tableColumnTipoRoupaDoacao.setCellValueFactory(linhaDoacoesStringCellDataFeatures -> linhaDoacoesStringCellDataFeatures.getValue().getTipoRoupa());
 
-        tableColumnTamanhoRoupaDoacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaDoacoes, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaDoacoes, String> linhaDoacoesStringCellDataFeatures) {
-                return linhaDoacoesStringCellDataFeatures.getValue().getTamanhoRoupa();
-            }
-        });
+        tableColumnTamanhoRoupaDoacao.setCellValueFactory(linhaDoacoesStringCellDataFeatures -> linhaDoacoesStringCellDataFeatures.getValue().getTamanhoRoupa());
 
-        tableColumnQtdDoacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaDoacoes, Integer>, ObservableValue<Integer>>() {
-            @Override
-            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaDoacoes, Integer> linhaDoacoesIntegerCellDataFeatures) {
-                return linhaDoacoesIntegerCellDataFeatures.getValue().getQuantidade();
-            }
-        });
+        tableColumnQtdDoacao.setCellValueFactory(linhaDoacoesIntegerCellDataFeatures -> linhaDoacoesIntegerCellDataFeatures.getValue().getQuantidade());
 
-        tableColumnDataDoacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaDoacoes, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaDoacoes, String> linhaDoacoesStringCellDataFeatures) {
-                return linhaDoacoesStringCellDataFeatures.getValue().getDataDoacao();
-            }
-        });
+        tableColumnDataDoacao.setCellValueFactory(linhaDoacoesStringCellDataFeatures -> linhaDoacoesStringCellDataFeatures.getValue().getDataDoacao());
 
         //TABLE VIEW PEDIDOS E ENTREGAS
         mostrarDadosTableView();
@@ -378,7 +332,7 @@ public class HomePageFuncionarioController implements Initializable {
 
     private void initEditButtonDoacoes() {
         tableColumnAcoesDoacao.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        tableColumnAcoesDoacao.setCellFactory(param -> new TableCell<LinhaDoacoes, LinhaDoacoes>() {
+        tableColumnAcoesDoacao.setCellFactory(param -> new TableCell<>() {
             private final Button button = new Button("Editar");
 
             @Override
@@ -482,62 +436,22 @@ public class HomePageFuncionarioController implements Initializable {
     //PEDIDOS => ENTREGAS
     private void mostrarDadosTableView() {
         //TABLE VIEW PEDIDOS
-        tcIdPedidoDestinatario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameCliente();
-            }
-        });
+        tcIdPedidoDestinatario.setCellValueFactory(linhaEncomendasStringCellDataFeatures -> linhaEncomendasStringCellDataFeatures.getValue().getUsernameCliente());
 
-        tcIdPedidoTipoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getTipoRoupa();
-            }
-        });
+        tcIdPedidoTipoRoupa.setCellValueFactory(linhaEncomendasStringCellDataFeatures -> linhaEncomendasStringCellDataFeatures.getValue().getTipoRoupa());
 
-        tcIdPedidoTamanhoRoupa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getTamanhoRoupa();
-            }
-        });
+        tcIdPedidoTamanhoRoupa.setCellValueFactory(linhaEncomendasStringCellDataFeatures -> linhaEncomendasStringCellDataFeatures.getValue().getTamanhoRoupa());
 
-        tcIdPedidoQuantidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, Integer>, ObservableValue<Integer>>() {
-            @Override
-            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<LinhaEncomendas, Integer> linhaEncomendasIntegerCellDataFeatures) {
-                return linhaEncomendasIntegerCellDataFeatures.getValue().getQuantidade();
-            }
-        });
+        tcIdPedidoQuantidade.setCellValueFactory(linhaEncomendasIntegerCellDataFeatures -> linhaEncomendasIntegerCellDataFeatures.getValue().getQuantidade());
 
-        tcIdDataPedido.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getDataDePedido();
-            }
-        });
+        tcIdDataPedido.setCellValueFactory(linhaEncomendasStringCellDataFeatures -> linhaEncomendasStringCellDataFeatures.getValue().getDataDePedido());
 
         //TABLE VIEW ENTREGAS
-        tCNomeForn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getUsernameFonecedor();
-            }
-        });
+        tCNomeForn.setCellValueFactory(linhaEncomendasStringCellDataFeatures -> linhaEncomendasStringCellDataFeatures.getValue().getUsernameFonecedor());
 
-        tCDataEntrega.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getDataDeEntrega();
-            }
-        });
+        tCDataEntrega.setCellValueFactory(linhaEncomendasStringCellDataFeatures -> linhaEncomendasStringCellDataFeatures.getValue().getDataDeEntrega());
 
-        tCEstado.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LinhaEncomendas, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<LinhaEncomendas, String> linhaEncomendasStringCellDataFeatures) {
-                return linhaEncomendasStringCellDataFeatures.getValue().getEstado();
-            }
-        });
+        tCEstado.setCellValueFactory(linhaEncomendasStringCellDataFeatures -> linhaEncomendasStringCellDataFeatures.getValue().getEstado());
     }
 
     public void listarEncomendas() {
@@ -551,7 +465,7 @@ public class HomePageFuncionarioController implements Initializable {
 
     private void initEditButtonEnomendas() {
         tcIdPedidoAcoes.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        tcIdPedidoAcoes.setCellFactory(param -> new TableCell<LinhaEncomendas, LinhaEncomendas>() {
+        tcIdPedidoAcoes.setCellFactory(param -> new TableCell<>() {
             private final Button button = new Button("Editar");
 
             @Override

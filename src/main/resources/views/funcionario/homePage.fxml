@@ -234,7 +234,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="tabEntregas" text="Entregas">
+            <Tab text="Entregas">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -297,7 +297,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="tabIdClientes" text="Clientes">
+            <Tab text="Clientes">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
