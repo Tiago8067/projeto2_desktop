@@ -238,7 +238,7 @@
                            <center>
                               <TableView fx:id="tvEntregas" prefHeight="300.0" prefWidth="600.0">
                                  <columns>
-                                    <TableColumn fx:id="tCNomeForn" prefWidth="75.0" text="Fornecedor" />
+                                    <TableColumn fx:id="tCNomeForn" prefWidth="75.0" text="id_fornecedor" />
                                     <TableColumn fx:id="tCDataEntrega" prefWidth="104.0" text="Data de Entrega" />
                                     <TableColumn fx:id="tCEstado" prefWidth="46.39994812011719" text="Estado" />
                                     <TableColumn prefWidth="174.0">
