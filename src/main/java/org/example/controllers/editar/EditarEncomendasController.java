@@ -287,11 +287,11 @@ public class EditarEncomendasController implements Initializable {
         for (Utilizador u : this.utilizadorDao.buscarTodos()) {
             if (u.getUsername().equals(guardaUsernameLogin)) {
                 if (u.getTipoUtilizador().equals(TipoUtilizador.ADMIN)) {
-                    this.goToUtil.goToHomePageAdmin();
+                    this.goToUtil.goToHomePageAdminDeTabPedidos();
                     Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
                     stage.close();
                 } else {
-                    this.goToUtil.goToHomePageFuncionario();
+                    this.goToUtil.goToHomePageFuncionarioDeTabPedidos();
                     Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
                     stage.close();
                 }
