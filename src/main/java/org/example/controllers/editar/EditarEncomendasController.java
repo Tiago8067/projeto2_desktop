@@ -93,17 +93,22 @@ public class EditarEncomendasController implements Initializable {
             }
 
             for (LinhaEncomenda ld : this.linhaEncomendaDao.buscarTodas()) {
-                /*this.linhaEncomendas.getIdLinhaEncomenda().getValue())*/
                 if (ld.getIdLinhaEncomenda() == this.encomendaDao.buscarPorId(this.linhaEncomendas.getIdEncomenda().getValue()).getLinha_encomenda().getIdLinhaEncomenda()) {
                     this.linhaEncomendaDao.apagarLinhaEncomenda(ld.getIdLinhaEncomenda());
                 }
             }
-            /*for (Roupa r : this.roupaDao.buscarTodas()) {
-                if (r.getLinha_encomenda().getIdLinhaEncomenda() == this.encomendaDao.buscarPorId(this.linhaEncomendas.getIdEncomenda().getValue()).getLinha_encomenda().getIdLinhaEncomenda()) {
-                    r.setLinha_encomenda(null);
+
+            int soma = 0;
+            soma = Integer.parseInt(txtFdIdQtd.getText());
+
+            for (Roupa r : this.roupaDao.buscarTodas()) {
+                if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
+                    int stock = r.getStock();
+                    stock = stock + soma;
+                    r.setStock(stock);
                     this.roupaDao.registar(r);
                 }
-            }*/
+            }
 
             retornaParaHomePageCorreto();
         }
@@ -177,8 +182,6 @@ public class EditarEncomendasController implements Initializable {
                             this.encomendaDao.atualizarEncomenda(String.valueOf(EstadoEncomenda.ENVIADO), e.getIdEncomenda());
                         } else if (lblAdicionaEstado.getText().equals("Finalizado")) {
                             this.encomendaDao.atualizarEncomenda(String.valueOf(EstadoEncomenda.FINALIZADO), e.getIdEncomenda());
-                            //this.roupaDasEncomendas.setDataDeEntrega(LocalDate.now());
-                            //this.roupaDasEncomendasDao.registar(this.roupaDasEncomendas);
                             this.roupaDasEncomendasDao.atualizarDataEntrega(LocalDate.now(), e.getLinha_encomenda().getIdLinhaEncomenda());
                         }
                         this.encomendaDao.atualizarFornecedorEncomenda(this.fornecedorDao.buscarFornecedorPorNome(txtFIdFornecedor.getText()).getIdFornecedor(), e.getIdEncomenda());
@@ -188,6 +191,18 @@ public class EditarEncomendasController implements Initializable {
 
                 for (LinhaEncomenda ld : this.linhaEncomendaDao.buscarTodas()) {
                     if (ld.getIdLinhaEncomenda() == this.linhaEncomendas.getIdLinhaEncomenda().getValue()) {
+                        int soma = 0;
+                        soma = ld.getQuantidade();
+
+                        for (Roupa r : this.roupaDao.buscarTodas()) {
+                            if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
+                                int stock = r.getStock();
+                                stock = stock + soma;
+                                r.setStock(stock);
+                                this.roupaDao.registar(r);
+                            }
+                        }
+
                         this.linhaEncomendaDao.atualizarLinha_Encomenda(Integer.parseInt(txtFdIdQtd.getText()), ld.getIdLinhaEncomenda());
                     }
                 }
@@ -198,14 +213,17 @@ public class EditarEncomendasController implements Initializable {
                     }
                 }
 
-                /*todo atualizar stock*/
+                int diferenca = 0;
+                diferenca = Integer.parseInt(txtFdIdQtd.getText());
 
-                /*for (Roupa r: this.roupaDao.buscarTodas()) {
-                    if(r.getIdRoupa() == this.linhaEncomendas.getIdRoupa().getValue()){
-                        this.roupaDao.atualizarRoupaEncomendas(this.linhaEncomendas.getIdLinhaEncomenda().getValue(), r.getIdRoupa());
+                for (Roupa r : this.roupaDao.buscarTodas()) {
+                    if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
+                        int stock = r.getStock();
+                        stock = stock - diferenca;
+                        r.setStock(stock);
+                        this.roupaDao.registar(r);
                     }
-                }*/
-
+                }
                 retornaParaHomePageCorreto();
             }
         }

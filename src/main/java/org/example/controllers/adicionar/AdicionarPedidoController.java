@@ -125,34 +125,24 @@ public class AdicionarPedidoController implements Initializable {
             this.roupaDasEncomendas.setLinha_encomenda(this.linhaEncomenda);
             this.roupaDasEncomendasDao.registar(this.roupaDasEncomendas);
 
+            int diferenca = 0;
+            diferenca = Integer.parseInt(txtFdIdQtd.getText());
 
-            Integer diferenca = 0;
-            for (Roupa r : this.verificaRoupaList) {
+            for (Roupa r : this.roupaDao.buscarTodas()) {
                 if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
-                    diferenca = r.getStock();
-                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                    System.out.println(diferenca);
-                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                    //r.setStock(r.getStock() - Integer.parseInt(txtFdIdQtd.getText()));
-                    diferenca -= Integer.parseInt(txtFdIdQtd.getText());
-
-                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                    System.out.println( diferenca);
-                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-
-                    //r.setStock(diferenca);
-                    //this.roupaDao.atualizar(r);
-                    //this.roupaDao.atualizarRoupaEmPedidos(r.getIdRoupa(), diferenca);
-                    //return Collections.singletonList(r);
+                    int stock = r.getStock();
+                    stock = stock - diferenca;
+                    r.setStock(stock);
+                    this.roupaDao.registar(r);
                 }
             }
 
-            for (Roupa r : this.verificaRoupaList) {
+            /*for (Roupa r : this.verificaRoupaList) {
                 if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
                     this.roupaDao.atualizarRoupaEmPedidos(r.getIdRoupa(), diferenca);
                 }
             }
-
+*/
             retornaParaHomePageCorreto();
         }
     }
