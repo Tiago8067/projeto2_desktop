@@ -7,7 +7,6 @@ import org.example.models.Roupa;
 import org.example.models.enums.CategoriaRoupa;
 import org.example.models.enums.TamanhoRoupa;
 import org.example.models.enums.TipoRoupa;
-import org.example.modelsHelp.LinhaRoupaDiferenca;
 import org.example.util.ConnectionUtil;
 
 import javax.persistence.EntityManager;
@@ -65,24 +64,6 @@ public class RoupaDao {
             preparedStatement.setString(3, categoriaRopupa);
             preparedStatement.setString(4, imgsrc);
             preparedStatement.setInt(5, id);
-            preparedStatement.execute();
-        } catch (SQLException sqlException) {
-            System.out.println("ERRO: " + sqlException.getMessage());
-        }
-    }
-
-    public void atualizarRoupaEmPedidos(Integer id, Integer stock) {
-        ConnectionUtil connectionUtil = new ConnectionUtil();
-        Connection conn = connectionUtil.criarConexao();
-
-        String sql = "UPDATE tb_roupa " +
-                "SET stock = ? " +
-                "WHERE idroupa = ? ";
-
-        try {
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setInt(1, stock);
-            preparedStatement.setInt(2, id);
             preparedStatement.execute();
         } catch (SQLException sqlException) {
             System.out.println("ERRO: " + sqlException.getMessage());

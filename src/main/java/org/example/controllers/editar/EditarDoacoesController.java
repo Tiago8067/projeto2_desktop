@@ -17,7 +17,6 @@ import org.example.models.Doacao;
 import org.example.models.Roupa;
 import org.example.models.Roupa_Doacao;
 import org.example.modelsHelp.LinhaRoupa;
-import org.example.modelsHelp.LinhaRoupaDiferenca;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.Verificacoes;

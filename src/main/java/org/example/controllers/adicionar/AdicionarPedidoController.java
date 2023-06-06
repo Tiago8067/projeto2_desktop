@@ -86,7 +86,6 @@ public class AdicionarPedidoController implements Initializable {
             labelIdErroTipoRoupa.setText("Não está em Stock! ");
             labelIdErroTamanho.setText("Não está em Stock!");
         } else {
-            //todo atualizar stock roupa
             this.roupaDasEncomendas.setTipoRoupa(cBIdTipoRoupa.getValue());
             this.roupaDasEncomendas.setTamanhoRoupa(cBIdTamanhoRoupa.getValue());
             labelIdErroTipoRoupa.setText("");
@@ -137,19 +136,13 @@ public class AdicionarPedidoController implements Initializable {
                 }
             }
 
-            /*for (Roupa r : this.verificaRoupaList) {
-                if (r.getTipoRoupa().equals(cBIdTipoRoupa.getValue()) && r.getTamanhoRoupa().equals(cBIdTamanhoRoupa.getValue())) {
-                    this.roupaDao.atualizarRoupaEmPedidos(r.getIdRoupa(), diferenca);
-                }
-            }
-*/
-            retornaParaHomePageCorreto();
+            retornaParaHomePageCorreto(btnIdAdicionar);
         }
     }
 
     @FXML
     void btnVoltar(ActionEvent event) {
-        retornaParaHomePageCorreto();
+        retornaParaHomePageCorreto(btnIdVoltar);
     }
 
     @Override
@@ -192,16 +185,16 @@ public class AdicionarPedidoController implements Initializable {
         return false;
     }
 
-    private void retornaParaHomePageCorreto() {
+    private void retornaParaHomePageCorreto(Button button) {
         for (Utilizador u : this.utilizadorDao.buscarTodos()) {
             if (u.getUsername().equals(guardaUsernameLogin)) {
                 if (u.getTipoUtilizador().equals(TipoUtilizador.ADMIN)) {
                     this.goToUtil.goToHomePageAdminDeTabPedidos();
-                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
+                    Stage stage = (Stage) button.getScene().getWindow();
                     stage.close();
                 } else {
                     this.goToUtil.goToHomePageFuncionarioDeTabPedidos();
-                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
+                    Stage stage = (Stage) button.getScene().getWindow();
                     stage.close();
                 }
             }

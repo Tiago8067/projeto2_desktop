@@ -77,7 +77,7 @@ public class EditarEncomendasController implements Initializable {
     @FXML
     void btnApagar(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setContentText("Tem a certeza que quer Eliminar esta Doacao?");
+        alert.setContentText("Tem a certeza que quer Eliminar este Pedido?");
         Optional<ButtonType> resultado = alert.showAndWait();
         if (resultado.get() == ButtonType.OK) {
             for (Encomenda e : this.encomendaDao.buscarTodas()) {
@@ -110,7 +110,7 @@ public class EditarEncomendasController implements Initializable {
                 }
             }
 
-            retornaParaHomePageCorreto();
+            retornaParaHomePageCorreto(btnApagar);
         }
     }
 
@@ -170,7 +170,7 @@ public class EditarEncomendasController implements Initializable {
                 labelIdErroEstadoEnc.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setContentText("Tem a certeza que deseja Editar esta Doacao?");
+            alert.setContentText("Tem a certeza que deseja Editar este Pedido?");
             Optional<ButtonType> resultado = alert.showAndWait();
             if (resultado.get() == ButtonType.OK) {
 
@@ -224,14 +224,14 @@ public class EditarEncomendasController implements Initializable {
                         this.roupaDao.registar(r);
                     }
                 }
-                retornaParaHomePageCorreto();
+                retornaParaHomePageCorreto(btnIdAdicionar);
             }
         }
     }
 
     @FXML
     void btnVoltar(ActionEvent event) {
-        retornaParaHomePageCorreto();
+        retornaParaHomePageCorreto(btnIdVoltar);
     }
 
     @FXML
@@ -301,16 +301,16 @@ public class EditarEncomendasController implements Initializable {
         return false;
     }
 
-    private void retornaParaHomePageCorreto() {
+    private void retornaParaHomePageCorreto(Button button) {
         for (Utilizador u : this.utilizadorDao.buscarTodos()) {
             if (u.getUsername().equals(guardaUsernameLogin)) {
                 if (u.getTipoUtilizador().equals(TipoUtilizador.ADMIN)) {
                     this.goToUtil.goToHomePageAdminDeTabPedidos();
-                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
+                    Stage stage = (Stage) button.getScene().getWindow();
                     stage.close();
                 } else {
                     this.goToUtil.goToHomePageFuncionarioDeTabPedidos();
-                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
+                    Stage stage = (Stage) button.getScene().getWindow();
                     stage.close();
                 }
             }

@@ -9,7 +9,6 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -113,34 +112,76 @@
                            <left>
                               <Accordion BorderPane.alignment="CENTER">
                                 <panes>
-                                  <TitledPane animated="false" text="Categoria">
+                                  <TitledPane animated="false" text="Filtrar por Categoria">
                                        <content>
                                           <VBox prefHeight="200.0" prefWidth="100.0">
                                              <children>
-                                                <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnParteCima" prefWidth="200.0" text="Parte de Cima" />
-                                                <Button mnemonicParsing="false" onAction="#btnParteBaixo" prefWidth="200.0" text="Parte de Baixo" />
-                                                <Button mnemonicParsing="false" onAction="#btnAcessorios" prefWidth="200.0" text="Acessórios" />
+                                                <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnParteCima" prefWidth="200.0" text="Parte de Cima">
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin></Button>
+                                                <Button mnemonicParsing="false" onAction="#btnParteBaixo" prefWidth="200.0" text="Parte de Baixo">
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin></Button>
+                                                <Button mnemonicParsing="false" onAction="#btnAcessorios" prefWidth="200.0" text="Acessórios">
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin></Button>
                                              </children>
                                           </VBox>
                                        </content>
                                     </TitledPane>
-                                    <TitledPane animated="false" text="Tamanho">
+                                    <TitledPane animated="false" text="Filtrar por Tamanho">
                                        <content>
                                           <ScrollPane prefHeight="200.0" prefWidth="200.0">
                                              <content>
                                                 <VBox prefHeight="250.0" prefWidth="200.0">
                                                    <children>
-                                                      <Button fx:id="btnBebeId" mnemonicParsing="false" onAction="#btnBebe" prefWidth="200.0" text="Bebe" />
-                                                      <Button fx:id="btnCriancaId" mnemonicParsing="false" onAction="#btnCrianca" prefWidth="200.0" text="Criança" />
-                                                      <Button fx:id="btnAdolescente12Id" mnemonicParsing="false" onAction="#btnAdolescente12" prefWidth="200.0" text="Adolescente12" />
-                                                      <Button fx:id="btnAdolescente14Id" mnemonicParsing="false" onAction="#btnAdolescente14" prefWidth="200.0" text="Adolescente14" />
-                                                      <Button fx:id="btnAdolescente16Id" mnemonicParsing="false" onAction="#btnAdolescente16" prefWidth="200.0" text="Adolescente16" />
-                                                      <Button fx:id="btnXSId" mnemonicParsing="false" onAction="#btnXS" prefWidth="200.0" text="XS" />
-                                                      <Button fx:id="btnSId" mnemonicParsing="false" onAction="#btnS" prefWidth="200.0" text="S" />
-                                                      <Button fx:id="btnMId" mnemonicParsing="false" onAction="#btnM" prefWidth="200.0" text="M" />
-                                                      <Button fx:id="btnLId" mnemonicParsing="false" onAction="#btnL" prefWidth="200.0" text="L" />
-                                                      <Button fx:id="btnXLId" mnemonicParsing="false" onAction="#btnXL" prefWidth="200.0" text="XL" />
-                                                      <Button fx:id="btnXXLId" mnemonicParsing="false" onAction="#btnXXL" prefWidth="200.0" text="XXL" />
+                                                      <Button fx:id="btnBebeId" mnemonicParsing="false" onAction="#btnBebe" prefWidth="180.0" text="Bebe">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin></Button>
+                                                      <Button fx:id="btnCriancaId" mnemonicParsing="false" onAction="#btnCrianca" prefWidth="180.0" text="Criança">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin></Button>
+                                                      <Button fx:id="btnAdolescente12Id" mnemonicParsing="false" onAction="#btnAdolescente12" prefWidth="180.0" text="Adolescente12">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin></Button>
+                                                      <Button fx:id="btnAdolescente14Id" mnemonicParsing="false" onAction="#btnAdolescente14" prefWidth="180.0" text="Adolescente14">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin></Button>
+                                                      <Button fx:id="btnAdolescente16Id" mnemonicParsing="false" onAction="#btnAdolescente16" prefWidth="180.0" text="Adolescente16">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin></Button>
+                                                      <Button fx:id="btnXSId" mnemonicParsing="false" onAction="#btnXS" prefWidth="180.0" text="XS">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin></Button>
+                                                      <Button fx:id="btnSId" mnemonicParsing="false" onAction="#btnS" prefWidth="180.0" text="S">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin></Button>
+                                                      <Button fx:id="btnMId" mnemonicParsing="false" onAction="#btnM" prefWidth="180.0" text="M">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin></Button>
+                                                      <Button fx:id="btnLId" mnemonicParsing="false" onAction="#btnL" prefWidth="180.0" text="L">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin></Button>
+                                                      <Button fx:id="btnXLId" mnemonicParsing="false" onAction="#btnXL" prefWidth="180.0" text="XL">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin></Button>
+                                                      <Button fx:id="btnXXLId" mnemonicParsing="false" onAction="#btnXXL" prefWidth="180.0" text="XXL">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin></Button>
                                                    </children>
                                                 </VBox>
                                              </content>
@@ -164,26 +205,6 @@
                            <top>
                               <HBox alignment="CENTER_RIGHT" prefHeight="10.0" prefWidth="200.0" BorderPane.alignment="CENTER_RIGHT">
                                  <children>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="513.0">
-                                       <children>
-                                          <Label text="Filtrar Sotck : ">
-                                             <HBox.margin>
-                                                <Insets bottom="5.0" left="10.0" top="5.0" />
-                                             </HBox.margin>
-                                             <padding>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </padding>
-                                          </Label>
-                                          <Separator orientation="VERTICAL" prefHeight="200.0">
-                                             <HBox.margin>
-                                                <Insets left="97.0" />
-                                             </HBox.margin>
-                                          </Separator>
-                                       </children>
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </HBox>
                                     <Button mnemonicParsing="false" onAction="#btnVerSotck" text="Ver Stock">
                                        <HBox.margin>
                                           <Insets bottom="5.0" right="10.0" top="5.0" />
