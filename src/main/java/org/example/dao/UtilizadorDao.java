@@ -83,4 +83,25 @@ public class UtilizadorDao {
             return null;
         }
     }
+
+    public void atualizarUtilizador(int id, String email, String user, String pass, String tipo, String estado) {
+        ConnectionUtil connectionUtil = new ConnectionUtil();
+        Connection conn = connectionUtil.criarConexao();
+
+        String sql = "UPDATE tb_utilizador " +
+                "SET email = ?, username = ?, password = ?, tipoutilizador = ?, estadoutilizador = ? "
+                + "WHERE idutilizador = ? ";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(6, id);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, user);
+            preparedStatement.setString(3, pass);
+            preparedStatement.setString(4, tipo);
+            preparedStatement.setString(5, estado);
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            System.out.println("ERRO: " + sqlException.getMessage());
+        }
+    }
 }

@@ -57,73 +57,79 @@ public class RegistroController implements Initializable {
     @FXML
     void btnRegistrar(ActionEvent event) {
 
-        for (Utilizador u : this.utilizadorList) {
-            if (u.getUsername() == null) {
-                if (labelRegistroNome.getText().isEmpty()) {
-                    labelErroRegistroNome.setText("Tem de preencher o Nome de Utilizador.");
-                } else if (labelRegistroNome.getText().length() < 4) {
-                    labelErroRegistroNome.setText("O Nome de Utilizador tem pelo menos 4 carateres!");
-                } else if (this.utilizadorDao.buscarUtilizadorPorUsername(labelRegistroNome.getText()) != null) {
-                    labelErroRegistroNome.setText("O Nome de Utilizador já existe. Insira Outro!");
-                } else {
-                    u.setUsername(labelRegistroNome.getText());
-                    labelErroRegistroNome.setText("");
-                }
+//        for (Utilizador u : this.utilizadorList) {
+//            if (u.getUsername() == null) {
+        if (labelRegistroNome.getText().isEmpty()) {
+            labelErroRegistroNome.setText("Tem de preencher o Nome de Utilizador.");
+        } else if (labelRegistroNome.getText().length() < 4) {
+            labelErroRegistroNome.setText("O Nome de Utilizador tem pelo menos 4 carateres!");
+        } else if (this.utilizadorDao.buscarUtilizadorPorUsername(labelRegistroNome.getText()) != null) {
+            labelErroRegistroNome.setText("O Nome de Utilizador já existe. Insira Outro!");
+        } else {
+//                    this.utilizador.setUsername(labelRegistroNome.getText());
+            labelErroRegistroNome.setText("");
+        }
 
-                if (labelRegistroEmail.getText().isEmpty()) {
-                    labelErroRegistroEmail.setText("Tem de preencher o Email.");
-                } else if (!this.regexDados.validateEmail(labelRegistroEmail.getText())) {
-                    labelErroRegistroEmail.setText("Por favor, preencha o Email Corretamente no formato(abc[123]@abc.abc)!");
-                } else if (this.utilizadorDao.buscarUtilizadorPorEmail(labelRegistroEmail.getText()) != null) {
-                    labelErroRegistroEmail.setText("O Email já existe. Insira Outro!");
-                } else {
-                    u.setEmail(labelRegistroEmail.getText());
-                    labelErroRegistroEmail.setText("");
-                }
+        if (labelRegistroEmail.getText().isEmpty()) {
+            labelErroRegistroEmail.setText("Tem de preencher o Email.");
+        } else if (!this.regexDados.validateEmail(labelRegistroEmail.getText())) {
+            labelErroRegistroEmail.setText("Por favor, preencha o Email Corretamente no formato(abc[123]@abc.abc)!");
+        } else if (this.utilizadorDao.buscarUtilizadorPorEmail(labelRegistroEmail.getText()) != null) {
+            labelErroRegistroEmail.setText("O Email já existe. Insira Outro!");
+        } else {
+//                    this.utilizador.setEmail(labelRegistroEmail.getText());
+            labelErroRegistroEmail.setText("");
+        }
 
-                if (labelRegistroPass.getText().isEmpty()) {
-                    labelErroRegistroPass.setText("Tem de preencher a Palavra-passe");
-                } else if (!this.regexDados.isValidPassword(labelRegistroPass.getText())) {
-                    labelErroRegistroPass.setText("Por favor, preencha a Palavra-passe Corretamente no formato([123].abc)!");
-                } else {
-                    u.setPassword(labelRegistroPass.getText());
-                    labelErroRegistroPass.setText("");
-                }
+        if (labelRegistroPass.getText().isEmpty()) {
+            labelErroRegistroPass.setText("Tem de preencher a Palavra-passe");
+        } else if (!this.regexDados.isValidPassword(labelRegistroPass.getText())) {
+            labelErroRegistroPass.setText("Por favor, preencha a Palavra-passe Corretamente no formato([123].abc)!");
+        } else {
+//                    this.utilizador.setPassword(labelRegistroPass.getText());
+            labelErroRegistroPass.setText("");
+        }
 
-                if (labelRegistroConfirmaPass.getText().isEmpty()) {
-                    labelErroRegistroConfirmaPass.setText("Tem de preencher a confirmação da Palavra-passe");
-                } else if (!labelRegistroPass.getText().equals(labelRegistroConfirmaPass.getText())) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setContentText("As palavras-passe não coincidem. Tente Novamente!");
-                    alert.show();
-                } else {
-                    u.setPassword(labelRegistroConfirmaPass.getText());
-                    labelErroRegistroConfirmaPass.setText("");
-                }
+        if (labelRegistroConfirmaPass.getText().isEmpty()) {
+            labelErroRegistroConfirmaPass.setText("Tem de preencher a confirmação da Palavra-passe");
+        } else if (!labelRegistroPass.getText().equals(labelRegistroConfirmaPass.getText())) {
+            labelErroRegistroConfirmaPass.setText("As palavras-passe não coincidem. Tente Novamente!");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("As palavras-passe não coincidem. Tente Novamente!");
+            alert.show();
+        } else {
+//                    if(!labelRegistroConfirmaPass.getText().isEmpty() && labelRegistroPass.getText().equals(labelRegistroConfirmaPass.getText())){
+//                        this.utilizador.setPassword(labelRegistroConfirmaPass.getText());
+            labelErroRegistroConfirmaPass.setText("");
+//                    }
+        }
 
-                if (labelTipoUtilziador.getText().isEmpty()) {
-                    labelErroRegistroTipoUtilizador.setText("Tem de selecionar o Tipo de Utilizador!");
-                } else if (labelTipoUtilziador.getText().equalsIgnoreCase("admin")) {
-                    u.setTipoUtilizador(TipoUtilizador.ADMIN);
-                    labelErroRegistroTipoUtilizador.setText("");
-                } else if (labelTipoUtilziador.getText().equalsIgnoreCase("funcionario")) {
-                    u.setTipoUtilizador(TipoUtilizador.FUNCIONARIO);
-                    labelErroRegistroTipoUtilizador.setText("");
-                }
+        /*if (labelTipoUtilziador.getText().isEmpty()) {
+            labelErroRegistroTipoUtilizador.setText("Tem de selecionar o Tipo de Utilizador!");
+        } else if (labelTipoUtilziador.getText().equalsIgnoreCase("ADMIN")) {
+//                    this.utilizador.setTipoUtilizador(TipoUtilizador.ADMIN);
+            labelErroRegistroTipoUtilizador.setText("");
+        } else if (labelTipoUtilziador.getText().equalsIgnoreCase("FUNCIONARIO")) {
+//                    this.utilizador.setTipoUtilizador(TipoUtilizador.FUNCIONARIO);
+            labelErroRegistroTipoUtilizador.setText("");
+        }*/
 
-                if (labelErroRegistroNome.getText().equals("") && labelErroRegistroEmail.getText().equals("") && labelErroRegistroPass.getText().equals("") &&
-                        labelErroRegistroConfirmaPass.getText().equals("") && labelErroRegistroTipoUtilizador.getText().equals("")) {
-                    u.setEstadoUtilizador(EstadoUtilizador.PENDENTE);
-                    this.utilizadorDao.registrar(u);
-                    this.goToUtil.goToLogin();
-                    Stage stage = (Stage) btnRegistrar.getScene().getWindow();
-                    stage.close();
+        if (labelErroRegistroNome.getText().equals("") && labelErroRegistroEmail.getText().equals("") && labelErroRegistroPass.getText().equals("") &&
+                labelErroRegistroConfirmaPass.getText().equals("") ) { //&& labelErroRegistroTipoUtilizador.getText().equals("")
+                    /*u.setEstadoUtilizador(EstadoUtilizador.PENDENTE);
+                    this.utilizadorDao.registrar(u);*/
+            for (Utilizador u : this.utilizadorList) {
+                if (u.getUsername() == null) {
+                    this.utilizadorDao.atualizarUtilizador(u.getIdUtilizador(), labelRegistroEmail.getText(), labelRegistroNome.getText(), labelRegistroPass.getText(), String.valueOf(TipoUtilizador.FUNCIONARIO), String.valueOf(EstadoUtilizador.PENDENTE));
                 }
             }
+            this.goToUtil.goToLogin();
+            Stage stage = (Stage) btnRegistrar.getScene().getWindow();
+            stage.close();
         }
     }
 
-    @FXML
+    /*@FXML
     void menuItemAdmin(ActionEvent event) {
         labelTipoUtilziador.setText(menuItemIdAdmin.getText());
     }
@@ -131,7 +137,7 @@ public class RegistroController implements Initializable {
     @FXML
     void menuItemFuncionario(ActionEvent event) {
         labelTipoUtilziador.setText(menuItemIdFuncionario.getText());
-    }
+    }*/
 
     @FXML
     void hyperlinkLogin(ActionEvent event) {
