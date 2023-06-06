@@ -15,6 +15,7 @@ import org.example.models.Roupa;
 import org.example.models.Roupa_Doacao;
 import org.example.models.Utilizador;
 import org.example.models.enums.*;
+import org.example.modelsHelp.LinhaRoupa;
 import org.example.util.GoToUtil;
 import org.example.util.JPAUtil;
 import org.example.util.Verificacoes;
@@ -102,6 +103,7 @@ public class AdicionarDoacaoController implements Initializable {
 
         if (labelIdErroNomeCliente.getText().equals("") && labelIdErroTipoRoupa.getText().equals("") &&
                 labelIdErroTamanho.getText().equals("") && labelIdErroQuantidade.getText().equals("")) {
+
             this.roupa.setRoupa_doacao(this.roupa_doacao);
             this.doacao.setRoupa_doacao(this.roupa_doacao);
             this.doacao.setDataDaDoacao(LocalDate.now());
@@ -109,13 +111,19 @@ public class AdicionarDoacaoController implements Initializable {
             this.doacaoDao.registar(this.doacao);
             this.roupa_doacaoDao.registar(this.roupa_doacao);
             this.roupaDao.registar(this.roupa);
-            retornaParaHomePageCorreto();
+
+            for (Roupa roupas : this.roupaDao.buscarPorTipoTamanhoRoupa(this.roupa)) {
+                roupas.setStock(retornaSoma());
+                this.roupaDao.registar(roupas);
+            }
+
+            retornaParaHomePageCorreto(btnIdAdicionar);
         }
     }
 
     @FXML
     void btnVoltar(ActionEvent event) {
-        retornaParaHomePageCorreto();
+        retornaParaHomePageCorreto(btnIdVoltar);
     }
 
     @Override
@@ -168,19 +176,29 @@ public class AdicionarDoacaoController implements Initializable {
         };
     }
 
-    private void retornaParaHomePageCorreto() {
+    private void retornaParaHomePageCorreto(Button button) {
         for (Utilizador u : this.utilizadorDao.buscarTodos()) {
             if (u.getUsername().equals(guardaUsernameLogin)) {
                 if (u.getTipoUtilizador().equals(TipoUtilizador.ADMIN)) {
                     this.goToUtil.goToHomePageAdmin();
-                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
+                    Stage stage = (Stage) button.getScene().getWindow();
                     stage.close();
                 } else {
                     this.goToUtil.goToHomePageFuncionario();
-                    Stage stage = (Stage) btnIdVoltar.getScene().getWindow();
+                    Stage stage = (Stage) button.getScene().getWindow();
                     stage.close();
                 }
             }
         }
+    }
+
+    private Integer retornaSoma() {
+        int soma = 0;
+        for (LinhaRoupa linhaRoupa : this.roupaDao.buscarDadosParaStock()) {
+            if (linhaRoupa.getTipoRoupa().equals(String.valueOf(cBIdTipoRoupa.getValue())) && linhaRoupa.getTamanhoRoupa().equals(String.valueOf(cBIdTamanhoRoupa.getValue()))) {
+                soma = soma + linhaRoupa.getQuantidade();
+            }
+        }
+        return soma;
     }
 }

@@ -38,19 +38,7 @@ public class CardDoacoesController implements Initializable {
         idLblTitulo.setText(String.valueOf(roupa.getTipoRoupa()));
         idLblSubTitulo.setText(String.valueOf(roupa.getCategoriaRoupa()));
         IdLblTamanho.setText(String.valueOf(roupa.getTamanhoRoupa()));
-
-        Integer soma = 0;
-        for (LinhaRoupa linhaRoupa : this.roupaDao.buscarDadosParaStock()) {
-            if (linhaRoupa.getTipoRoupa().equals(idLblTitulo.getText()) && linhaRoupa.getTamanhoRoupa().equals(IdLblTamanho.getText())) {
-                soma = soma + linhaRoupa.getQuantidade();
-            }
-        }
-        IdLblQtd.setText(String.valueOf(soma));
-
-        for (Roupa roupas : this.roupaDao.buscarPorTipoTamanhoRoupa(roupa)) {
-            roupas.setStock(soma);
-            this.roupaDao.registar(roupas);
-        }
+        IdLblQtd.setText(String.valueOf(roupa.getStock()));
     }
 
     @Override

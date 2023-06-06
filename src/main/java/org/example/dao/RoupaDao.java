@@ -7,6 +7,7 @@ import org.example.models.Roupa;
 import org.example.models.enums.CategoriaRoupa;
 import org.example.models.enums.TamanhoRoupa;
 import org.example.models.enums.TipoRoupa;
+import org.example.modelsHelp.LinhaRoupaDiferenca;
 import org.example.util.ConnectionUtil;
 
 import javax.persistence.EntityManager;
@@ -107,7 +108,7 @@ public class RoupaDao {
         ConnectionUtil connectionUtil = new ConnectionUtil();
         Connection conn = connectionUtil.criarConexao();
 
-        String sql = " SELECT DISTINCT categoriaroupa, imagesrc, tiporoupa, tamanhoroupa FROM tb_roupa; ";
+        String sql = " SELECT DISTINCT categoriaroupa, imagesrc, tiporoupa, tamanhoroupa, stock FROM tb_roupa; ";
         List<Roupa> listaRoupas = new ArrayList<>();
 
         try {
@@ -120,6 +121,7 @@ public class RoupaDao {
                 roupa.setTamanhoRoupa(TamanhoRoupa.valueOf(rs.getString("tamanhoroupa")));
                 roupa.setCategoriaRoupa(CategoriaRoupa.valueOf(rs.getString("categoriaroupa")));
                 roupa.setImageSrc(rs.getString("imagesrc"));
+                roupa.setStock(Integer.valueOf(rs.getString("stock")));
                 listaRoupas.add(roupa);
             }
         } catch (SQLException sqlException) {
@@ -157,7 +159,7 @@ public class RoupaDao {
         ConnectionUtil connectionUtil = new ConnectionUtil();
         Connection conn = connectionUtil.criarConexao();
 
-        String sql = " SELECT DISTINCT categoriaroupa, imagesrc, tiporoupa, tamanhoroupa " +
+        String sql = " SELECT DISTINCT categoriaroupa, imagesrc, tiporoupa, tamanhoroupa, stock " +
                 "FROM tb_roupa " +
                 " WHERE tamanhoroupa = ? ";
 
@@ -175,6 +177,7 @@ public class RoupaDao {
                 roupa.setTamanhoRoupa(TamanhoRoupa.valueOf(rs.getString("tamanhoroupa")));
                 roupa.setCategoriaRoupa(CategoriaRoupa.valueOf(rs.getString("categoriaroupa")));
                 roupa.setImageSrc(rs.getString("imagesrc"));
+                roupa.setStock(Integer.valueOf(rs.getString("stock")));
                 listaRoupas.add(roupa);
             }
         } catch (SQLException e) {
@@ -187,7 +190,7 @@ public class RoupaDao {
         ConnectionUtil connectionUtil = new ConnectionUtil();
         Connection conn = connectionUtil.criarConexao();
 
-        String sql = " SELECT DISTINCT categoriaroupa, imagesrc, tiporoupa, tamanhoroupa " +
+        String sql = " SELECT DISTINCT categoriaroupa, imagesrc, tiporoupa, tamanhoroupa, stock " +
                 "FROM tb_roupa " +
                 " WHERE categoriaroupa = ? ";
 
@@ -205,6 +208,7 @@ public class RoupaDao {
                 roupa.setTamanhoRoupa(TamanhoRoupa.valueOf(rs.getString("tamanhoroupa")));
                 roupa.setCategoriaRoupa(CategoriaRoupa.valueOf(rs.getString("categoriaroupa")));
                 roupa.setImageSrc(rs.getString("imagesrc"));
+                roupa.setStock(Integer.valueOf(rs.getString("stock")));
                 listaRoupas.add(roupa);
             }
         } catch (SQLException e) {
