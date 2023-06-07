@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
@@ -20,13 +21,22 @@
             <image>
                 <Image url="@../images/logo.png" />
             </image>
+         <BorderPane.margin>
+            <Insets top="50.0" />
+         </BorderPane.margin>
         </ImageView>
     </top>
     <bottom>
         <VBox alignment="CENTER" prefHeight="57.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="btnLoginId" mnemonicParsing="false" onAction="#btnLogin" prefHeight="25.0" prefWidth="151.0" text="Login" />
-                <Hyperlink fx:id="hyperlinkLoginId" onAction="#hyperlinkLogin" text="Ainda não registado? Registe-se Aqui" />
+                <Button fx:id="btnLoginId" mnemonicParsing="false" onAction="#btnLogin" prefHeight="25.0" prefWidth="151.0" text="Login">
+               <VBox.margin>
+                  <Insets bottom="30.0" />
+               </VBox.margin></Button>
+                <Hyperlink fx:id="hyperlinkLoginId" onAction="#hyperlinkLogin" text="Ainda não registado? Registe-se Aqui">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></Hyperlink>
             </children>
         </VBox>
     </bottom>
@@ -41,17 +51,29 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField fx:id="tfLoginNome" prefHeight="25.0" prefWidth="505.0" promptText="Nome de Utilizador" GridPane.valignment="CENTER" />
-            <PasswordField fx:id="tfLoginPass" prefHeight="25.0" prefWidth="505.0" promptText="Palavra-Passe" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                <TextField fx:id="tfLoginNome" prefHeight="25.0" prefWidth="505.0" promptText="Nome de Utilizador" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="150.0" right="150.0" />
+               </GridPane.margin></TextField>
+            <PasswordField fx:id="tfLoginPass" prefHeight="25.0" prefWidth="505.0" promptText="Palavra-Passe" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="150.0" right="150.0" />
+               </GridPane.margin></PasswordField>
                 <Label fx:id="labelErroLoginNomeEmail" textFill="RED" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                     <font>
                         <Font name="System Bold Italic" size="10.0" />
                     </font>
+               <GridPane.margin>
+                  <Insets left="150.0" />
+               </GridPane.margin>
                 </Label>
                 <Label fx:id="labelErroLoginPass" textFill="RED" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                     <font>
                         <Font name="System Bold Italic" size="10.0" />
                     </font>
+               <GridPane.margin>
+                  <Insets left="150.0" />
+               </GridPane.margin>
                 </Label>
             </children>
         </GridPane>

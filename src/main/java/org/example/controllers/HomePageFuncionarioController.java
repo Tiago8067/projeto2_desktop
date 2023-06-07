@@ -167,33 +167,75 @@ public class HomePageFuncionarioController implements Initializable {
     }
 
     @FXML
-    void btnAcessorios(ActionEvent event) {
-        filtrarCardSotckPorCategoria(CategoriaRoupa.ACESSORIOS);
-    }
-
-    @FXML
     void btnBebe(ActionEvent event) {
-        filtrarCardSotckPorTamanho(TamanhoRoupa.BEBE);
+        filtrarCardSotckPorTamanho(TamanhoRoupa.MESES0);
+    }
+
+    //NOVOS
+    @FXML
+    void btnBebe12(ActionEvent event) {
+        filtrarCardSotckPorTamanho(TamanhoRoupa.MESES12);
     }
 
     @FXML
-    void btnCrianca(ActionEvent event) {
-        filtrarCardSotckPorTamanho(TamanhoRoupa.Crianca);
+    void btnBebe18(ActionEvent event) {
+        filtrarCardSotckPorTamanho(TamanhoRoupa.MESES18);
     }
 
     @FXML
-    void btnAdolescente12(ActionEvent event) {
-        filtrarCardSotckPorTamanho(TamanhoRoupa.Adolescente12);
+    void btnBebe24(ActionEvent event) {
+        filtrarCardSotckPorTamanho(TamanhoRoupa.MESES24);
     }
 
     @FXML
-    void btnAdolescente14(ActionEvent event) {
-        filtrarCardSotckPorTamanho(TamanhoRoupa.Adolescente14);
+    void btnBebe3(ActionEvent event) {
+        filtrarCardSotckPorTamanho(TamanhoRoupa.MESES3);
     }
+
+    @FXML
+    void btnBebe6(ActionEvent event) {
+        filtrarCardSotckPorTamanho(TamanhoRoupa.MESES6);
+    }
+
+    @FXML
+    void btnBebe9(ActionEvent event) {
+        filtrarCardSotckPorTamanho(TamanhoRoupa.MESES9);
+    }
+
+    @FXML
+    void btnCrianca10(ActionEvent event) {
+        filtrarCardSotckPorTamanho(TamanhoRoupa.ANOS10);
+    }
+
+    @FXML
+    void btnCrianca12(ActionEvent event) {
+        filtrarCardSotckPorTamanho(TamanhoRoupa.ANOS12);
+    }
+
+    @FXML
+    void btnCrianca14(ActionEvent event) {
+        filtrarCardSotckPorTamanho(TamanhoRoupa.ANOS14);
+    }
+
+    @FXML
+    void btnCrianca3(ActionEvent event) {
+        filtrarCardSotckPorTamanho(TamanhoRoupa.ANOS3);
+    }
+
+    @FXML
+    void btnCrianca6(ActionEvent event) {
+        filtrarCardSotckPorTamanho(TamanhoRoupa.ANOS6);
+    }
+
+    @FXML
+    void btnCrianca8(ActionEvent event) {
+        filtrarCardSotckPorTamanho(TamanhoRoupa.ANOS8);
+    }
+    //NOVOS
 
     @FXML
     void btnAdolescente16(ActionEvent event) {
-        filtrarCardSotckPorTamanho(TamanhoRoupa.Adolescente16);
+        filtrarCardSotckPorTamanho(TamanhoRoupa.ANOS16);
     }
 
     @FXML

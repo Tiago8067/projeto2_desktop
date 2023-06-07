@@ -19,6 +19,9 @@
          <image>
             <Image url="@../../images/logo.png" />
          </image>
+         <BorderPane.margin>
+            <Insets bottom="10.0" top="5.0" />
+         </BorderPane.margin>
       </ImageView>
    </top>
    <center>
@@ -40,17 +43,38 @@
             <Label text="Nome :" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
             <Label text="Distrito :" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP" />
             <Label text="Localidade :" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-            <Label text="Rua :" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+            <Label text="Morada :" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
             <Label text="Código Postal :" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
             <Label text="Número de Porta :" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="TOP" />
             <Label text="Contacto :" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="TOP" />
-            <TextField fx:id="txtFdIdNome" promptText="Adicione o Nome do Fornecedor" GridPane.columnIndex="1" GridPane.valignment="TOP" />
-            <TextField fx:id="txtFdIdDistrito" promptText="Adicione o Distrito do Fornecedor" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-            <TextField fx:id="txtFdIdLocalidade" promptText="Adicione a Localidade do Fornecedor" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-            <TextField fx:id="txtFdIdRua" promptText="Adicione a Rua do Fornecedor" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-            <TextField fx:id="txtFdIdCp" promptText="Adicione o Código Postal do Fornecedor" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-            <TextField fx:id="txtFdIdN_Porta" promptText="Adicione o Número de Porta do Fornecedor" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="TOP" />
-            <TextField fx:id="txtFdIdContacto" promptText="Adicione o Contacto do Fornecedor" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.valignment="TOP" />
+            <TextField fx:id="txtFdIdNome" promptText="Adicione o Nome do Fornecedor" GridPane.columnIndex="1" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="txtFdIdDistrito" promptText="Adicione o Distrito do Fornecedor" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="txtFdIdLocalidade" promptText="Adicione a Localidade do Fornecedor" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="txtFdIdRua" promptText="Adicione a Morada do Fornecedor" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="txtFdIdCp" promptText="Adicione o Código Postal do Fornecedor" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="txtFdIdN_Porta" promptText="Adicione o Número de Porta do Fornecedor" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="txtFdIdContacto" promptText="Adicione o Contacto do Fornecedor" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
             <Label fx:id="labelIdErroNome" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="System Bold Italic" size="10.0" />

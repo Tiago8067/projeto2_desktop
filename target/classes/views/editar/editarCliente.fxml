@@ -73,26 +73,38 @@
                         <Label text="Nome : " GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
                         <Label text="Nome de Utilizador (Username) :  " GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <Label text="Data de Nascimento : " GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <TextField fx:id="txtPerfilNome" editable="false" GridPane.columnIndex="1" />
-                        <TextField fx:id="txtPerfilUsername" editable="false" layoutX="195.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtPerfilNome" editable="false" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets right="30.0" />
+                     </GridPane.margin></TextField>
+                        <TextField fx:id="txtPerfilUsername" editable="false" layoutX="195.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets right="30.0" />
+                     </GridPane.margin></TextField>
                         <DatePicker fx:id="txtPerfilDataNasc" editable="false" onKeyReleased="#verficaValorCliente" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     </children>
                 </GridPane>
                 <GridPane>
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="10.0" prefWidth="46.333333333333336" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="195.66666666666666" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="0.0" prefWidth="36.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="155.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="165.4000244140625" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="68.59997558593747" minWidth="0.0" prefWidth="37.39997558593751" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.7999755859375" minWidth="10.0" prefWidth="180.6000244140625" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
                         <Label prefHeight="17.0" prefWidth="55.0" text="Nº CC :  " GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
-                        <Label prefHeight="17.0" prefWidth="35.0" text="NIF : " GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
-                        <TextField fx:id="txtPerfilNCC" editable="false" prefHeight="25.0" prefWidth="171.0" GridPane.columnIndex="1" />
-                        <TextField fx:id="txtPerfilNIF" editable="false" GridPane.columnIndex="3" />
+                        <Label prefHeight="17.0" prefWidth="35.0" text="NIF : " GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
+                        <TextField fx:id="txtPerfilNCC" editable="false" prefHeight="25.0" prefWidth="171.0" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets right="30.0" />
+                     </GridPane.margin></TextField>
+                        <TextField fx:id="txtPerfilNIF" editable="false" GridPane.columnIndex="3">
+                     <GridPane.margin>
+                        <Insets right="33.0" />
+                     </GridPane.margin></TextField>
                     </children>
                     <VBox.margin>
                         <Insets top="5.0" />
@@ -118,8 +130,14 @@
                     <children>
                         <Label text="Contacto : " GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
                         <Label text="Email : " GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <TextField fx:id="txtPerfilContacto" editable="false" GridPane.columnIndex="1" />
-                        <TextField fx:id="txtPerfilEmail" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtPerfilContacto" editable="false" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets right="30.0" />
+                     </GridPane.margin></TextField>
+                        <TextField fx:id="txtPerfilEmail" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets right="30.0" />
+                     </GridPane.margin></TextField>
                     </children>
                 </GridPane>
                 <Label text="Informação da Morada">
@@ -138,15 +156,18 @@
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label text="Cidade : " GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
-                        <Label text="Localidade : " GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Label text="Rua : " GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <TextField fx:id="txtPerfilCidade" editable="false" GridPane.columnIndex="1" />
-                        <TextField fx:id="txtPerfilLocalidade" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="txtPerfilRua" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Localidade : " GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
+                        <Label text="Morada : " GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <TextField fx:id="txtPerfilLocalidade" editable="false" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets right="30.0" />
+                     </GridPane.margin></TextField>
+                        <TextField fx:id="txtPerfilRua" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets right="30.0" />
+                     </GridPane.margin></TextField>
                     </children>
                 </GridPane>
                 <GridPane>
@@ -162,8 +183,14 @@
                     <children>
                         <Label text="Código Postal : " GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
                         <Label text="Nº Porta : " GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
-                        <TextField fx:id="txtPerfilCodPostal" editable="false" GridPane.columnIndex="1" />
-                        <TextField fx:id="txtPerfilNPorta" editable="false" GridPane.columnIndex="3" />
+                        <TextField fx:id="txtPerfilCodPostal" editable="false" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin></TextField>
+                        <TextField fx:id="txtPerfilNPorta" editable="false" GridPane.columnIndex="3">
+                     <GridPane.margin>
+                        <Insets right="30.0" />
+                     </GridPane.margin></TextField>
                     </children>
                     <VBox.margin>
                         <Insets top="5.0" />

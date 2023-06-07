@@ -177,10 +177,14 @@ public class AdicionarPedidoController implements Initializable {
     }
 
     private Boolean verificaQuantidadeStock() {
-        for (Roupa r : this.verificaRoupaList) {
-            if (cBIdTipoRoupa.getValue().equals(r.getTipoRoupa()) && cBIdTamanhoRoupa.getValue().equals(r.getTamanhoRoupa()) && Integer.parseInt(txtFdIdQtd.getText()) < r.getStock()) {
-                return true;
+        try {
+            for (Roupa r : this.verificaRoupaList) {
+                if (cBIdTipoRoupa.getValue().equals(r.getTipoRoupa()) && cBIdTamanhoRoupa.getValue().equals(r.getTamanhoRoupa()) && Integer.parseInt(txtFdIdQtd.getText()) < r.getStock()) {
+                    return true;
+                }
             }
+        } catch (NullPointerException e){
+            System.out.println(e.getMessage());
         }
         return false;
     }

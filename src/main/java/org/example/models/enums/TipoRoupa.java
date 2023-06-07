@@ -3,7 +3,6 @@ package org.example.models.enums;
 public enum TipoRoupa {
     CALCAS,
     CALCOES,
-    BERMUDAS,
     VESTIDO,
     SAIA,
     BLUSA,
@@ -13,8 +12,5 @@ public enum TipoRoupa {
     CASACO,
     COLETE,
     MEIACALCA,
-    MEIAS,
-    SAPATOSCLASSICO,
-    SAPATOSDESPORTIVO,
-    BOLSA
+    MEIAS
 }

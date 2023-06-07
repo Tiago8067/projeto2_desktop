@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
@@ -20,13 +21,16 @@
          <image>
             <Image url="@../images/logo.png" />
          </image>
+         <BorderPane.margin>
+            <Insets top="20.0" />
+         </BorderPane.margin>
       </ImageView>
    </top>
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="452.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="156.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="444.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -35,14 +39,29 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="17.0" prefWidth="111.0" text="Nome de Utilizador :" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
+            <Label prefHeight="17.0" prefWidth="111.0" text="Nome de Utilizador :" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin></Label>
             <Label text="Email :" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <Label text="Palavra-Passe :" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <Label text="Confirmar Palavra-Passe :" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <TextField fx:id="labelRegistroNome" prefHeight="25.0" prefWidth="262.0" promptText="Insira o Nome de Utilizador" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
-            <TextField fx:id="labelRegistroEmail" prefHeight="25.0" prefWidth="429.0" promptText="Insira o Email" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <PasswordField fx:id="labelRegistroPass" prefHeight="25.0" prefWidth="429.0" promptText="Insira a Palavra-Passe" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <PasswordField fx:id="labelRegistroConfirmaPass" prefHeight="25.0" prefWidth="429.0" promptText="Confirme a Palavra-Passe" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <TextField fx:id="labelRegistroNome" prefHeight="25.0" prefWidth="262.0" promptText="Insira o Nome de Utilizador" GridPane.columnIndex="1" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="labelRegistroEmail" prefHeight="25.0" prefWidth="429.0" promptText="Insira o Email" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
+            <PasswordField fx:id="labelRegistroPass" prefHeight="25.0" prefWidth="429.0" promptText="Insira a Palavra-Passe" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></PasswordField>
+            <PasswordField fx:id="labelRegistroConfirmaPass" prefHeight="25.0" prefWidth="429.0" promptText="Confirme a Palavra-Passe" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></PasswordField>
             <Label fx:id="labelErroRegistroNome" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="System Bold Italic" size="10.0" />
@@ -69,8 +88,14 @@
    <bottom>
       <VBox alignment="CENTER" prefHeight="57.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnRegistrar" mnemonicParsing="false" onAction="#btnRegistrar" prefHeight="25.0" prefWidth="152.0" text="Registrar" />
-            <Hyperlink fx:id="hyperlinkLoginId" onAction="#hyperlinkLogin" text="Já realizei registo! Voltar ao Login. " />
+            <Button fx:id="btnRegistrar" mnemonicParsing="false" onAction="#btnRegistrar" prefHeight="25.0" prefWidth="152.0" text="Registrar">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin></Button>
+            <Hyperlink fx:id="hyperlinkLoginId" onAction="#hyperlinkLogin" text="Já realizei registo! Voltar ao Login. ">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></Hyperlink>
          </children>
       </VBox>
    </bottom>

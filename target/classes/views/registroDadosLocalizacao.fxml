@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
@@ -19,6 +20,9 @@
          <image>
             <Image url="@../images/logo.png" />
          </image>
+         <BorderPane.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </BorderPane.margin>
       </ImageView>
    </top>
    <center>
@@ -35,16 +39,31 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="111.0" text="Distrito :" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
-            <Label text="Código Postal :" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Label text="Localidade :" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Label text="Rua :" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <Label text="Número da Porta :" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-            <TextField fx:id="txtFdRegistroDiistritoId" prefHeight="25.0" promptText="Insira o Distrito" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
-            <TextField fx:id="txtFdRegistroCodPId" prefHeight="25.0" prefWidth="429.0" promptText="Insira o Código Postal" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <TextField fx:id="txtFdRegistroLocalidadeId" prefHeight="25.0" prefWidth="429.0" promptText="Insira a Localidade" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <TextField fx:id="txtFdRegistroRuaId" prefHeight="25.0" prefWidth="429.0" promptText="Insere a Rua" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <TextField fx:id="txtFdRegistroNumPortaId" prefHeight="25.0" prefWidth="429.0" promptText="Insere o número da Porta" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="111.0" text="Distrito :" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
+            <Label text="Código Postal :" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+            <Label text="Localidade :" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+            <Label text="Rua :" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+            <Label text="Número da Porta :" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+            <TextField fx:id="txtFdRegistroDiistritoId" prefHeight="25.0" promptText="Insira o Distrito" GridPane.columnIndex="1" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="txtFdRegistroCodPId" prefHeight="25.0" prefWidth="429.0" promptText="Insira o Código Postal" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="txtFdRegistroLocalidadeId" prefHeight="25.0" prefWidth="429.0" promptText="Insira a Localidade" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="txtFdRegistroRuaId" prefHeight="25.0" prefWidth="429.0" promptText="Insere a Rua" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="txtFdRegistroNumPortaId" prefHeight="25.0" prefWidth="429.0" promptText="Insere o número da Porta" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
             <Label fx:id="labelIdErroDistrito" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="System Bold Italic" size="10.0" />
@@ -76,8 +95,14 @@
    <bottom>
       <VBox alignment="CENTER" prefHeight="57.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnRegistrarSeguinteId" mnemonicParsing="false" onAction="#btnRegistrarSeguinteDF" prefHeight="25.0" prefWidth="152.0" text="Seguinte" />
-            <Hyperlink fx:id="hyperlinkLoginId" onAction="#hyperlinkLogin" text="Já realizei registo! Voltar ao Login. " />
+            <Button fx:id="btnRegistrarSeguinteId" mnemonicParsing="false" onAction="#btnRegistrarSeguinteDF" prefHeight="25.0" prefWidth="152.0" text="Seguinte">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin></Button>
+            <Hyperlink fx:id="hyperlinkLoginId" onAction="#hyperlinkLogin" text="Já realizei registo! Voltar ao Login. ">
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding></Hyperlink>
          </children>
       </VBox>
    </bottom>

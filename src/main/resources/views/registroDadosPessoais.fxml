@@ -21,6 +21,9 @@
             <image>
                 <Image url="@../images/logo.png" />
             </image>
+         <BorderPane.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </BorderPane.margin>
         </ImageView>
     </top>
     <center>
@@ -37,24 +40,36 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="111.0" text="Nome Completo :" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="111.0" text="Nome Completo :" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                     <GridPane.margin>
                         <Insets />
                     </GridPane.margin>
                 </Label>
-                <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="132.0" text="Data de Nascimento :" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                <Label text="Numero CC :" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                <Label text="NIF :" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="132.0" text="Data de Nascimento :" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                <Label text="Numero CC :" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                <Label text="NIF :" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP">
                     <GridPane.margin>
                         <Insets />
                     </GridPane.margin>
                 </Label>
-                <Label text="Contacto :" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                <TextField fx:id="txtFdRegistroNomeCompletoId" prefHeight="25.0" promptText="Insira o Nome Completo" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
-                <DatePicker fx:id="txtFdRegistroDataNascId" onKeyReleased="#verficaValorteste3" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                <TextField fx:id="txtFdRegistroNccId" prefHeight="25.0" promptText="Insira o Numero CC" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="txtFdRegistroNIFD" prefHeight="25.0" promptText="Insira o NIF" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                <TextField fx:id="txtFdRegistroContactoId" prefHeight="25.0" promptText="Insira o Contacto" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                <Label text="Contacto :" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+                <TextField fx:id="txtFdRegistroNomeCompletoId" prefHeight="25.0" promptText="Insira o Nome Completo" GridPane.columnIndex="1" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
+                <DatePicker fx:id="txtFdRegistroDataNascId" onKeyReleased="#verficaValorteste3" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                <TextField fx:id="txtFdRegistroNccId" prefHeight="25.0" promptText="Insira o Numero CC" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
+                <TextField fx:id="txtFdRegistroNIFD" prefHeight="25.0" promptText="Insira o NIF" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
+                <TextField fx:id="txtFdRegistroContactoId" prefHeight="25.0" promptText="Insira o Contacto" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="150.0" />
+               </GridPane.margin></TextField>
                 <Label fx:id="labelIdErroNomeCompleto" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                     <font>
                         <Font name="System Bold Italic" size="10.0" />
@@ -86,8 +101,14 @@
     <bottom>
         <VBox alignment="CENTER" prefHeight="57.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="btnRegistrarSeguinteId" mnemonicParsing="false" onAction="#btnRegistrarSeguinteDD" prefHeight="25.0" prefWidth="152.0" text="Seguinte" />
-                <Hyperlink fx:id="hyperlinkLoginId" onAction="#hyperlinkLogin" text="Já realizei registo! Voltar ao Login. " />
+                <Button fx:id="btnRegistrarSeguinteId" mnemonicParsing="false" onAction="#btnRegistrarSeguinteDD" prefHeight="25.0" prefWidth="152.0" text="Seguinte">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin></Button>
+                <Hyperlink fx:id="hyperlinkLoginId" onAction="#hyperlinkLogin" text="Já realizei registo! Voltar ao Login. ">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></Hyperlink>
             </children>
         </VBox>
     </bottom>

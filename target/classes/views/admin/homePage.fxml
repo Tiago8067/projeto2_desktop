@@ -124,10 +124,6 @@
                                                    <VBox.margin>
                                                       <Insets top="10.0" />
                                                    </VBox.margin></Button>
-                                                <Button mnemonicParsing="false" onAction="#btnAcessorios" prefWidth="200.0" text="Acessórios">
-                                                   <VBox.margin>
-                                                      <Insets top="10.0" />
-                                                   </VBox.margin></Button>
                                              </children>
                                           </VBox>
                                        </content>
@@ -138,50 +134,106 @@
                                              <content>
                                                 <VBox prefHeight="250.0" prefWidth="200.0">
                                                    <children>
-                                                      <Button fx:id="btnBebeId" mnemonicParsing="false" onAction="#btnBebe" prefWidth="180.0" text="Bebe">
+                                                      <Button fx:id="btnBebeId" mnemonicParsing="false" onAction="#btnBebe" prefWidth="180.0" text="0 Meses">
                                                          <VBox.margin>
                                                             <Insets left="5.0" right="5.0" top="10.0" />
-                                                         </VBox.margin></Button>
-                                                      <Button fx:id="btnCriancaId" mnemonicParsing="false" onAction="#btnCrianca" prefWidth="180.0" text="Criança">
+                                                         </VBox.margin>
+                                                      </Button>
+                                                      <Button fx:id="btnBebe3Id" mnemonicParsing="false" onAction="#btnBebe3" prefWidth="180.0" text="3 Meses">
                                                          <VBox.margin>
                                                             <Insets left="5.0" right="5.0" top="10.0" />
-                                                         </VBox.margin></Button>
-                                                      <Button fx:id="btnAdolescente12Id" mnemonicParsing="false" onAction="#btnAdolescente12" prefWidth="180.0" text="Adolescente12">
+                                                         </VBox.margin>
+                                                      </Button>
+                                                      <Button fx:id="btnBebe6Id" mnemonicParsing="false" onAction="#btnBebe6" prefWidth="180.0" text="6 Meses">
                                                          <VBox.margin>
                                                             <Insets left="5.0" right="5.0" top="10.0" />
-                                                         </VBox.margin></Button>
-                                                      <Button fx:id="btnAdolescente14Id" mnemonicParsing="false" onAction="#btnAdolescente14" prefWidth="180.0" text="Adolescente14">
+                                                         </VBox.margin>
+                                                      </Button>
+                                                      <Button fx:id="btnBebe9Id" mnemonicParsing="false" onAction="#btnBebe9" prefWidth="180.0" text="9 Meses">
                                                          <VBox.margin>
                                                             <Insets left="5.0" right="5.0" top="10.0" />
-                                                         </VBox.margin></Button>
-                                                      <Button fx:id="btnAdolescente16Id" mnemonicParsing="false" onAction="#btnAdolescente16" prefWidth="180.0" text="Adolescente16">
+                                                         </VBox.margin>
+                                                      </Button>
+                                                      <Button fx:id="btnBebe12Id" mnemonicParsing="false" onAction="#btnBebe12" prefWidth="180.0" text="12 Meses">
                                                          <VBox.margin>
                                                             <Insets left="5.0" right="5.0" top="10.0" />
-                                                         </VBox.margin></Button>
+                                                         </VBox.margin>
+                                                      </Button>
+                                                      <Button fx:id="btnBebe18Id" mnemonicParsing="false" onAction="#btnBebe18" prefWidth="180.0" text="18 Meses">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin>
+                                                      </Button>
+                                                      <Button fx:id="btnBebe24Id" mnemonicParsing="false" onAction="#btnBebe24" prefWidth="180.0" text="24 Meses">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin>
+                                                      </Button>
+                                                      <Button fx:id="btnCrianca3Id" mnemonicParsing="false" onAction="#btnCrianca3" prefWidth="180.0" text="3 Anos">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin>
+                                                      </Button>
+                                                      <Button fx:id="btnCrianca6Id" mnemonicParsing="false" onAction="#btnCrianca6" prefWidth="180.0" text="6 Anos">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin>
+                                                      </Button>
+                                                      <Button fx:id="btnCrianca8Id" mnemonicParsing="false" onAction="#btnCrianca8" prefWidth="180.0" text="8 Anos">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin>
+                                                      </Button>
+                                                      <Button fx:id="btnCrianca10Id" mnemonicParsing="false" onAction="#btnCrianca10" prefWidth="180.0" text="10 Anos">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin>
+                                                      </Button>
+                                                      <Button fx:id="btnCrianca12Id" mnemonicParsing="false" onAction="#btnCrianca12" prefWidth="180.0" text="12 Anos">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin>
+                                                      </Button>
+                                                      <Button fx:id="btnCrianca14Id" mnemonicParsing="false" onAction="#btnCrianca14" prefWidth="180.0" text="14 Anos">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin>
+                                                      </Button>
+                                                      <Button fx:id="btnAdolescente16Id" mnemonicParsing="false" onAction="#btnAdolescente16" prefWidth="180.0" text="16 anos">
+                                                         <VBox.margin>
+                                                            <Insets left="5.0" right="5.0" top="10.0" />
+                                                         </VBox.margin>
+                                                      </Button>
                                                       <Button fx:id="btnXSId" mnemonicParsing="false" onAction="#btnXS" prefWidth="180.0" text="XS">
                                                          <VBox.margin>
                                                             <Insets left="5.0" right="5.0" top="10.0" />
-                                                         </VBox.margin></Button>
+                                                         </VBox.margin>
+                                                      </Button>
                                                       <Button fx:id="btnSId" mnemonicParsing="false" onAction="#btnS" prefWidth="180.0" text="S">
                                                          <VBox.margin>
                                                             <Insets left="5.0" right="5.0" top="10.0" />
-                                                         </VBox.margin></Button>
+                                                         </VBox.margin>
+                                                      </Button>
                                                       <Button fx:id="btnMId" mnemonicParsing="false" onAction="#btnM" prefWidth="180.0" text="M">
                                                          <VBox.margin>
                                                             <Insets left="5.0" right="5.0" top="10.0" />
-                                                         </VBox.margin></Button>
+                                                         </VBox.margin>
+                                                      </Button>
                                                       <Button fx:id="btnLId" mnemonicParsing="false" onAction="#btnL" prefWidth="180.0" text="L">
                                                          <VBox.margin>
                                                             <Insets left="5.0" right="5.0" top="10.0" />
-                                                         </VBox.margin></Button>
+                                                         </VBox.margin>
+                                                      </Button>
                                                       <Button fx:id="btnXLId" mnemonicParsing="false" onAction="#btnXL" prefWidth="180.0" text="XL">
                                                          <VBox.margin>
                                                             <Insets left="5.0" right="5.0" top="10.0" />
-                                                         </VBox.margin></Button>
+                                                         </VBox.margin>
+                                                      </Button>
                                                       <Button fx:id="btnXXLId" mnemonicParsing="false" onAction="#btnXXL" prefWidth="180.0" text="XXL">
                                                          <VBox.margin>
                                                             <Insets left="5.0" right="5.0" top="10.0" />
-                                                         </VBox.margin></Button>
+                                                         </VBox.margin>
+                                                      </Button>
                                                    </children>
                                                 </VBox>
                                              </content>

@@ -202,14 +202,20 @@ public class EditarDoacoesController implements Initializable {
     }
 
     private CategoriaRoupa atualizarAssociarCategoria() {
-        if (cBUpdateTipoRoupa.getValue().equals(TipoRoupa.CALCOES) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.BERMUDAS) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.CALCAS) ||
-                cBUpdateTipoRoupa.getValue().equals(TipoRoupa.SAIA) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.MEIAS) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.MEIACALCA)) {
+        if (cBUpdateTipoRoupa.getValue().equals(TipoRoupa.CALCOES) ||
+                cBUpdateTipoRoupa.getValue().equals(TipoRoupa.CALCAS) ||
+                cBUpdateTipoRoupa.getValue().equals(TipoRoupa.SAIA) ||
+                cBUpdateTipoRoupa.getValue().equals(TipoRoupa.MEIAS) ||
+                cBUpdateTipoRoupa.getValue().equals(TipoRoupa.MEIACALCA)) {
             return CategoriaRoupa.PARTEDEBAIXO;
-        } else if (cBUpdateTipoRoupa.getValue().equals(TipoRoupa.BLUSA) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.VESTIDO) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.SWEAT) ||
+        } /*else if (cBUpdateTipoRoupa.getValue().equals(TipoRoupa.BLUSA) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.VESTIDO) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.SWEAT) ||
                 cBUpdateTipoRoupa.getValue().equals(TipoRoupa.T_SHIRT) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.CAMISA) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.CASACO) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.COLETE)) {
             return CategoriaRoupa.PARTEDECIMA;
         } else {
             return CategoriaRoupa.ACESSORIOS;
+        }*/
+        else {
+            return CategoriaRoupa.PARTEDECIMA;
         }
     }
 
@@ -217,7 +223,6 @@ public class EditarDoacoesController implements Initializable {
         return switch (cBUpdateTipoRoupa.getValue()) {
             case CALCAS -> "/images/calcas.jpg";
             case CALCOES -> "/images/calcoes.jpg";
-            case BERMUDAS -> "/images/bermudas.jpg";
             case VESTIDO -> "/images/vestido.jpg";
             case SAIA -> "/images/saia.jpg";
             case BLUSA -> "/images/blusa.jpg";
@@ -228,9 +233,6 @@ public class EditarDoacoesController implements Initializable {
             case COLETE -> "/images/colete.jpg";
             case MEIACALCA -> "/images/meia_calca.jpg";
             case MEIAS -> "/images/meias.jpg";
-            case SAPATOSCLASSICO -> "/images/sapato_classico.jpg";
-            case SAPATOSDESPORTIVO -> "/images/sapato_desportivo.jpg";
-            case BOLSA -> "/images/bolsa.jpg";
         };
     }
 
