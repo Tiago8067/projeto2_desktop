@@ -208,13 +208,7 @@ public class EditarDoacoesController implements Initializable {
                 cBUpdateTipoRoupa.getValue().equals(TipoRoupa.MEIAS) ||
                 cBUpdateTipoRoupa.getValue().equals(TipoRoupa.MEIACALCA)) {
             return CategoriaRoupa.PARTEDEBAIXO;
-        } /*else if (cBUpdateTipoRoupa.getValue().equals(TipoRoupa.BLUSA) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.VESTIDO) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.SWEAT) ||
-                cBUpdateTipoRoupa.getValue().equals(TipoRoupa.T_SHIRT) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.CAMISA) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.CASACO) || cBUpdateTipoRoupa.getValue().equals(TipoRoupa.COLETE)) {
-            return CategoriaRoupa.PARTEDECIMA;
         } else {
-            return CategoriaRoupa.ACESSORIOS;
-        }*/
-        else {
             return CategoriaRoupa.PARTEDECIMA;
         }
     }

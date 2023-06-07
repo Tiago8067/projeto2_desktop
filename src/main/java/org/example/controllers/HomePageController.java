@@ -257,7 +257,6 @@ public class HomePageController implements Initializable {
         filtrarCardSotckPorTamanho(TamanhoRoupa.MESES0);
     }
 
-    /*NOVOS*/
     @FXML
     void btnBebe12(ActionEvent event) {
         filtrarCardSotckPorTamanho(TamanhoRoupa.MESES12);
@@ -317,7 +316,6 @@ public class HomePageController implements Initializable {
     void btnCrianca8(ActionEvent event) {
         filtrarCardSotckPorTamanho(TamanhoRoupa.ANOS8);
     }
-    /*NOVOS*/
 
     @FXML
     void btnAdolescente16(ActionEvent event) {

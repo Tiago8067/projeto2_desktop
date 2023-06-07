@@ -150,12 +150,7 @@ public class AdicionarDoacaoController implements Initializable {
                 cBIdTipoRoupa.getValue().equals(TipoRoupa.MEIAS) ||
                 cBIdTipoRoupa.getValue().equals(TipoRoupa.MEIACALCA)) {
             return CategoriaRoupa.PARTEDEBAIXO;
-        } /*else if (cBIdTipoRoupa.getValue().equals(TipoRoupa.BLUSA) || cBIdTipoRoupa.getValue().equals(TipoRoupa.VESTIDO) || cBIdTipoRoupa.getValue().equals(TipoRoupa.SWEAT) ||
-                cBIdTipoRoupa.getValue().equals(TipoRoupa.T_SHIRT) || cBIdTipoRoupa.getValue().equals(TipoRoupa.CAMISA) || cBIdTipoRoupa.getValue().equals(TipoRoupa.CASACO) || cBIdTipoRoupa.getValue().equals(TipoRoupa.COLETE)) {
-            return CategoriaRoupa.PARTEDECIMA;
-        } else {
-            return CategoriaRoupa.ACESSORIOS;
-        }*/else{
+        } else{
             return CategoriaRoupa.PARTEDECIMA;
         }
     }

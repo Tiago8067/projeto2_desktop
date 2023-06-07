@@ -44,8 +44,6 @@ public class PerfilPageController implements Initializable {
     private Button idAtualizar;
     @FXML
     private Button idSelecionarImagem;
-    /*@FXML
-    private TextField txtPerfilCidade;*/
     @FXML
     private TextField txtPerfilCodPostal;
     @FXML
@@ -79,10 +77,8 @@ public class PerfilPageController implements Initializable {
             txtPerfilNCC.setEditable(true);
             txtPerfilNIF.setEditable(true);
             txtPerfilContacto.setEditable(true);
-//            txtPerfilCidade.setEditable(true);
             txtPerfilLocalidade.setEditable(true);
             txtPerfilRua.setEditable(true);
-//            txtPerfilCidade.setEditable(true);
             txtPerfilCodPostal.setEditable(true);
             txtPerfilNPorta.setEditable(true);
             txtPerfilDataNasc.setEditable(true);
@@ -100,8 +96,9 @@ public class PerfilPageController implements Initializable {
 
         for (Utilizador u : this.utilizadorDao.buscarTodos()) {
             if (u.getUsername().equals(guardaUsernameLogin)) {
-                if (txtPerfilNome.getText().isEmpty() || txtPerfilNCC.getText().isEmpty() || txtPerfilNIF.getText().isEmpty() || txtPerfilContacto.getText().isEmpty()
-                        /*|| txtPerfilCidade.getText().isEmpty()*/ || txtPerfilLocalidade.getText().isEmpty() || txtPerfilRua.getText().isEmpty()
+                if (txtPerfilNome.getText().isEmpty() || txtPerfilNCC.getText().isEmpty()
+                        || txtPerfilNIF.getText().isEmpty() || txtPerfilContacto.getText().isEmpty()
+                        || txtPerfilLocalidade.getText().isEmpty() || txtPerfilRua.getText().isEmpty()
                         || txtPerfilCodPostal.getText().isEmpty() || txtPerfilNPorta.getText().isEmpty()
                         || this.verificacoes.verficaInteiro(verificaContacto, txtPerfilContacto.getText()) == 0
                         || this.verificacoes.verficaInteiro(verificaNumCC, txtPerfilNCC.getText()) == 0
@@ -115,7 +112,6 @@ public class PerfilPageController implements Initializable {
                     u.setNumeroCc(Integer.valueOf(txtPerfilNCC.getText()));
                     u.setNif(Integer.valueOf(txtPerfilNIF.getText()));
                     u.setContacto(Integer.valueOf(txtPerfilContacto.getText()));
-//                    u.getLocalizacao().setCidade(txtPerfilCidade.getText());
                     u.getLocalizacao().setLocalidade(txtPerfilLocalidade.getText());
                     u.getLocalizacao().setRua(txtPerfilRua.getText());
                     u.getLocalizacao().setCodigoPostal(txtPerfilCodPostal.getText());
@@ -217,10 +213,8 @@ public class PerfilPageController implements Initializable {
                 txtPerfilNIF.setText(String.valueOf(u.getNif()));
                 txtPerfilContacto.setText(String.valueOf(u.getContacto()));
                 txtPerfilEmail.setText(u.getEmail());
-//                txtPerfilCidade.setText(u.getLocalizacao().getCidade());
                 txtPerfilLocalidade.setText(u.getLocalizacao().getLocalidade());
                 txtPerfilRua.setText(u.getLocalizacao().getRua());
-//                txtPerfilCidade.setText(u.getLocalizacao().getCidade());
                 txtPerfilCodPostal.setText(u.getLocalizacao().getCodigoPostal());
                 txtPerfilNPorta.setText(String.valueOf(u.getLocalizacao().getNumeroPorta()));
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -247,10 +241,8 @@ public class PerfilPageController implements Initializable {
         txtPerfilNCC.setEditable(false);
         txtPerfilNIF.setEditable(false);
         txtPerfilContacto.setEditable(false);
-//        txtPerfilCidade.setEditable(false);
         txtPerfilLocalidade.setEditable(false);
         txtPerfilRua.setEditable(false);
-//        txtPerfilCidade.setEditable(false);
         txtPerfilCodPostal.setEditable(false);
         txtPerfilNPorta.setEditable(false);
         txtPerfilDataNasc.setEditable(false);
