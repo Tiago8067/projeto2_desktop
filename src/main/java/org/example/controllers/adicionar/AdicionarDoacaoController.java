@@ -174,18 +174,18 @@ public class AdicionarDoacaoController implements Initializable {
 
     private String adicionarAssociarImagem() {
         return switch (cBIdTipoRoupa.getValue()) {
-            case CALCAS -> "/images/images2/calcas.jpg";
-            case CALCOES -> "/images/images2/calcoes.jpg";
-            case VESTIDO -> "/images/images2/vestido.jpg";
-            case SAIA -> "/images/images2/saia.jpg";
-            case BLUSA -> "/images/images2/blusa.jpg";
-            case SWEAT -> "/images/images2/sweat.jpg";
-            case T_SHIRT -> "/images/images2/tshirt.jpg";
-            case CAMISA -> "/images/images2/camisa.jpg";
-            case CASACO -> "/images/images2/casaco.jpg";
-            case COLETE -> "/images/images2/colete.jpg";
-            case MEIACALCA -> "/images/images2/meia_calca.jpg";
-            case MEIAS -> "/images/images2/meias.jpg";
+            case CALCAS -> "/images/images2/calcas.gif";
+            case CALCOES -> "/images/images2/calcoes.gif";
+            case VESTIDO -> "/images/images2/vestido.gif";
+            case SAIA -> "/images/images2/saia2.jfif";
+            case BLUSA -> "/images/images2/blusa.gif";
+            case SWEAT -> "/images/images2/sweat.gif";
+            case T_SHIRT -> "/images/images2/t-shirt.gif";
+            case CAMISA -> "/images/images2/camisa.png";
+            case CASACO -> "/images/images2/casaco.gif";
+            case COLETE -> "/images/images2/colete.gif";
+            case MEIACALCA -> "/images/images2/meia-calca.gif";
+            case MEIAS -> "/images/images2/meias.gif";
         };
     }
 
