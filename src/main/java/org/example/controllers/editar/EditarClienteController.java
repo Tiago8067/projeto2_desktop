@@ -46,8 +46,6 @@ public class EditarClienteController implements Initializable {
     @FXML
     private Button idVoltar;
     @FXML
-    private TextField txtPerfilCidade;
-    @FXML
     private TextField txtPerfilCodPostal;
     @FXML
     private TextField txtPerfilContacto;
@@ -80,10 +78,10 @@ public class EditarClienteController implements Initializable {
             txtPerfilNCC.setEditable(true);
             txtPerfilNIF.setEditable(true);
             txtPerfilContacto.setEditable(true);
-            txtPerfilCidade.setEditable(true);
+            //txtPerfilCidade.setEditable(true);
             txtPerfilLocalidade.setEditable(true);
             txtPerfilRua.setEditable(true);
-            txtPerfilCidade.setEditable(true);
+            //txtPerfilCidade.setEditable(true);
             txtPerfilCodPostal.setEditable(true);
             txtPerfilNPorta.setEditable(true);
             txtPerfilDataNasc.setEditable(true);
@@ -100,7 +98,7 @@ public class EditarClienteController implements Initializable {
         int verificaNIF = 0;
 
         if (txtPerfilNome.getText().isEmpty() || txtPerfilNCC.getText().isEmpty() || txtPerfilNIF.getText().isEmpty() || txtPerfilContacto.getText().isEmpty()
-                || txtPerfilCidade.getText().isEmpty() || txtPerfilLocalidade.getText().isEmpty() || txtPerfilRua.getText().isEmpty()
+                || txtPerfilLocalidade.getText().isEmpty() || txtPerfilRua.getText().isEmpty()
                 || txtPerfilCodPostal.getText().isEmpty() || txtPerfilNPorta.getText().isEmpty()
                 || this.verificacoes.verficaInteiro(verificaContacto, txtPerfilContacto.getText()) == 0
                 || this.verificacoes.verficaInteiro(verificaNumCC, txtPerfilNCC.getText()) == 0
@@ -114,7 +112,7 @@ public class EditarClienteController implements Initializable {
             this.utilizador.setNumeroCc(Integer.valueOf(txtPerfilNCC.getText()));
             this.utilizador.setNif(Integer.valueOf(txtPerfilNIF.getText()));
             this.utilizador.setContacto(Integer.valueOf(txtPerfilContacto.getText()));
-            this.utilizador.getLocalizacao().setCidade(txtPerfilCidade.getText());
+            //this.utilizador.getLocalizacao().setCidade(txtPerfilCidade.getText());
             this.utilizador.getLocalizacao().setLocalidade(txtPerfilLocalidade.getText());
             this.utilizador.getLocalizacao().setRua(txtPerfilRua.getText());
             this.utilizador.getLocalizacao().setCodigoPostal(txtPerfilCodPostal.getText());
@@ -203,14 +201,18 @@ public class EditarClienteController implements Initializable {
     public void passarDadosClienteEditar() {
         txtPerfilNome.setText(this.utilizador.getNome());
         txtPerfilUsername.setText(this.utilizador.getUsername());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate date = LocalDate.parse(this.utilizador.getDataNascimento(), formatter);
-        txtPerfilDataNasc.setValue(date);
+        try{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate date = LocalDate.parse(this.utilizador.getDataNascimento(), formatter);
+            txtPerfilDataNasc.setValue(date);
+        } catch (NullPointerException e){
+            System.out.println(e.getMessage());
+        }
         txtPerfilNCC.setText(String.valueOf(this.utilizador.getNumeroCc()));
         txtPerfilNIF.setText(String.valueOf(this.utilizador.getNif()));
         txtPerfilContacto.setText(String.valueOf(this.utilizador.getContacto()));
         txtPerfilEmail.setText(this.utilizador.getEmail());
-        txtPerfilCidade.setText(this.utilizador.getLocalizacao().getCidade());
+        //txtPerfilCidade.setText(this.utilizador.getLocalizacao().getCidade());
         txtPerfilLocalidade.setText(this.utilizador.getLocalizacao().getLocalidade());
         txtPerfilRua.setText(this.utilizador.getLocalizacao().getRua());
         txtPerfilCodPostal.setText(this.utilizador.getLocalizacao().getCodigoPostal());
@@ -234,10 +236,10 @@ public class EditarClienteController implements Initializable {
         txtPerfilNCC.setEditable(false);
         txtPerfilNIF.setEditable(false);
         txtPerfilContacto.setEditable(false);
-        txtPerfilCidade.setEditable(false);
+        //txtPerfilCidade.setEditable(false);
         txtPerfilLocalidade.setEditable(false);
         txtPerfilRua.setEditable(false);
-        txtPerfilCidade.setEditable(false);
+        //txtPerfilCidade.setEditable(false);
         txtPerfilCodPostal.setEditable(false);
         txtPerfilNPorta.setEditable(false);
         txtPerfilDataNasc.setEditable(false);
